@@ -2,4 +2,4 @@
 /bin/
 /build/
 #Chacun son Makefile
-/Makefile
+Makefile.inc
