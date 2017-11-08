@@ -1,4 +1,7 @@
+#include<stdio.h>
+#include<stdlib.h>
 #include<czmq.h>
+
 int main (void)
 {
     zsock_t *push = zsock_new_push("inproc://example");
@@ -7,7 +10,7 @@ int main (void)
 
     char *string = zstr_recv(pull);
     puts (string);
-    ztrs_free(&string),
+    zstr_free(&string),
     
     zsock_destroy(&pull);
     zsock_destroy(&push);
