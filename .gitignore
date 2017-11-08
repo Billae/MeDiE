@@ -1,0 +1,3 @@
+#On ignore les rÃpertoires builds et bin
+/bin
+/build
