@@ -7,8 +7,9 @@ SHELL = /bin/sh
 CC = gcc
 
 #Options de compilation
-CFLAGS = -g -O -I $(INC_DIR) -I ~/czmq/include/ -I ~/bin/libzmq/include
-LDFLAGS =
+CFLAGS = -g -O -I $(INC_DIR) -I ~/czmq/include/ -I ~/libzmq-master/include
+LDFLAGS = -L /usr/local/lib -l czmq -L /usr/local/lib -l zmq
+
 
 
 EXEC=main
@@ -26,15 +27,15 @@ $(EXEC): c s
 
 #client
 c: $(OBJ_DIR)/client.o
-	$(CC) $< -o $(BIN_DIR)/client $(CFLAGS)
+	$(CC) $< -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
 
 #serveur
 s: $(OBJ_DIR)/server.o
-	$(CC) $< -o $(BIN_DIR)/server $(CFLAGS)
+	$(CC) $< -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(LDFLAGS)
 
 
 

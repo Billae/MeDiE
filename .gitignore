@@ -1,3 +1,5 @@
 #On ignore les rÃpertoires builds et bin
-/bin
-/build
+/bin/
+/build/
+#Chacun son Makefile
+/Makefile
