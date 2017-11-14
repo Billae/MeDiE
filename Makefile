@@ -1,26 +1,12 @@
 include Makefile.inc
-#SHELL = /bin/sh
-#
-#.SUFFIXES:
-#.SUFFIXES: .c .o
-#
-##Choix compilateur
-#CC = gcc
-#
-##Options de compilation
-#CFLAGS = -g -O -I $(INC_DIR) -I ~/czmq/include/ -I ~/libzmq-master/include
-#LDFLAGS = 
 
+SHELL = /bin/sh
+
+.SUFFIXES:
+.SUFFIXES: .c .o
 
 
 EXEC=main
-
-#Chemins
-SRC_DIR=./src
-OBJ_DIR=./build
-INC_DIR=./include
-BIN_DIR=./bin
-
 
 all: $(EXEC)
 
