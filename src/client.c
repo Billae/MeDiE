@@ -4,14 +4,12 @@
 
 int main (void)
 {
-    zsock_t *push = zsock_new_push("inproc://example");
+    zsock_t *req = zsock_new_req("tcp://10.252.0.1:7410");
 
-    sleep(10);
-    printf("avant");
-    zstr_send(push, "hello, World");
-   
-    sleep(10);
-    printf("apres");
-    zsock_destroy(&push);
+    zstr_send(req, "hello");
+    char* string = zstr_recv(req);
+    puts(string);
+    zstr_free(&string);
+    zsock_destroy(&req);
     return 0;
 }
