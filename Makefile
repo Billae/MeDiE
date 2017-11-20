@@ -5,6 +5,12 @@ SHELL = /bin/sh
 .SUFFIXES:
 .SUFFIXES: .c .o
 
+#Chemins
+SRC_DIR=./src
+OBJ_DIR=./build
+INC_DIR=./include
+BIN_DIR=./bin
+
 
 EXEC=main
 
