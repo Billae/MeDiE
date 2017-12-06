@@ -4,8 +4,11 @@
 
 int main(void)
 {
-    zsock_t *rep = zsock_new_rep("tcp://10.252.0.1:7410");
-
+    /*pour les VM pcocc*/
+    //zsock_t *rep = zsock_new_rep("tcp://10.252.0.1:7410");
+    /*pour ocre*/
+    zsock_t *rep = zsock_new_rep("tcp://192.168.129.25:7410");
+    
     char *string = zstr_recv(rep);
     puts (string);
     zstr_free(&string);
