@@ -8,6 +8,7 @@ int main(void)
 {
     /*pour les VM pcocc*/
     //zsock_t *rep = zsock_new_rep("tcp://10.252.0.1:7410");
+    
     /*pour ocre*/
     zsock_t *rep = zsock_new_rep("tcp://192.168.129.25:7410");
     
@@ -19,7 +20,7 @@ int main(void)
 
     //on verifie le contenu
     json_object *req;
-    if(!json_object_object_get_ex(request, "req", &req))
+    if(!json_object_object_get_ex(request, "data", &req))
         printf("Error: no key found\n");
     if(strcmp(json_object_get_string(req), "Hello")==0)
         printf("Win serveur: Hello reçu !\n");
