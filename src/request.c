@@ -10,8 +10,8 @@ json_object* create_request(char* key)
 {
     json_object *request = json_object_new_object();
     
-    json_object *req_key = json_object_new_string(key);
-    json_object_object_add(request, "key", req_key);
+    json_object *data_key = json_object_new_string(key);
+    json_object_object_add(request, "key", data_key);
     
     return request;
 

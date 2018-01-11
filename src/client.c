@@ -18,27 +18,27 @@ int main (void)
         printf("Error (hostname): no key found\n");
     zsock_t *req = zsock_new_req(json_object_get_string(host));
 
-    // send the request
+    // sending request
     const char* req_c = json_object_to_json_string(request);
     zstr_send(req, req_c);
 
-    //clean json object sent
+    //cleaning json object sent
     if(json_object_put(request) != 1)
         printf("error free reply");
 
-    //catch the reply
+    //receiving reply
     char* string = zstr_recv(req);
     json_object *reply = json_tokener_parse(string);
     zstr_free(&string);
 
-    //process the reply
+    //processing reply
     json_object *rep;
     if(!json_object_object_get_ex(reply, "rep", &rep))
         printf("Error (reply): no key found\n");
     if(strcmp(json_object_get_string(rep),"World")==0)
         printf("Win client: World reçu !\n");
     
-    //clean
+    //cleaning
     if(json_object_put(reply) != 1)
         printf("error free reply");
     zsock_destroy(&req);

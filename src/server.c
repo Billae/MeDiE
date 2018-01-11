@@ -6,19 +6,19 @@
 
 int main(void)
 {
-    /*pour les VM pcocc*/
+    /*for pcocc VM*/
     //zsock_t *rep = zsock_new_rep("tcp://10.252.0.1:7410");
     
-    /*pour ocre*/
+    /*for ocre*/
     zsock_t *rep = zsock_new_rep("tcp://192.168.129.25:7410");
     
-    //on recupere la requete
+    //receiving request
     char *string = zstr_recv(rep);
     //puts (string);
     json_object *request = json_tokener_parse(string);
     zstr_free(&string);
 
-    //on verifie le contenu
+    //checking 
     json_object *req;
     if(!json_object_object_get_ex(request, "data", &req))
         printf("Error: no key found\n");
@@ -27,14 +27,14 @@ int main(void)
 
     //printf("%s %d",json_object_get_string(req), json_object_get_string_len(req));
     
-    //on cree la reponse et on l'envoie
+    //creating reply and send
     json_object *reply = json_object_new_string("World");
     json_object_object_add(request, "rep", reply);
     
     const char* rep_c = json_object_to_json_string(request); 
     zstr_send(rep,rep_c);
     
-    //on clean
+    //cleaning
     json_object_object_del(request, "req");
     json_object_object_del(request, "rep");
     if(json_object_put(request) != 1)
