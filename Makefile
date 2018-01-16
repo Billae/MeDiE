@@ -20,12 +20,16 @@ c: $(OBJ_DIR)/client.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution.o
 	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
 
 #serveur
-s: $(OBJ_DIR)/server.o
+s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o
 	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
 
 
-$(OBJ_DIR)/client.o: $(SRC_DIR)/client.c $(INC_DIR)/request.h
-	@$(CC) -c $< -o $@ $(CFLAGS) 
+# $(OBJ_DIR)/client.o: $(SRC_DIR)/client.c $(INC_DIR)/request.h
+#	@$(CC) -c $< -o $@ $(CFLAGS) 
+
+#$(OBJ_DIR)/server.o: $(SRC_DIR)/server.c $(INC_DIR)/generic_storage.h
+#	@$(CC) -c $< -o $@ $(CFLAGS) 
+
 
 $(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/request.h $(INC_DIR)/distribution.h
 	@$(CC) -c $< -o $@ $(CFLAGS)

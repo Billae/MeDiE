@@ -8,9 +8,9 @@
 
 int main (void)
 {
-    char* key= "HW";
+    char* key= "Hello";
     
-    json_object* request = create_request_create(key, "Hello");
+    json_object* request = create_request_create(key, "World");
 
     //open the zmq socket
     json_object* host;
@@ -33,10 +33,10 @@ int main (void)
 
     //processing reply
     json_object *rep;
-    if(!json_object_object_get_ex(reply, "rep", &rep))
+    if(!json_object_object_get_ex(reply, "repFlag", &rep))
         printf("Error (reply): no key found\n");
-    if(strcmp(json_object_get_string(rep),"World")==0)
-        printf("Win client: World reçu !\n");
+    if(strcmp(json_object_get_string(rep),"done")==0)
+        printf("operation validated\n");
     
     //cleaning
     if(json_object_put(reply) != 1)

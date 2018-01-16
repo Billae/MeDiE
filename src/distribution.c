@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "distribution.h"
+
+
 char* AssignSrvByKey(char* key)
 {
     char* id_srv;

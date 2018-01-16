@@ -3,6 +3,8 @@
 #include <czmq.h>
 #include <json.h>
 #include <string.h>
+#include "generic_storage.h"
+
 
 int main(void)
 {
@@ -18,25 +20,27 @@ int main(void)
     json_object *request = json_tokener_parse(string);
     zstr_free(&string);
 
-    //checking 
-    json_object *req;
-    if(!json_object_object_get_ex(request, "data", &req))
+    //processing 
+    json_object *data;
+    if(!json_object_object_get_ex(request, "data", &data))
         printf("Error: no key found\n");
-    if(strcmp(json_object_get_string(req), "Hello")==0)
-        printf("Win serveur: Hello reçu !\n");
-
-    //printf("%s %d",json_object_get_string(req), json_object_get_string_len(req));
+    json_object *key;
+    if(!json_object_object_get_ex(request, "key", &key))
+        printf("Error: no key found\n");
+    
+    int rc;
+    rc = generic_put(json_object_get_string(data),json_object_get_string(key)); 
+    if (rc != 1)
+        printf("Erreur generic storage operation \n");
     
     //creating reply and send
-    json_object *reply = json_object_new_string("World");
-    json_object_object_add(request, "rep", reply);
+    json_object *repFlag = json_object_new_string("done");
+    json_object_object_add(request, "repFlag", repFlag);
     
     const char* rep_c = json_object_to_json_string(request); 
     zstr_send(rep,rep_c);
     
     //cleaning
-    json_object_object_del(request, "req");
-    json_object_object_del(request, "rep");
     if(json_object_put(request) != 1)
         printf("error free request");
 

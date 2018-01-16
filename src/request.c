@@ -5,16 +5,24 @@
 #include "request.h"
 
 
-
 json_object* create_request(char* key)
 {
     json_object *request = json_object_new_object();
     
     json_object *data_key = json_object_new_string(key);
     json_object_object_add(request, "key", data_key);
+   
+// segfault 
+//    static int id = 0;
+//    char* strID;
+//    if(sprintf(strID, "%d", id) < 0)
+//        printf("Error: request ID generation");
+
+//    json_object *reqID = json_object_new_string(strID);
+//    json_object_object_add(request, "reqID", reqID);
+//    id++;
     
     return request;
-
 }
 
 
