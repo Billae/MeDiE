@@ -11,19 +11,19 @@
 /** Store data in a location addressed by key 
  * @return 0 if successful
  * **/
-int generic_put(const char* data, const char* key);
+int generic_put(const char *key, const char *value);
 
 
 /** Retrieve data associated to a key
  * @param key key to retrieve
- * @return the associated data
+ * @return the associated data. Caller must free() it after use.
  * **/
-char* generic_get(char* key);
+char* generic_get(const char *key);
 
 
 /** Delete a key and data related
  * @return 0 if successful
  * **/
-int generic_del(char* key);
+int generic_del(const char *key);
 
 #endif

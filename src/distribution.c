@@ -3,9 +3,9 @@
 #include "distribution.h"
 
 
-char* AssignSrvByKey(char* key)
+const char* AssignSrvByKey(const char *key)
 {
-    char* id_srv;
+    const char *id_srv;
     /*pour les VM pcocc*/
     //id_srv = "tcp://10.252.0.1:7410";
     /*pour ocre*/

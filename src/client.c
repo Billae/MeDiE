@@ -8,18 +8,18 @@
 
 int main (void)
 {
-    char* key= "Hello";
+    char *key= "Hello";
     
-    json_object* request = create_request_create(key, "World");
+    json_object *request = create_request_create(key, "World");
 
     //open the zmq socket
-    json_object* host;
+    json_object *host;
      if(!json_object_object_get_ex(request, "id_srv", &host))
         printf("Error (hostname): no key found\n");
     zsock_t *req = zsock_new_req(json_object_get_string(host));
 
     // sending request
-    const char* req_c = json_object_to_json_string(request);
+    const char *req_c = json_object_to_json_string(request);
     zstr_send(req, req_c);
 
     //cleaning json object sent
@@ -27,7 +27,7 @@ int main (void)
         printf("error free reply");
 
     //receiving reply
-    char* string = zstr_recv(req);
+    char *string = zstr_recv(req);
     json_object *reply = json_tokener_parse(string);
     zstr_free(&string);
 
