@@ -17,7 +17,6 @@ int main (void)
      if(!json_object_object_get_ex(request, "id_srv", &host))
         printf("Error (hostname): no key found\n");
     zsock_t *req = zsock_new_req(json_object_get_string(host));
-
     // sending request
     const char *req_c = json_object_to_json_string(request);
     zstr_send(req, req_c);

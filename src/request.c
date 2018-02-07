@@ -3,6 +3,7 @@
 #include <json.h>
 #include "distribution.h"
 #include "request.h"
+#include "protocol.h"
 
 
 json_object* create_request(const char *key)
@@ -31,7 +32,8 @@ json_object* create_request_create(const char *key, const char *data)
     json_object *request = create_request(key);
     
     /*request type: 1 -> create*/
-    json_object *type = json_object_new_int(1);
+    enum req_type reqType = RT_CREATE;
+    json_object *type = json_object_new_int(reqType);
     json_object *str = json_object_new_string(data);
     
     json_object_object_add(request, "data", str);

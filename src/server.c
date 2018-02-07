@@ -4,15 +4,7 @@
 #include <json.h>
 #include <string.h>
 #include "generic_storage.h"
-
-#if 0
-enum req_type {
-    RT_CREATE = 1,
-    RT_UPDATE = 2,
-        ...
-
-}
-#endif
+#include "protocol.h"
 
 int main(void)
 {
@@ -21,9 +13,8 @@ int main(void)
     
     /*for ocre*/
     zsock_t *rep = zsock_new_rep("tcp://192.168.129.25:7410");
-    
-while(1)
-{
+//while(1)
+//{
     //receiving request
     char *string = zstr_recv(rep);
     //puts (string);
@@ -41,9 +32,11 @@ while(1)
     if(!json_object_object_get_ex(request, "reqType", &type))
         printf("Error: no key found\n");
 
-    switch(json_object_get_int(type))
+    enum req_type reqType = json_object_get_int(type); 
+
+    switch(reqType)
     {
-        case 1: //create
+        case RT_CREATE: //create
             {    json_object *data;
                 if(!json_object_object_get_ex(request, "data", &data))
                     printf("Error: no key found\n");
@@ -53,16 +46,16 @@ while(1)
                     printf("Erreur generic storage operation \n");
                 break;
             }
-        case 3: //update 
+        case RT_UPDATE: //update 
             break;
 
-        case 4: //delete
+        case RT_DELETE: //delete
             break;
 
         default: //get
             break;
     }
-    
+ 
     //creating reply and send
     json_object *repFlag = json_object_new_string("done");
     json_object_object_add(request, "repFlag", repFlag);
@@ -73,7 +66,7 @@ while(1)
     //cleaning
     if(json_object_put(request) != 1)
         printf("error free request");
-}   
+//}   
     zsock_destroy(&rep);
 
     return 0;
