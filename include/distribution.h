@@ -9,10 +9,10 @@
 
 
 /** Find the server responsible of a key when this key is already assigned **/
-const char* FindSrvByKey(const char *key);
+const char *FindSrvByKey(const char *key);
 
 
 /** Assign a server to a key which is not already used **/
-const char* AssignSrvByKey(const char *key);
+const char *AssignSrvByKey(const char *key);
 
 #endif

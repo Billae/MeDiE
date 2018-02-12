@@ -8,7 +8,7 @@
  * **/
 
 
-/** Store data in a location addressed by key 
+/** Store data in a location addressed by key
  * @return 0 if successful
  * **/
 int generic_put(const char *key, const char *value);
@@ -18,7 +18,7 @@ int generic_put(const char *key, const char *value);
  * @param key key to retrieve
  * @return the associated data. Caller must free() it after use.
  * **/
-char* generic_get(const char *key);
+char *generic_get(const char *key);
 
 
 /** Delete a key and data related
