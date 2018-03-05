@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <json.h>
+#include <errno.h>
 #include "distribution.h"
 #include "request.h"
 #include "protocol.h"
@@ -16,8 +17,10 @@ json_object *create_request(const char *key)
     /*ID request generation*/
     int id = 0;
     char strID[10];
-    if (snprintf(strID,10, "%d", id) < 0)
-        printf(" %s Error: request ID generation", strID);
+    if (snprintf(strID,10, "%d", id) < 0){
+        int err = errno;
+        fprintf(stderr," %s Error: request ID generation: %s", strID, strerror(err));
+    }
 
     json_object *reqID = json_object_new_string(strID);
     json_object_object_add(request, "reqID", reqID);
