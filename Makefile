@@ -38,3 +38,4 @@ clean:
 
 mrproper: clean
 	@rm -f $(BIN_DIR)/*
+	@rm -f dataStore/*
