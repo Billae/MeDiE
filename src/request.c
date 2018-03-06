@@ -17,9 +17,9 @@ json_object *create_request(const char *key)
     /*ID request generation*/
     int id = 0;
     char strID[10];
-    if (snprintf(strID,10, "%d", id) < 0){
+    if (snprintf(strID, 10, "%d", id) < 0) {
         int err = errno;
-        fprintf(stderr," %s Error: request ID generation: %s", strID, strerror(err));
+        fprintf(stderr, "Error: request ID generation: %s\n", strerror(err));
     }
 
     json_object *reqID = json_object_new_string(strID);
