@@ -1,5 +1,8 @@
 #On ignore les r√pertoires builds et bin
 /bin/
 /build/
+/dataStore/
 #Chacun son Makefile
 Makefile.inc
+#Chacun son liste d'ip
+hosts.conf

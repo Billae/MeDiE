@@ -8,6 +8,20 @@
  * **/
 
 
+/** Initialize the servers list **/
+int DistributionInit();
+
+
+/** Add a server to the servers list
+ * @param name the server to add
+ * **/
+int AddServerToList(char *name);
+
+
+/** Clean distribution features: free servers list **/
+void DistributionFinalize();
+
+
 /** Find the server responsible of a key when this key is already assigned **/
 const char *FindSrvByKey(const char *key);
 

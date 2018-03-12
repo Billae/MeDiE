@@ -15,7 +15,7 @@ json_object *create_request(const char *key)
     json_object_object_add(request, "key", data_key);
 
     /*ID request generation*/
-    int id = 0;
+    static int id;
     char strID[10];
     if (snprintf(strID, 10, "%d", id) < 0) {
         int err = errno;
