@@ -58,10 +58,10 @@ int DistributionInit()
         return -1;
     }
 
-    int i;
+    /*int i;
     for (i = 0; i < servers_cpt; i++)
         printf("%s\n", servers[i]);
-
+*/
     fclose(fd);
     return 1;
 }
@@ -115,6 +115,8 @@ const char *AssignSrvByKey(const char *key)
     strncpy(socket, "tcp://", 6);
     strncat(socket, id_srv, (strlen(id_srv)-1));
 
-    free(id_srv);
-    return socket;
+    const char *const_socket = strdup(socket);
+    printf("%s\n",const_socket);
+    free(socket);
+    return const_socket;
 }

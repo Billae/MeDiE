@@ -21,6 +21,8 @@ int generic_put(const char *data, const char *key)
                 strerror(err));
         return -1;
     }
+
+    memset(path, 0, strlen(PREFIX)+strlen(key));
     strncpy(path, PREFIX, strlen(PREFIX)*sizeof(*PREFIX));
     strncat(path, key, strlen(key)*sizeof(*key));
 
