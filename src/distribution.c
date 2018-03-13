@@ -29,7 +29,7 @@ int DistributionInit()
         int err = errno;
         fprintf(stderr, "Distribution: open hosts file error: %s\n",
                 strerror(err));
-        return -1;
+        free(servers);
     }
 
 
@@ -47,6 +47,7 @@ int DistributionInit()
         rc = AddServerToList(id_srv);
         if (rc != 1) {
             fprintf(stderr, "Distribution: AddServerToList error\n");
+            free(id_srv);
             return -1;
         }
     }
@@ -55,6 +56,7 @@ int DistributionInit()
         int err = errno;
         fprintf(stderr, "Distribution: read hosts file error: %s\n",
                 strerror(err));
+        free(id_srv);
         return -1;
     }
 
@@ -62,6 +64,7 @@ int DistributionInit()
     for (i = 0; i < servers_cpt; i++)
         printf("%s\n", servers[i]);
 */
+    free(id_srv);
     fclose(fd);
     return 1;
 }
@@ -104,7 +107,7 @@ const char *AssignSrvByKey(const char *key)
     char *id_srv;
 
     id_srv = servers[0];
-    char *socket = malloc((strlen(id_srv)+6)*sizeof(*socket));
+    char *socket = malloc((strlen(id_srv)+7)*sizeof(*socket));
     if (socket == NULL) {
         int err = errno;
         fprintf(stderr, "Distribution: socket malloc error: %s\n",
@@ -112,11 +115,11 @@ const char *AssignSrvByKey(const char *key)
         return NULL;
     }
 
-    strncpy(socket, "tcp://", 6);
+    strncpy(socket, "tcp://", 7);
     strncat(socket, id_srv, (strlen(id_srv)-1));
 
     const char *const_socket = strdup(socket);
-    printf("%s\n",const_socket);
+    //printf("%s\n",const_socket);
     free(socket);
     return const_socket;
 }

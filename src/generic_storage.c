@@ -14,7 +14,7 @@ int generic_put(const char *data, const char *key)
 
 
     char *path;
-    path = malloc((strlen(PREFIX)+strlen(key))*sizeof(*path));
+    path = malloc((strlen(PREFIX)+strlen(key)+1)*sizeof(*path));
     if (path == NULL) {
         int err = errno;
         fprintf(stderr, "Generic storage: path malloc error: %s\n",
@@ -30,12 +30,14 @@ int generic_put(const char *data, const char *key)
     if (fd == NULL) {
         int err = errno;
         fprintf(stderr, "Generic storage: fopen error: %s\n", strerror(err));
+        free(path);
         return -1;
     }
 
     if ((fprintf(fd, "%s", data)) < 0) {
         int err = errno;
         fprintf(stderr, "Generic storage: fprintf error: %s\n", strerror(err));
+        free(path);
         return -1;
     }
 

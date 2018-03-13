@@ -12,6 +12,7 @@ int main(void)
     rc = DistributionInit();
     if (rc != 1) {
         fprintf(stderr, "Distribution init failed\n");
+        DistributionFinalize();
         return -1;
     }
 
@@ -26,6 +27,7 @@ int main(void)
     zsock_t *req = zsock_new_req(json_object_get_string(host));
     if (req == NULL) {
         fprintf(stderr, "Error create zmq socket\n");
+        DistributionFinalize();
         return -1;
     }
 
