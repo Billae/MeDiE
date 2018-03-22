@@ -24,12 +24,23 @@ int main(void)
     json_object *host;
     if (!json_object_object_get_ex(request, "id_srv", &host))
         fprintf(stderr, "Error (hostname): no key found\n");
-    zsock_t *req = zsock_new_req(json_object_get_string(host));
+
+    char *socket;
+    printf("%s\n", json_object_get_string(host));
+    if (asprintf(&socket, "tcp://%s", json_object_get_string(host)) == -1) {
+        int err = errno;
+        fprintf(stderr, "Error format zmq socket name: %s\n", strerror(err));
+        DistributionFinalize();
+        return -1;
+    }
+
+    zsock_t *req = zsock_new_req(socket);
     if (req == NULL) {
         fprintf(stderr, "Error create zmq socket\n");
         DistributionFinalize();
         return -1;
     }
+    free(socket);
 
     /*sending request*/
     const char *req_c = json_object_to_json_string(request);

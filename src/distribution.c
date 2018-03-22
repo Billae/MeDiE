@@ -43,6 +43,9 @@ int DistributionInit()
     }
 
     while (fgets(id_srv, max_id_size, fd) != NULL) {
+        char *positionEntree = strchr(id_srv, '\n');
+        if (positionEntree != NULL)
+            *positionEntree = '\0';
         int rc;
         rc = AddServerToList(id_srv);
         if (rc != 1) {
@@ -63,7 +66,7 @@ int DistributionInit()
     /*int i;
     for (i = 0; i < servers_cpt; i++)
         printf("%s\n", servers[i]);
-*/
+    */
     free(id_srv);
     fclose(fd);
     return 1;
@@ -107,19 +110,6 @@ const char *AssignSrvByKey(const char *key)
     char *id_srv;
 
     id_srv = servers[0];
-    char *socket = malloc((strlen(id_srv)+7)*sizeof(*socket));
-    if (socket == NULL) {
-        int err = errno;
-        fprintf(stderr, "Distribution: socket malloc error: %s\n",
-                strerror(err));
-        return NULL;
-    }
 
-    strncpy(socket, "tcp://", 7);
-    strncat(socket, id_srv, (strlen(id_srv)-1));
-
-    const char *const_socket = strdup(socket);
-    //printf("%s\n",const_socket);
-    free(socket);
-    return const_socket;
+    return id_srv;
 }
