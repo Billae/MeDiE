@@ -26,7 +26,6 @@ int main(void)
         fprintf(stderr, "Error (hostname): no key found\n");
 
     char *socket;
-    printf("%s\n", json_object_get_string(host));
     if (asprintf(&socket, "tcp://%s", json_object_get_string(host)) == -1) {
         int err = errno;
         fprintf(stderr, "Error format zmq socket name: %s\n", strerror(err));

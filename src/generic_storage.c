@@ -14,17 +14,11 @@ int generic_put(const char *data, const char *key)
 
 
     char *path;
-    path = malloc((strlen(PREFIX)+strlen(key)+1)*sizeof(*path));
-    if (path == NULL) {
+    if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
-        fprintf(stderr, "Generic storage: path malloc error: %s\n",
-                strerror(err));
+        fprintf(stderr, "Generic storage: path creation error:%s\n", strerror(err));
         return -1;
     }
-
-    memset(path, 0, strlen(PREFIX)+strlen(key));
-    strncpy(path, PREFIX, strlen(PREFIX)*sizeof(*PREFIX));
-    strncat(path, key, strlen(key)*sizeof(*key));
 
     FILE *fd = fopen(path, "wx");
     if (fd == NULL) {
