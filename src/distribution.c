@@ -109,7 +109,7 @@ int AddServerToList(char *name)
 
 const char *AssignSrvByKey(const char *key)
 {
-    int seed= 1;
+    int seed = 1;
     uint32_t num_srv;
     char *id_srv = malloc(128);
     MurmurHash3_x86_32(key, strlen(key), seed, &num_srv);

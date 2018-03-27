@@ -6,7 +6,7 @@
 #include "request.h"
 
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     if (argv[1] == NULL || argv[2] == NULL) {
         printf("please give a key and data to store\n");
