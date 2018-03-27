@@ -6,8 +6,13 @@
 #include "request.h"
 
 
-int main(void)
+int main(int argc, char** argv)
 {
+    if (argv[1] == NULL || argv[2] == NULL) {
+        printf("please give a key and data to store\n");
+        return -1;
+    }
+
     int rc;
     rc = DistributionInit();
     if (rc != 1) {
@@ -17,8 +22,7 @@ int main(void)
     }
 
     /*create request and assign a server*/
-    char *key = "Hello";
-    json_object *request = create_request_create(key, "World");
+    json_object *request = create_request_create(argv[1], argv[2]);
 
     /*open the zmq socket*/
     json_object *host;

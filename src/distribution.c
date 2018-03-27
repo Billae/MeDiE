@@ -113,7 +113,7 @@ const char *AssignSrvByKey(const char *key)
     uint32_t num_srv;
     char *id_srv = malloc(128);
     MurmurHash3_x86_32(key, strlen(key), seed, &num_srv);
-    printf("%d\n", num_srv%servers_cpt);
+    printf("server to query: %d\n", num_srv%servers_cpt);
 
     id_srv = servers[num_srv%servers_cpt];
 
