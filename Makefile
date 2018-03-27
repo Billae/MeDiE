@@ -16,7 +16,7 @@ all: $(EXEC)
 $(EXEC): c s
 
 #client
-c: $(OBJ_DIR)/client.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution.o 
+c: $(OBJ_DIR)/client.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution.o $(OBJ_DIR)/murmur3.o 
 	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
 
 #serveur

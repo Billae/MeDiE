@@ -1,6 +1,9 @@
+#On ignore les swap
+*.swp
 #On ignore les rÃpertoires builds et bin
 /bin/
 /build/
+#On ignore les données
 /dataStore/
 #Chacun son Makefile
 Makefile.inc

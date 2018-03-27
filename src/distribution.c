@@ -4,6 +4,8 @@
 #include <string.h>
 #include "distribution.h"
 
+#include "murmur3.h"
+
 #define PATH "hosts.conf"
 #define max_id_size 21
 
@@ -107,9 +109,13 @@ int AddServerToList(char *name)
 
 const char *AssignSrvByKey(const char *key)
 {
-    char *id_srv;
+    int seed= 1;
+    uint32_t num_srv;
+    char *id_srv = malloc(128);
+    MurmurHash3_x86_32(key, strlen(key), seed, &num_srv);
+    printf("%d\n", num_srv%servers_cpt);
 
-    id_srv = servers[0];
+    id_srv = servers[num_srv%servers_cpt];
 
     return id_srv;
 }
