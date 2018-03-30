@@ -6,6 +6,26 @@
 #include "request.h"
 
 
+zsock_t *init_connexion(const char *id_srv)
+{
+    char *socket;
+    if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
+        int err = errno;
+        fprintf(stderr, "Error format zmq socket name: %s\n", strerror(err));
+        return NULL;
+    }
+
+    zsock_t *req = zsock_new_req(socket);
+    if (req == NULL) {
+        fprintf(stderr, "Error create zmq socket\n");
+        return NULL;
+    }
+    free(socket);
+
+    return req;
+}
+
+
 int main(int argc, char **argv)
 {
     if (argv[1] == NULL || argv[2] == NULL) {
@@ -29,21 +49,13 @@ int main(int argc, char **argv)
     if (!json_object_object_get_ex(request, "id_srv", &host))
         fprintf(stderr, "Error (hostname): no key found\n");
 
-    char *socket;
-    if (asprintf(&socket, "tcp://%s", json_object_get_string(host)) == -1) {
+    zsock_t *req = init_connexion(json_object_get_string(host));
+    if (req == NULL) {
         int err = errno;
         fprintf(stderr, "Error format zmq socket name: %s\n", strerror(err));
         DistributionFinalize();
         return -1;
     }
-
-    zsock_t *req = zsock_new_req(socket);
-    if (req == NULL) {
-        fprintf(stderr, "Error create zmq socket\n");
-        DistributionFinalize();
-        return -1;
-    }
-    free(socket);
 
     /*sending request*/
     const char *req_c = json_object_to_json_string(request);
