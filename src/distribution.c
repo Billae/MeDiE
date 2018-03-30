@@ -6,7 +6,10 @@
 
 #include "murmur3.h"
 
-#define PATH "hosts.conf"
+/* path in pcocc*/
+//#define PATH "/home/billae/prototype_MDS/hosts.conf"
+/*path in ocre*/
+#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/hosts.conf"
 #define max_id_size 21
 
 static char **servers;
