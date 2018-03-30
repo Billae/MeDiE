@@ -13,24 +13,15 @@ EXEC=main
 
 all: $(EXEC)
 
-$(EXEC): c s0 s1 s2 s3
+$(EXEC): c s
 
 #client
 c: $(OBJ_DIR)/client.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution.o $(OBJ_DIR)/murmur3.o 
 	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
 
-#serveurs
-s0: $(OBJ_DIR)/server0.o $(OBJ_DIR)/generic_storage.o $(INC_DIR)/protocol.h
-	@$(CC) $^ -o $(BIN_DIR)/server0 $(CFLAGS) $(LDFLAGS)
-
-s1: $(OBJ_DIR)/server1.o $(OBJ_DIR)/generic_storage.o $(INC_DIR)/protocol.h
-	@$(CC) $^ -o $(BIN_DIR)/server1 $(CFLAGS) $(LDFLAGS)
-
-s2: $(OBJ_DIR)/server2.o $(OBJ_DIR)/generic_storage.o $(INC_DIR)/protocol.h
-	@$(CC) $^ -o $(BIN_DIR)/server2 $(CFLAGS) $(LDFLAGS)
-
-s3: $(OBJ_DIR)/server3.o $(OBJ_DIR)/generic_storage.o $(INC_DIR)/protocol.h
-	@$(CC) $^ -o $(BIN_DIR)/server3 $(CFLAGS) $(LDFLAGS)
+#serveur
+s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(INC_DIR)/protocol.h
+	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
 
 
 

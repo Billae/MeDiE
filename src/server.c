@@ -6,16 +6,39 @@
 #include "generic_storage.h"
 #include "protocol.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
+    /*ocre usage need different port for each server*/
+    if (strcmp(argv[1], "o") != 0 && strcmp(argv[1], "p") != 0) {
+        fprintf(stderr, "please give a server type o or p (and port if type is o)\n");
+        return -1;
+    }
+
+    zsock_t *rep;
+
+    if (strcmp(argv[1], "p") == 0) {
     /*for pcocc VM*/
-    //zsock_t *rep = zsock_new_rep("tcp://10.252.0.1:7410");
+        rep = zsock_new_rep("tcp://0.0.0.0:7410");
+    }
 
+    else {
     /*for ocre*/
-    zsock_t *rep = zsock_new_rep("tcp://192.168.129.25:7412");
+        if (argv[2] == NULL) {
+            fprintf(stderr, "please give a server port\n");
+            return -1;
+        }
 
-//while(1)
-//{
+        char *name;
+        asprintf(&name, "tcp://192.168.129.25:%s", argv[2]);
+        rep = zsock_new_rep(name);
+        if (rep == NULL) {
+            fprintf(stderr, "Error create zmq socket\n");
+            return -1;
+        }
+    }
+
+
+while (1) {
 
     int global_rc = 1;
 
@@ -78,7 +101,8 @@ int main(void)
     /*cleaning*/
     if (json_object_put(request) != 1)
         fprintf(stderr, "Error free request");
-//}
+}
+
     zsock_destroy(&rep);
     return 0;
 }
