@@ -9,7 +9,7 @@
 int main(int argc, char **argv)
 {
     /*ocre usage need different port for each server*/
-    if (strcmp(argv[1], "o") != 0 && strcmp(argv[1], "p") != 0) {
+    if (argv[1] == NULL || strcmp(argv[1], "o") != 0 && strcmp(argv[1], "p") != 0) {
         fprintf(stderr, "please give a server type o or p (and port if type is o)\n");
         return -1;
     }
