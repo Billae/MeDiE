@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 #include <errno.h>
 #include "generic_storage.h"
 
@@ -22,15 +23,15 @@ int generic_put(const char *data, const char *key)
         return -1;
     }
 
-    FILE *fd = fopen(path, "wx");
-    if (fd == NULL) {
+    int fd = open(path, O_WRONLY | O_EXCL | O_CREAT, 0664);
+    if (fd == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage: fopen error: %s\n", strerror(err));
         free(path);
         return -1;
     }
 
-    if ((fprintf(fd, "%s", data)) < 0) {
+    if ((write(fd, data, strlen(data))) < 0) {
         int err = errno;
         fprintf(stderr, "Generic storage: fprintf error: %s\n", strerror(err));
         free(path);
@@ -38,7 +39,7 @@ int generic_put(const char *data, const char *key)
     }
 
 
-    fclose(fd);
+    close(fd);
     free(path);
     return 1;
 }
