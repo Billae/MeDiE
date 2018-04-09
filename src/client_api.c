@@ -24,15 +24,15 @@ int init_context(int nb_srv)
     servers = malloc(nb_srv*sizeof(zsock_t *));
     if (servers == NULL) {
         int err = errno;
-        fprintf(stderr, "Client API: servers init alloc error: %s\n",
-                strerror(err));
+        fprintf(stderr,
+                "Client API:init_context: servers init alloc error: %s\n", strerror(err));
         return 0;
     }
 
     FILE *fd = fopen(PATH, "r");
     if (fd == NULL) {
         int err = errno;
-        fprintf(stderr, "Client API: open hosts file error: %s\n",
+        fprintf(stderr, "Client API:init_context: open hosts file error: %s\n",
                 strerror(err));
         free(servers);
         return 0;
@@ -43,7 +43,7 @@ int init_context(int nb_srv)
     id_srv = malloc(max_id_size*sizeof(*id_srv));
     if (id_srv == NULL) {
         int err = errno;
-        fprintf(stderr, "Client API: id_srv malloc error: %s\n",
+        fprintf(stderr, "Client API:init_context: id_srv malloc error: %s\n",
                 strerror(err));
         return 0;
     }
@@ -55,7 +55,7 @@ int init_context(int nb_srv)
 
         servers[nb_servers] = init_connexion(id_srv);
         if (servers[nb_servers] == NULL) {
-            fprintf(stderr, "Client API: init_connexion error\n");
+            fprintf(stderr, "Client API:init_context: init_connexion error\n");
             free(id_srv);
             return -nb_servers;
         }
@@ -65,12 +65,12 @@ int init_context(int nb_srv)
     if (nb_servers < nb_srv) {
         if (!feof(fd)) {
             int err = errno;
-            fprintf(stderr, "Client API: read hosts file error: %s\n",
-                strerror(err));
+            fprintf(stderr, "Client API:init_context: read hosts file error: %s\n", strerror(err));
             free(id_srv);
             return -nb_servers;
         } else {
-            fprintf(stderr, "Client API: not enough servers in server list\n");
+            fprintf(stderr,
+                    "Client API:init_context: not enough servers in server list\n");
             return -nb_servers;
         }
     }
@@ -97,13 +97,13 @@ zsock_t *init_connexion(const char *id_srv)
     char *socket;
     if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
         int err = errno;
-        fprintf(stderr, "Error format zmq socket name: %s\n", strerror(err));
+        fprintf(stderr, "Client API:init_connexion: format zmq socket name error: %s\n", strerror(err));
         return NULL;
     }
 
     zsock_t *sock = zsock_new_req(socket);
     if (sock == NULL) {
-        fprintf(stderr, "Error create zmq socket\n");
+        fprintf(stderr, "Client API:init_connexion: create zmq socket error\n");
         return NULL;
     }
     free(socket);
@@ -119,11 +119,12 @@ int request_create(const char *key, const char *data)
     /*getting the server ID*/
     json_object *host;
     if (!json_object_object_get_ex(request, "id_srv", &host))
-        fprintf(stderr, "Error (host): no key found\n");
+        fprintf(stderr,
+                "Client API:request_create: json extract error: no key \"host\" found\n");
     errno = 0;
     int srv_id = json_object_get_int(host);
     if (errno == EINVAL) {
-        fprintf(stderr, "Error: get server id failed\n");
+        fprintf(stderr, "Client API:request_create: get server id error\n");
         return -1;
     }
 
@@ -133,7 +134,7 @@ int request_create(const char *key, const char *data)
 
     /*cleaning json object sent*/
     if (json_object_put(request) != 1)
-        fprintf(stderr, "Error free request\n");
+        fprintf(stderr, "Client API:request_create: free request error\n");
 
 
     /*receiving reply*/
@@ -144,18 +145,19 @@ int request_create(const char *key, const char *data)
     /*processing reply*/
     json_object *rep_flag;
     if (!json_object_object_get_ex(reply, "repFlag", &rep_flag))
-        fprintf(stderr, "Error (reply): no key found\n");
+        fprintf(stderr,
+                "Client API:request_create: json extract error: no key \"reply\" found\n");
 
     if (strcmp(json_object_get_string(rep_flag), "done") == 0) {
         /*cleaning*/
         if (json_object_put(reply) != 1)
-            fprintf(stderr, "Error free reply\n");
+            fprintf(stderr, "Client API:request_create: free reply error\n");
         printf("operation validated\n");
         return 0;
     } else {
         /*cleaning*/
         if (json_object_put(reply) != 1)
-            fprintf(stderr, "Error free reply\n");
+            fprintf(stderr, "CLient API:request_create: free reply error\n");
         printf(" operation failed\n");
         return -1;
     }

@@ -18,7 +18,7 @@ int generic_put(const char *data, const char *key)
     char *path;
     if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
-        fprintf(stderr, "Generic storage: path creation error:%s\n",
+        fprintf(stderr, "Generic storage:generic_put: path creation error:%s\n",
                 strerror(err));
         return -1;
     }
@@ -26,14 +26,14 @@ int generic_put(const char *data, const char *key)
     int fd = open(path, O_WRONLY | O_EXCL | O_CREAT, 0664);
     if (fd == -1) {
         int err = errno;
-        fprintf(stderr, "Generic storage: fopen error: %s\n", strerror(err));
+        fprintf(stderr, "Generic storage:generic_put: open error: %s\n", strerror(err));
         free(path);
         return -1;
     }
 
     if ((write(fd, data, strlen(data))) < 0) {
         int err = errno;
-        fprintf(stderr, "Generic storage: fprintf error: %s\n", strerror(err));
+        fprintf(stderr, "Generic storage:generic_put: write error: %s\n", strerror(err));
         free(path);
         return -1;
     }
