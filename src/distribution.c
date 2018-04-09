@@ -6,119 +6,20 @@
 
 #include "murmur3.h"
 
-/* path in pcocc*/
-//#define PATH "/home/billae/prototype_MDS/hosts.conf"
-/*path in ocre*/
-#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/hosts.conf"
-#define max_id_size 21
+static int nb_srv;
 
-static char **servers;
-static int servers_cpt;
-
-
-int DistributionInit()
+void init_distribution_nbsrv(nb)
 {
-    servers = malloc(sizeof(**servers));
-    if (servers == NULL) {
-        int err = errno;
-        fprintf(stderr, "Distribution: servers init alloc error: %s\n",
-                strerror(err));
-        return -1;
-    }
-
-    servers_cpt = 0;
-
-
-    FILE *fd = fopen(PATH, "r");
-    if (fd == NULL) {
-        int err = errno;
-        fprintf(stderr, "Distribution: open hosts file error: %s\n",
-                strerror(err));
-        free(servers);
-    }
-
-
-    char *id_srv;
-    id_srv = malloc(max_id_size*sizeof(*id_srv));
-    if (id_srv == NULL) {
-        int err = errno;
-        fprintf(stderr, "Distribution: id_srv malloc error: %s\n",
-                strerror(err));
-        return -1;
-    }
-
-    while (fgets(id_srv, max_id_size, fd) != NULL) {
-        char *positionEntree = strchr(id_srv, '\n');
-        if (positionEntree != NULL)
-            *positionEntree = '\0';
-        int rc;
-        rc = AddServerToList(id_srv);
-        if (rc != 1) {
-            fprintf(stderr, "Distribution: AddServerToList error\n");
-            free(id_srv);
-            return -1;
-        }
-    }
-
-    if (!feof(fd)) {
-        int err = errno;
-        fprintf(stderr, "Distribution: read hosts file error: %s\n",
-                strerror(err));
-        free(id_srv);
-        return -1;
-    }
-
-    /*int i;
-    for (i = 0; i < servers_cpt; i++)
-        printf("%s\n", servers[i]);
-    */
-    free(id_srv);
-    fclose(fd);
-    return 1;
+    nb_srv = nb;
 }
 
 
-void DistributionFinalize()
-{
-    int i;
-    for (i = 0; i < servers_cpt; i++)
-        free(servers[i]);
-    free(servers);
-}
-
-
-int AddServerToList(char *name)
-{
-    servers_cpt++;
-    servers = realloc(servers, servers_cpt*sizeof(char *));
-    if (servers == NULL) {
-        int err = errno;
-        fprintf(stderr, "Distribution: servers realloc error: %s\n",
-                strerror(err));
-        return -1;
-    }
-
-    servers[servers_cpt-1] = strdup(name);
-    if (servers[servers_cpt-1] == NULL) {
-        int err = errno;
-        fprintf(stderr, "Distribution: servers strdup error:%s\n",
-                strerror(err));
-        return -1;
-    }
-
-    return 1;
-}
-
-
-const char *AssignSrvByKey(const char *key)
+int assign_srv_by_key(const char *key)
 {
     int seed = 1;
     uint32_t num_srv;
-    char *id_srv = malloc(128);
     MurmurHash3_x86_32(key, strlen(key), seed, &num_srv);
-    printf("server to query: %d\n", num_srv%servers_cpt);
+    printf("server to query: %d\n", num_srv%nb_srv);
 
-    id_srv = servers[num_srv%servers_cpt];
-
-    return id_srv;
+    return num_srv%nb_srv;
 }

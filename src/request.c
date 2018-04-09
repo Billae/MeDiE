@@ -42,9 +42,9 @@ json_object *create_request_create(const char *key, const char *data)
     json_object_object_add(request, "data", str);
     json_object_object_add(request, "reqType", type);
 
-    /*find the server with the distribution method*/
-    json_object *hostname = json_object_new_string(AssignSrvByKey(key));
-    json_object_object_add(request, "id_srv", hostname);
+    /*find the server number with the distribution method*/
+    json_object *host = json_object_new_int(assign_srv_by_key(key));
+    json_object_object_add(request, "id_srv", host);
 
     return request;
 }

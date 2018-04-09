@@ -1,0 +1,162 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <czmq.h>
+#include <json.h>
+#include <string.h>
+#include <errno.h>
+#include "request.h"
+#include "distribution.h"
+#include "client_api.h"
+/* path in pcocc*/
+//#define PATH "/home/billae/prototype_MDS/hosts.conf"
+/*path in ocre*/
+#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/hosts.conf"
+#define max_id_size 21
+
+
+static int nb_servers;
+static zsock_t **servers;
+
+
+int init_context(int nb_srv)
+{
+    nb_servers = 0;
+    servers = malloc(nb_srv*sizeof(zsock_t *));
+    if (servers == NULL) {
+        int err = errno;
+        fprintf(stderr, "Client API: servers init alloc error: %s\n",
+                strerror(err));
+        return 0;
+    }
+
+    FILE *fd = fopen(PATH, "r");
+    if (fd == NULL) {
+        int err = errno;
+        fprintf(stderr, "Client API: open hosts file error: %s\n",
+                strerror(err));
+        free(servers);
+        return 0;
+    }
+
+
+    char *id_srv;
+    id_srv = malloc(max_id_size*sizeof(*id_srv));
+    if (id_srv == NULL) {
+        int err = errno;
+        fprintf(stderr, "Client API: id_srv malloc error: %s\n",
+                strerror(err));
+        return 0;
+    }
+
+    while (nb_servers < nb_srv && fgets(id_srv, max_id_size, fd) != NULL) {
+        char *positionEntree = strchr(id_srv, '\n');
+        if (positionEntree != NULL)
+            *positionEntree = '\0';
+
+        servers[nb_servers] = init_connexion(id_srv);
+        if (servers[nb_servers] == NULL) {
+            fprintf(stderr, "Client API: init_connexion error\n");
+            free(id_srv);
+            return -nb_servers;
+        }
+        nb_servers++;
+    }
+
+    if (nb_servers < nb_srv) {
+        if (!feof(fd)) {
+            int err = errno;
+            fprintf(stderr, "Client API: read hosts file error: %s\n",
+                strerror(err));
+            free(id_srv);
+            return -nb_servers;
+        } else {
+            fprintf(stderr, "Client API: not enough servers in server list\n");
+            return -nb_servers;
+        }
+    }
+
+    init_distribution_nbsrv(nb_servers);
+
+    free(id_srv);
+    fclose(fd);
+    return nb_servers;
+}
+
+
+void finalize_context()
+{
+    int i;
+    for (i = 0; i < nb_servers; i++)
+        zsock_destroy(&servers[i]);
+    free(servers);
+}
+
+
+zsock_t *init_connexion(const char *id_srv)
+{
+    char *socket;
+    if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
+        int err = errno;
+        fprintf(stderr, "Error format zmq socket name: %s\n", strerror(err));
+        return NULL;
+    }
+
+    zsock_t *sock = zsock_new_req(socket);
+    if (sock == NULL) {
+        fprintf(stderr, "Error create zmq socket\n");
+        return NULL;
+    }
+    free(socket);
+
+    return sock;
+}
+
+
+int request_create(const char *key, const char *data)
+{
+    json_object *request = create_request_create(key, data);
+
+    /*getting the server ID*/
+    json_object *host;
+    if (!json_object_object_get_ex(request, "id_srv", &host))
+        fprintf(stderr, "Error (host): no key found\n");
+    errno = 0;
+    int srv_id = json_object_get_int(host);
+    if (errno == EINVAL) {
+        fprintf(stderr, "Error: get server id failed\n");
+        return -1;
+    }
+
+    /*sending request*/
+    const char *req_c = json_object_to_json_string(request);
+    zstr_send(servers[srv_id], req_c);
+
+    /*cleaning json object sent*/
+    if (json_object_put(request) != 1)
+        fprintf(stderr, "Error free request\n");
+
+
+    /*receiving reply*/
+    char *string = zstr_recv(servers[srv_id]);
+    json_object *reply = json_tokener_parse(string);
+    zstr_free(&string);
+
+    /*processing reply*/
+    json_object *rep_flag;
+    if (!json_object_object_get_ex(reply, "repFlag", &rep_flag))
+        fprintf(stderr, "Error (reply): no key found\n");
+
+    if (strcmp(json_object_get_string(rep_flag), "done") == 0) {
+        /*cleaning*/
+        if (json_object_put(reply) != 1)
+            fprintf(stderr, "Error free reply\n");
+        printf("operation validated\n");
+        return 0;
+    } else {
+        /*cleaning*/
+        if (json_object_put(reply) != 1)
+            fprintf(stderr, "Error free reply\n");
+        printf(" operation failed\n");
+        return -1;
+    }
+}

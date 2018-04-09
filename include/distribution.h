@@ -8,25 +8,20 @@
  * **/
 
 
-/** Initialize the servers list **/
-int DistributionInit();
-
-
-/** Add a server to the servers list
- * @param name the server to add
+/** Initialize the available number of servers
  * **/
-int AddServerToList(char *name);
+void init_distribution_nbsrv(int nb);
 
 
-/** Clean distribution features: free servers list **/
-void DistributionFinalize();
+/** Find the server number responsible of a key when this key is already assigned
+ * **/
+int *find_srv_by_key(const char *key);
 
 
-/** Find the server responsible of a key when this key is already assigned **/
-const char *FindSrvByKey(const char *key);
-
-
-/** Assign a server to a key which is not already used **/
-const char *AssignSrvByKey(const char *key);
+/** Assign a server number to a key which is not already used
+ * @param key the key to store
+ * @return the server number responsible of the key
+ * **/
+int assign_srv_by_key(const char *key);
 
 #endif
