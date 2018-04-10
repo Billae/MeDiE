@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
     rc = clock_gettime(CLOCK_REALTIME, &start);
     if (rc)
-        printf("CLient: getting time error\n");
+        printf("Client: getting time error\n");
 
     for(i = 0; i < atoi(argv[1]); i++) {
         if (asprintf(&key, "%s%d",argv[2],i) == -1) {

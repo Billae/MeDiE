@@ -19,7 +19,7 @@ int assign_srv_by_key(const char *key)
     int seed = 1;
     uint32_t num_srv;
     MurmurHash3_x86_32(key, strlen(key), seed, &num_srv);
-    printf("server to query: %d\n", num_srv%nb_srv);
+    /*printf("server to query: %d\n", num_srv%nb_srv);*/
 
     return num_srv%nb_srv;
 }
