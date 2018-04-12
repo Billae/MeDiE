@@ -5,16 +5,17 @@
 #include "client_api.h"
 
 
-#define BILLION  1000000000L;
+#define BILLION  1000000000L
+#define NB_REQUESTS 10000
 
 int main(int argc, char **argv)
 {
     if (argv[1] == NULL || argv[2] == NULL) {
-        printf("please give a number of request and a key prefix\n");
+        fprintf(stderr, "please give a number of servers and a key prefix\n");
         return -1;
     }
 
-    int nb_servers = 4;
+    int nb_servers = atoi(argv[1]);
     char *data = "a word";
 
     /*init context*/
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
     if (rc)
         printf("Client: getting time error\n");
 
-    for(i = 0; i < atoi(argv[1]); i++) {
+    for(i = 0; i < NB_REQUESTS; i++) {
         if (asprintf(&key, "%s%d",argv[2],i) == -1) {
             int err = errno;
             fprintf(stderr, "Client: generating key error:%s\n",strerror(err));
