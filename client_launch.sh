@@ -6,5 +6,5 @@ if [ -z $1 ]
 then
     echo "Please give a number of available servers"
 else
-    ./bin/client $1 $prefix
+    ./prototype_MDS/bin/client $1 $prefix
 fi

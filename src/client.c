@@ -30,17 +30,17 @@ int main(int argc, char **argv)
     /*create pattern to request different key each time*/
     char *key;
     int i = 0;
-    
+
     struct timespec start, end;
 
     rc = clock_gettime(CLOCK_REALTIME, &start);
     if (rc)
         printf("Client: getting time error\n");
 
-    for(i = 0; i < NB_REQUESTS; i++) {
-        if (asprintf(&key, "%s%d",argv[2],i) == -1) {
+    for (i = 0; i < NB_REQUESTS; i++) {
+        if (asprintf(&key, "%s%d", argv[2], i) == -1) {
             int err = errno;
-            fprintf(stderr, "Client: generating key error:%s\n",strerror(err));
+            fprintf(stderr, "Client: generating key error:%s\n", strerror(err));
             finalize_context();
             return -1;
         }
@@ -49,13 +49,13 @@ int main(int argc, char **argv)
         if (rc != 0)
             fprintf(stderr, "Request failed\n");
     }
-    
+
     rc = clock_gettime(CLOCK_REALTIME, &end);
     if (rc)
         printf("CLient: getting time error\n");
 
     double accum = (end.tv_sec - start.tv_sec)
-                  + (end.tv_nsec - start.tv_nsec)/ (float) BILLION;
+                  + (end.tv_nsec - start.tv_nsec) / (float) BILLION;
 
     printf("time = %lf\n", accum);
     finalize_context();
