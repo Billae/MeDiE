@@ -6,5 +6,7 @@ if [ -z $1 ]
 then
     echo "Please give a number of available servers"
 else
-    ./prototype_MDS/bin/client $1 $prefix
+    result=`./prototype_MDS/bin/client $1 $prefix`
+    #create a result file
+    echo $result >"/mnt/$prefix"
 fi

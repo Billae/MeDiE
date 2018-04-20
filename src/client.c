@@ -57,7 +57,8 @@ int main(int argc, char **argv)
     double accum = (end.tv_sec - start.tv_sec)
                   + (end.tv_nsec - start.tv_nsec) / (float) BILLION;
 
-    printf("time = %lf\n", accum);
+// warning: the stdout stream is catched to get time value, don't flood it!
+    printf("%lf", accum);
     finalize_context();
     return 0;
 }
