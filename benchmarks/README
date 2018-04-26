@@ -1,0 +1,5 @@
+Theses scripts are not usable without a specific context
+
+launch_benchmark sends all request when the vm cluster is running
+perf_compute takes means file in ~/client_perf and computes all "means_x_srv" files
+all display_* scripts computes "means_x_srv" to generate gnuplot curves
