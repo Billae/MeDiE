@@ -7,6 +7,8 @@ set linetype 6 lc rgb "#555555"  # "#009922"
 
 set datafile separator ";"
 
+set terminal postscript eps color
+
 set xtics nomirror
 set ytics nomirror
 set logscale xy 2
@@ -19,8 +21,10 @@ set title "mean time for one client to compute 10 000 puts"
 set xlabel "number of concurrents clients"
 set ylabel "time in seconds"
 
+set output "mean_time.eps"
+
 #mean time
-plot 'means_2_srv' w lp 
-replot 'means_4_srv' w lp
-replot 'means_8_srv' w lp
-replot 'means_16_srv' w lp
+plot 'second_run/means_2_srv' w lp title "with 2 servers",\
+'second_run/means_4_srv' w lp title "with 4 servers",\
+'second_run/means_8_srv' w lp title "with 8 servers",\
+'second_run/means_16_srv' w lp title "with 16 servers"

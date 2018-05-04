@@ -1,4 +1,4 @@
-#This script take client perf for a run in "client_perf" folder
+#This script takes client perf for a run in "client_perf" folder
 #then compute the mean time and put it in a means file in the same folder 
 
 import sys
