@@ -6,9 +6,9 @@
 #include "generic_storage.h"
 
 /*path in pcocc*/
-//#define PREFIX "/home/billae/prototype_MDS/dataStore/"
+#define PREFIX "/dev/shm/" //"/home/billae/prototype_MDS/dataStore/"
 /*path in ocre*/
-#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/dataStore/"
+//#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/dataStore/"
 
 int generic_put(const char *data, const char *key)
 {

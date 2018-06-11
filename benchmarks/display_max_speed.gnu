@@ -20,9 +20,9 @@ set autoscale y
 set key top center
 
 
-set title "max speed of request compute for a server cluster"
+set title "max speed of request handling for a server cluster"
 set xlabel "number of servers in the cluster"
-set ylabel "number of requests per secondes"
+set ylabel "number of requests per second"
 
 #average speed
 plot 'second_run/min' using 1:($2*10000/$3) w lp notitle
