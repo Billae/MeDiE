@@ -12,10 +12,9 @@ set output "max_speed.eps"
 
 set xtics nomirror
 set ytics nomirror
-set logscale x 2
-#set logscale y 2
-unset logscale y
-set autoscale y
+set logscale xy 2
+#unset logscale y
+#set autoscale y
 
 set key top center
 
@@ -24,6 +23,8 @@ set title "max speed of request handling for a server cluster"
 set xlabel "number of servers in the cluster"
 set ylabel "number of requests per second"
 
-#average speed
-plot 'second_run/min' using 1:($2*10000/$3) w lp notitle
+f(x)=33500*x
 
+#average speed
+plot 'scale_128_3r.csv' using 1:($2*10000/$3) w lp title "hashing distribution" lt rgb "#009900",\
+f(x) title "perfect scaling" 
