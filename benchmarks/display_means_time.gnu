@@ -25,7 +25,7 @@ set output "mean_time.eps"
 
 #mean time
 plot 'second_run/means_1_srv' w lp title "with 1 servers",\
-'second_run/means_2_srv' w lp title "with 2 servers",\
-'second_run/means_4_srv' w lp title "with 4 servers",\
-'second_run/means_8_srv' w lp title "with 8 servers",\
-'second_run/means_16_srv' w lp title "with 16 servers"
+'third_run/means_2_srv' w lp title "with 2 servers",\
+'third_run/means_4_srv' w lp title "with 4 servers",\
+'third_run/means_8_srv' w lp title "with 8 servers",\
+'third_run/means_16_srv' w lp title "with 16 servers"
