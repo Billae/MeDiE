@@ -15,7 +15,7 @@ int generic_put(const char *key, const char *value);
 
 
 /** Retrieve data associated to a key
- * @param key key to retrieve
+ * @param[in] key key to retrieve
  * @return the associated data. Caller must free() it after use.
  * **/
 char *generic_get(const char *key);

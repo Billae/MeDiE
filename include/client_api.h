@@ -13,7 +13,7 @@
 /** Initialize the client context:
  *      - connect to nb_srv available servers and keep connexions in a static tab
  *      - initialize the available number of servers in distribution
- * @param nb_srv the number of server available to connect on
+ * @param[in] nb_srv the number of server available to connect on
  * @return a positive number on success and a negative one on failure.
  * The number (positive or negative) indicates how many servers is connected.
  * 0 is also a failure return value
@@ -27,14 +27,14 @@ void finalize_context();
 
 
 /** Initialize a ZMQ connexion to the host as a request socket
- * @param id_srv the server to connect on
+ * @param[in] id_srv the server to connect on
  * **/
 zsock_t *init_connexion(const char *id_srv);
 
 
 /** Ask for the creation of a new key-value pair in the storage system
- * @param key the key where data has to be stored
- * @param data the data to store
+ * @param[in] key the key where data has to be stored
+ * @param[in] data the data to store
  * @return 0 on succes or -1 on failure
  * **/
 int request_create(const char *key, const char *data);
