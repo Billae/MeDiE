@@ -3,42 +3,42 @@
 #include "eacl.h"
 
 /*TO DO*/
-int eacl_init(eacl_s *self, int size)
+int eacl_init(struct eacl *self, int size)
 {
 
 }
 
 
 /*TO DO*/
-void incr_access(eacl_s *self, int entry)
+void eacl_incr_access(struct eacl *self, int index)
 {
 
 }
 
 
 /*TO DO*/
-void reset_access_entry(eacl_s *self, int entry)
+void eacl_reset_access_entry(struct eacl *self, int index)
 {
 
 }
 
 
 /*TO DO*/
-void reset_all_entry(eacl_s *self, int entry)
+void eacl_reset_all_entry(struct eacl *self, int index)
 {
 
 }
 
 
 /*TO DO*/
-int calculate_sai(eacl_s *self)
+int eacl_calculate_sai(struct eacl *self)
 {
 
 }
 
- 
+
 /*TO DO*/
-int read_sai(int entry)
+int eacl_read_sai(int index)
 {
 
 }

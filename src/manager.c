@@ -6,13 +6,6 @@
 #include "mlt.h"
 #include "eacl.h"
 
-/*keep ?*/
-static eacl_s global_list;
-static mlt_s table;
-
-
-/*keep ?*/
-int update_needed;
 
 /*TO DO*/
 int init_manager()
@@ -22,7 +15,7 @@ int init_manager()
 
 
 /*TO DO*/
-int receive_eacl(eacl_s *new_list)
+int receive_eacl(struct eacl *new_list)
 {
 
 }

@@ -13,7 +13,7 @@
 
 
 /*Each client has its own mlt accessed only in the distribution functions*/
-static mlt_s table;
+static struct mlt table;
 
 
 /** Initialize distribution context

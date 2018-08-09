@@ -9,3 +9,5 @@
 Makefile.inc
 #Chacun son liste d'ip
 hosts.conf
+#Le lien du mekefile depends de la distrib utilisée
+Makefile

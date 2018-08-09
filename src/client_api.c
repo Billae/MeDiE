@@ -33,7 +33,8 @@ int init_context(int nb_srv)
     if (servers == NULL) {
         int err = errno;
         fprintf(stderr,
-                "Client API:init_context: servers init alloc error: %s\n", strerror(err));
+                "Client API:init_context: servers init alloc error: %s\n",
+                strerror(err));
         return 0;
     }
 
@@ -73,7 +74,9 @@ int init_context(int nb_srv)
     if (nb_servers < nb_srv) {
         if (!feof(fd)) {
             int err = errno;
-            fprintf(stderr, "Client API:init_context: read hosts file error: %s\n", strerror(err));
+            fprintf(stderr,
+                    "Client API:init_context: read hosts file error: %s\n",
+                    strerror(err));
             free(id_srv);
             return -nb_servers;
         } else {
@@ -138,7 +141,7 @@ int request_create(const char *key, const char *data)
         return -1;
     }
 
-    /*call the distribution processing*/ 
+    /*call the distribution processing*/
     pre_send(request);
 
     /*sending request*/

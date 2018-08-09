@@ -17,8 +17,8 @@
  * with "0" in an eacl is a field not supported by this server). It has also its
  * own mlt which it can update (the manager has the "true" version of the mlt).
  * **/
-static eacl_s global_list;
-static mlt_s table;
+static struct eacl global_list;
+static struct mlt table;
 
 
 /*variable indicating when a relab computation is needed
@@ -39,7 +39,7 @@ int init_manager();
  * @param[in] new_list the list to merge
  * @return 0 on success and -1 on failure
  * **/
-int receive_eacl(eacl_s *new_list);
+int receive_eacl(struct eacl *new_list);
 
 
 /** Algorithm to rebalance workload of each server

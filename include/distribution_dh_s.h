@@ -15,8 +15,8 @@
 
 /*Each server has its own mlt and its own eacl with access counter accessed
  * only in the distribution functions*/
-static mlt_s table;
-static eacl_s access_list;
+static struct mlt table;
+static struct eacl access_list;
 
 
 /** Initialize distribution context

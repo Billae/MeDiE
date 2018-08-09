@@ -14,7 +14,7 @@ CFLAGS+= -DDISTRIBUTION_DH
 
 all: $(EXEC)
 
-$(EXEC): c s
+$(EXEC): c s m
 
 #client
 c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution_dh_c.o $(OBJ_DIR)/murmur3.o $(OBJ_DIR)/mlt.o $(INC_DIR)/protocol.h
