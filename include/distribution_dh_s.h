@@ -13,14 +13,16 @@
 #include "eacl.h"
 
 
-/*Each server has its own mlt and its own eacl with access counter accessed only in the distribution functions*/
+/*Each server has its own mlt and its own eacl with access counter accessed
+ * only in the distribution functions*/
 static mlt_s table;
 static eacl_s access_list;
 
 
 /** Initialize distribution context
  * - init the mlt and and the eacl
- * - create a thread to maintain updated the mlt and another to send the eacl to the manager
+ * - create a thread to maintain updated the mlt and
+ *   another to send the eacl to the manager
  * @return 0 on success and -1 on failure
  * **/
 int init_distribution();
@@ -33,7 +35,8 @@ int init_distribution();
 int finalize_distribution();
 
 
-/** Operation to do after receiving the request from a client and before send it the reply
+/** Operation to do after receiving the request from a client
+ * and before send it the reply
  * - check the version number of the entry
  * - increment counter access in the eacl if the version number is valid
  * - set flags
@@ -51,8 +54,10 @@ int post_receive(json_object *request);
 int pre_send(json_object *reply);
 
 
-/** Transfert data of an entry to another server (or reverse case) depending on the new mlt
- * - open a socket: if free server a rep socket and if overloaded server a req socket
+/** Transfert data of an entry to another server (or reverse case)
+ * depending on the new mlt
+ * - open a socket: if free server a rep socket and
+ *   if overloaded server a req socket
  * - send or receive data associated with the entry
  * - close the socket
  * @return 0 on success and -1 on failure

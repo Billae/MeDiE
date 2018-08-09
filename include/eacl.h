@@ -7,13 +7,15 @@
  * @brief Entry Access Counter List structure and getter and setter
  * **/
 
-/*each attribute of the structure is a colunm in the table (i.e. an array after initialization). entry is the index, access_count gives the access frequency of the entry and sai is a computed value used to balance the workload*/
-typedef struct eacl
-{
+/*each attribute of the structure is a colunm in the table
+ * (i.e. an array after initialization). entry is the index,
+ * access_count gives the access frequency of the entry
+ * and sai is a computed value used to balance the workload*/
+typedef struct eacl {
     int *entry;
     int *access_count;
     int *sai;
-}eacl_s;
+} eacl_s;
 
 
 /** Initialize the structure with size entries. Other fields are setted to 0.

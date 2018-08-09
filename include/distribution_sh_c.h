@@ -30,8 +30,8 @@ int pre_send(json_object *request);
 int post_receive(json_object *reply);
 
 
-/** Find the server number responsible of a key when this key is already assigned
- * **/
+/** Find the server number responsible of a key when
+ * this key is already assigned **/
 int *find_srv_by_key(const char *key);
 
 

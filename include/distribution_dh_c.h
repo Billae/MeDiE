@@ -34,7 +34,7 @@ int finalize_distribution();
 /** Operations to do before sending the request to the server
  * - add fields relative to distribution method (version number)
  * @param[in,out] request the request to verify
- * @return 0 on succes or -1 on failure 
+ * @return 0 on succes or -1 on failure
  * **/
 int pre_send(json_object *request);
 
@@ -42,13 +42,13 @@ int pre_send(json_object *request);
 /** Operations to do after receiving the reply from the server
  *  - check the flag out-of-date and update if needed
  * @param[in] request the request to verify
- * @return 0 on succes or -1 on failure 
+ * @return 0 on succes or -1 on failure
  * **/
 int post_receive(json_object *reply);
 
 
-/** Find the server number responsible of a key when this key is already assigned
- * **/
+/** Find the server number responsible of a key when
+ * this key is already assigned **/
 int *find_srv_by_key(const char *key);
 
 

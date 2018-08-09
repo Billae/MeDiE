@@ -8,16 +8,19 @@
  * **/
 
 
-/*each attribute of the structure is a colunm in the table (i.e. an array after initialization). entry is the index, id_srv gives the server responsible of this entry and n_ver indicates the latest version number of the entry*/
-typedef struct mlt
-{
+/*each attribute of the structure is a colunm in the table
+ * (i.e. an array after initialization). entry is the index,
+ * id_srv gives the server responsible of this entry
+ * and n_ver indicates the latest version number of the entry*/
+typedef struct mlt {
     int *entry;
     int *id_srv;
     int *n_ver;
 } mlt_s;
 
 
-/** Initialize the structure. The id_srv field is filled arbitrarely with a modulo operation of the number of available servers.
+/** Initialize the structure. The id_srv field is filled arbitrarely
+ * with a modulo operation of the number of available servers.
  * @param[out] self the mlt to fill in
  * @param[in] size number of entry in the table
  * @param[in] nb_srv number of available servers

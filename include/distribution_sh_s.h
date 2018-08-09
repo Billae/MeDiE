@@ -20,7 +20,7 @@ int init_distribution(int nb);
 int finalize_distribution();
 
 
-/** Operation to do after receiving the request from the client 
+/** Operation to do after receiving the request from the client
  * **/
 int post_receive(json_object *request);
 

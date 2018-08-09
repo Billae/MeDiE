@@ -2,13 +2,13 @@
 #define __PROTOCOL_H__
 
 
-#include "mlt.h"
-
 /**
  * @file protocol.h
  * @author E. Billa
  * @brief Protocols, structures and conventions common to client and server
  * **/
+
+#include "mlt.h"
 
 /*N_entry defines the mlt size*/
 #define N_entry 100
