@@ -6,6 +6,14 @@
 #include "generic_storage.h"
 #include "protocol.h"
 
+#ifdef DISTRIBUTION_SH
+    #include "distribution_sh_s.h"
+#endif
+#ifdef DISTRIBUTION_DH
+    #include "distribution_dh_s.h"
+#endif
+
+/*TO DO*/
 int main(int argc, char **argv)
 {
     /*ocre usage need different port for each server*/
@@ -47,6 +55,9 @@ while (1) {
     json_object *request = json_tokener_parse(string);
     zstr_free(&string);
 
+    /*call the distribution processing*/
+    post_receive(request);
+    
     /*processing*/
     json_object *key;
     if (!json_object_object_get_ex(request, "key", &key))
@@ -86,6 +97,7 @@ while (1) {
 
     /*creating reply and send*/
 
+    pre_send(request);
     json_object *repFlag;
     if (global_rc == 1)
         repFlag = json_object_new_string("done");

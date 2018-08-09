@@ -1,15 +1,15 @@
 #ifndef __DISTRIBUTION_DH_C_H__
 #define __DISTRIBUTION_DH_C_H__
 
-#include <json.h>
-#include "mlt.h"
-#include "protocol.h"
-
 /**
  * @file distribution_dh_c.h
  * @author E. Billa
  * @brief Clients functions dedicated to the dynamic hashing distribution method
  * **/
+
+#include <json.h>
+#include "mlt.h"
+#include "protocol.h"
 
 
 /*Each client has its own mlt accessed only in the distribution functions*/
@@ -39,12 +39,12 @@ int finalize_distribution();
 int pre_send(json_object *request);
 
 
-/** Operations to do after receiving the request from the server
- *  - check the flag out-of-date
+/** Operations to do after receiving the reply from the server
+ *  - check the flag out-of-date and update if needed
  * @param[in] request the request to verify
  * @return 0 on succes or -1 on failure 
  * **/
-int post_receive(json_object *request);
+int post_receive(json_object *reply);
 
 
 /** Find the server number responsible of a key when this key is already assigned

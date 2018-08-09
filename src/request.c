@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <json.h>
 #include <errno.h>
-#include "distribution.h"
+#include "distribution_dh_c.h"
 #include "request.h"
 #include "protocol.h"
 
-
+/*TO DO*/
 json_object *create_request(const char *key)
 {
     json_object *request = json_object_new_object();

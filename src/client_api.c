@@ -5,12 +5,20 @@
 #include <string.h>
 #include <errno.h>
 #include "request.h"
-#include "distribution.h"
 #include "client_api.h"
+
+#ifdef DISTRIBUTION_SH
+    #include "distribution_sh_c.h"
+#endif
+#ifdef DISTRIBUTION_DH
+    #include "distribution_dh_c.h"
+#endif
+
 /* path in pcocc*/
 //#define PATH "/home/billae/prototype_MDS/hosts.conf"
 /*path in ocre*/
 #define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/hosts.conf"
+
 #define max_id_size 21
 
 
@@ -75,7 +83,7 @@ int init_context(int nb_srv)
         }
     }
 
-    init_distribution_nbsrv(nb_servers);
+    init_distribution(nb_servers);
 
     free(id_srv);
     fclose(fd);
@@ -83,8 +91,10 @@ int init_context(int nb_srv)
 }
 
 
+
 void finalize_context()
 {
+    finalize_distribution();
     int i;
     for (i = 0; i < nb_servers; i++)
         zsock_destroy(&servers[i]);
@@ -128,6 +138,9 @@ int request_create(const char *key, const char *data)
         return -1;
     }
 
+    /*call the distribution processing*/ 
+    pre_send(request);
+
     /*sending request*/
     const char *req_c = json_object_to_json_string(request);
     zstr_send(servers[srv_id], req_c);
@@ -141,6 +154,9 @@ int request_create(const char *key, const char *data)
     char *string = zstr_recv(servers[srv_id]);
     json_object *reply = json_tokener_parse(string);
     zstr_free(&string);
+
+    /*call the distribution processing*/
+    post_receive(reply);
 
     /*processing reply*/
     json_object *rep_flag;

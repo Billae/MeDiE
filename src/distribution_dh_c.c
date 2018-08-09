@@ -2,18 +2,45 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include "distribution.h"
+#include <json.h>
 
+#include "distribution_dh_c.h"
+#include "mlt.h"
+#include "protocol.h"
 #include "murmur3.h"
+
 
 static int nb_srv;
 
-void init_distribution_nbsrv(nb)
+/*TO DO*/
+int init_distribution(nb)
 {
     nb_srv = nb;
 }
 
 
+/*TO DO*/
+int finalize_distribution()
+{
+
+}
+
+
+/*TO DO*/
+int pre_send(json_object *request)
+{
+
+}
+
+
+/*TO DO*/
+int post_receive(json_object *reply)
+{
+
+}
+
+
+/*TO DO*/
 int assign_srv_by_key(const char *key)
 {
     int seed = 1;

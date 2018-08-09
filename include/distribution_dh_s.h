@@ -1,16 +1,17 @@
 #ifndef __DISTRIBUTION_DH_S_H__
 #define __DISTRIBUTION_DH_S_H__
 
-#include <czmq.h>
-#include <json.h>
-#include "mlt.h"
-#include "eacl.h"
-
 /**
  * @file distribution_dh_s.h
  * @author E. Billa
  * @brief Servers functions dedicated to the dynamic hashing distribution method
  * **/
+
+#include <czmq.h>
+#include <json.h>
+#include "mlt.h"
+#include "eacl.h"
+
 
 /*Each server has its own mlt and its own eacl with access counter accessed only in the distribution functions*/
 static mlt_s table;
@@ -40,6 +41,14 @@ int finalize_distribution();
  * @return 0 on success and -1 on failure
  * **/
 int post_receive(json_object *request);
+
+
+/** Operation to do before send the reply to the client
+ * - set flags
+ * @param[out] reply the reply to complete
+ * @return 0 on success and -1 on failure
+ * **/
+int pre_send(json_object *reply);
 
 
 /** Transfert data of an entry to another server (or reverse case) depending on the new mlt
