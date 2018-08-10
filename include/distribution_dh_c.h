@@ -36,7 +36,7 @@ int finalize_distribution();
  * @param[in,out] request the request to verify
  * @return 0 on succes or -1 on failure
  * **/
-int pre_send(json_object *request);
+int distribution_pre_send(json_object *request);
 
 
 /** Operations to do after receiving the reply from the server
@@ -44,18 +44,18 @@ int pre_send(json_object *request);
  * @param[in] request the request to verify
  * @return 0 on succes or -1 on failure
  * **/
-int post_receive(json_object *reply);
+int distribution_post_receive(json_object *reply);
 
 
 /** Find the server number responsible of a key when
  * this key is already assigned **/
-int *find_srv_by_key(const char *key);
+int distribution_find_srv_by_key(const char *key);
 
 
 /** Assign a server number to a key which is not already used
  * @param key the key to store
  * @return the server number responsible of the key
  * **/
-int assign_srv_by_key(const char *key);
+int distribution_assign_srv_by_key(const char *key);
 
 #endif

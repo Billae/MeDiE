@@ -27,21 +27,21 @@ int finalize_distribution()
 
 
 /*TO DO*/
-int pre_send(json_object *request)
+int distribution_pre_send(json_object *request)
 {
 
 }
 
 
 /*TO DO*/
-int post_receive(json_object *reply)
+int distribution_post_receive(json_object *reply)
 {
 
 }
 
 
 /*TO DO*/
-int assign_srv_by_key(const char *key)
+int distribution_assign_srv_by_key(const char *key)
 {
     int seed = 1;
     uint32_t num_srv;

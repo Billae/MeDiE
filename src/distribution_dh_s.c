@@ -27,21 +27,21 @@ int finalize_distribution()
 
 
 /*TO DO*/
-int post_receive(json_object *request)
+int distribution_post_receive(json_object *request)
 {
 
 }
 
 
 /*TO DO*/
-int pre_send(json_object *reply)
+int distribution_pre_send(json_object *reply)
 {
 
 }
 
 
 /*TO DO*/
-int transfert_load(int entry)
+int distribution_transfert_load(int entry)
 {
 
 }

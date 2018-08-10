@@ -142,7 +142,7 @@ int request_create(const char *key, const char *data)
     }
 
     /*call the distribution processing*/
-    pre_send(request);
+    distribution_pre_send(request);
 
     /*sending request*/
     const char *req_c = json_object_to_json_string(request);
@@ -159,7 +159,7 @@ int request_create(const char *key, const char *data)
     zstr_free(&string);
 
     /*call the distribution processing*/
-    post_receive(reply);
+    distribution_post_receive(reply);
 
     /*processing reply*/
     json_object *rep_flag;

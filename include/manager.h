@@ -39,7 +39,7 @@ int init_manager();
  * @param[in] new_list the list to merge
  * @return 0 on success and -1 on failure
  * **/
-int receive_eacl(struct eacl *new_list);
+int manager_receive_eacl(struct eacl *new_list);
 
 
 /** Algorithm to rebalance workload of each server
@@ -51,7 +51,7 @@ int receive_eacl(struct eacl *new_list);
  * - update the mlt with these load transferts
  * @return 0 on success and -1 on failure
  * **/
-int calculate_relab();
+int manager_calculate_relab();
 
 
 /** Give a subset of elements in list which
@@ -63,7 +63,7 @@ int calculate_relab();
  * @return the subset of list when the algorithm finish
  * (ie can't add any element of list without to be too far of the goal_load)
  * **/
-int *balance_load(int current_load, int goal_load, int *list);
+int *manager_balance_load(int current_load, int goal_load, int *list);
 
 
 /** Thread which receive eacl and then update the mlt

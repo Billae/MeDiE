@@ -22,12 +22,12 @@ int finalize_distribution();
 
 /** Operation to do after receiving the request from the client
  * **/
-int post_receive(json_object *request);
+int distribution_post_receive(json_object *request);
 
 
 /** Operation to do before sending the reply to the client
  * **/
-int pre_send(json_object *reply);
+int distribution_pre_send(json_object *reply);
 
 
 #endif

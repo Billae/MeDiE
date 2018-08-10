@@ -15,20 +15,20 @@ int init_manager()
 
 
 /*TO DO*/
-int receive_eacl(struct eacl *new_list)
+int manager_receive_eacl(struct eacl *new_list)
 {
 
 }
 
 /*TO DO*/
-int calculate_relab()
+int manager_calculate_relab()
 {
 
 }
 
 
 /*TO DO*/
-int *balance_load(int current_load, int goal_load, int *list)
+int *manager_balance_load(int current_load, int goal_load, int *list)
 {
 
 }

@@ -56,7 +56,7 @@ while (1) {
     zstr_free(&string);
 
     /*call the distribution processing*/
-    post_receive(request);
+    distribution_post_receive(request);
     
     /*processing*/
     json_object *key;
@@ -97,7 +97,7 @@ while (1) {
 
     /*creating reply and send*/
 
-    pre_send(request);
+    distribution_pre_send(request);
     json_object *repFlag;
     if (global_rc == 1)
         repFlag = json_object_new_string("done");

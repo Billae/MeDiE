@@ -43,7 +43,7 @@ int finalize_distribution();
  * @param[in,out] request the request to verify
  * @return 0 on success and -1 on failure
  * **/
-int post_receive(json_object *request);
+int distribution_post_receive(json_object *request);
 
 
 /** Operation to do before send the reply to the client
@@ -51,7 +51,7 @@ int post_receive(json_object *request);
  * @param[out] reply the reply to complete
  * @return 0 on success and -1 on failure
  * **/
-int pre_send(json_object *reply);
+int distribution_pre_send(json_object *reply);
 
 
 /** Transfert data of an entry to another server (or reverse case)
@@ -62,7 +62,7 @@ int pre_send(json_object *reply);
  * - close the socket
  * @return 0 on success and -1 on failure
  * **/
-int transfert_load(int entry);
+int distribution_transfert_load(int entry);
 
 
 /** Thread dedicated to keeping the mlt up-to-date

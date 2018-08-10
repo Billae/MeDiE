@@ -16,9 +16,9 @@ int finalize_distribution()
 {}
 
 
-int post_receive(json_object *request)
+int distribution_post_receive(json_object *request)
 {}
 
 
-int pre_send(json_object *reply)
+int distribution_pre_send(json_object *reply)
 {}
