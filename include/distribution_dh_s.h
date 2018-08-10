@@ -25,14 +25,14 @@ static struct eacl access_list;
  *   another to send the eacl to the manager
  * @return 0 on success and -1 on failure
  * **/
-int init_distribution();
+int distribution_init();
 
 
 /** Finalize distribution context
  * - free allocated memory
  * @return 0 on success and -1 on failure
  * **/
-int finalize_distribution();
+int distribution_finalize();
 
 
 /** Operation to do after receiving the request from a client

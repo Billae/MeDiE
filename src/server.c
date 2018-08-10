@@ -44,7 +44,7 @@ int main(int argc, char **argv)
             return -1;
         }
     }
-
+    distribution_init();
 
 while (1) {
 
@@ -115,6 +115,7 @@ while (1) {
         fprintf(stderr, "Server: free request error\n");
 }
 
+    distribution_finalize();
     zsock_destroy(&rep);
     return 0;
 }

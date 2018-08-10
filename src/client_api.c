@@ -86,7 +86,7 @@ int init_context(int nb_srv)
         }
     }
 
-    init_distribution(nb_servers);
+    distribution_init(nb_servers);
 
     free(id_srv);
     fclose(fd);
@@ -97,7 +97,7 @@ int init_context(int nb_srv)
 
 void finalize_context()
 {
-    finalize_distribution();
+    distribution_finalize();
     int i;
     for (i = 0; i < nb_servers; i++)
         zsock_destroy(&servers[i]);

@@ -8,11 +8,11 @@
 #include "murmur3.h"
 
 
-int init_distribution(nb)
+int distribution_init()
 {}
 
 
-int finalize_distribution()
+int distribution_finalize()
 {}
 
 

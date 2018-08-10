@@ -13,14 +13,14 @@
 static int nb_srv;
 
 /*TO DO*/
-int init_distribution(nb)
+int distribution_init(nb)
 {
     nb_srv = nb;
 }
 
 
 /*TO DO*/
-int finalize_distribution()
+int distribution_finalize()
 {
 
 }

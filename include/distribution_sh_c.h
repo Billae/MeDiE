@@ -12,12 +12,12 @@
 
 /** Initialize the available number of servers
  * **/
-int init_distribution(int nb);
+int distribution_init(int nb);
 
 
 /** Finalize distribution context
  * **/
-int finalize_distribution();
+int distribution_finalize();
 
 
 /** Operation to do before sending the request to the server

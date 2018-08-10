@@ -9,14 +9,14 @@
 
 static int nb_srv;
 
-int init_distribution(nb)
+int distribution_init(nb)
 {
     nb_srv = nb;
     return 0;
 }
 
 
-int finalize_distribution()
+int distribution_finalize()
 {}
 
 

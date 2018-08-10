@@ -21,14 +21,14 @@ static struct mlt table;
  * @param[in] nb number of available servers
  * @return 0 on success and -1 on failure
  * **/
-int init_distribution(int nb);
+int distribution_init(int nb);
 
 
 /** Finalize distributino context
  * - free allocated memory
  * @return 0 on success and -1 on failure
  * **/
-int finalize_distribution();
+int distribution_finalize();
 
 
 /** Operations to do before sending the request to the server
