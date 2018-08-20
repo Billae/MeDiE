@@ -110,7 +110,8 @@ zsock_t *client_init_connexion(const char *id_srv)
     char *socket;
     if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
         int err = errno;
-        fprintf(stderr, "Client API:init_connexion: format zmq socket name error: %s\n", strerror(err));
+        fprintf(stderr, "Client API:init_connexion: format zmq socket name error: %s\n",
+                strerror(err));
         return NULL;
     }
 
@@ -129,6 +130,9 @@ int client_request_create(const char *key, const char *data)
 {
     json_object *request = create_request_create(key, data);
 
+    /*call the distribution processing*/
+    distribution_pre_send(request);
+
     /*getting the server ID*/
     json_object *host;
     if (!json_object_object_get_ex(request, "id_srv", &host))
@@ -140,9 +144,6 @@ int client_request_create(const char *key, const char *data)
         fprintf(stderr, "Client API:request_create: get server id error\n");
         return -1;
     }
-
-    /*call the distribution processing*/
-    distribution_pre_send(request);
 
     /*sending request*/
     const char *req_c = json_object_to_json_string(request);

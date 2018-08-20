@@ -52,10 +52,11 @@ int distribution_post_receive(json_object *reply);
 int distribution_find_srv_by_key(const char *key);
 
 
-/** Assign a server number to a key which is not already used
- * @param key the key to store
- * @return the server number responsible of the key
+/** Add the id_srv field in the request where the key is not already used
+ * @param[in] key the key to store
+ * @param[out] request the request to fill in
+ * @return 0 on success and -1 on failure
  * **/
-int distribution_assign_srv_by_key(const char *key);
+int distribution_assign_srv_by_key(const char *key, json_object *request);
 
 #endif
