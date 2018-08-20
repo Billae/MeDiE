@@ -26,7 +26,7 @@ static int nb_servers;
 static zsock_t **servers;
 
 
-int init_context(int nb_srv)
+int client_init_context(int nb_srv)
 {
     nb_servers = 0;
     servers = malloc(nb_srv*sizeof(zsock_t *));
@@ -62,7 +62,7 @@ int init_context(int nb_srv)
         if (positionEntree != NULL)
             *positionEntree = '\0';
 
-        servers[nb_servers] = init_connexion(id_srv);
+        servers[nb_servers] = client_init_connexion(id_srv);
         if (servers[nb_servers] == NULL) {
             fprintf(stderr, "Client API:init_context: init_connexion error\n");
             free(id_srv);
@@ -95,7 +95,7 @@ int init_context(int nb_srv)
 
 
 
-void finalize_context()
+void client_finalize_context()
 {
     distribution_finalize();
     int i;
@@ -105,7 +105,7 @@ void finalize_context()
 }
 
 
-zsock_t *init_connexion(const char *id_srv)
+zsock_t *client_init_connexion(const char *id_srv)
 {
     char *socket;
     if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
@@ -125,7 +125,7 @@ zsock_t *init_connexion(const char *id_srv)
 }
 
 
-int request_create(const char *key, const char *data)
+int client_request_create(const char *key, const char *data)
 {
     json_object *request = create_request_create(key, data);
 

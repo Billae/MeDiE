@@ -20,10 +20,10 @@ int main(int argc, char **argv)
 
     /*init context*/
     int rc;
-    rc = init_context(nb_servers);
+    rc = client_init_context(nb_servers);
     if (rc < 1) {
         fprintf(stderr, "Context init failed\n");
-        finalize_context();
+        client_finalize_context();
         return -1;
     }
 
@@ -41,11 +41,11 @@ int main(int argc, char **argv)
         if (asprintf(&key, "%s%d", argv[2], i) == -1) {
             int err = errno;
             fprintf(stderr, "Client: generating key error:%s\n", strerror(err));
-            finalize_context();
+            client_finalize_context();
             return -1;
         }
 
-        rc = request_create(key, data);
+        rc = client_request_create(key, data);
         if (rc != 0)
             fprintf(stderr, "Request failed\n");
     }
@@ -59,6 +59,6 @@ int main(int argc, char **argv)
 
 // warning: the stdout stream is catched to get time value, don't flood it!
     printf("%lf", accum);
-    finalize_context();
+    client_finalize_context();
     return 0;
 }
