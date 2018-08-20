@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <errno.h>
 #include "client_api.h"
-
 
 #define BILLION  1000000000L
 #define NB_REQUESTS 10000

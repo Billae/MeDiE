@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <czmq.h>
+#include <errno.h>
 
 #include "protocol.h"
 #include "mlt.h"

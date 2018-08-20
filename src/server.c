@@ -3,6 +3,8 @@
 #include <czmq.h>
 #include <json.h>
 #include <string.h>
+#include <errno.h>
+
 #include "generic_storage.h"
 #include "protocol.h"
 
