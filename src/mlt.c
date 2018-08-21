@@ -113,6 +113,16 @@ int mlt_get_entry(struct mlt *self, int mlt_idx, int *srv, int *ver)
     return -pthread_rwlock_unlock(&self->lock);
 }
 
+
+int mlt_destroy(struct mlt *self)
+{
+    free(self->id_srv);
+    free(self->n_ver);
+    pthread_rwlock_destroy(&self->lock);
+    return 0;
+}
+
+
 /* -*- mode: c; c-basic-offset: 4; indent-tabs-mode: nil; -*-
  * vim:expandtab:shiftwidth=4:tabstop=4:
  */

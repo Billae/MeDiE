@@ -57,6 +57,15 @@ int mlt_update_entry(struct mlt *self, int mlt_idx, int srv_idx, int ver);
  * **/
 int mlt_get_entry(struct mlt *self, int mlt_idx, int *srv, int *ver);
 
+
+/**
+ * Destroy the structure. 
+ * - Desallocate memory
+ * @param[out] self the mlt to destroy
+ * @return 0 on success and -1 on failure**/
+int mlt_destroy(struct mlt *self);
+
+
 #endif
 /* -*- mode: c; c-basic-offset: 4; indent-tabs-mode: nil; -*-
  * vim:expandtab:shiftwidth=4:tabstop=4:

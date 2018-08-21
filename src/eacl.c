@@ -124,6 +124,14 @@ int eacl_read_sai(struct eacl *self, int index)
     return self->sai[index];
 }
 
+
+int eacl_destroy(struct eacl *self)
+{
+    free(self->access_count);
+    free(self->sai);
+    return 0;
+}
+
 /* -*- mode: c; c-basic-offset: 4; indent-tabs-mode: nil; -*-
  * vim:expandtab:shiftwidth=4:tabstop=4:
  */
