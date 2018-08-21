@@ -36,7 +36,6 @@ int distribution_finalize();
 
 
 /** Operation to do after receiving the request from a client
- * and before send it the reply
  * - check the version number of the entry
  * - increment counter access in the eacl if the version number is valid
  * - set flags

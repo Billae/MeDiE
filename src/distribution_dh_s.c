@@ -15,7 +15,6 @@ static int nb_srv;
 /*TO DO*/
 int distribution_init(nb)
 {
-    nb_srv = nb;
 }
 
 
@@ -29,14 +28,17 @@ int distribution_finalize()
 /*TO DO*/
 int distribution_post_receive(json_object *request)
 {
-
+    json_object *ver_flag;
+    ver_flag = json_object_new_string("up-to-date"); /*or "out-of-date"*/
+    json_object_object_add(request, "versionFlag", ver_flag);
+    return 0;
 }
 
 
 /*TO DO*/
 int distribution_pre_send(json_object *reply)
 {
-
+    return 0;
 }
 
 
