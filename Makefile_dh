@@ -11,6 +11,7 @@ BIN_DIR=./bin
 
 EXEC=main
 CFLAGS+= -DDISTRIBUTION_DH
+LDFLAGS+= -lpthread
 
 all: $(EXEC)
 
