@@ -86,7 +86,13 @@ int client_init_context(int nb_srv)
         }
     }
 
-    distribution_init(nb_servers);
+    int rc = distribution_init(nb_servers);
+    if (rc != 0) {
+        fprintf(stderr,
+                "Client API:init_context: distribution init failed: %s\n",
+                strerror(rc));
+        return -nb_servers;
+    }
 
     free(id_srv);
     fclose(fd);
@@ -110,7 +116,8 @@ zsock_t *client_init_connexion(const char *id_srv)
     char *socket;
     if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
         int err = errno;
-        fprintf(stderr, "Client API:init_connexion: format zmq socket name error: %s\n",
+        fprintf(stderr,
+                "Client API:init_connexion: format zmq socket name error: %s\n",
                 strerror(err));
         return NULL;
     }
@@ -128,10 +135,17 @@ zsock_t *client_init_connexion(const char *id_srv)
 
 int client_request_create(const char *key, const char *data)
 {
+    int rc = 0;
+
     json_object *request = create_request_create(key, data);
 
     /*call the distribution processing*/
-    distribution_pre_send(request);
+    rc = distribution_pre_send(request);
+    if (rc != 0) {
+        fprintf(stderr,
+                "Client API:request_create: distribution pre_send error\n");
+        return -1;
+    }
 
     /*getting the server ID*/
     json_object *host;
@@ -160,13 +174,23 @@ int client_request_create(const char *key, const char *data)
     zstr_free(&string);
 
     /*call the distribution processing*/
-    distribution_post_receive(reply);
+    rc = distribution_post_receive(reply);
+    if (rc != 0) {
+        fprintf(stderr,
+                "Client API:request_create: distribution post_receive error\n");
+         /*cleaning*/
+        if (json_object_put(reply) != 1)
+            fprintf(stderr, "Client API:request_create: free reply error\n");
+        return -1;
+    }
 
     /*processing reply*/
     json_object *rep_flag;
-    if (!json_object_object_get_ex(reply, "repFlag", &rep_flag))
+    if (!json_object_object_get_ex(reply, "repFlag", &rep_flag)) {
         fprintf(stderr,
-                "Client API:request_create: json extract error: no key \"reply\" found\n");
+                "Client API:request_create: json extract error: no key \"repFlag\" found\n");
+        return -1;
+    }
 
     if (strcmp(json_object_get_string(rep_flag), "done") == 0) {
         /*cleaning*/
