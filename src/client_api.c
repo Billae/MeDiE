@@ -33,7 +33,7 @@ int client_init_context(int nb_srv)
     if (servers == NULL) {
         int err = errno;
         fprintf(stderr,
-                "Client API:init_context: servers init alloc error: %s\n",
+            "Client API:init_context: servers init alloc error: %s\n",
                 strerror(err));
         return 0;
     }
@@ -42,7 +42,7 @@ int client_init_context(int nb_srv)
     if (fd == NULL) {
         int err = errno;
         fprintf(stderr, "Client API:init_context: open hosts file error: %s\n",
-                strerror(err));
+            strerror(err));
         free(servers);
         return 0;
     }
@@ -53,7 +53,7 @@ int client_init_context(int nb_srv)
     if (id_srv == NULL) {
         int err = errno;
         fprintf(stderr, "Client API:init_context: id_srv malloc error: %s\n",
-                strerror(err));
+            strerror(err));
         return 0;
     }
 
@@ -75,13 +75,13 @@ int client_init_context(int nb_srv)
         if (!feof(fd)) {
             int err = errno;
             fprintf(stderr,
-                    "Client API:init_context: read hosts file error: %s\n",
-                    strerror(err));
+                "Client API:init_context: read hosts file error: %s\n",
+                strerror(err));
             free(id_srv);
             return -nb_servers;
         } else {
             fprintf(stderr,
-                    "Client API:init_context: not enough servers in server list\n");
+                "Client API:init_context: not enough servers in server list\n");
             return -nb_servers;
         }
     }
@@ -89,7 +89,7 @@ int client_init_context(int nb_srv)
     int rc = distribution_init(nb_servers);
     if (rc != 0) {
         fprintf(stderr,
-                "Client API:init_context: distribution init failed: %s\n",
+            "Client API:init_context: distribution init failed: %s\n",
                 strerror(rc));
         return -nb_servers;
     }
@@ -117,8 +117,8 @@ zsock_t *client_init_connexion(const char *id_srv)
     if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
         int err = errno;
         fprintf(stderr,
-                "Client API:init_connexion: format zmq socket name error: %s\n",
-                strerror(err));
+            "Client API:init_connexion: format zmq socket name error: %s\n",
+            strerror(err));
         return NULL;
     }
 
@@ -143,7 +143,7 @@ int client_request_create(const char *key, const char *data)
     rc = distribution_pre_send(request);
     if (rc != 0) {
         fprintf(stderr,
-                "Client API:request_create: distribution pre_send error\n");
+            "Client API:request_create: distribution pre_send error\n");
         return -1;
     }
 
@@ -151,7 +151,7 @@ int client_request_create(const char *key, const char *data)
     json_object *host;
     if (!json_object_object_get_ex(request, "id_srv", &host))
         fprintf(stderr,
-                "Client API:request_create: json extract error: no key \"host\" found\n");
+            "Client API:request_create: json extract error: no key \"host\" found\n");
     errno = 0;
     int srv_id = json_object_get_int(host);
     if (errno == EINVAL) {
@@ -177,7 +177,7 @@ int client_request_create(const char *key, const char *data)
     rc = distribution_post_receive(reply);
     if (rc != 0) {
         fprintf(stderr,
-                "Client API:request_create: distribution post_receive error\n");
+            "Client API:request_create: distribution post_receive error\n");
          /*cleaning*/
         if (json_object_put(reply) != 1)
             fprintf(stderr, "Client API:request_create: free reply error\n");
@@ -188,7 +188,7 @@ int client_request_create(const char *key, const char *data)
     json_object *rep_flag;
     if (!json_object_object_get_ex(reply, "repFlag", &rep_flag)) {
         fprintf(stderr,
-                "Client API:request_create: json extract error: no key \"repFlag\" found\n");
+            "Client API:request_create: json extract error: no key \"repFlag\" found\n");
         return -1;
     }
 

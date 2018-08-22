@@ -28,7 +28,7 @@ int distribution_pre_send(json_object *request)
     json_object *data_key;
     if (!json_object_object_get_ex(request, "key", &data_key)) {
         fprintf(stderr,
-                "Distribution:pre_send:json extract error: no key \"key\" found\n");
+            "Distribution:pre_send:json extract error: no key \"key\" found\n");
         return -1;
     }
 
@@ -43,7 +43,7 @@ int distribution_pre_send(json_object *request)
     json_object *type;
     if (!json_object_object_get_ex(request, "reqType", &type)) {
         fprintf(stderr,
-                "Distribution:pre_send:json extract error: no key \"reqType\" found\n");
+            "Distribution:pre_send:json extract error: no key \"reqType\" found\n");
         return -1;
     }
 

@@ -19,7 +19,7 @@ int generic_put(const char *data, const char *key)
     if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_put: path creation error:%s\n",
-                strerror(err));
+            strerror(err));
         return -1;
     }
 
