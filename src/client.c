@@ -48,6 +48,8 @@ int main(int argc, char **argv)
         rc = client_request_create(key, data);
         if (rc != 0)
             fprintf(stderr, "Request failed\n");
+            if (rc == -EAGAIN)
+                i--;
     }
 
     rc = clock_gettime(CLOCK_REALTIME, &end);
