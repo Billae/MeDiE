@@ -20,29 +20,30 @@ int main(int argc, char **argv)
 {
     int rc;
     /*ocre usage need different port for each server*/
-    if (argv[1] == NULL || strcmp(argv[1], "o") != 0
-            && strcmp(argv[1], "p") != 0) {
+    if (argv[1] == NULL || argv[2] == NULL ||
+        strcmp(argv[2], "o") != 0 && strcmp(argv[2], "p") != 0) {
+
         fprintf(stderr,
-                "please give a server type o or p (and port if type is o)\n");
+                "please give the number of available servers and a server type o or p (and port if type is o)\n");
         return -1;
     }
 
     zsock_t *rep;
 
-    if (strcmp(argv[1], "p") == 0) {
+    if (strcmp(argv[2], "p") == 0) {
         /*for pcocc VM*/
         rep = zsock_new_rep("tcp://0.0.0.0:7410");
     }
 
     else {
         /*for ocre*/
-        if (argv[2] == NULL) {
+        if (argv[3] == NULL) {
             fprintf(stderr, "please give a server port\n");
             return -1;
         }
 
         char *name;
-        asprintf(&name, "tcp://192.168.129.25:%s", argv[2]);
+        asprintf(&name, "tcp://192.168.129.25:%s", argv[3]);
         rep = zsock_new_rep(name);
         if (rep == NULL) {
             fprintf(stderr, "Server: create zmq socket error\n");
@@ -50,9 +51,10 @@ int main(int argc, char **argv)
         }
     }
 
-    rc = distribution_init();
+    rc = distribution_init(atoi(argv[1]));
     if (rc != 0) {
         fprintf(stderr, "Server: distribution init failed\n");
+        zsock_destroy(&rep);
         return -1;
     }
 
@@ -69,7 +71,7 @@ while (1) {
 
     /*call the distribution processing*/
     rc = distribution_post_receive(request);
-    if(rc != 0) {
+    if (rc != 0) {
         fprintf(stderr, "Server: distribution_post_receive failed\n");
         global_rc = -1;
     }
