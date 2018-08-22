@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <czmq.h>
 #include <errno.h>
+#include <pthread.h>
 
 #include "protocol.h"
 #include "mlt.h"
@@ -46,4 +47,11 @@ void *thread_manager(void *args)
 void *thread_timer(void *args)
 {
 
+}
+
+
+/*TO DO*/
+int main(int argc, char *argv[])
+{
+    return 0;
 }
