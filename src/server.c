@@ -18,6 +18,7 @@
 /*TO DO*/
 int main(int argc, char **argv)
 {
+    int rc;
     /*ocre usage need different port for each server*/
     if (argv[1] == NULL || strcmp(argv[1], "o") != 0
             && strcmp(argv[1], "p") != 0) {
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
         }
     }
 
-    int rc = distribution_init();
+    rc = distribution_init();
     if (rc != 0) {
         fprintf(stderr, "Server: distribution init failed\n");
         return -1;
@@ -67,7 +68,11 @@ while (1) {
     zstr_free(&string);
 
     /*call the distribution processing*/
-    global_rc = distribution_post_receive(request);
+    rc = distribution_post_receive(request);
+    if(rc != 0) {
+        fprintf(stderr, "Server: distribution_post_receive failed\n");
+        global_rc = -1;
+    }
 
     /*processing*/
     json_object *key;
@@ -88,10 +93,9 @@ while (1) {
         if (!json_object_object_get_ex(request, "data", &data))
             fprintf(stderr,
                     "Server: json extract error: no key \"data\" found\n");
-        int rc;
         rc = generic_put(json_object_get_string(data),
                 json_object_get_string(key));
-        if (rc != 1) {
+        if (rc != 0) {
             fprintf(stderr, "Server: generic storage operation error\n");
             global_rc = -1;
             break;
@@ -111,7 +115,12 @@ while (1) {
 
     /*creating reply and send*/
 
-    global_rc = distribution_pre_send(request);
+    rc = distribution_pre_send(request);
+    if (rc != 0) {
+        fprintf(stderr, "Server: distribution_post_receive failed\n");
+        global_rc = -1;
+    }
+
     json_object *repFlag;
     if (global_rc == 0)
         repFlag = json_object_new_string("done");

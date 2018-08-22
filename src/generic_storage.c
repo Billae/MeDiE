@@ -41,5 +41,5 @@ int generic_put(const char *data, const char *key)
 
     close(fd);
     free(path);
-    return 1;
+    return 0;
 }
