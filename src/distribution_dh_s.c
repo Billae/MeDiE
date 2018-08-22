@@ -17,11 +17,18 @@ int distribution_init(nb)
     int rc;
 
     rc = mlt_init(&table, N_entry, nb);
-    if (rc != 0)
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:init: mlt init error: %s\n", strerror(-rc));
         return -1;
+    }
+
     rc = eacl_init(&access_list, N_entry);
-    if (rc != 0)
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:init: eacl init error: %s\n", strerror(-rc));
         return -1;
+    }
 
     /*threads initialization*/
     return 0;

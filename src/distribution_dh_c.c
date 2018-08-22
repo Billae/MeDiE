@@ -13,7 +13,12 @@
 int distribution_init(nb)
 {
     int rc = mlt_init(&table, N_entry, nb);
-    return rc;
+    if (rc != 0) {
+        fprintf(stderr, "Distribution:init: mlt init error: %s\n",
+            strerror(-rc));
+        return -1;
+    }
+    return 0;
 }
 
 
@@ -110,7 +115,7 @@ int distribution_post_receive(json_object *reply)
         if (rc != 0) {
             fprintf(stderr,
                 "Distribution:post_receive: mlt update failed: %s\n",
-                strerror(rc));
+                strerror(-rc));
             return -1;
         }
 
@@ -132,7 +137,7 @@ int distribution_assign_srv_by_key(const char *key, json_object *request)
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:assign_srv_by_key: mlt error: %s\n",
-                strerror(rc));
+                strerror(-rc));
         return -1;
     }
 
