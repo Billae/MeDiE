@@ -38,6 +38,7 @@ int distribution_finalize();
 /** Operation to do after receiving the request from a client
  * - check the version number of the entry
  * - increment counter access in the eacl if the version number is valid
+ * - if the version number is invalid, give the right version and information related
  * - set flags
  * @param[in,out] request the request to verify
  * @return 0 on success and -1 on failure

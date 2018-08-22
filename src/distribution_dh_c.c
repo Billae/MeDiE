@@ -17,9 +17,12 @@ int distribution_init(nb)
 }
 
 
-/*TO DO*/
 int distribution_finalize()
 {
+    int rc = mlt_destroy(&table);
+    if (rc != 0)
+        fprintf(stderr, "Distribution:finalize: mlt_destroy failed\n");
+    return 0;
 
 }
 
@@ -30,7 +33,7 @@ int distribution_pre_send(json_object *request)
     json_object *data_key;
     if (!json_object_object_get_ex(request, "key", &data_key)) {
         fprintf(stderr,
-                "Distribution:pre_send:json extract error: no key \"key\" found\n");
+            "Distribution:pre_send:json extract error: no key \"key\" found\n");
         return -1;
     }
 
@@ -45,7 +48,7 @@ int distribution_pre_send(json_object *request)
     json_object *type;
     if (!json_object_object_get_ex(request, "reqType", &type)) {
         fprintf(stderr,
-                "Distribution:pre_send:json extract error: no key \"reqType\" found\n");
+            "Distribution:pre_send:json extract error: no key \"reqType\" found\n");
         return -1;
     }
 
@@ -60,7 +63,7 @@ int distribution_pre_send(json_object *request)
         int rc = distribution_assign_srv_by_key(key, request);
         if (rc != 0) {
             fprintf(stderr,
-                    "Distribution:pre_send: assignation server failed\n");
+                "Distribution:pre_send: assignation server failed\n");
             return -1;
         }
     }
@@ -68,20 +71,49 @@ int distribution_pre_send(json_object *request)
 }
 
 
-/*TO DO*/
 int distribution_post_receive(json_object *reply)
 {
     /*verifying the version number*/
     json_object *ver_flag;
     if (!json_object_object_get_ex(reply, "versionFlag", &ver_flag)) {
         fprintf(stderr,
-                "Distribution:post_receive: json extract error: no key \"version_flag\" found\n");
+            "Distribution:post_receive: json extract error: no key \"version_flag\" found\n");
         return -1;
     }
 
     /*mlt out of date*/
     if (strcmp(json_object_get_string(ver_flag), "up-to-date") !=  0) {
         /* update the local mlt*/
+        json_object *srv_true;
+        if (!json_object_object_get_ex(reply, "newSrv", &srv_true)) {
+            fprintf(stderr,
+                "Distribution:post_receive: json extract error: no key \"newSrv\" found\n");
+            return -1;
+        }
+
+        json_object *ver_true;
+        if (!json_object_object_get_ex(reply, "newVersion", &ver_true)) {
+            fprintf(stderr,
+                "Distribution:post_receive: json extract error: no key \"newVersion\" found\n");
+            return -1;
+        }
+
+        json_object *index;
+        if (!json_object_object_get_ex(reply, "index", &index)) {
+            fprintf(stderr,
+                "Distribution:post_receive: json extract error: no key \"index\" found\n");
+            return -1;
+        }
+
+        int rc = mlt_update_entry(&table, json_object_get_int(index),
+                json_object_get_int(srv_true), json_object_get_int(ver_true));
+        if (rc != 0) {
+            fprintf(stderr,
+                "Distribution:post_receive: mlt update failed: %s\n",
+                strerror(rc));
+            return -1;
+        }
+
     }
     return 0;
 }
@@ -99,7 +131,7 @@ int distribution_assign_srv_by_key(const char *key, json_object *request)
     int rc = mlt_get_entry(&table, index, &num_srv, &version);
     if (rc != 0) {
         fprintf(stderr,
-                "Distribution:assign_srv_by_key: mlt error: %s\n",
+            "Distribution:assign_srv_by_key: mlt error: %s\n",
                 strerror(rc));
         return -1;
     }
