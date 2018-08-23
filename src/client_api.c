@@ -4,8 +4,11 @@
 #include <json.h>
 #include <string.h>
 #include <errno.h>
+
+#include "protocol.h"
 #include "request.h"
 #include "client_api.h"
+
 
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_c.h"
@@ -61,7 +64,6 @@ int client_init_context(int nb_srv)
         char *positionEntree = strchr(id_srv, '\n');
         if (positionEntree != NULL)
             *positionEntree = '\0';
-
         servers[nb_servers] = client_init_connexion(id_srv);
         if (servers[nb_servers] == NULL) {
             fprintf(stderr, "Client API:init_context: init_connexion error\n");
@@ -114,7 +116,7 @@ void client_finalize_context()
 zsock_t *client_init_connexion(const char *id_srv)
 {
     char *socket;
-    if (asprintf(&socket, "tcp://%s", id_srv) == -1) {
+    if (asprintf(&socket, "tcp://%s:%d", id_srv, Client_port) == -1) {
         int err = errno;
         fprintf(stderr,
             "Client API:init_connexion: format zmq socket name error: %s\n",

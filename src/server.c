@@ -32,18 +32,26 @@ int main(int argc, char **argv)
 
     if (strcmp(argv[2], "p") == 0) {
         /*for pcocc VM*/
-        rep = zsock_new_rep("tcp://0.0.0.0:7410");
+        char *socket;
+        if (asprintf(&socket, "tcp://0.0.0.0:%d", Client_port) == -1) {
+            int err = errno;
+            fprintf(stderr,
+                "Server: format zmq socket name error: %s\n", strerror(err));
+            return -1;
+        }
+        
+        rep = zsock_new_rep(socket);
+        if (rep == NULL) {
+            fprintf(stderr, "Server: create zmq socket error\n");
+            return -1;
+        }
+
     }
 
     else {
         /*for ocre*/
-        if (argv[3] == NULL) {
-            fprintf(stderr, "please give a server port\n");
-            return -1;
-        }
-
         char *name;
-        asprintf(&name, "tcp://192.168.129.25:%s", argv[3]);
+        asprintf(&name, "tcp://192.168.129.25:%d", Client_port);
         rep = zsock_new_rep(name);
         if (rep == NULL) {
             fprintf(stderr, "Server: create zmq socket error\n");
