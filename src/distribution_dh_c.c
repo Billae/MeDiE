@@ -88,7 +88,7 @@ int distribution_post_receive(json_object *reply)
 
     /*mlt out of date*/
     if (strcmp(json_object_get_string(ver_flag), "up-to-date") !=  0) {
-        /* update the local mlt*/
+        /* updating the local mlt*/
         json_object *srv_true;
         if (!json_object_object_get_ex(reply, "newSrv", &srv_true)) {
             fprintf(stderr,

@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <string.h>
 #include <json.h>
+#include <pthread.h>
+#include <czmq.h>
 
 #include "distribution_dh_s.h"
 #include "mlt.h"
@@ -31,6 +33,15 @@ int distribution_init(nb)
     }
 
     /*threads initialization*/
+    pthread_t mlt_updater;
+    rc = pthread_create(&mlt_updater, NULL, &thread_mlt_updater, NULL);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:init: thread mlt updater init failed: %s\n",
+            strerror(rc));
+        return -1;
+    }
+
     return 0;
 }
 
@@ -82,19 +93,19 @@ int distribution_post_receive(json_object *request)
         ver_flag = json_object_new_string("out-of-date");
         json_object_object_add(request, "versionFlag", ver_flag);
 
-        /*add the right version*/
+        /*adding the right version*/
         json_object *srv_r = json_object_new_int(id_srv);
         json_object *version_r = json_object_new_int(ver);
 
         json_object_object_add(request, "newSrv", srv_r);
         json_object_object_add(request, "newVersion", version_r);
-        return 0;
+        return -EAGAIN;
     }
 
     ver_flag = json_object_new_string("up-to-date");
     json_object_object_add(request, "versionFlag", ver_flag);
 
-    /*increment counter access*/
+    /*incrementing counter access*/
     rc = eacl_incr_access(&access_list, json_object_get_int(entry));
     if (rc != 0)
         fprintf(stderr,
@@ -119,7 +130,30 @@ int distribution_transfert_load(int entry)
 /*TO DO*/
 void *thread_mlt_updater(void *args)
 {
+    /*opening a subscriber socket to the manager*/
+    char *socket;
+    //a changer pour pcocc
+    asprintf(&socket, "tcp://192.168.129.25:%d", Mlt_port);
 
+    zsock_t *sub;
+    sub = zsock_new_sub(socket, "test");
+    if (sub == NULL) {
+            fprintf(stderr,
+                "Distribution:thread_mlt_updater: create zmq socket error\n");
+            pthread_exit((void *)-1);
+    }
+
+    while(1)
+    {
+        char *update = zstr_recv(sub);
+        printf("ou");
+        /*updating the mlt*/
+        /*launching inter-server transferts*/
+    }
+
+    /*cleaning*/
+    zsock_destroy(&sub);
+    pthread_exit(0);
 }
 
 

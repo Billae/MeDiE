@@ -82,10 +82,9 @@ while (1) {
     if (rc < 0) {
         fprintf(stderr, "Server: distribution_post_receive failed\n");
         global_rc = -1;
-    }
-    else if (rc == EAGAIN) {
+    } else if (rc == -EAGAIN) {
         /*mlt out of date*/
-        global_rc = EAGAIN;
+        global_rc = -EAGAIN;
     }
 
     /*processing*/
@@ -138,7 +137,7 @@ while (1) {
     json_object *repFlag;
     if (global_rc == 0)
         repFlag = json_object_new_string("done");
-    else if (global_rc == EAGAIN)
+    else if (global_rc == -EAGAIN)
         repFlag = json_object_new_string("update&retry");
     else
         repFlag = json_object_new_string("aborted");

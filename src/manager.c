@@ -53,5 +53,25 @@ void *thread_timer(void *args)
 /*TO DO*/
 int main(int argc, char *argv[])
 {
+    char *socket;
+    //a changer pour pcocc
+    asprintf(&socket, "tcp://192.168.129.25:%d", Mlt_port);
+
+    zsock_t *pub;
+    pub = zsock_new_pub(socket);
+    if (pub == NULL) {
+            fprintf(stderr,
+                "create zmq socket error\n");
+            return -1;
+    }
+
+    while (1) {
+        zstr_send("test", "falala");
+        printf("manager\n");
+    }
+
+    /*cleaning*/
+    zsock_destroy(&pub);
+
     return 0;
 }
