@@ -69,7 +69,7 @@ int *manager_balance_load(int current_load, int goal_load, int *list);
 /** Thread which receive eacl and then update the mlt
  * using the relab computation
  * - open the publisher socket (to broadcast mlt)
- * - connect to all server with a subscriber socket (to get eacls)
+ * - open a pull socket to get eacls
  * - check for eacl updates
  * - when the update_needed variable is to 1 launch a relab compute
  *   and a mlt update

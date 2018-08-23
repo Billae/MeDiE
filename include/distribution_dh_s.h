@@ -74,7 +74,7 @@ void *thread_mlt_updater(void *args);
 
 
 /** Thread which will periodically wake up and send the eacl to the manager.
- * - open a publisher socket to send eacl
+ * - connect to the manager with a push socket to send eacl
  * - periodically send the eacl to the manager
  * **/
 void *thread_eacl_sender(void *args);
