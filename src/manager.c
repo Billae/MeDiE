@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
     //a changer pour pcocc
     asprintf(&socket, "tcp://192.168.129.25:%d", Mlt_port);
 
+    printf("trying to connect to %s\n", socket);
     zsock_t *pub;
     pub = zsock_new_pub(socket);
     if (pub == NULL) {
@@ -65,9 +66,12 @@ int main(int argc, char *argv[])
             return -1;
     }
 
-    while (1) {
-        zstr_send("test", "falala");
+    //while (1) {
+    int i;
+    for (i = 0; i < 10; i++) {
+        zstr_send(pub, "falala");
         printf("manager\n");
+        sleep(1);
     }
 
     /*cleaning*/

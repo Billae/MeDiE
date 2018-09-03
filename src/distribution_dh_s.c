@@ -135,18 +135,22 @@ void *thread_mlt_updater(void *args)
     //a changer pour pcocc
     asprintf(&socket, "tcp://192.168.129.25:%d", Mlt_port);
 
+    fprintf(stderr, "Trying to connect to %s\n", socket);
+
     zsock_t *sub;
-    sub = zsock_new_sub(socket, "test");
+    sub = zsock_new_sub(socket, "");
     if (sub == NULL) {
             fprintf(stderr,
                 "Distribution:thread_mlt_updater: create zmq socket error\n");
             pthread_exit((void *)-1);
     }
 
+    fprintf(stderr, "succeed\n");
+
     while(1)
     {
         char *update = zstr_recv(sub);
-        printf("ou");
+        fprintf(stderr, "%s", update);
         /*updating the mlt*/
         /*launching inter-server transferts*/
     }
