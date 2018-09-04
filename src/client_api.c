@@ -46,7 +46,6 @@ int client_init_context(int nb_srv)
         int err = errno;
         fprintf(stderr, "Client API:init_context: open hosts file error: %s\n",
             strerror(err));
-        free(servers);
         return 0;
     }
 
