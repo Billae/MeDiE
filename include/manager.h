@@ -16,22 +16,29 @@
 /*The manager has an eacl merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
  * own mlt which it can update (the manager has the "true" version of the mlt).
+ *  the update_needed variable indicate when the relab computation has to be launched. The timer thread set it to 1 periodically.
  * **/
 static struct eacl global_list;
 static struct mlt table;
 
+static int update_needed;
 
-/*variable indicating when a relab computation is needed
- * (periodically setted to 1)*/
-int update_needed;
 
 /** Initialize manager state
  * - init the mlt and the eacl
  * - create the timer thread (to enable periodic updates)
  *   and set update_needed to 0
+ * @param nb the number of available servers
  * @return 0 on success and -1 on failure
  * **/
-int init_manager();
+int manager_init(int nb);
+
+
+/** Finalize manager state
+ * - free allocated memory
+ * @return 0 on success and -1 on failure
+ * **/
+int manager_finalize();
 
 
 /** Merge a just received eacl with the global_list.
@@ -64,17 +71,6 @@ int manager_calculate_relab();
  * (ie can't add any element of list without to be too far of the goal_load)
  * **/
 int *manager_balance_load(int current_load, int goal_load, int *list);
-
-
-/** Thread which receive eacl and then update the mlt
- * using the relab computation
- * - open the publisher socket (to broadcast mlt)
- * - open a pull socket to get eacls
- * - check for eacl updates
- * - when the update_needed variable is to 1 launch a relab compute
- *   and a mlt update
- * **/
-void *thread_manager(void *args);
 
 
 /** Thread which will periodically wake up to set
