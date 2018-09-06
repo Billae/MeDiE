@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <czmq.h>
@@ -21,7 +23,7 @@ int main(int argc, char **argv)
     int rc;
     /*ocre usage need different port for each server*/
     if (argv[1] == NULL || argv[2] == NULL ||
-        strcmp(argv[2], "o") != 0 && strcmp(argv[2], "p") != 0) {
+        (strcmp(argv[2], "o") != 0 && strcmp(argv[2], "p") != 0)) {
 
         fprintf(stderr,
                 "please give the number of available servers and a server type o or p (and port if type is o)\n");

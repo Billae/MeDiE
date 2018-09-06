@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -132,7 +134,7 @@ int distribution_pre_send(json_object *reply)
 /*TO DO*/
 int distribution_transfert_load(int entry)
 {
-
+    return 0;
 }
 
 

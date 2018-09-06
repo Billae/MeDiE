@@ -1,7 +1,11 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <json.h>
 #include <errno.h>
+#include <string.h>
+
 #include "distribution_dh_c.h"
 #include "request.h"
 #include "protocol.h"

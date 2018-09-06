@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <czmq.h>
@@ -64,27 +66,27 @@ int manager_finalize()
 /*TO DO*/
 int manager_receive_eacl(struct eacl *new_list)
 {
-
+    return 0;
 }
 
 /*TO DO*/
 int manager_calculate_relab()
 {
-
+    return 0;
 }
 
 
 /*TO DO*/
 int *manager_balance_load(int current_load, int goal_load, int *list)
 {
-
+    return 0;
 }
 
 
 /*TO DO*/
 void *thread_timer(void *args)
 {
-
+    return 0;
 }
 
 
