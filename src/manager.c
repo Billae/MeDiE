@@ -141,16 +141,16 @@ int main(int argc, char *argv[])
             return -1;
     }
 
+    int i;
+    for (i = 0; i < 10; i++) {
+        char *eacl = zstr_recv(pull);
+        fprintf(stderr, "eacl received:%s\n", eacl);
     /*
     while (update_needed != 1) {
         zstr_recv(pull);
         rc = manager_receive_eacl();
     }*/
 
-
-
-    int i;
-    for (i = 0; i < 10; i++) {
         zstr_send(pub, "falala");
         sleep(1);
         fprintf(stderr, "sent\n");

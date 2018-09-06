@@ -38,7 +38,16 @@ int distribution_init(nb)
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:init: thread mlt updater init failed: %s\n",
-            strerror(rc));
+            strerror(-rc));
+        return -1;
+    }
+
+    pthread_t eacl_sender;
+    rc = pthread_create(&eacl_sender, NULL, &thread_eacl_sender, NULL);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:init: thread eacl sender init failed: %s\n",
+            strerror(-rc));
         return -1;
     }
 
@@ -145,6 +154,7 @@ void *thread_mlt_updater(void *args)
     while(1)
     {
         char *update = zstr_recv(sub);
+        fprintf(stderr, "MLT received: %s\n", update);
         /*updating the mlt*/
         /*launching inter-server transferts*/
     }
@@ -158,5 +168,31 @@ void *thread_mlt_updater(void *args)
 /*TO DO*/
 void *thread_eacl_sender(void *args)
 {
+    /*opening a push socket to the manager*/
+    char *socket;
+    /*a changer pour pcocc: l'adresse du manager*/
+    asprintf(&socket, "tcp://192.168.129.25:%d", Eacl_port);
+    zsock_t *push;
+    push = zsock_new_push(socket);
+    if (push == NULL) {
+            fprintf(stderr,
+                "Distribution:thread_eacl_sender: create zmq socket error\n");
+            pthread_exit((void *)-1);
+    }
+
+    while (1) {
+        int rc = eacl_calculate_sai(&access_list);
+        if (rc != 0) {
+            fprintf(stderr,
+                "Distribution:thread_eacl_sender: calculate SAI failed: %s\n",
+                strerror(-errno));
+        }
+        zstr_send(push, "test");
+        sleep(1);
+    }
+
+    /*cleaning*/
+    zsock_destroy(&push);
+    pthread_exit(0);
 
 }
