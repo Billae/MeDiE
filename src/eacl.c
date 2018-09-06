@@ -10,7 +10,6 @@
  * **/
 int eacl_init(struct eacl *self, int size)
 {
-    int i;
     int rc;
 
     /* check input arguments */
@@ -18,11 +17,11 @@ int eacl_init(struct eacl *self, int size)
         return -EINVAL;
 
     /* allocate and initialize arrays */
-    self->access_count = calloc(size, sizeof(int));
+    self->access_count = calloc(size, sizeof(uint32_t));
     if (self->access_count == NULL)
         return -ENOMEM;
 
-    self->sai = calloc(size, sizeof(int));
+    self->sai = calloc(size, sizeof(uint32_t));
     if (self->sai == NULL) {
         rc = -ENOMEM;
         goto out_free;

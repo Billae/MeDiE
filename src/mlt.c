@@ -20,11 +20,11 @@ int mlt_init(struct mlt *self, int size, int nb_srv)
         return -EINVAL;
 
     /* allocate and initialize arrays of MLT */
-    self->id_srv = calloc(size, sizeof(int));
+    self->id_srv = calloc(size, sizeof(uint32_t));
     if (self->id_srv == NULL)
         return -ENOMEM;
 
-    self->n_ver = calloc(size, sizeof(int));
+    self->n_ver = calloc(size, sizeof(uint32_t));
     if (self->n_ver == NULL) {
         rc = -ENOMEM;
         goto out_free;

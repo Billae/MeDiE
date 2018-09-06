@@ -1,6 +1,8 @@
 #ifndef __EACL_H__
 #define __EACL_H__
 
+#include <stdint.h>
+
 /**
  * @file eacl.h
  * @author E. Billa
@@ -8,14 +10,15 @@
  * **/
 
 /*each attribute of the structure is a colunm in the table
- * (i.e. an array after initialization). entry is the index,
- * access_count gives the access frequency of the entry
- * and sai is a computed value used to balance the workload*/
+ * (i.e. an array after initialization).
+ * - entry is the index,
+ * - access_count gives the access frequency of the entry
+ * - sai is a computed value used to balance the workload*/
 struct eacl {
-    int *access_count;
-    int *sai;
+    uint32_t *access_count;
+    uint32_t *sai;
 
-    int size;
+    uint32_t size;
 };
 
 

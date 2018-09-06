@@ -10,7 +10,7 @@ BIN_DIR=./bin
 
 
 EXEC=main
-CFLAGS+= -DDISTRIBUTION_DH
+CFLAGS+= -DDISTRIBUTION_DH -Wall
 LDFLAGS+= -lpthread
 
 all: $(EXEC)

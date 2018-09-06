@@ -2,7 +2,7 @@
 #define __MLT_H__
 
 #include <stdlib.h>
-
+#include <stdint.h>
 /**
  * @file mlt.h
  * @author E. Billa
@@ -20,10 +20,10 @@
  *    using a lock per raw instead of a global MLT lock.
  */
 struct mlt {
-    int             *id_srv;
-    int             *n_ver;
+    uint32_t *id_srv;
+    uint32_t *n_ver;
 
-    int             size;
+    uint32_t size;
     pthread_rwlock_t lock;
 };
 
