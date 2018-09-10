@@ -38,12 +38,11 @@ int eacl_init(struct eacl *self, int size);
 int eacl_incr_access(struct eacl *self, int index);
 
 
-/** Set to 0 the access counter of an entry.
+/** Set to 0 the access counter of all entries.
  * @param[out] self the requested eacl
- * @param[in] index the entry to reset
  * @return 0 on success and -1 on failure
  * **/
-int eacl_reset_access_entry(struct eacl *self, int index);
+int eacl_reset_access(struct eacl *self);
 
 
 /** Set to 0 all fields for an entry.
