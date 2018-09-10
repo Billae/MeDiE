@@ -143,35 +143,50 @@ int main(int argc, char *argv[])
             return -1;
     }
 
-    int i;
-    for (i = 0; i < 10; i++) {
-        zmsg_t *packet = zmsg_recv(pull);
-        if (packet == NULL)
-            fprintf(stderr, "Manager: zmq receive failed\n");
-        
-        struct eacl temp_eacl;
-        rc = eacl_init(&temp_eacl, N_entry);
-        
-        zframe_t *access_count_frame = zmsg_pop(packet);
-        byte *temp = zframe_data(access_count_frame);
-        memcpy(temp_eacl.access_count, temp, sizeof(uint32_t)*N_entry);
-        
-        zframe_t *sai_frame = zmsg_pop(packet);
-        temp = zframe_data(sai_frame);
-        memcpy(temp_eacl.sai, temp, sizeof(uint32_t)*N_entry);
-        
-        fprintf(stderr, "eacl received:%d %d\n", temp_eacl.access_count[0], temp_eacl.sai[0]);
-        
-        
-    /*
-    while (update_needed != 1) {
-        zstr_recv(pull);
-        rc = manager_receive_eacl();
-    }*/
+    while (1) {
+        time_t start = time(NULL);
+        zmsg_t *packet;
+        while ((time(NULL) - start) < 5) {
+            /*receiving eacls*/
+            packet = zmsg_recv(pull);
+            if (packet == NULL)
+                fprintf(stderr, "Manager: zmq receive failed\n");
 
-        zstr_send(pub, "falala");
-        sleep(1);
-        fprintf(stderr, "sent\n");
+            struct eacl temp_eacl;
+            rc = eacl_init(&temp_eacl, N_entry);
+
+            zframe_t *access_count_frame = zmsg_pop(packet);
+            byte *temp = zframe_data(access_count_frame);
+            memcpy(temp_eacl.access_count, temp, sizeof(uint32_t)*N_entry);
+
+            zframe_t *sai_frame = zmsg_pop(packet);
+            temp = zframe_data(sai_frame);
+            memcpy(temp_eacl.sai, temp, sizeof(uint32_t)*N_entry);
+
+            fprintf(stderr, "eacl received:%d %d\n",
+                temp_eacl.access_count[0], temp_eacl.sai[0]);
+        }
+        zmsg_destroy(&packet);
+
+        /*RELAB*/
+        rc = manager_calculate_relab();
+        if (rc != 0)
+            fprintf(stderr, "Manager: relab computation failed\n");
+
+        /*sending MLT*/
+        packet = zmsg_new();
+        zframe_t *id_srv_frame = zframe_new(table.id_srv,
+            sizeof(uint32_t) * table.size);
+        zmsg_append(packet, &id_srv_frame);
+
+        zframe_t *n_ver_frame = zframe_new(table.n_ver,
+            sizeof(uint32_t) * table.size);
+        zmsg_append(packet, &n_ver_frame);
+
+
+        rc = zmsg_send(&packet, pub);
+        if (rc != 0)
+            fprintf(stderr, "Manager: zmsg_send failed\n");
     }
 
     /*cleaning*/

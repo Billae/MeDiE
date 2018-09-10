@@ -152,11 +152,27 @@ void *thread_mlt_updater(void *args)
                 "Distribution:thread_mlt_updater: create zmq socket error\n");
             pthread_exit((void *)-1);
     }
-
+    int rc;
     while(1)
     {
-        char *update = zstr_recv(sub);
-        fprintf(stderr, "MLT received: %s\n", update);
+        struct mlt temp_mlt;
+        rc = mlt_init(&temp_mlt, N_entry, 1);
+        if (rc != 0)
+            fprintf(stderr,
+                "Distribution:thread_mlt_updater: temp_mlt init failed\n");
+
+        zmsg_t *packet = zmsg_recv(sub);
+        zframe_t *id_srv_frame = zmsg_pop(packet);
+        byte *temp = zframe_data(id_srv_frame);
+        memcpy(temp_mlt.id_srv, temp, sizeof(uint32_t) * N_entry);
+
+        zframe_t *n_ver_frame = zmsg_pop(packet);
+        temp = zframe_data(n_ver_frame);
+        memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
+
+
+        fprintf(stderr,
+            "MLT received: %d %d\n", temp_mlt.id_srv[0], temp_mlt.n_ver[0]);
         /*updating the mlt*/
         /*launching inter-server transferts*/
     }
@@ -194,15 +210,17 @@ void *thread_eacl_sender(void *args)
         zframe_t *access_count_frame = zframe_new(access_list.access_count,
             sizeof(uint32_t) * access_list.size);
         zmsg_append(packet, &access_count_frame);
+
         zframe_t *sai_frame = zframe_new(access_list.sai,
             sizeof(uint32_t) * access_list.size);
         zmsg_append(packet, &sai_frame);
+
 
         rc = zmsg_send(&packet, push);
         if (rc != 0)
             fprintf(stderr, "Distribution:thread_eacl_sender: zmsg_send failed\n");
 
-        sleep(1);
+        sleep(5);
     }
 
     /*cleaning*/
