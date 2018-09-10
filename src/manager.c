@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
     pub = zsock_new_pub(socket);
     if (pub == NULL) {
             fprintf(stderr,
-                "create zmq socket pub error\n");
+                "Manager: create zmq socket pub error\n");
             return -1;
     }
 
@@ -139,14 +139,30 @@ int main(int argc, char *argv[])
     pull = zsock_new_pull(socket);
     if (pull == NULL) {
             fprintf(stderr,
-                "create zmq socket pull error\n");
+                "Manager: create zmq socket pull error\n");
             return -1;
     }
 
     int i;
     for (i = 0; i < 10; i++) {
-        char *eacl = zstr_recv(pull);
-        fprintf(stderr, "eacl received:%s\n", eacl);
+        zmsg_t *packet = zmsg_recv(pull);
+        if (packet == NULL)
+            fprintf(stderr, "Manager: zmq receive failed\n");
+        
+        struct eacl temp_eacl;
+        rc = eacl_init(&temp_eacl, N_entry);
+        
+        zframe_t *access_count_frame = zmsg_pop(packet);
+        byte *temp = zframe_data(access_count_frame);
+        memcpy(temp_eacl.access_count, temp, sizeof(uint32_t)*N_entry);
+        
+        zframe_t *sai_frame = zmsg_pop(packet);
+        temp = zframe_data(sai_frame);
+        memcpy(temp_eacl.sai, temp, sizeof(uint32_t)*N_entry);
+        
+        fprintf(stderr, "eacl received:%d %d\n", temp_eacl.access_count[0], temp_eacl.sai[0]);
+        
+        
     /*
     while (update_needed != 1) {
         zstr_recv(pull);

@@ -189,7 +189,19 @@ void *thread_eacl_sender(void *args)
                 "Distribution:thread_eacl_sender: calculate SAI failed: %s\n",
                 strerror(-errno));
         }
-        zstr_send(push, "test");
+
+        zmsg_t *packet = zmsg_new();
+        zframe_t *access_count_frame = zframe_new(access_list.access_count,
+            sizeof(uint32_t) * access_list.size);
+        zmsg_append(packet, &access_count_frame);
+        zframe_t *sai_frame = zframe_new(access_list.sai,
+            sizeof(uint32_t) * access_list.size);
+        zmsg_append(packet, &sai_frame);
+
+        rc = zmsg_send(&packet, push);
+        if (rc != 0)
+            fprintf(stderr, "Distribution:thread_eacl_sender: zmsg_send failed\n");
+
         sleep(1);
     }
 
