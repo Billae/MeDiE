@@ -99,7 +99,7 @@ void *thread_timer(void *args)
  * - when the update_needed variable is to 1 launch a relab compute
  *   and a mlt update
  * **/
-/*TO DO*/
+
 int main(int argc, char *argv[])
 {
     if (argv[1] == NULL) {

@@ -15,7 +15,6 @@
 #include "murmur3.h"
 
 
-/*TO DO*/
 int distribution_init(nb)
 {
     int rc;
@@ -183,7 +182,6 @@ void *thread_mlt_updater(void *args)
 }
 
 
-/*TO DO*/
 void *thread_eacl_sender(void *args)
 {
     /*opening a push socket to the manager*/
@@ -219,8 +217,9 @@ void *thread_eacl_sender(void *args)
         rc = zmsg_send(&packet, push);
         if (rc != 0)
             fprintf(stderr, "Distribution:thread_eacl_sender: zmsg_send failed\n");
-
-        sleep(5);
+        rc = eacl_reset_access(&access_list);
+        sleep(2);
+        
     }
 
     /*cleaning*/
