@@ -12,6 +12,14 @@
 #include "eacl.h"
 
 
+/*The manager has an eacl merged from all servers eacl (each field filled
+ * with "0" in an eacl is a field not supported by this server). It has also its
+ * own mlt which it can update (the manager has the "true" version of the mlt).
+ * **/
+static struct eacl global_list;
+static struct mlt table;
+
+
 /*TO DO*/
 int manager_init(nb)
 {
@@ -29,8 +37,6 @@ int manager_init(nb)
             "Manager:init: eacl init error: %s\n", strerror(-rc));
         return -1;
     }
-
-    update_needed = 0;
 
     /*thread initialization*/
     pthread_t timer;
@@ -167,6 +173,9 @@ int main(int argc, char *argv[])
                 temp_eacl.access_count[0], temp_eacl.sai[0]);
         }
         zmsg_destroy(&packet);
+
+        /*merge temp_eacl and global_list*/
+
 
         /*RELAB*/
         rc = manager_calculate_relab();

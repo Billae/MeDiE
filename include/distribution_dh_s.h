@@ -13,12 +13,6 @@
 #include "eacl.h"
 
 
-/*Each server has its own mlt and its own eacl with access counter accessed
- * only in the distribution functions*/
-static struct mlt table;
-static struct eacl access_list;
-
-
 /** Initialize distribution context
  * - init the mlt and and the eacl
  * - create a thread to maintain updated the mlt and

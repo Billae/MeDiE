@@ -12,10 +12,6 @@
 #include "protocol.h"
 
 
-/*Each client has its own mlt accessed only in the distribution functions*/
-static struct mlt table;
-
-
 /** Initialize distribution context
  * - init the mlt
  * @param[in] nb number of available servers

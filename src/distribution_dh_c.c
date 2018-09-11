@@ -10,6 +10,10 @@
 #include "murmur3.h"
 
 
+/*Each client has its own mlt accessed only in the distribution functions*/
+static struct mlt table;
+
+
 int distribution_init(nb)
 {
     int rc = mlt_init(&table, N_entry, nb);

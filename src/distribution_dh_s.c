@@ -15,6 +15,12 @@
 #include "murmur3.h"
 
 
+/*Each server has its own mlt and its own eacl with access counter accessed
+ * only in the distribution functions*/
+static struct mlt table;
+static struct eacl access_list;
+
+
 int distribution_init(nb)
 {
     int rc;

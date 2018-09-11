@@ -13,17 +13,6 @@
 #include "eacl.h"
 
 
-/*The manager has an eacl merged from all servers eacl (each field filled
- * with "0" in an eacl is a field not supported by this server). It has also its
- * own mlt which it can update (the manager has the "true" version of the mlt).
- *  the update_needed variable indicate when the relab computation has to be launched. The timer thread set it to 1 periodically.
- * **/
-static struct eacl global_list;
-static struct mlt table;
-
-static int update_needed;
-
-
 /** Initialize manager state
  * - init the mlt and the eacl
  * - create the timer thread (to enable periodic updates)
