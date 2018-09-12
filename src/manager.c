@@ -11,11 +11,11 @@
 #include "eacl.h"
 
 
-/*The manager has an eacl merged from all servers eacl (each field filled
+/*The manager has an sai list merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
  * own mlt which it can update (the manager has the "true" version of the mlt).
  * **/
-static struct eacl global_list;
+static uint32_t *global_list;
 static struct mlt table;
 
 
@@ -30,10 +30,10 @@ int manager_init(nb)
         return -1;
     }
 
-    rc = eacl_init(&global_list, N_entry);
-    if (rc != 0) {
+    global_list = calloc(N_entry, sizeof(uint32_t));
+    if (global_list == NULL) {
         fprintf(stderr,
-            "Manager:init: eacl init error: %s\n", strerror(-rc));
+            "Manager:init: global sai init error\n");
         return -1;
     }
 
@@ -49,9 +49,7 @@ int manager_finalize()
     if (rc != 0)
         fprintf(stderr, "Manager:finalize: mlt_destroy failed\n");
 
-    rc = eacl_destroy(&global_list);
-    if (rc != 0)
-        fprintf(stderr, "Manager:finalize: eacl_destroy failed\n");
+    free(global_list);
 
     return 0;
 }
@@ -153,6 +151,7 @@ int main(int argc, char *argv[])
             if (rc != 0)
                 fprintf(stderr, "Manager: merge eacl with global failed\n");
             free(temp_sai);
+            fprintf(stderr, "global sai updated: %d\n", global_list[0]);
         }
         zmsg_destroy(&packet);
 
