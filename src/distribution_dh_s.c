@@ -20,6 +20,14 @@
 static struct mlt table;
 static struct eacl access_list;
 
+/*Eeach server has its own id_srv*/
+static int id_srv_self;
+
+/*ocre*/
+#define ip_manager "192.168.129.25"
+/*pcocc*/
+//#define ip_manager "10.252.0.1"
+
 
 int distribution_init(nb)
 {
@@ -38,6 +46,36 @@ int distribution_init(nb)
             "Distribution:init: eacl init error: %s\n", strerror(-rc));
         return -1;
     }
+
+    /*getting id_srv_self*/
+    int max_id_size = 20;
+    char *id_srv;
+    id_srv = malloc(max_id_size*sizeof(*id_srv));
+    if (id_srv == NULL) {
+        int err = errno;
+        fprintf(stderr, "Distribution:init: id_srv malloc error: %s\n",
+            strerror(err));
+        return 0;
+    }
+
+    FILE *fd = fopen("etc/server.cfg", "r");
+    if (fd == NULL) {
+        fprintf(stderr, "Distribution:init: open server.cfg file failed\n");
+        return -1;
+    }
+    if (fgets(id_srv, max_id_size, fd) == NULL) {
+        fprintf(stderr, "Distribution:init: read config file failed\n");
+        return -1;
+    }
+    char *positionEntree = strchr(id_srv, '\n');
+    if (positionEntree != NULL)
+        *positionEntree = '\0';
+
+    char *value = strstr(id_srv, "ID");
+    value = strchr(value, '=');
+    value++;
+    id_srv_self = atoi(value);
+    fprintf(stderr, "valeur apres ID: -> %d\n", id_srv_self);
 
     /*threads initialization*/
     pthread_t mlt_updater;
@@ -148,14 +186,13 @@ void *thread_mlt_updater(void *args)
 {
     /*opening a subscriber socket to the manager*/
     char *socket;
-    /*a changer pour pcocc: l'adresse du manager*/
-    asprintf(&socket, "tcp://192.168.129.25:%d", Mlt_port);
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Mlt_port);
     zsock_t *sub;
     sub = zsock_new_sub(socket, "");
     if (sub == NULL) {
-            fprintf(stderr,
-                "Distribution:thread_mlt_updater: create zmq socket error\n");
-            pthread_exit((void *)-1);
+        fprintf(stderr,
+            "Distribution:thread_mlt_updater: create zmq socket error\n");
+        pthread_exit((void *)-1);
     }
     int rc;
     while(1)
@@ -193,7 +230,7 @@ void *thread_eacl_sender(void *args)
     /*opening a push socket to the manager*/
     char *socket;
     /*a changer pour pcocc: l'adresse du manager*/
-    asprintf(&socket, "tcp://192.168.129.25:%d", Eacl_port);
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
     zsock_t *push;
     push = zsock_new_push(socket);
     if (push == NULL) {

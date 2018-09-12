@@ -20,9 +20,9 @@
 #endif
 
 /* path in pcocc*/
-//#define PATH "/home/billae/prototype_MDS/hosts.conf"
+//#define PATH "/home/billae/prototype_MDS/etc/hosts.conf"
 /*path in ocre*/
-#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/hosts.conf"
+#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.conf"
 
 #define max_id_size 21
 
