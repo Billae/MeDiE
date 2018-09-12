@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <czmq.h>
 #include <errno.h>
-#include <pthread.h>
 
 #include "manager.h"
 #include "protocol.h"
@@ -38,21 +37,10 @@ int manager_init(nb)
         return -1;
     }
 
-    /*thread initialization*/
-    pthread_t timer;
-    rc = pthread_create(&timer, NULL, &thread_timer, NULL);
-    if (rc != 0) {
-        fprintf(stderr,
-            "Manager:init: thread timer init failed: %s\n",
-            strerror(rc));
-        return -1;
-    }
-
     return 0;
 }
 
 
-/*TO DO*/
 int manager_finalize()
 {
     int rc;
@@ -70,7 +58,7 @@ int manager_finalize()
 
 
 /*TO DO*/
-int manager_receive_eacl(struct eacl *new_list)
+int manager_merge_eacl(struct eacl *new_list)
 {
     return 0;
 }
@@ -89,20 +77,12 @@ int *manager_balance_load(int current_load, int goal_load, int *list)
 }
 
 
-/*TO DO*/
-void *thread_timer(void *args)
-{
-    return 0;
-}
-
-
 /** Receive eacl and then update the mlt
  * using the relab computation
  * - open the publisher socket (to broadcast mlt)
  * - open a pull socket to get eacls
- * - launch the timer thread
  * - check for eacl updates
- * - when the update_needed variable is to 1 launch a relab compute
+ * - periodically launch a relab compute
  *   and a mlt update
  * **/
 
@@ -150,6 +130,7 @@ int main(int argc, char *argv[])
     }
 
     while (1) {
+
         time_t start = time(NULL);
         zmsg_t *packet;
         while ((time(NULL) - start) < 5) {
@@ -171,10 +152,12 @@ int main(int argc, char *argv[])
 
             fprintf(stderr, "eacl received:%d %d\n",
                 temp_eacl.access_count[0], temp_eacl.sai[0]);
+
+            rc = manager_merge_eacl(&temp_eacl);
+            if (rc != 0)
+                fprintf(stderr, "Manager: merge eacl with global failed\n");
         }
         zmsg_destroy(&packet);
-
-        /*merge temp_eacl and global_list*/
 
 
         /*RELAB*/

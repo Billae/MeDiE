@@ -14,9 +14,6 @@
 
 
 /** Initialize manager state
- * - init the mlt and the eacl
- * - create the timer thread (to enable periodic updates)
- *   and set update_needed to 0
  * @param nb the number of available servers
  * @return 0 on success and -1 on failure
  * **/
@@ -35,7 +32,7 @@ int manager_finalize();
  * @param[in] new_list the list to merge
  * @return 0 on success and -1 on failure
  * **/
-int manager_receive_eacl(struct eacl *new_list);
+int manager_merge_eacl(struct eacl *new_list);
 
 
 /** Algorithm to rebalance workload of each server
@@ -61,10 +58,5 @@ int manager_calculate_relab();
  * **/
 int *manager_balance_load(int current_load, int goal_load, int *list);
 
-
-/** Thread which will periodically wake up to set
- * the update_needed variable to 1
- * **/
-void *thread_timer(void *args);
 
 #endif
