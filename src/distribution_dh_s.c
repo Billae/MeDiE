@@ -61,10 +61,12 @@ int distribution_init(nb)
     FILE *fd = fopen("etc/server.cfg", "r");
     if (fd == NULL) {
         fprintf(stderr, "Distribution:init: open server.cfg file failed\n");
+        free(id_srv);
         return -1;
     }
     if (fgets(id_srv, max_id_size, fd) == NULL) {
         fprintf(stderr, "Distribution:init: read config file failed\n");
+        free(id_srv);
         return -1;
     }
     char *positionEntree = strchr(id_srv, '\n');
@@ -75,7 +77,10 @@ int distribution_init(nb)
     value = strchr(value, '=');
     value++;
     id_srv_self = atoi(value);
-    fprintf(stderr, "valeur apres ID: -> %d\n", id_srv_self);
+    
+    free(id_srv);
+    fclose(fd);
+
 
     /*threads initialization*/
     pthread_t mlt_updater;

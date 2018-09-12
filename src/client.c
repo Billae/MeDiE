@@ -52,6 +52,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "Request failed\n");
             if (rc == -EAGAIN)
                 i--;
+        free(key);
     }
 
     rc = clock_gettime(CLOCK_REALTIME, &end);

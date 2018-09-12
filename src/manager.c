@@ -128,6 +128,7 @@ int main(int argc, char *argv[])
                 "Manager: create zmq socket pull error\n");
             return -1;
     }
+    free(socket);
 
     while (1) {
 
@@ -156,6 +157,10 @@ int main(int argc, char *argv[])
             rc = manager_merge_eacl(&temp_eacl);
             if (rc != 0)
                 fprintf(stderr, "Manager: merge eacl with global failed\n");
+            rc = eacl_destroy(&temp_eacl);
+            if (rc != 0)
+                fprintf(stderr, "Manager: temp_eacl destroy failed\n");
+
         }
         zmsg_destroy(&packet);
 
