@@ -93,7 +93,7 @@ int distribution_init(nb)
     }
 
     pthread_t eacl_sender;
-    rc = pthread_create(&eacl_sender, NULL, &thread_eacl_sender, NULL);
+    rc = pthread_create(&eacl_sender, NULL, &thread_sai_sender, NULL);
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:init: thread eacl sender init failed: %s\n",
@@ -230,7 +230,7 @@ void *thread_mlt_updater(void *args)
 }
 
 
-void *thread_eacl_sender(void *args)
+void *thread_sai_sender(void *args)
 {
     /*opening a push socket to the manager*/
     char *socket;
@@ -240,7 +240,7 @@ void *thread_eacl_sender(void *args)
     push = zsock_new_push(socket);
     if (push == NULL) {
             fprintf(stderr,
-                "Distribution:thread_eacl_sender: create zmq socket error\n");
+                "Distribution:thread_sai_sender: create zmq socket error\n");
             pthread_exit((void *)-1);
     }
 
@@ -248,15 +248,11 @@ void *thread_eacl_sender(void *args)
         int rc = eacl_calculate_sai(&access_list);
         if (rc != 0) {
             fprintf(stderr,
-                "Distribution:thread_eacl_sender: calculate SAI failed: %s\n",
+                "Distribution:thread_sai_sender: calculate SAI failed: %s\n",
                 strerror(-errno));
         }
 
         zmsg_t *packet = zmsg_new();
-        zframe_t *access_count_frame = zframe_new(access_list.access_count,
-            sizeof(uint32_t) * access_list.size);
-        zmsg_append(packet, &access_count_frame);
-
         zframe_t *sai_frame = zframe_new(access_list.sai,
             sizeof(uint32_t) * access_list.size);
         zmsg_append(packet, &sai_frame);
@@ -264,7 +260,8 @@ void *thread_eacl_sender(void *args)
 
         rc = zmsg_send(&packet, push);
         if (rc != 0)
-            fprintf(stderr, "Distribution:thread_eacl_sender: zmsg_send failed\n");
+            fprintf(stderr,
+                    "Distribution:thread_sai_sender: zmsg_send failed\n");
         rc = eacl_reset_access(&access_list);
         sleep(2);
 

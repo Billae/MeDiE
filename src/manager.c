@@ -58,7 +58,7 @@ int manager_finalize()
 
 
 /*TO DO*/
-int manager_merge_eacl(struct eacl *new_list)
+int manager_merge_eacl(uint32_t *new_list)
 {
     return 0;
 }
@@ -135,32 +135,24 @@ int main(int argc, char *argv[])
         time_t start = time(NULL);
         zmsg_t *packet;
         while ((time(NULL) - start) < 5) {
+
             /*receiving eacls*/
             packet = zmsg_recv(pull);
             if (packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
 
-            struct eacl temp_eacl;
-            rc = eacl_init(&temp_eacl, N_entry);
-
-            zframe_t *access_count_frame = zmsg_pop(packet);
-            byte *temp = zframe_data(access_count_frame);
-            memcpy(temp_eacl.access_count, temp, sizeof(uint32_t)*N_entry);
+            uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
 
             zframe_t *sai_frame = zmsg_pop(packet);
-            temp = zframe_data(sai_frame);
-            memcpy(temp_eacl.sai, temp, sizeof(uint32_t)*N_entry);
+            byte *temp = zframe_data(sai_frame);
+            memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
 
-            fprintf(stderr, "eacl received:%d %d\n",
-                temp_eacl.access_count[0], temp_eacl.sai[0]);
+            fprintf(stderr, "sai received:%d\n", temp_sai[0]);
 
-            rc = manager_merge_eacl(&temp_eacl);
+            rc = manager_merge_eacl(temp_sai);
             if (rc != 0)
                 fprintf(stderr, "Manager: merge eacl with global failed\n");
-            rc = eacl_destroy(&temp_eacl);
-            if (rc != 0)
-                fprintf(stderr, "Manager: temp_eacl destroy failed\n");
-
+            free(temp_sai);
         }
         zmsg_destroy(&packet);
 

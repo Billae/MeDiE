@@ -27,12 +27,12 @@ int manager_init(int nb);
 int manager_finalize();
 
 
-/** Merge a just received eacl with the global_list.
+/** Merge a just received sai field with the global_list.
  * All fields filled with "0" are ignored.
  * @param[in] new_list the list to merge
  * @return 0 on success and -1 on failure
  * **/
-int manager_merge_eacl(struct eacl *new_list);
+int manager_merge_eacl(uint32_t *new_list);
 
 
 /** Algorithm to rebalance workload of each server
