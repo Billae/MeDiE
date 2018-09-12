@@ -55,9 +55,13 @@ int manager_finalize()
 }
 
 
-/*TO DO*/
 int manager_merge_eacl(uint32_t *new_list)
 {
+    int i;
+    for (i = 0; i < N_entry; i++) {
+        if (new_list[i] != 0)
+            global_list[i] = new_list[i];
+    }
     return 0;
 }
 
