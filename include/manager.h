@@ -42,21 +42,10 @@ int manager_merge_eacl(uint32_t *new_list);
  * - find a subset of entries in each overloaded server
  *   that match with the load it has to give (defined in the previous step)
  * - update the mlt with these load transferts
+ * @param[in] nb number of available servers
  * @return 0 on success and -1 on failure
  * **/
-int manager_calculate_relab();
-
-
-/** Give a subset of elements in list which
- * added to current_load become goal_load.
- * It is a greedy algorithm of giving money back (in O(n)).
- * @param current_load the starting load
- * @param goal_load the load we want to approche
- * @param list list of available loads for adding to current_load
- * @return the subset of list when the algorithm finish
- * (ie can't add any element of list without to be too far of the goal_load)
- * **/
-int *manager_balance_load(int current_load, int goal_load, int *list);
+int manager_calculate_relab(int nb);
 
 
 #endif

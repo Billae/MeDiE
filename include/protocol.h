@@ -28,6 +28,9 @@
 #define Transfert_port 7413
 
 
+/*w_factor is the performance factor of each server*/
+#define w_factor 1
+
 enum req_type {
     RT_CREATE   = 1,
     RT_READ     = 2,

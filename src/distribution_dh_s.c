@@ -20,7 +20,7 @@
 static struct mlt table;
 static struct eacl access_list;
 
-/*Eeach server has its own id_srv*/
+/*Each server has its own id_srv*/
 static int id_srv_self;
 
 /*ocre*/
@@ -217,11 +217,13 @@ void *thread_mlt_updater(void *args)
         temp = zframe_data(n_ver_frame);
         memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
 
-
-        fprintf(stderr,
-            "MLT received: %d %d\n", temp_mlt.id_srv[0], temp_mlt.n_ver[0]);
+        int i;
+        for (i = 0; i < N_entry; i++) {
+            fprintf(stderr, "MLT received: index=%d -- %d %d\n",
+                i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
         /*updating the mlt*/
         /*launching inter-server transferts*/
+        }
     }
 
     /*cleaning*/
