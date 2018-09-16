@@ -2,6 +2,6 @@
 
 host=$(hostname)
 
-cat << EOF > etc/server.cfg
+cat << EOF > prototype_MDS/etc/server.cfg
 ID=${host//[^0-9]/}
 EOF

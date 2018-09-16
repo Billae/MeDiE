@@ -58,7 +58,7 @@ int distribution_init(nb)
         return 0;
     }
 
-    FILE *fd = fopen("etc/server.cfg", "r");
+    FILE *fd = fopen("prototype_MDS/etc/server.cfg", "r");
     if (fd == NULL) {
         fprintf(stderr, "Distribution:init: open server.cfg file failed\n");
         free(id_srv);

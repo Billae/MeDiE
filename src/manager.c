@@ -10,6 +10,10 @@
 #include "mlt.h"
 #include "eacl.h"
 
+/*pcocc*/
+//#define ip_manager "0.0.0.0"
+/*ocre*/
+#define ip_manager "192.168.129.25"
 
 /*The manager has an sai list merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
@@ -367,8 +371,7 @@ int main(int argc, char *argv[])
 
     /* Open the publisher socket to broadcast mlt updates*/
 
-    /*a changer pour pcocc: 0.0.0.0*/
-    asprintf(&socket, "tcp://192.168.129.25:%d", Mlt_port);
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Mlt_port);
     zsock_t *pub;
     pub = zsock_new_pub(socket);
     if (pub == NULL) {
@@ -380,8 +383,7 @@ int main(int argc, char *argv[])
 
     /*Open the pull socket to receive eacl updates*/
 
-    /*a changer pour pcocc: 0.0.0.0*/
-    asprintf(&socket, "tcp://192.168.129.25:%d", Eacl_port);
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
     zsock_t *pull;
     pull = zsock_new_pull(socket);
     if (pull == NULL) {
