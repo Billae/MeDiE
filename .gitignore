@@ -1,13 +1,15 @@
 #On ignore les swap
 *.swp
-#On ignore les rÃpertoires builds et bin
+#On ignore les repertoires builds et bin
 /bin/
 /build/
+#On ignore les fichiers de conf propre aux serveurs
+/etc
 #On ignore les données
 /dataStore/
 #Chacun son Makefile
 Makefile.inc
 #Chacun son liste d'ip
 hosts.conf
-#Le lien du mekefile depends de la distrib utilisée
+#Le lien du makefile depend de la distrib utilisée
 Makefile

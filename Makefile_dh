@@ -15,7 +15,7 @@ LDFLAGS+= -lpthread
 
 all: $(EXEC)
 
-$(EXEC): c s m
+$(EXEC): c s m g
 
 #client
 c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution_dh_c.o $(OBJ_DIR)/murmur3.o $(OBJ_DIR)/mlt.o $(INC_DIR)/protocol.h
@@ -28,6 +28,10 @@ s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_dh_s
 #manager
 m: $(OBJ_DIR)/manager.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl.o
 	@$(CC) $^ -o $(BIN_DIR)/manager $(CFLAGS) $(LDFLAGS)
+
+#generator
+g: $(OBJ_DIR)/gen_collision_prefix.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
+	@$(CC) $^ -o $(BIN_DIR)/generator $(CFLAGS) $(LDFLAGS)
 
 $(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/request.h $(INC_DIR)/distribution_dh_c.h $(INC_DIR)/protocol.h
 	@$(CC) -c $< -o $@ $(CFLAGS)
