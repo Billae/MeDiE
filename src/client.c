@@ -10,6 +10,11 @@
 #define BILLION  1000000000L
 #define NB_REQUESTS 10000
 
+/* path in pcocc*/
+//#define ID_PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
+/*path in ocre*/
+#define ID_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id.cfg"
+
 int main(int argc, char **argv)
 {
     if (argv[1] == NULL || argv[2] == NULL) {
@@ -32,6 +37,19 @@ int main(int argc, char **argv)
     /*create pattern to request different key each time*/
     char *key;
     int i = 0;
+   /*use file for collisions*/
+    FILE *fd = fopen(ID_PATH, "r");
+    int key_list_size = 10000;
+    char *key_list[key_list_size];
+    for (i = 0; i < key_list_size; i++) {
+        key_list[i] = malloc(10*sizeof(char));
+        if (fgets(key_list[i], 10, fd) == NULL) {
+            fprintf(stderr, "key reading failed\n");
+        return -1;
+        }
+    }
+
+
 
     struct timespec start, end;
 
@@ -40,14 +58,17 @@ int main(int argc, char **argv)
         printf("Client: getting time error\n");
 
     for (i = 0; i < NB_REQUESTS; i++) {
-        if (asprintf(&key, "%s%d", argv[2], i) == -1) {
+        /*for prefix use*/
+        /*    if (asprintf(&key, "%s%d", argv[2], i) == -1) {
             int err = errno;
             fprintf(stderr, "Client: generating key error:%s\n", strerror(err));
             client_finalize_context();
             return -1;
         }
 
-        rc = client_request_create(key, data);
+        rc = client_request_create(key, data);*/
+        /*for collision use*/
+        rc = client_request_create(key_list[i], data);
         if (rc != 0)
             fprintf(stderr, "Request failed\n");
             if (rc == -EAGAIN)
@@ -64,6 +85,8 @@ int main(int argc, char **argv)
 
 // warning: the stdout stream is catched to get time value, don't flood it!
     printf("%lf", accum);
+    for (i = 0; i < key_list_size; i++)
+        free(key_list[i]);
     client_finalize_context();
     return 0;
 }
