@@ -20,9 +20,9 @@
 #endif
 
 /* path in pcocc*/
-//#define PATH "/home/billae/prototype_MDS/etc/hosts.conf"
+//#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.conf"
 /*path in ocre*/
-#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.conf"
+#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.conf"
 
 #define max_id_size 21
 
@@ -43,7 +43,7 @@ int client_init_context(int nb_srv)
         return 0;
     }
 
-    FILE *fd = fopen(PATH, "r");
+    FILE *fd = fopen(HOST_PATH, "r");
     if (fd == NULL) {
         int err = errno;
         fprintf(stderr, "Client API:init_context: open hosts file error: %s\n",

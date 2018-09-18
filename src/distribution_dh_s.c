@@ -28,6 +28,12 @@ static int id_srv_self;
 /*pcocc*/
 //#define ip_manager "10.252.0.1"
 
+/* path in pcocc*/
+//#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+/*path in ocre*/
+#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
+
+
 
 int distribution_init(nb)
 {
@@ -58,9 +64,11 @@ int distribution_init(nb)
         return 0;
     }
 
-    FILE *fd = fopen("prototype_MDS/etc/server.cfg", "r");
+    FILE *fd = fopen(SRV_PATH, "r");
     if (fd == NULL) {
-        fprintf(stderr, "Distribution:init: open server.cfg file failed\n");
+        int err = errno;
+        fprintf(stderr, "Distribution:init: open server.cfg file failed: %s\n",
+            strerror(err));
         free(id_srv);
         return -1;
     }
