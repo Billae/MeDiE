@@ -81,12 +81,12 @@ while (1) {
 
     /*call the distribution processing*/
     rc = distribution_post_receive(request);
-    if (rc < 0) {
-        fprintf(stderr, "Server: distribution_post_receive failed\n");
-        global_rc = -1;
-    } else if (rc == -EAGAIN) {
+    if (rc == -EAGAIN) {
         /*mlt out of date*/
         global_rc = -EAGAIN;
+    } else if (rc < 0) {
+        fprintf(stderr, "Server: distribution_post_receive failed\n");
+        global_rc = -1;
     }
 
     /*processing*/

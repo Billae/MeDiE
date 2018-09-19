@@ -151,6 +151,7 @@ int distribution_post_receive(json_object *request)
     int rc = mlt_get_entry(&table, json_object_get_int(entry), &id_srv, &ver);
 
     if (rc != 0)
+        fprintf(stderr, "Distribution:post_receive: mlt get entry failed\n");
         return -1;
 
     json_object *ver_flag;
