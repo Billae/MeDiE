@@ -84,9 +84,11 @@ while (1) {
     if (rc == -EAGAIN) {
         /*mlt out of date*/
         global_rc = -EAGAIN;
+        goto reply;
     } else if (rc < 0) {
         fprintf(stderr, "Server: distribution_post_receive failed\n");
         global_rc = -1;
+        goto reply;
     }
 
     /*processing*/
@@ -129,7 +131,7 @@ while (1) {
 
 
     /*creating reply and send*/
-
+reply:
     rc = distribution_pre_send(request);
     if (rc != 0) {
         fprintf(stderr, "Server: distribution_post_receive failed\n");
