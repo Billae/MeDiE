@@ -9,7 +9,7 @@
 
 #define BILLION  1000000000L
 #define NB_REQUESTS 10000
-
+#define MAX_SIZE_ID 20
 /* path in pcocc*/
 //#define ID_PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
 /*path in ocre*/
@@ -39,14 +39,17 @@ int main(int argc, char **argv)
     int i = 0;
    /*use file for collisions*/
     FILE *fd = fopen(ID_PATH, "r");
-    int key_list_size = 10000;
-    char *key_list[key_list_size];
-    for (i = 0; i < key_list_size; i++) {
-        key_list[i] = malloc(10*sizeof(char));
-        if (fgets(key_list[i], 10, fd) == NULL) {
+    char *key_list[NB_REQUESTS];
+    for (i = 0; i < NB_REQUESTS; i++) {
+        key_list[i] = malloc(MAX_SIZE_ID*sizeof(char));
+        if (fgets(key_list[i], MAX_SIZE_ID, fd) == NULL) {
             fprintf(stderr, "key reading failed\n");
-        return -1;
+            client_finalize_context();
+            return -1;
         }
+        char *positionEntree = strchr(key_list[i], '\n');
+        if (positionEntree != NULL)
+            *positionEntree = '\0';
     }
 
 
@@ -85,7 +88,7 @@ int main(int argc, char **argv)
 
 // warning: the stdout stream is catched to get time value, don't flood it!
     printf("%lf", accum);
-    for (i = 0; i < key_list_size; i++)
+    for (i = 0; i < NB_REQUESTS; i++)
         free(key_list[i]);
     client_finalize_context();
     return 0;

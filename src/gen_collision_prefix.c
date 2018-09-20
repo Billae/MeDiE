@@ -6,8 +6,8 @@
 #include <string.h>
 #include "murmur3.h"
 #include "mlt.h"
+#include "protocol.h"
 
-#define N_entry 80
 #define iter 100000
 
 /* path in pcocc*/
