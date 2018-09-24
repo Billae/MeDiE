@@ -98,7 +98,9 @@ int manager_balance_load(
     qsort(list, list_size, sizeof(int), comparator);
     int i;
     for (i = 0; i < list_size; i++) {
-        if ((sum + list[i]) <= 0) {
+        if ((sum + list[i]) <= goal_load) {
+            if (list[i] == 0)
+                break;
             sum += list[i];
             subset[idx] = list[i];
             idx++;
@@ -229,14 +231,6 @@ int manager_calculate_relab(int nb)
     for (i = 0; i < size_s; i++) {
         size_c = manager_balance_load
             (load[subset_s[i]], subset_l, size_l, 0, subset_c);
-        if (size_c == 0) {
-            fprintf(stderr, "manage_balance_load() failed\n");
-            free(all);
-            free(subset_l);
-            free(subset_s);
-            free(target);
-            return -1;
-        }
 
         fprintf(stderr, "loads to give to server %d:\n", subset_s[i]);
         int j;
@@ -302,21 +296,12 @@ int manager_calculate_relab(int nb)
             /*pick a subset of sai to obtain load*/
             size_sai = manager_balance_load
                 (0, subset_srv, size_srv, load[i], subset_sai);
-            if (size_sai == 0) {
-                fprintf(stderr, "manage_balance_load() failed\n");
-                free(all);
-                free(subset_l);
-                free(subset_s);
-                free(target);
-                return -1;
-            }
-
 
             fprintf(stderr, "List of SAI to obtain the load to give:\n");
             /*update the MLT*/
             for (j = 0; j < size_sai; j++) {
                 int k;
-                fprintf(stderr, "%d, ", subset_sai[i]);
+                fprintf(stderr, "%d, ", subset_sai[j]);
                 for (k = 0; k < N_entry; k++) {
                     if (global_list[k] == subset_sai[j]) {
                         int srv, version;
