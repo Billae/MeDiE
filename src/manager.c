@@ -141,6 +141,9 @@ int manager_calculate_relab(int nb)
     }
 
     int i;
+    for (i = 0; i < nb; i++)
+        all[i] = 0;
+    
     int sum_all = 0;
     for (i = 0; i < N_entry; i++) {
         int srv, version;
