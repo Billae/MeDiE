@@ -3,6 +3,10 @@
 #include <errno.h>
 #include <stdlib.h>
 
+/*alpha is a forgotten factor (0<alpha<1)*/
+#define ALPHA (0.5)
+
+
 /** Initialize the structure with size entries. Other fields are setted to 0.
  * @param[out] self the eacl to fill in
  * @param[in] size number of entries in the table
@@ -101,13 +105,8 @@ int eacl_calculate_sai(struct eacl *self)
     if (!self)
         return -EINVAL;
 
-    for (i = 0; i < self->size; i++) {
-        /* FIXME
-         * For this initial code draft we use
-         *  sai = access_count, but this has to be changed for the
-         *  actual formula. */
-        self->sai[i] = self->access_count[i];
-    }
+    for (i = 0; i < self->size; i++)
+        self->sai[i] = (1 - ALPHA)*self->sai[i] + ALPHA * self->access_count[i];
 
     return 0;
 }
