@@ -196,11 +196,9 @@ int manager_calculate_relab(int nb)
             size_l++;
         } else if (load[i] < 0) {
             subset_s[size_s] = i;
-            size_l++;
+            size_s++;
         }
     }
-    size_l++;
-    size_s++;
 
 
     /*target is the index of idle server to give load*/
@@ -232,6 +230,7 @@ int manager_calculate_relab(int nb)
         size_c = manager_balance_load
             (load[subset_s[i]], subset_l, size_l, 0, subset_c);
 
+        fprintf(stderr, "loads to give to server %d:\n", subset_s[i]);
         int j;
         for (j = 0; j < size_c; j++) {
             /*fill target*/
@@ -288,16 +287,16 @@ int manager_calculate_relab(int nb)
                     size_srv++;
                 }
             }
-            size_srv++;
 
             /*pick a subset of sai to obtain load*/
             size_c = manager_balance_load
                 (0, subset_srv, size_srv, load[i], subset_c);
 
-
+            fprintf(stderr, "List of SAI to obtain the load to give:\n");
             /*update the MLT*/
             for (j = 0; j < size_c; j++) {
                 int k;
+                fprintf(stderr, "%d, ", subset_c[i]);
                 for (k = 0; k < N_entry; k++) {
                     if (global_list[k] == subset_c[j]) {
                         int srv, version;
