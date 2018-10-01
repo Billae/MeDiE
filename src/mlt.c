@@ -26,9 +26,16 @@ int mlt_init(struct mlt *self, int size, int nb_srv)
 
     self->n_ver = calloc(size, sizeof(uint32_t));
     if (self->n_ver == NULL) {
+        free(self->id_srv);
+        return -ENOMEM;
+    }
+
+    self->state = calloc(size, sizeof(uint32_t));
+    if (self->state == NULL) {
         rc = -ENOMEM;
         goto out_free;
     }
+
 
     self->size = size;
 
@@ -42,6 +49,7 @@ int mlt_init(struct mlt *self, int size, int nb_srv)
     for (i = 0; i < size; i++) {
         self->id_srv[i] = i % nb_srv;
         self->n_ver[i] = 0;
+        self->state[i] = 0;
     }
 
     return 0;
@@ -58,15 +66,17 @@ out_free:
  * @param[in] mlt_idx the line in the table to update
  * @param[in] srv_idx the new ID for the entry
  * @param[in] ver the version number of the entry
+ * @param[in] state transfert state of the entry
  * @return 0 on success and -<error code> on failure
  *
  * **/
-int mlt_update_entry(struct mlt *self, int mlt_idx, int srv_idx, int ver)
+int mlt_update_entry(struct mlt *self,
+    int mlt_idx, int srv_idx, int ver, int state)
 {
     int rc;
 
     /* check input arguments */
-    if (!self || mlt_idx < 0 || srv_idx < 0)
+    if (!self || mlt_idx < 0 || srv_idx < 0 || (state != 0 && state != 1))
         return -EINVAL;
     if (mlt_idx >= self->size)
         return -EOVERFLOW;
@@ -78,6 +88,7 @@ int mlt_update_entry(struct mlt *self, int mlt_idx, int srv_idx, int ver)
 
     self->id_srv[mlt_idx] = srv_idx;
     self->n_ver[mlt_idx] = ver;
+    self->state[mlt_idx] = state;
 
     /* unlock & return */
     return -pthread_rwlock_unlock(&self->lock);
@@ -89,14 +100,15 @@ int mlt_update_entry(struct mlt *self, int mlt_idx, int srv_idx, int ver)
  * @param[in] mlt_idx the entry to retrieve
  * @param[out] srv server responsible of the entry
  * @param[out] ver version number of the entry
+ * @param[out] state transfert state of the entry
  * @return 0 on success and -<error code> on failure
  * **/
-int mlt_get_entry(struct mlt *self, int mlt_idx, int *srv, int *ver)
+int mlt_get_entry(struct mlt *self, int mlt_idx, int *srv, int *ver, int *state)
 {
     int rc;
 
     /* check input arguments */
-    if (!self || mlt_idx < 0 || !srv || !ver)
+    if (!self || mlt_idx < 0 || !srv || !ver || !state)
         return -EINVAL;
     if (mlt_idx >= self->size)
         return -EOVERFLOW;
@@ -108,6 +120,7 @@ int mlt_get_entry(struct mlt *self, int mlt_idx, int *srv, int *ver)
 
     *srv = self->id_srv[mlt_idx];
     *ver = self->n_ver[mlt_idx];
+    *state = self->state[mlt_idx];
 
     /* unlock & return */
     return -pthread_rwlock_unlock(&self->lock);
@@ -118,6 +131,7 @@ int mlt_destroy(struct mlt *self)
 {
     free(self->id_srv);
     free(self->n_ver);
+    free(self->state);
     pthread_rwlock_destroy(&self->lock);
     return 0;
 }

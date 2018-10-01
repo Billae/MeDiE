@@ -85,6 +85,10 @@ while (1) {
         /*mlt out of date*/
         global_rc = -EAGAIN;
         goto reply;
+    } else if (rc == -EALREADY) {
+        /*operation on mlt. wait and retry*/
+        global_rc = -EALREADY;
+        goto reply;
     } else if (rc < 0) {
         fprintf(stderr, "Server: distribution_post_receive failed\n");
         global_rc = -1;
@@ -143,6 +147,8 @@ reply:
         repFlag = json_object_new_string("done");
     else if (global_rc == -EAGAIN)
         repFlag = json_object_new_string("update&retry");
+    else if (global_rc == -EALREADY)
+        repFlag = json_object_new_string("wait&retry");
     else
         repFlag = json_object_new_string("aborted");
 

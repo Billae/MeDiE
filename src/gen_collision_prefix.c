@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
         MurmurHash3_x86_32(name, strlen(name), seed, &h_out);
         int index = h_out%N_entry;
 
-        int num_srv, version;
-        rc = mlt_get_entry(&table, index, &num_srv, &version);
+        int num_srv, version, state;
+        rc = mlt_get_entry(&table, index, &num_srv, &version, &state);
         if (rc != 0) {
             fprintf(stderr, "mlt get entry failed\n");
             return -1;

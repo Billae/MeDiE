@@ -115,7 +115,7 @@ int distribution_post_receive(json_object *reply)
         }
 
         int rc = mlt_update_entry(&table, json_object_get_int(index),
-                json_object_get_int(srv_true), json_object_get_int(ver_true));
+            json_object_get_int(srv_true), json_object_get_int(ver_true), 0);
         if (rc != 0) {
             fprintf(stderr,
                 "Distribution:post_receive: mlt update failed: %s\n",
@@ -137,7 +137,8 @@ int distribution_assign_srv_by_key(const char *key, json_object *request)
 
     int num_srv;
     int version;
-    int rc = mlt_get_entry(&table, index, &num_srv, &version);
+    int state;
+    int rc = mlt_get_entry(&table, index, &num_srv, &version, &state);
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:assign_srv_by_key: mlt error: %s\n",

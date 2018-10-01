@@ -201,11 +201,19 @@ int client_request_create(const char *key, const char *data)
             fprintf(stderr, "Client API:request_create: free reply error\n");
         /*printf("operation validated\n");*/
         return 0;
+
     } else if (strcmp(json_object_get_string(rep_flag), "update&retry") == 0) {
         /*cleaning*/
         if (json_object_put(reply) != 1)
-            fprintf(stderr, "Client API:request_create: free reply error\n");
+            fprintf(stderr, "client api:request_create: free reply error\n");
         return -EAGAIN;
+
+    } else if (strcmp(json_object_get_string(rep_flag), "wait&retry") == 0) {
+        /*cleaning*/
+        if (json_object_put(reply) != 1)
+            fprintf(stderr, "client api:request_create: free reply error\n");
+        return -EAGAIN;
+
     } else {
         /*cleaning*/
         if (json_object_put(reply) != 1)

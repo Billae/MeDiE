@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <czmq.h>
 #include <errno.h>
+
 #include <math.h>
 #include "manager.h"
 #include "protocol.h"
@@ -148,8 +149,8 @@ int manager_calculate_relab(int nb)
     
     int sum_all = 0;
     for (i = 0; i < N_entry; i++) {
-        int srv, version;
-        rc = mlt_get_entry(&table, i, &srv, &version);
+        int srv, version, state;
+        rc = mlt_get_entry(&table, i, &srv, &version, &state);
         if (rc != 0) {
             fprintf(stderr, "Manager:calculate_relab: mlt get entry failed\n");
             free(all);
@@ -272,8 +273,8 @@ int manager_calculate_relab(int nb)
             int j;
             /*find loads for the server i*/
             for (j = 0; j < N_entry; j++) {
-                int srv, version;
-                rc = mlt_get_entry(&table, i, &srv, &version);
+                int srv, version, state;
+                rc = mlt_get_entry(&table, i, &srv, &version, &state);
                 if (rc != 0) {
                     fprintf(stderr,
                         "Manager:calculate_relab: mlt get entry failed\n");
@@ -304,8 +305,8 @@ int manager_calculate_relab(int nb)
                 fprintf(stderr, "%d, ", subset_sai[j]);
                 for (k = 0; k < N_entry; k++) {
                     if (global_list[k] == subset_sai[j]) {
-                        int srv, version;
-                        rc = mlt_get_entry(&table, i, &srv, &version);
+                        int srv, version, state;
+                        rc = mlt_get_entry(&table, i, &srv, &version, &state);
                          if (rc != 0) {
                             fprintf(stderr,
                                 "Manager:calculate_relab: mlt get entry failed\n");
@@ -319,7 +320,7 @@ int manager_calculate_relab(int nb)
                         }
                         if (srv == i) {
                             rc = mlt_update_entry
-                                (&table, k, target[i], version + 1);
+                                (&table, k, target[i], version + 1, 0);
                             if (rc != 0) {
                                 fprintf(stderr,
                                     "Manager:calculate_relab: mlt update entry failed\n");

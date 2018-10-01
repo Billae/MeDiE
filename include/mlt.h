@@ -14,6 +14,9 @@
  * (i.e. an array after initialization).
  *  - id_srv gives the server responsible of this entry;
  *  - n_ver indicates the latest version number of the entry;
+ *  - state indicates if the entry is being transfering or not.
+ *  0 indicates the entry is up-to-date
+ *  and 1 indicates the entry is being transfered.
  *  - size stores the allocated array size.
  *  - lock protects the whole table for current accesses.
  *    NB: as access gain is per raw, this could be optimized by
@@ -22,7 +25,7 @@
 struct mlt {
     uint32_t *id_srv;
     uint32_t *n_ver;
-
+    uint32_t *state;
     uint32_t size;
     pthread_rwlock_t lock;
 };
@@ -43,9 +46,11 @@ int mlt_init(struct mlt *self, int size, int nb_srv);
  * @param[in] mlt_idx the line in the table to update
  * @param[in] srv_idx the new ID for the entry
  * @param[in] ver the version number of the entry
+ * @param[in] state transfert state of the entry
  * @return 0 on success and -<error code> on failure
  * **/
-int mlt_update_entry(struct mlt *self, int mlt_idx, int srv_idx, int ver);
+int mlt_update_entry(
+        struct mlt *self, int mlt_idx, int srv_idx, int ver, int state);
 
 
 /** Give the server and the version number of an entry
@@ -53,9 +58,11 @@ int mlt_update_entry(struct mlt *self, int mlt_idx, int srv_idx, int ver);
  * @param[in] mlt_idx the entry to retrieve
  * @param[out] srv server responsible of the entry
  * @param[out] ver version number of the entry
+ * @param[out] state transfert state of the entry
  * @return 0 on success and -<error code> on failure
  * **/
-int mlt_get_entry(struct mlt *self, int mlt_idx, int *srv, int *ver);
+int mlt_get_entry(
+        struct mlt *self, int mlt_idx, int *srv, int *ver, int *state);
 
 
 /**

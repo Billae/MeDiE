@@ -8,14 +8,14 @@ static int mlt_dump(struct mlt *mlt)
     int i;
 
     for (i = 0; i < mlt->size; i++) {
-        int srv, ver;
-        rc =  mlt_get_entry(mlt, i, &srv, &ver);
+        int srv, ver, state;
+        rc =  mlt_get_entry(mlt, i, &srv, &ver, &state);
         if (rc) {
             fprintf(stderr, "Failed to get raw %d: %s\n",
                     i, strerror(-rc));
             return rc;
         }
-        printf("[%d] id_srv = %d, ver = %d\n", i, srv, ver);
+        printf("[%d] id_srv = %d, ver = %d, state = %d\n", i, srv, ver, state);
     }
 
     return 0;
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
         new_srv = rand() % nb_srv;
         new_ver = rand() % 1000;
 
-        rc = mlt_update_entry(&mlt, change_idx, new_srv, new_ver);
+        rc = mlt_update_entry(&mlt, change_idx, new_srv, new_ver, 0);
         if (rc) {
             fprintf(stderr, "mlt_update_entry error: %s\n", strerror(-rc));
             exit(EXIT_FAILURE);
