@@ -4,7 +4,7 @@
 /bin/
 /build/
 #On ignore les fichiers de conf propre aux serveurs
-/etc
+/etc/
 #On ignore les données
 /dataStore/
 #Chacun son Makefile
