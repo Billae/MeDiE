@@ -37,7 +37,11 @@ int main(void)
     printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
 
     out = md_entry_pop(&tab[0]);
-    printf("entry=%d, md_name=%s\n\n\n", out->entry, out->md_name);
+    printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
+
+    out = md_entry_pop(&tab[0]);
+    if (out == NULL)
+        printf("nothing to pop\n\n\n\n");
 
     for (i = 0; i < 5; i++) {
         struct md_entry *current = tab[i];

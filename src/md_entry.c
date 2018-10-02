@@ -25,6 +25,9 @@ void md_entry_insert(struct md_entry **head, struct md_entry *elem)
 
 struct md_entry *md_entry_pop(struct md_entry **head)
 {
+    if (!*head)
+        return NULL;
+
     struct md_entry *temp = *head;
     *head = (*head)->next;
     return temp;
