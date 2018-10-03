@@ -7,6 +7,7 @@
 #include <json.h>
 #include <pthread.h>
 #include <czmq.h>
+#include <pthread.h>
 
 #include "distribution_dh_s.h"
 #include "mlt.h"
@@ -25,7 +26,7 @@ static int id_srv_self;
 
 /*Array of linked list to know all md in charge for each server*/
 static struct md_entry **in_charge_md;
-
+static pthread_rwlock_t locks[N_entry];
 /*ocre*/
 #define ip_manager "192.168.129.25"
 /*pcocc*/
@@ -101,8 +102,14 @@ int distribution_init(nb)
         return -1;
     }
     int i;
-    for (i = 0; i < N_entry; i++)
+    for (i = 0; i < N_entry; i++) {
         in_charge_md[i] = NULL;
+        rc = -pthread_rwlock_init(&locks[i], NULL);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:init: lock creation failed\n");
+            return -1;
+        }
+    }
 
     /*threads initialization*/
     pthread_t mlt_updater;
@@ -147,6 +154,7 @@ int distribution_finalize()
             elem = md_entry_pop(&in_charge_md[i]);
             free(elem);    
         }
+        pthread_rwlock_destroy(&locks[i]);
     }
 }
 
@@ -214,6 +222,7 @@ int distribution_post_receive(json_object *request)
 
 int distribution_pre_send(json_object *reply, int global_rc)
 {
+    int rc;
     if (global_rc == 0) {
          /*update the in_charge_md array if needed*/
         json_object *type;
@@ -250,12 +259,24 @@ int distribution_pre_send(json_object *reply, int global_rc)
             for (i = 0; i < N_entry; i++) {
                 ptr = in_charge_md[i];
                 if (ptr == NULL) {
+                    rc = -pthread_rwlock_wrlock(&locks[i]);
+                    if (rc != 0)
+                        return -1;
                     md_entry_insert(&in_charge_md[i], to_add);
+                    rc = -pthread_rwlock_unlock(&locks[i]);
+                    if (rc != 0)
+                        return -1;
                     break;
                 }
                 if (ptr->entry == json_object_get_int(entry)) {
                     md_entry_insert(&ptr, to_add);
+                    rc = -pthread_rwlock_wrlock(&locks[i]);
+                    if (rc != 0)
+                        return -1;
                     break;
+                    rc = -pthread_rwlock_unlock(&locks[i]);
+                    if (rc != 0)
+                        return -1;
                 }
             }
         } else if (reqType == RT_DELETE) {
@@ -285,7 +306,13 @@ int distribution_pre_send(json_object *reply, int global_rc)
                     return -1;
                 }
                 if (ptr->entry == json_object_get_int(entry)) {
+                    rc = -pthread_rwlock_wrlock(&locks[i]);
+                    if (rc != 0)
+                        return -1;
                     ptr = md_entry_search_md_name(&ptr, str_key);
+                    rc = -pthread_rwlock_unlock(&locks[i]);
+                    if (rc != 0)
+                        return -1;
                     free(ptr->md_name);
                     free(ptr);
                     break;
