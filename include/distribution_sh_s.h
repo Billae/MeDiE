@@ -27,7 +27,7 @@ int distribution_post_receive(json_object *request);
 
 /** Operation to do before sending the reply to the client
  * **/
-int distribution_pre_send(json_object *reply);
+int distribution_pre_send(json_object *reply, int global_rc);
 
 
 #endif

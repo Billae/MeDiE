@@ -16,7 +16,7 @@ int distribution_finalize()
 {}
 
 
-int distribution_post_receive(json_object *request)
+int distribution_post_receive(json_object *request, int global_rc)
 {}
 
 

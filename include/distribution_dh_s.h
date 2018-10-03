@@ -43,9 +43,10 @@ int distribution_post_receive(json_object *request);
 /** Operation to do before send the reply to the client
  * - set flags
  * @param[out] reply the reply to complete
+ * @param[in] global_rc the global state of the request
  * @return 0 on success and -1 on failure
  * **/
-int distribution_pre_send(json_object *reply);
+int distribution_pre_send(json_object *reply, int global_rc);
 
 
 /** Transfert data of an entry to another server (or reverse case)

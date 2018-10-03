@@ -136,7 +136,7 @@ while (1) {
 
     /*creating reply and send*/
 reply:
-    rc = distribution_pre_send(request);
+    rc = distribution_pre_send(request, global_rc);
     if (rc != 0) {
         fprintf(stderr, "Server: distribution_post_receive failed\n");
         global_rc = -1;
