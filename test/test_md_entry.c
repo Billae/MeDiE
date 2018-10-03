@@ -32,16 +32,27 @@ int main(void)
         }
     }
 
+    struct md_entry *test = md_entry_search_md_name(&tab[0], "another");
+    printf("searching another: %s\n\n", test->md_name);
+
     printf("poping items:\n");
     struct md_entry *out = md_entry_pop(&tab[0]);
-    printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
-
-    out = md_entry_pop(&tab[0]);
-    printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
+    if (out == NULL)
+        printf("nothing to pop\n\n\n\n");
+    else
+        printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
 
     out = md_entry_pop(&tab[0]);
     if (out == NULL)
         printf("nothing to pop\n\n\n\n");
+    else
+        printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
+
+    out = md_entry_pop(&tab[0]);
+    if (out == NULL)
+        printf("nothing to pop\n\n\n\n");
+    else
+        printf("entry=%d, md_name=%s\n", out->entry, out->md_name);
 
     for (i = 0; i < 5; i++) {
         struct md_entry *current = tab[i];

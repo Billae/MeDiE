@@ -32,3 +32,23 @@ struct md_entry *md_entry_pop(struct md_entry **head)
     *head = (*head)->next;
     return temp;
 }
+
+struct md_entry *md_entry_search_md_name(struct md_entry **head, char *name)
+{
+    struct md_entry *current = *head;
+    struct md_entry *prev = NULL;
+    while (current != NULL) {
+        if (current->md_name == name) {
+            if (prev == NULL) {
+                *head = current->next;
+                return current;
+            } else {
+            prev->next = current->next;
+            return current;
+            }
+        }
+        prev = current;
+        current = current->next;
+    }
+    return NULL;
+}

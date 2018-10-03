@@ -26,4 +26,6 @@ void md_entry_insert(struct md_entry **head, struct md_entry *elem);
 /** Retrieve the first element of the linked list **/
 struct md_entry *md_entry_pop(struct md_entry **head);
 
+struct md_entry *md_entry_search_md_name(struct md_entry **head, char *name);
+
 #endif
