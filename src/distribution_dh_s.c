@@ -13,7 +13,7 @@
 #include "eacl.h"
 #include "protocol.h"
 #include "murmur3.h"
-
+#include "md_entry.h"
 
 /*Each server has its own mlt and its own eacl with access counter accessed
  * only in the distribution functions*/
@@ -22,6 +22,9 @@ static struct eacl access_list;
 
 /*Each server has its own id_srv*/
 static int id_srv_self;
+
+/*Array of linked list to know all md in charge for each server*/
+static struct md_entry **in_charge_md;
 
 /*ocre*/
 #define ip_manager "192.168.129.25"
@@ -90,6 +93,17 @@ int distribution_init(nb)
     fclose(fd);
 
 
+    in_charge_md = malloc(N_entry * sizeof(struct md_entry *));
+    if (in_charge_md == NULL) {
+        int err = errno;
+        fprintf(stderr, "Distribuion:init: in_charge malloc error: %s\n",
+            strerror(err));
+        return -1;
+    }
+    int i;
+    for (i = 0; i < N_entry; i++)
+        in_charge_md[i] = NULL;
+
     /*threads initialization*/
     pthread_t mlt_updater;
     rc = pthread_create(&mlt_updater, NULL, &thread_mlt_updater, NULL);
@@ -125,6 +139,15 @@ int distribution_finalize()
     if (rc != 0)
         fprintf(stderr, "Distribution:finalize: eacl_destroy failed\n");
     return 0;
+
+    struct md_entry *elem;
+    int i;
+    for (i = 0; i < N_entry; i++) {
+        while (in_charge_md[i] != NULL) {
+            elem = md_entry_pop(&in_charge_md[i]);
+            free(elem);    
+        }
+    }
 }
 
 
@@ -185,12 +208,91 @@ int distribution_post_receive(json_object *request)
     if (rc != 0)
         fprintf(stderr,
             "Distribution:post_receive: eacl_incr_access failed\n");
-    return 0;
+   return 0;
 }
 
 
 int distribution_pre_send(json_object *reply, int global_rc)
 {
+    if (global_rc == 0) {
+         /*update the in_charge_md array if needed*/
+        json_object *type;
+        if (!json_object_object_get_ex(reply, "reqType", &type)) {
+            fprintf(stderr, "Distribution:pre_send: json extract error:");
+            fprintf(stderr, "no key \"reqType\" found\n");
+            return -1;
+        }
+        enum req_type reqType = json_object_get_int(type);
+
+        if (reqType == RT_CREATE) {
+            /*add the key in the in_charge_md array*/
+            json_object *key;
+            if (!json_object_object_get_ex(reply, "key", &key)) {
+                fprintf(stderr, "Distribution:pre_send: json extract error:");
+                fprintf(stderr, "no key \"key\" found\n");
+                return -1;
+            }
+            char *str_key;
+            asprintf(&str_key, "%s", json_object_get_string(key));
+
+            json_object *entry;
+            if (!json_object_object_get_ex(reply, "index", &entry)) {
+                fprintf(stderr, "Distribution:pre_send: json extract error:");
+                fprintf(stderr, "no key \"index\" found\n");
+                return -1;
+            }
+
+            struct md_entry *to_add = malloc(sizeof(struct md_entry));
+            md_entry_init(to_add, json_object_get_int(entry), str_key);
+
+            struct md_entry *ptr;
+            int i;
+            for (i = 0; i < N_entry; i++) {
+                ptr = in_charge_md[i];
+                if (ptr == NULL) {
+                    md_entry_insert(&in_charge_md[i], to_add);
+                    break;
+                }
+                if (ptr->entry == json_object_get_int(entry)) {
+                    md_entry_insert(&ptr, to_add);
+                    break;
+                }
+            }
+        } else if (reqType == RT_DELETE) {
+            /*remove the key in the in_charge_md array*/
+            json_object *key;
+            if (!json_object_object_get_ex(reply, "key", &key)) {
+                fprintf(stderr, "Distribution:pre_send: json extract error:");
+                fprintf(stderr, "no key \"key\" found\n");
+                return -1;
+            }
+            char *str_key;
+            asprintf(&str_key, "%s", json_object_get_string(key));
+
+            json_object *entry;
+            if (!json_object_object_get_ex(reply, "index", &entry)) {
+                fprintf(stderr, "Distribution:pre_send: json extract error:");
+                fprintf(stderr, "no key \"index\" found\n");
+                return -1;
+            }
+            struct md_entry *ptr;
+            int i;
+            for (i = 0; i < N_entry; i++) {
+                ptr = in_charge_md[i];
+                if (ptr == NULL) {
+                    fprintf(stderr, "Distribution:pre_send:");
+                    fprintf(stderr, "remove key from in_charge_md failed\n");
+                    return -1;
+                }
+                if (ptr->entry == json_object_get_int(entry)) {
+                    ptr = md_entry_search_md_name(&ptr, str_key);
+                    free(ptr->md_name);
+                    free(ptr);
+                    break;
+                }
+            }
+        }
+    }
     return 0;
 }
 
@@ -218,7 +320,7 @@ void *thread_mlt_updater(void *args)
     int rc;
     while(1)
     {
-        struct mlt temp_mlt;
+       struct mlt temp_mlt;
         rc = mlt_init(&temp_mlt, N_entry, 1);
         if (rc != 0)
             fprintf(stderr,
@@ -232,7 +334,7 @@ void *thread_mlt_updater(void *args)
         zframe_t *n_ver_frame = zmsg_pop(packet);
         temp = zframe_data(n_ver_frame);
         memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
-        
+
         free(temp);
 
         int i;

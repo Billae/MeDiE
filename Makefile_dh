@@ -22,7 +22,7 @@ c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/d
 	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
 
 #serveur
-s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_dh_s.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl.o $(INC_DIR)/protocol.h
+s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_dh_s.o $(OBJ_DIR)/md_entry.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl.o $(INC_DIR)/protocol.h
 	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
 
 #manager
