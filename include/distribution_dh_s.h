@@ -49,15 +49,26 @@ int distribution_post_receive(json_object *request);
 int distribution_pre_send(json_object *reply, int global_rc);
 
 
-/** Transfert data of an entry to another server (or reverse case)
- * depending on the new mlt
- * - open a socket: if free server a rep socket and
- *   if overloaded server a req socket
- * - send or receive data associated with the entry
+/** Transfert data of an entry to another server
+ * depending on the table given in argument
+ * - open a req socket
+ * - send md associated to the entries
  * - close the socket
+ * @param[in] args the to_do list
  * @return 0 on success and -1 on failure
  * **/
-int distribution_transfert_load(int entry);
+void *thread_load_sender(void *args);
+
+
+/** Transfert data of an entry from another server
+ * depending on the table given in argument
+ * - open a rep socket
+ * - receive md associated to the entries
+ * - close the socket
+ * @param[in] args the to_do list
+ * @return 0 on success and -1 on failure
+ * **/
+void *thread_load_receiver(void *args);
 
 
 /** Thread dedicated to keeping the mlt up-to-date

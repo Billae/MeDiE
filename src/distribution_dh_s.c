@@ -349,9 +349,15 @@ int distribution_pre_send(json_object *reply, int global_rc)
 
 
 /*TO DO*/
-int distribution_transfert_load(int entry)
+void *thread_load_sender(void *args)
 {
-    return 0;
+    pthread_exit(0);
+}
+
+/*TO DO*/
+void *thread_load_receiver(void *args)
+{
+    pthread_exit(0);
 }
 
 
@@ -390,10 +396,10 @@ void *thread_mlt_updater(void *args)
         for (i = 0; i < N_entry; i++) {
             fprintf(stderr, "MLT received: index=%d -- %d %d\n",
                 i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
-            /*updating the mlt*/
-
-        /*launching inter-server transferts*/
+            /*updating the mlt and fill the to_do list for sender and receiver*/
         }
+        /*launching inter-server transferts*/
+
         rc = mlt_destroy(&temp_mlt);
         if (rc != 0)
             fprintf(stderr, "MLT destroy failed\n");
