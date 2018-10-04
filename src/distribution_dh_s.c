@@ -371,7 +371,7 @@ void *thread_mlt_updater(void *args)
     int rc;
     while(1)
     {
-       struct mlt temp_mlt;
+        struct mlt temp_mlt;
         rc = mlt_init(&temp_mlt, N_entry, 1);
         if (rc != 0)
             fprintf(stderr,
@@ -385,8 +385,6 @@ void *thread_mlt_updater(void *args)
         zframe_t *n_ver_frame = zmsg_pop(packet);
         temp = zframe_data(n_ver_frame);
         memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
-
-        free(temp);
 
         int i;
         for (i = 0; i < N_entry; i++) {
