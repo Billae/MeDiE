@@ -89,7 +89,7 @@ int distribution_init(nb)
     value = strchr(value, '=');
     value++;
     id_srv_self = atoi(value);
-    
+
     free(id_srv);
     fclose(fd);
 
@@ -152,7 +152,7 @@ int distribution_finalize()
     for (i = 0; i < N_entry; i++) {
         while (in_charge_md[i] != NULL) {
             elem = md_entry_pop(&in_charge_md[i]);
-            free(elem);    
+            free(elem);
         }
         pthread_rwlock_destroy(&locks[i]);
     }
@@ -224,7 +224,7 @@ int distribution_pre_send(json_object *reply, int global_rc)
 {
     int rc;
     if (global_rc == 0) {
-         /*update the in_charge_md array if needed*/
+        /*update the in_charge_md array if needed*/
         json_object *type;
         if (!json_object_object_get_ex(reply, "reqType", &type)) {
             fprintf(stderr, "Distribution:pre_send: json extract error:");
@@ -392,11 +392,45 @@ void *thread_mlt_updater(void *args)
         temp = zframe_data(n_ver_frame);
         memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
 
+
         int i;
         for (i = 0; i < N_entry; i++) {
             fprintf(stderr, "MLT received: index=%d -- %d %d\n",
                 i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
+
             /*updating the mlt and fill the to_do list for sender and receiver*/
+            int old_srv, old_ver, old_state;
+            rc = mlt_get_entry(&table, i, &old_srv, &old_ver, &old_state);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_mlt_updater");
+                fprintf(stderr, ": get mlt failed: %s\n", strerror(-rc));
+            }
+
+            int new_srv, new_ver, new_state;
+            rc = mlt_get_entry(&temp_mlt, i, &new_srv, &new_ver, &new_state);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_mlt_updater");
+                fprintf(stderr, ": get mlt failed: %s\n", strerror(-rc));
+            }
+
+            if (old_ver != new_ver) {
+                if (old_srv == id_srv_self) {
+                    /*add to to_send list*/
+                    rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:thread_mlt_updater");
+                        fprintf(stderr, ": update mlt failed: %s\n", strerror(-rc));
+                    }
+                } else if (new_srv == id_srv_self) {
+                    /*add to to_receive list*/
+                    rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:thread_mlt_updater");
+                        fprintf(stderr, ": update mlt failed: %s\n", strerror(-rc));
+                    }
+                } else
+                    rc = mlt_update_entry(&table, i, new_srv, new_ver, 0);
+            }
         }
         /*launching inter-server transferts*/
 
