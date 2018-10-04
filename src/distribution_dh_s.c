@@ -260,23 +260,39 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 ptr = in_charge_md[i];
                 if (ptr == NULL) {
                     rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0)
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
                         return -1;
+                    }
+
                     md_entry_insert(&in_charge_md[i], to_add);
+
                     rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0)
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
                         return -1;
+                    }
                     break;
                 }
                 if (ptr->entry == json_object_get_int(entry)) {
-                    md_entry_insert(&ptr, to_add);
                     rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0)
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
                         return -1;
-                    break;
+                    }
+
+                    md_entry_insert(&ptr, to_add);
+
                     rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0)
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
                         return -1;
+                    }
+                    break;
                 }
             }
         } else if (reqType == RT_DELETE) {
@@ -307,12 +323,20 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 }
                 if (ptr->entry == json_object_get_int(entry)) {
                     rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0)
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
                         return -1;
+                    }
+
                     ptr = md_entry_search_md_name(&ptr, str_key);
+
                     rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0)
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
                         return -1;
+                    }
                     free(ptr->md_name);
                     free(ptr);
                     break;

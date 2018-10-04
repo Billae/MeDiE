@@ -138,7 +138,7 @@ while (1) {
 reply:
     rc = distribution_pre_send(request, global_rc);
     if (rc != 0) {
-        fprintf(stderr, "Server: distribution_post_receive failed\n");
+        fprintf(stderr, "Server: distribution_pre_send failed\n");
         global_rc = -1;
     }
 
