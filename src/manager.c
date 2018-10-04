@@ -71,7 +71,7 @@ int manager_merge_eacl(uint32_t *new_list)
 
 
 /*Comparator function for the sort call (ungrowing order)*/
-int comparator(const void *a, const void *b)  
+int comparator(const void *a, const void *b)
 {
     return *(int *)b - *(int *)a;
 }
@@ -146,7 +146,7 @@ int manager_calculate_relab(int nb)
     int i;
     for (i = 0; i < nb; i++)
         all[i] = 0;
-    
+
     int sum_all = 0;
     for (i = 0; i < N_entry; i++) {
         int srv, version, state;
@@ -254,7 +254,8 @@ int manager_calculate_relab(int nb)
     }
     free(subset_c);
 
-    /*find for each server in L a subset of entries matching with the load to give*/
+    /*find for each server in L
+     * a subset of entries matching with the load to give*/
     for (i = 0; i < nb; i++) {
         if (load[i] > 0 && target[i] != i) {
             int size_srv = 0;

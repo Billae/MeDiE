@@ -41,7 +41,7 @@ int main(int argc, char **argv)
                 "Server: format zmq socket name error: %s\n", strerror(err));
             return -1;
         }
-        
+
         rep = zsock_new_rep(socket);
         if (rep == NULL) {
             fprintf(stderr, "Server: create zmq socket error\n");

@@ -54,7 +54,7 @@ int distribution_pre_send(json_object *request)
         return -1;
     }
 
-    if (reqType == RT_CREATE) 
+    if (reqType == RT_CREATE)
         distribution_assign_srv_by_key(key, request);
 
     return 0;

@@ -375,8 +375,7 @@ void *thread_mlt_updater(void *args)
         pthread_exit((void *)-1);
     }
     int rc;
-    while(1)
-    {
+    while (1) {
         struct mlt temp_mlt;
         rc = mlt_init(&temp_mlt, N_entry, 1);
         if (rc != 0)
@@ -418,15 +417,17 @@ void *thread_mlt_updater(void *args)
                     /*add to to_send list*/
                     rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
                     if (rc != 0) {
-                        fprintf(stderr, "Distribution:thread_mlt_updater");
-                        fprintf(stderr, ": update mlt failed: %s\n", strerror(-rc));
+                        fprintf(stderr, "Distribution:thread_mlt_updater:");
+                        fprintf(stderr,
+                            "update mlt failed: %s\n", strerror(-rc));
                     }
                 } else if (new_srv == id_srv_self) {
                     /*add to to_receive list*/
                     rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
                     if (rc != 0) {
-                        fprintf(stderr, "Distribution:thread_mlt_updater");
-                        fprintf(stderr, ": update mlt failed: %s\n", strerror(-rc));
+                        fprintf(stderr, "Distribution:thread_mlt_updater:");
+                        fprintf(stderr,
+                            "update mlt failed: %s\n", strerror(-rc));
                     }
                 } else
                     rc = mlt_update_entry(&table, i, new_srv, new_ver, 0);

@@ -66,7 +66,7 @@ int mlt_get_entry(
 
 
 /**
- * Destroy the structure. 
+ * Destroy the structure.
  * - Desallocate memory
  * @param[out] self the mlt to destroy
  * @return 0 on success and -1 on failure**/

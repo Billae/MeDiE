@@ -75,7 +75,7 @@ int eacl_read_sai(struct eacl *self, int index);
  * @return 0 on success and -1 on failure**/
 int eacl_destroy(struct eacl *self);
 
- 
+
 #endif
 /* -*- mode: c; c-basic-offset: 4; indent-tabs-mode: nil; -*-
  * vim:expandtab:shiftwidth=4:tabstop=4:
