@@ -391,6 +391,15 @@ void *thread_mlt_updater(void *args)
         temp = zframe_data(n_ver_frame);
         memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
 
+        /*to do lists given to receiver and sender threads*/
+        struct transfert_load_args to_receive;
+        to_receive.entries = malloc(N_entry * sizeof(int));
+        to_receive.servers = malloc(N_entry * sizeof(int));
+        to_receive.size = 0;
+        struct transfert_load_args to_send;
+        to_send.entries = malloc(N_entry * sizeof(int));
+        to_send.servers = malloc(N_entry * sizeof(int));
+        to_send.size = 0;
 
         int i;
         for (i = 0; i < N_entry; i++) {
@@ -415,6 +424,9 @@ void *thread_mlt_updater(void *args)
             if (old_ver != new_ver) {
                 if (old_srv == id_srv_self) {
                     /*add to to_send list*/
+                    to_send.servers[to_send.size] = new_srv;
+                    to_send.entries[to_send.size] = i;
+                    to_send.size++;
                     rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
                     if (rc != 0) {
                         fprintf(stderr, "Distribution:thread_mlt_updater:");
@@ -423,6 +435,9 @@ void *thread_mlt_updater(void *args)
                     }
                 } else if (new_srv == id_srv_self) {
                     /*add to to_receive list*/
+                    to_receive.servers[to_receive.size] = old_srv;
+                    to_receive.entries[to_receive.size] = i;
+                    to_receive.size++;
                     rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
                     if (rc != 0) {
                         fprintf(stderr, "Distribution:thread_mlt_updater:");
@@ -434,6 +449,37 @@ void *thread_mlt_updater(void *args)
             }
         }
         /*launching inter-server transferts*/
+        pthread_t load_sender;
+        pthread_t load_receiver;
+        rc = pthread_create(&load_sender, NULL, &thread_load_sender, &to_send);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:thread_mlt_updater: ");
+            fprintf(stderr,
+                "thread load_sender init failed: %s\n", strerror(-rc));
+        }
+        rc = pthread_create(
+            &load_receiver, NULL, &thread_load_receiver, &to_receive);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:thread_mlt_updater: ");
+            fprintf(stderr,
+                "thread load_receiver init failed: %s\n", strerror(-rc));
+        }
+
+        rc = pthread_join(load_sender, 0);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:thread_mlt_updater: ");
+            fprintf(stderr,
+                "thread load_sender join failed: %s\n", strerror(-rc));
+        }
+
+        rc = pthread_join(load_receiver, 0);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:thread_mlt_updater: ");
+            fprintf(stderr,
+                "thread load_receiver join failed: %s\n", strerror(-rc));
+        }
+
+
 
         rc = mlt_destroy(&temp_mlt);
         if (rc != 0)

@@ -10,6 +10,11 @@
 #include <czmq.h>
 #include <json.h>
 
+struct transfert_load_args {
+    int *entries;
+    int *servers;
+    int size;
+};
 
 /** Initialize distribution context
  * - init the mlt and and the eacl
