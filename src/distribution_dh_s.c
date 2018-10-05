@@ -28,6 +28,8 @@ static int id_srv_self;
 static struct md_entry **in_charge_md;
 static pthread_rwlock_t locks[N_entry];
 
+#define max_id_size 21
+
 /*pcocc*/
 //#define ip_manager "10.252.0.1"
 /*ocre*/
@@ -39,9 +41,9 @@ static pthread_rwlock_t locks[N_entry];
 #define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /*path in pcocc*/
-#define HOSTS_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+//#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
 /*path in ocre*/
-#define HOSTS_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
+#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
 int distribution_init(nb)
 {
@@ -62,7 +64,6 @@ int distribution_init(nb)
     }
 
     /*getting id_srv_self*/
-    int max_id_size = 20;
     char *id_srv;
     id_srv = malloc(max_id_size*sizeof(*id_srv));
     if (id_srv == NULL) {
@@ -317,14 +318,11 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 return -1;
             }
             struct md_entry *ptr;
-            int i;
+            int i, found;
+            found = 0;
             for (i = 0; i < N_entry; i++) {
                 ptr = in_charge_md[i];
-                if (ptr == NULL) {
-                    fprintf(stderr, "Distribution:pre_send:");
-                    fprintf(stderr, "remove key from in_charge_md failed\n");
-                    return -1;
-                }
+
                 if (ptr->entry == json_object_get_int(entry)) {
                     rc = -pthread_rwlock_wrlock(&locks[i]);
                     if (rc != 0) {
@@ -343,29 +341,274 @@ int distribution_pre_send(json_object *reply, int global_rc)
                     }
                     free(ptr->md_name);
                     free(ptr);
+                    found = 1;
                     break;
                 }
             }
+            if (found == 0) {
+                    fprintf(stderr, "Distribution:pre_send:");
+                    fprintf(stderr, "remove key from in_charge_md failed\n");
+                    return -1;
+            }
+
         }
     }
     return 0;
 }
 
 
-/*TO DO*/
+/*Sort in growing order the servers and adapt the change to entries*/
+void load_args_sort(struct transfert_load_args *list)
+{
+    int i, change;
+    change = 1;
+    while (change) {
+        change = 0;
+        for (i = 0; i < list->size; i++) {
+            if (list->servers[i] > list->servers[i+1]) {
+                change = 1;
+                int tmp_srv = list->servers[i];
+                int tmp_entry = list->entries[i];
+                list->servers[i] = list->servers[i+1];
+                list->entries[i] = list->entries[i+1];
+                list->servers[i+1] = tmp_srv;
+                list->entries[i+1] = tmp_entry;
+            }
+        }
+    }
+}
+
+
 void *thread_load_sender(void *args)
 {
-    pthread_exit(0);
+    struct transfert_load_args *to_send = args;
+    load_args_sort(to_send);
+    int rc;
+    int fail_rc = -1;
+    FILE *fd = fopen(HOST_PATH, "r");
+    if (fd == NULL) {
+        int err = errno;
+        fprintf(stderr, "Distribution:thread_load_sender: ");
+        fprintf(stderr, "open hosts file error: %s\n", strerror(err));
+        pthread_exit(&fail_rc);
+    }
+
+    int current_line = 0;
+    int to_send_idx = 0;
+    int current_srv = to_send->servers[to_send_idx];
+
+    char *id_srv;
+    id_srv = malloc(max_id_size*sizeof(*id_srv));
+    if (id_srv == NULL) {
+        int err = errno;
+        fprintf(stderr, "Distribution:thread_load_sender: ");
+        fprintf(stderr, "id_srv malloc error: %s\n", strerror(err));
+        pthread_exit(&fail_rc);
+    }
+
+    while (fgets(id_srv, max_id_size, fd) != NULL && to_send_idx < to_send->size) {
+
+        char *positionEntree = strchr(id_srv, '\n');
+        if (positionEntree != NULL)
+            *positionEntree = '\0';
+        if (current_line == current_srv) {
+            /*the srv_id read is one on the to_do list*/
+            char *socket;
+            if (asprintf(&socket, "tcp://%s:%d", id_srv, Transfert_port) == -1) {
+                int err = errno;
+                    fprintf(stderr, "Distribution: thread_load_sender: ");
+                    fprintf(stderr, "format zmq socket name error: %s\n",
+                        strerror(err));
+                pthread_exit(&fail_rc);
+            }
+
+            zsock_t *sock = zsock_new_req(socket);
+            if (sock == NULL) {
+                fprintf(stderr, "Distribution:thread_load_sender: ");
+                fprintf(stderr, "create zmq socket error\n");
+                pthread_exit(&fail_rc);
+            }
+            free(socket);
+
+            while (current_srv == current_line) {
+                /*send all messages associated to this server*/
+                zmsg_t *packet = zmsg_new();
+                zframe_t *entry_frame = zframe_new(
+                    &to_send->entries[to_send_idx], sizeof(int));
+                zmsg_append(packet, &entry_frame);
+
+                /*md_names is all md associated to an entry*/
+                char *md_names = NULL;
+                struct md_entry *ptr;
+                int i;
+                for (i = 0; i < N_entry; i++) {
+                    if (in_charge_md[i]->entry == to_send->entries[to_send_idx]) {
+                        while (in_charge_md[i] != NULL) {
+
+                            rc = -pthread_rwlock_wrlock(&locks[i]);
+                            if (rc != 0) {
+                                fprintf(stderr, "Distribution:thread_load_sender: ");
+                                fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                                pthread_exit(&fail_rc);
+                            }
+
+                            ptr = md_entry_pop(&in_charge_md[i]);
+
+                            rc = -pthread_rwlock_unlock(&locks[i]);
+                            if (rc != 0) {
+                                fprintf(stderr, "Distribution:thread_load_sender: ");
+                                fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                                pthread_exit(&fail_rc);
+                            }
+
+                            int alloc_size = strlen(md_names) + strlen(ptr->md_name);
+                            md_names = realloc(md_names, alloc_size);
+                            if (md_names == NULL) {
+                                fprintf(stderr, "Distribution:thread_load_sender: ");
+                                fprintf(stderr, "realloc md_names failed\n");
+                                pthread_exit(&fail_rc);
+                            }
+                            rc = snprintf(md_names, alloc_size, "%s,%s", md_names, ptr->md_name);
+                            if (rc < 0) {
+                                fprintf(stderr, "Distribution:thread_load_sender: ");
+                                fprintf(stderr, "sprintf md_names failed\n");
+                                pthread_exit(&fail_rc);
+                            }
+                            free(ptr->md_name);
+                            free(ptr);
+                        }
+                        break;
+                    }
+                }
+                zframe_t *md_entry_frame = zframe_new(&md_names, strlen(md_names));
+                zmsg_append(packet, &md_entry_frame);
+
+                rc = zmsg_send(&packet, sock);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                    fprintf(stderr, "md_entry send failed\n");
+                    pthread_exit(&fail_rc);
+                }
+
+                /*update the state of the entry in the mlt*/
+                rc = mlt_update_state(&table, to_send_idx, 0);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                    fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
+                    pthread_exit(&fail_rc);
+                }
+                /*next entry in the to_do list*/
+                to_send_idx++;
+                current_srv = to_send->servers[to_send_idx];
+            }
+            zsock_destroy(&sock);
+
+        }
+        current_line++;
+    }
+
+    fclose(fd);
+    free(to_send->entries);
+    free(to_send->servers);
+    pthread_exit(NULL);
 }
 
-/*TO DO*/
+
 void *thread_load_receiver(void *args)
 {
-    pthread_exit(0);
+    struct transfert_load_args *to_receive = args;
+    load_args_sort(to_receive);
+
+    int rc;
+    int fail_rc = -1;
+
+    /*open the rep socket*/
+    char *socket;
+    if (asprintf(&socket, "tcp://0.0.0.0:%d", Transfert_port) == -1) {
+        int err = errno;
+        fprintf(stderr, "Distribution: thread_load_receiver: ");
+        fprintf(stderr, "format zmq socket name error: %s\n", strerror(err));
+        pthread_exit(&fail_rc);
+    }
+
+    zsock_t *sock = zsock_new_rep(socket);
+    if (sock == NULL) {
+        fprintf(stderr, "Distribution:thread_load_receiver: ");
+        fprintf(stderr, "create zmq socket error\n");
+        pthread_exit(&fail_rc);
+    }
+    free(socket);
+
+    int to_receive_idx = 0;
+    while (to_receive_idx < to_receive->size) {
+        /*receive each message in the to_do list*/
+        zmsg_t *packet = zmsg_recv(sock);
+        zframe_t *entry_frame = zmsg_pop(packet);
+        byte *tmp_entry = zframe_data(entry_frame);
+        int entry;
+        memcpy(&entry, tmp_entry, sizeof(int));
+
+        zframe_t *md_names_frame = zmsg_pop(packet);
+        byte *tmp_md_names = zframe_data(md_names_frame);
+        char *md_names = malloc(sizeof(*tmp_md_names));
+        memcpy(md_names, tmp_md_names, sizeof(*tmp_md_names));
+
+        char *md_name = strtok(md_names, ",");
+
+        /*add a new md_entry*/
+        int i;
+        for (i = 0; i < N_entry; i++) {
+
+            if (in_charge_md[i] == NULL) {
+                while (md_name != NULL) {
+                    struct md_entry *to_add = malloc(sizeof(struct md_entry));
+                    char *name;
+                    rc = asprintf(&name, "%s", md_name);
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:thread_load_receiver:");
+                        fprintf(stderr, "get md_name failed: %s\n", strerror(-rc));
+                        pthread_exit(&fail_rc);
+                    }
+                    md_entry_init(to_add, entry, name);
+                    md_name = strtok(NULL, ",");
+
+                    rc = -pthread_rwlock_wrlock(&locks[i]);
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:thread_load_receiver: ");
+                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                        pthread_exit(&fail_rc);
+                    }
+
+                    md_entry_insert(&in_charge_md[i], to_add);
+
+                    rc = -pthread_rwlock_unlock(&locks[i]);
+                    if (rc != 0) {
+                        fprintf(stderr, "Distribution:thread_load_receiver:");
+                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                        pthread_exit(&fail_rc);
+                    }
+                }
+                break;
+            }
+        }
+
+        /*update the state of the entry in the mlt*/
+        rc = mlt_update_state(&table, entry, 0);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:thread_load_receiver: ");
+            fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
+            pthread_exit(&fail_rc);
+        }
+        to_receive_idx++;
+    }
+
+    zsock_destroy(&sock);
+    free(to_receive->entries);
+    free(to_receive->servers);
+    pthread_exit(NULL);
 }
 
 
-/*TO DO*/
 void *thread_mlt_updater(void *args)
 {
     /*opening a subscriber socket to the manager*/
@@ -469,14 +712,14 @@ void *thread_mlt_updater(void *args)
                 "thread load_receiver init failed: %s\n", strerror(-rc));
         }
 
-        rc = pthread_join(load_sender, 0);
+        rc = pthread_join(load_sender, NULL);
         if (rc != 0) {
             fprintf(stderr, "Distribution:thread_mlt_updater: ");
             fprintf(stderr,
                 "thread load_sender join failed: %s\n", strerror(-rc));
         }
 
-        rc = pthread_join(load_receiver, 0);
+        rc = pthread_join(load_receiver, NULL);
         if (rc != 0) {
             fprintf(stderr, "Distribution:thread_mlt_updater: ");
             fprintf(stderr,
