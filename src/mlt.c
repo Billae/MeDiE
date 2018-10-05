@@ -60,6 +60,22 @@ out_free:
     return rc;
 }
 
+int mlt_update_state(struct mlt *self, int mlt_idx, int state)
+{
+    int rc;
+    if (!self || mlt_idx < 0 || (state != 0 && state != 1))
+        return -EINVAL;
+
+    /* lock the array for write */
+    rc = -pthread_rwlock_wrlock(&self->lock);
+    if (rc != 0)
+        return rc;
+
+    self->state[mlt_idx] = state;
+
+     /* unlock & return */
+    return -pthread_rwlock_unlock(&self->lock);
+}
 
 /** Update the server ID and the version number of the entry.
  * @param[out] self the mlt to update

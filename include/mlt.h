@@ -41,6 +41,15 @@ struct mlt {
 int mlt_init(struct mlt *self, int size, int nb_srv);
 
 
+/** Update the state of an entry
+ * @param[out] self the mlt to update
+ * @param[in] mlt_idx the line in the table to update
+ * @param[out] state transfert state to update
+ * @return 0 on succes and -<error code> on failure
+ * **/
+int mlt_update_state(struct mlt *self, int mlt_idx, int state);
+
+
 /** Update the server ID and the version number of the entry.
  * @param[out] self the mlt to update
  * @param[in] mlt_idx the line in the table to update
