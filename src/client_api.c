@@ -176,6 +176,24 @@ int client_request_create(const char *key, const char *data)
     json_object *reply = json_tokener_parse(string);
     zstr_free(&string);
 
+    /*processing reply*/
+    json_object *rep_flag;
+    if (!json_object_object_get_ex(reply, "repFlag", &rep_flag)) {
+        fprintf(stderr,
+            "Client API:request_create: json extract error: no key \"repFlag\" found\n");
+        return -1;
+    }
+
+    int rep_rc;
+    if (strcmp(json_object_get_string(rep_flag), "done") == 0)
+        rep_rc = 0;
+    else if (strcmp(json_object_get_string(rep_flag), "update&retry") == 0)
+        rep_rc = -EAGAIN;
+    else if (strcmp(json_object_get_string(rep_flag), "wait&retry") == 0)
+        return -EAGAIN;
+    else
+        return -1;
+
     /*call the distribution processing*/
     rc = distribution_post_receive(reply);
     if (rc != 0) {
@@ -186,38 +204,9 @@ int client_request_create(const char *key, const char *data)
             fprintf(stderr, "Client API:request_create: free reply error\n");
         return -1;
     }
+    /*cleaning*/
+    if (json_object_put(reply) != 1)
+        fprintf(stderr, "client api:request_create: free reply error\n");
+    return rep_rc;
 
-    /*processing reply*/
-    json_object *rep_flag;
-    if (!json_object_object_get_ex(reply, "repFlag", &rep_flag)) {
-        fprintf(stderr,
-            "Client API:request_create: json extract error: no key \"repFlag\" found\n");
-        return -1;
-    }
-
-    if (strcmp(json_object_get_string(rep_flag), "done") == 0) {
-        /*cleaning*/
-        if (json_object_put(reply) != 1)
-            fprintf(stderr, "Client API:request_create: free reply error\n");
-        /*printf("operation validated\n");*/
-        return 0;
-
-    } else if (strcmp(json_object_get_string(rep_flag), "update&retry") == 0) {
-        /*cleaning*/
-        if (json_object_put(reply) != 1)
-            fprintf(stderr, "client api:request_create: free reply error\n");
-        return -EAGAIN;
-
-    } else if (strcmp(json_object_get_string(rep_flag), "wait&retry") == 0) {
-        /*cleaning*/
-        if (json_object_put(reply) != 1)
-            fprintf(stderr, "client api:request_create: free reply error\n");
-        return -EAGAIN;
-
-    } else {
-        /*cleaning*/
-        if (json_object_put(reply) != 1)
-            fprintf(stderr, "CLient API:request_create: free reply error\n");
-        return -1;
-    }
 }
