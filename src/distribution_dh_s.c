@@ -27,17 +27,21 @@ static int id_srv_self;
 /*Array of linked list to know all md in charge for each server*/
 static struct md_entry **in_charge_md;
 static pthread_rwlock_t locks[N_entry];
-/*ocre*/
-#define ip_manager "192.168.129.25"
+
 /*pcocc*/
 //#define ip_manager "10.252.0.1"
+/*ocre*/
+#define ip_manager "192.168.129.25"
 
 /* path in pcocc*/
 //#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
 /*path in ocre*/
 #define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
-
+/*path in pcocc*/
+#define HOSTS_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+/*path in ocre*/
+#define HOSTS_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
 int distribution_init(nb)
 {
