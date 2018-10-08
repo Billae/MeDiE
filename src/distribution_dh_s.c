@@ -497,6 +497,14 @@ void *thread_load_sender(void *args)
                     fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
                     pthread_exit(&fail_rc);
                 }
+                /*update eacl entry*/
+                rc = eacl_reset_all_entry(&access_list, to_send_idx);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_load_receiver: ");
+                    fprintf(stderr, "eacl update failed\n");
+                    pthread_exit(&fail_rc);
+                }
+
                 /*next entry in the to_do list*/
                 to_send_idx++;
                 current_srv = to_send->servers[to_send_idx];
@@ -599,6 +607,14 @@ void *thread_load_receiver(void *args)
             fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
             pthread_exit(&fail_rc);
         }
+        /*update eacl entry*/
+        rc = eacl_reset_all_entry(&access_list, entry);
+        if (rc != 0) {
+            fprintf(stderr, "Distribution:thread_load_receiver: ");
+            fprintf(stderr, "eacl update failed\n");
+            pthread_exit(&fail_rc);
+        }
+
         to_receive_idx++;
     }
 
