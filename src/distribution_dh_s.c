@@ -518,6 +518,7 @@ void *thread_load_sender(void *args)
     fclose(fd);
     free(to_send->entries);
     free(to_send->servers);
+    fprintf(stderr, "thread load_sender finished\n");
     pthread_exit(NULL);
 }
 
@@ -621,6 +622,7 @@ void *thread_load_receiver(void *args)
     zsock_destroy(&sock);
     free(to_receive->entries);
     free(to_receive->servers);
+    fprintf(stderr, "thread load_receiver finished\n");
     pthread_exit(NULL);
 }
 
@@ -741,7 +743,6 @@ void *thread_mlt_updater(void *args)
             fprintf(stderr,
                 "thread load_receiver join failed: %s\n", strerror(-rc));
         }
-
 
 
         rc = mlt_destroy(&temp_mlt);

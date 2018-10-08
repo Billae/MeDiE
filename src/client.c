@@ -73,7 +73,7 @@ int main(int argc, char **argv)
         /*for collision use*/
         rc = client_request_create(key_list[i], data);
         if (rc != 0)
-            fprintf(stderr, "Request failed\n");
+            fprintf(stderr, "Request failed: %s\n", strerror(-rc));
             if (rc == -EAGAIN)
                 i--;
         free(key);
