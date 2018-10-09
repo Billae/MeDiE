@@ -383,6 +383,13 @@ void *thread_load_sender(void *args)
 {
     struct transfert_load_args *to_send = args;
     load_args_sort(to_send);
+
+    fprintf(stderr, "load_sender: entries to give\n");
+    int i;
+    for (i = 0; i < to_send->size; i++)
+        fprintf(stderr, "entry n %d to server %d\n",
+            to_send->entries[i], to_send->servers[i]);
+
     int rc;
     int fail_rc = -1;
     FILE *fd = fopen(HOST_PATH, "r");
@@ -416,8 +423,8 @@ void *thread_load_sender(void *args)
             char *socket;
             if (asprintf(&socket, "tcp://%s:%d", id_srv, Transfert_port) == -1) {
                 int err = errno;
-                    fprintf(stderr, "Distribution: thread_load_sender: ");
-                    fprintf(stderr, "format zmq socket name error: %s\n",
+                fprintf(stderr, "Distribution: thread_load_sender: ");
+                fprintf(stderr, "format zmq socket name error: %s\n",
                         strerror(err));
                 pthread_exit(&fail_rc);
             }
@@ -536,6 +543,12 @@ void *thread_load_receiver(void *args)
 {
     struct transfert_load_args *to_receive = args;
     load_args_sort(to_receive);
+
+    fprintf(stderr, "load_receiver: entries to give\n");
+    int i;
+    for (i = 0; i < to_receive->size; i++)
+        fprintf(stderr, "entry n %d to server %d\n",
+            to_receive->entries[i], to_receive->servers[i]);
 
     int rc;
     int fail_rc = -1;

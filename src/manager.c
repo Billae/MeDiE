@@ -419,13 +419,13 @@ int main(int argc, char *argv[])
             byte *temp = zframe_data(sai_frame);
             memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
 
-            fprintf(stderr, "sai received:%d\n", temp_sai[0]);
+            /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
 
             rc = manager_merge_eacl(temp_sai);
             if (rc != 0)
                 fprintf(stderr, "Manager: merge eacl with global failed\n");
             free(temp_sai);
-            fprintf(stderr, "global sai updated: %d\n", global_list[0]);
+            /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
         }
         zmsg_destroy(&packet);
 
