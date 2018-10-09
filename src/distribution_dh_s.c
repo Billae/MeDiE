@@ -387,7 +387,7 @@ void *thread_load_sender(void *args)
     fprintf(stderr, "load_sender: entries to give\n");
     int i;
     for (i = 0; i < to_send->size; i++)
-        fprintf(stderr, "entry n %d to server %d\n",
+        fprintf(stderr, "(sender: entry n %d to server %d\n",
             to_send->entries[i], to_send->servers[i]);
 
     int rc;
@@ -544,10 +544,10 @@ void *thread_load_receiver(void *args)
     struct transfert_load_args *to_receive = args;
     load_args_sort(to_receive);
 
-    fprintf(stderr, "load_receiver: entries to give\n");
+    fprintf(stderr, "load_receiver: entries to receive\n");
     int i;
     for (i = 0; i < to_receive->size; i++)
-        fprintf(stderr, "entry n %d to server %d\n",
+        fprintf(stderr, "receiver: entry n %d to server %d\n",
             to_receive->entries[i], to_receive->servers[i]);
 
     int rc;
