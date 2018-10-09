@@ -505,6 +505,15 @@ void *thread_load_sender(void *args)
                     pthread_exit(&fail_rc);
                 }
 
+                /*receive the acknowledgement from the receiver*/
+                zmsg_t *reply = zmsg_recv(sock);
+                zframe_t *flag = zmsg_pop(reply);
+                if (zframe_streq(flag, "done") != 0) {
+                    fprintf(stderr, "Distribution:thread_load_receiver: ");
+                    fprintf(stderr, "acknowledgement receive failed\n");
+                    pthread_exit(&fail_rc);
+                }
+
                 /*next entry in the to_do list*/
                 to_send_idx++;
                 current_srv = to_send->servers[to_send_idx];
@@ -615,6 +624,13 @@ void *thread_load_receiver(void *args)
             fprintf(stderr, "eacl update failed\n");
             pthread_exit(&fail_rc);
         }
+
+        /*send an acknowledgement to the sender*/
+        zmsg_t *reply = zmsg_new();
+        zframe_t *flag = zframe_new("done", 4);
+        zmsg_append(reply, &flag);
+
+        zmsg_send(&reply, sock);
 
         to_receive_idx++;
     }
