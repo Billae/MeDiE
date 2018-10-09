@@ -544,7 +544,7 @@ void *thread_load_receiver(void *args)
     struct transfert_load_args *to_receive = args;
     load_args_sort(to_receive);
 
-    fprintf(stderr, "load_receiver: entries to receive\n");
+    fprintf(stderr, "(load_receiver: entries to receive\n");
     int i;
     for (i = 0; i < to_receive->size; i++)
         fprintf(stderr, "receiver: entry n %d to server %d\n",
@@ -742,6 +742,12 @@ void *thread_mlt_updater(void *args)
                     rc = mlt_update_entry(&table, i, new_srv, new_ver, 0);
             }
         }
+
+        fprintf(stderr, "MLT UPDATER:\n");
+        for (i = 0; i < to_send.size; i++)
+            fprintf(stderr, "(mlt_to_send: entry %d\n", to_send.entries[i]);
+        for (i = 0; i < to_receive.size; i++)
+            fprintf(stderr, "(mlt_to_receive: entry %d\n", to_receive.entries[i]);
         /*launching inter-server transferts*/
         pthread_t load_sender;
         pthread_t load_receiver;
