@@ -396,10 +396,9 @@ void *thread_load_sender(void *args)
     struct transfert_load_args *to_send = args;
     load_args_sort(to_send, 0, to_send->size - 1);
 
-    fprintf(stderr, "load_sender: entries to give\n");
     int i;
     for (i = 0; i < to_send->size; i++)
-        fprintf(stderr, "(sender: entry n %d to server %d\n",
+        fprintf(stderr, "(sender: had to send: entry n %d to server %d\n",
             to_send->entries[i], to_send->servers[i]);
 
     int rc;
@@ -510,20 +509,21 @@ void *thread_load_sender(void *args)
                 }
 
                 /*update the state of the entry in the mlt*/
-                rc = mlt_update_state(&table, to_send_idx, 0);
+                rc = mlt_update_state(&table, to_send->entries[to_send_idx], 0);
                 if (rc != 0) {
                     fprintf(stderr, "Distribution:thread_load_sender: ");
                     fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
                     pthread_exit(&fail_rc);
                 }
                 /*update eacl entry*/
-                rc = eacl_reset_all_entry(&access_list, to_send_idx);
+                rc = eacl_reset_all_entry(&access_list, to_send->entries[to_send_idx]);
                 if (rc != 0) {
                     fprintf(stderr, "Distribution:thread_load_receiver: ");
                     fprintf(stderr, "eacl update failed\n");
                     pthread_exit(&fail_rc);
                 }
 
+                fprintf(stderr, "[sender: sent: entry %d\n", to_send->entries[to_send_idx]);
                 /*receive the acknowledgement from the receiver*/
                 zmsg_t *reply = zmsg_recv(sock);
                 zframe_t *flag = zmsg_pop(reply);
@@ -555,10 +555,9 @@ void *thread_load_receiver(void *args)
 {
     struct transfert_load_args *to_receive = args;
 
-    fprintf(stderr, "(load_receiver: entries to receive\n");
     int i;
     for (i = 0; i < to_receive->size; i++)
-        fprintf(stderr, "receiver: entry n %d to server %d\n",
+        fprintf(stderr, "(receiver: had to receive: entry n %d from server %d\n",
             to_receive->entries[i], to_receive->servers[i]);
 
     int rc;
@@ -649,6 +648,8 @@ void *thread_load_receiver(void *args)
             pthread_exit(&fail_rc);
         }
 
+        fprintf(stderr, "[receiver: received: entry n %d\n", entry);
+
         /*send an acknowledgement to the sender*/
         zmsg_t *reply = zmsg_new();
         zframe_t *flag = zframe_new("done", 4);
@@ -708,8 +709,8 @@ void *thread_mlt_updater(void *args)
 
         int i;
         for (i = 0; i < N_entry; i++) {
-            fprintf(stderr, "MLT received: index=%d -- %d %d\n",
-                i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
+            /*fprintf(stderr, "MLT received: index=%d -- %d %d\n",
+                i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);*/
 
             /*updating the mlt and fill the to_do list for sender and receiver*/
             int old_srv, old_ver, old_state;
@@ -754,11 +755,6 @@ void *thread_mlt_updater(void *args)
             }
         }
 
-        fprintf(stderr, "MLT UPDATER:\n");
-        for (i = 0; i < to_send.size; i++)
-            fprintf(stderr, "(mlt_to_send: entry %d\n", to_send.entries[i]);
-        for (i = 0; i < to_receive.size; i++)
-            fprintf(stderr, "(mlt_to_receive: entry %d\n", to_receive.entries[i]);
         /*launching inter-server transferts*/
         pthread_t load_sender;
         pthread_t load_receiver;
