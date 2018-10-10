@@ -356,25 +356,37 @@ int distribution_pre_send(json_object *reply, int global_rc)
     return 0;
 }
 
+int cut(struct transfert_load_args *list, int p, int r)
+{
+    int pivot = list->servers[p], i = p-1, j = r+1;
+    while (1) {
+        do
+            j--;
+        while (list->servers[j] > pivot);
+        do
+            i++;
+        while (list->servers[i] < pivot);
+        if (i < j) {
+            int tmp_srv = list->servers[i];
+            int tmp_entry = list->entries[i];
+            list->servers[i] = list->servers[j];
+            list->entries[i] = list->entries[j];
+            list->servers[j] = tmp_srv;
+            list->entries[j] = tmp_entry;
+        } else
+            return j;
+        }
+}
 
 /*Sort in growing order the servers and adapt the change to entries*/
-void load_args_sort(struct transfert_load_args *list)
+/*p = inf and r = size-1*/
+void load_args_sort(struct transfert_load_args *list, int p, int r)
 {
-    int i, change;
-    change = 1;
-    while (change) {
-        change = 0;
-        for (i = 0; i < list->size; i++) {
-            if (list->servers[i] > list->servers[i+1]) {
-                change = 1;
-                int tmp_srv = list->servers[i];
-                int tmp_entry = list->entries[i];
-                list->servers[i] = list->servers[i+1];
-                list->entries[i] = list->entries[i+1];
-                list->servers[i+1] = tmp_srv;
-                list->entries[i+1] = tmp_entry;
-            }
-        }
+    int q;
+    if (p < r) {
+        q = cut(list, p, r);
+        load_args_sort(list, p, q);
+        load_args_sort(list, q+1, r);
     }
 }
 
@@ -382,7 +394,7 @@ void load_args_sort(struct transfert_load_args *list)
 void *thread_load_sender(void *args)
 {
     struct transfert_load_args *to_send = args;
-    load_args_sort(to_send);
+    load_args_sort(to_send, 0, to_send->size - 1);
 
     fprintf(stderr, "load_sender: entries to give\n");
     int i;
@@ -542,7 +554,6 @@ void *thread_load_sender(void *args)
 void *thread_load_receiver(void *args)
 {
     struct transfert_load_args *to_receive = args;
-    load_args_sort(to_receive);
 
     fprintf(stderr, "(load_receiver: entries to receive\n");
     int i;
