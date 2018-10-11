@@ -143,20 +143,21 @@ int manager_calculate_relab(int nb)
         return -1;
     }
 
-    int i;
-    for (i = 0; i < nb; i++)
-        all[i] = 0;
+    int current_srv;
+    for (current_srv = 0; current_srv < nb; current_srv++)
+        all[current_srv] = 0;
 
     int sum_all = 0;
-    for (i = 0; i < N_entry; i++) {
+    int current_entry;
+    for (current_entry = 0; current_entry < N_entry; current_entry++) {
         int srv, version, state;
-        rc = mlt_get_entry(&table, i, &srv, &version, &state);
+        rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
         if (rc != 0) {
             fprintf(stderr, "Manager:calculate_relab: mlt get entry failed\n");
             goto free_all;
         }
-        all[srv] += global_list[i];
-        sum_all += global_list[i];
+        all[srv] += global_list[current_entry];
+        sum_all += global_list[current_entry];
     }
     int sum_w = w_factor * nb;
 
@@ -185,16 +186,16 @@ int manager_calculate_relab(int nb)
 
     int size_l = 0;
     int size_s = 0;
-    for (i = 0; i < nb; i++) {
+    for (current_srv = 0; current_srv < nb; current_srv++) {
         /*balanced is the balanced weight for the server i*/
         int balanced = (sum_all * w_factor) / sum_w;
-        load[i] = all[i] - balanced;
-        fprintf(stderr, "manager: load of server %d: %d\n", i, load[i]);
-        if (load[i] > 0) {
-            subset_l[size_l] = load[i];
+        load[current_srv] = all[current_srv] - balanced;
+        fprintf(stderr, "manager: load of server %d: %d\n", current_srv, load[current_srv]);
+        if (load[current_srv] > 0) {
+            subset_l[size_l] = load[current_srv];
             size_l++;
-        } else if (load[i] < 0) {
-            subset_s[size_s] = i;
+        } else if (load[current_srv] < 0) {
+            subset_s[size_s] = current_srv;
             size_s++;
         }
     }
@@ -206,8 +207,8 @@ int manager_calculate_relab(int nb)
         fprintf(stderr, "Manager:calculate_relab: malloc target failed\n");
         goto free_subset_s;
     }
-    for (i = 0; i < nb; i++)
-        target[i] = i;
+    for (current_srv = 0; current_srv < nb; current_srv++)
+        target[current_srv] = current_srv;
 
 
     int *subset_c = malloc(sizeof(int) * nb);
@@ -218,26 +219,27 @@ int manager_calculate_relab(int nb)
     }
 
     /*find which server in S will receive entries from which subset in L*/
-    for (i = 0; i < size_s; i++) {
+    int srv_in_s;
+    for (srv_in_s = 0; srv_in_s < size_s; srv_in_s++) {
         size_c = manager_balance_load
-            (load[subset_s[i]], subset_l, size_l, 0, subset_c);
+            (load[subset_s[srv_in_s]], subset_l, size_l, 0, subset_c);
 
-        fprintf(stderr, "loads to give to server %d:\n", subset_s[i]);
-        int j;
-        for (j = 0; j < size_c; j++) {
+        fprintf(stderr, "loads to give to server %d:\n", subset_s[srv_in_s]);
+        int srv_in_c;
+        for (srv_in_c = 0; srv_in_c < size_c; srv_in_c++) {
             /*fill target*/
-            int index = find_index(subset_c[j], load, nb);
-            target[index] = subset_s[i];
+            int index = find_index(subset_c[srv_in_c], load, nb);
+            target[index] = subset_s[srv_in_s];
             /*remove from subset_l server which give load*/
-            int k;
-            for (k = 0; k < size_l; k++) {
-                if (subset_l[k] == subset_c[j]) {
-                    subset_l[k] = subset_l[size_l-1];
+            int srv_in_l;
+            for (srv_in_l = 0; srv_in_l < size_l; srv_in_l++) {
+                if (subset_l[srv_in_l] == subset_c[srv_in_c]) {
+                    subset_l[srv_in_l] = subset_l[size_l-1];
                     size_l--;
                     break;
                 }
             }
-            fprintf(stderr, "-%d-", subset_c[j]);
+            fprintf(stderr, "-%d-", subset_c[srv_in_c]);
         }
         fprintf(stderr, "\n");
     }
@@ -245,8 +247,8 @@ int manager_calculate_relab(int nb)
 
     /*find for each server in L
      * a subset of entries matching with the load to give*/
-    for (i = 0; i < nb; i++) {
-        if (load[i] > 0 && target[i] != i) {
+    for (current_srv = 0; current_srv < nb; current_srv++) {
+        if (load[current_srv] > 0 && target[current_srv] != current_srv) {
             int size_srv = 0;
             int *subset_srv = malloc(sizeof(int) * N_entry);
             if (subset_srv == NULL) {
@@ -255,19 +257,19 @@ int manager_calculate_relab(int nb)
                 goto free_target;
             }
 
-            int j;
-            /*find loads for the server i*/
-            for (j = 0; j < N_entry; j++) {
+            int current_entry;
+            /*find loads for the server current_srv*/
+            for (current_entry = 0; current_entry < N_entry; current_entry++) {
                 int srv, version, state;
-                rc = mlt_get_entry(&table, i, &srv, &version, &state);
+                rc = mlt_get_entry(&table, current_srv, &srv, &version, &state);
                 if (rc != 0) {
                     fprintf(stderr,
                         "Manager:calculate_relab: mlt get entry failed\n");
                     free(subset_srv);
                     goto free_target;
                 }
-                if (srv == i) {
-                    subset_srv[size_srv] = global_list[j];
+                if (srv == current_srv) {
+                    subset_srv[size_srv] = global_list[current_entry];
                     size_srv++;
                 }
             }
@@ -282,17 +284,17 @@ int manager_calculate_relab(int nb)
             int size_sai = 0;
             /*pick a subset of sai to obtain load*/
             size_sai = manager_balance_load
-                (0, subset_srv, size_srv, load[i], subset_sai);
+                (0, subset_srv, size_srv, load[current_srv], subset_sai);
 
-            fprintf(stderr, "List of SAI of server %d to obtain the load to give:\n", i);
+            fprintf(stderr, "List of SAI of server %d to obtain the load to give:\n", current_srv);
             /*update the MLT*/
-            for (j = 0; j < size_sai; j++) {
-                int k;
-                fprintf(stderr, "%d, ", subset_sai[j]);
-                for (k = 0; k < N_entry; k++) {
-                    if (global_list[k] == subset_sai[j]) {
+            int sai_in_subset;
+            for (sai_in_subset = 0; sai_in_subset < size_sai; sai_in_subset++) {
+                fprintf(stderr, "%d, ", subset_sai[sai_in_subset]);
+                for (current_entry = 0; current_entry < N_entry; current_entry++) {
+                    if (global_list[current_entry] == subset_sai[sai_in_subset]) {
                         int srv, version, state;
-                        rc = mlt_get_entry(&table, i, &srv, &version, &state);
+                        rc = mlt_get_entry(&table, current_srv, &srv, &version, &state);
                          if (rc != 0) {
                             fprintf(stderr,
                                 "Manager:calculate_relab: mlt get entry failed\n");
@@ -300,9 +302,9 @@ int manager_calculate_relab(int nb)
                             free(subset_srv);
                             goto free_target;
                         }
-                        if (srv == i) {
+                        if (srv == current_srv) {
                             rc = mlt_update_entry
-                                (&table, k, target[i], version + 1, 0);
+                                (&table, current_entry, target[current_srv], version + 1, 0);
                             if (rc != 0) {
                                 fprintf(stderr,
                                     "Manager:calculate_relab: mlt update entry failed\n");
