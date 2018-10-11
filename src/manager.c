@@ -153,8 +153,7 @@ int manager_calculate_relab(int nb)
         rc = mlt_get_entry(&table, i, &srv, &version, &state);
         if (rc != 0) {
             fprintf(stderr, "Manager:calculate_relab: mlt get entry failed\n");
-            free(all);
-            return -1;
+            goto free_all;
         }
         all[srv] += global_list[i];
         sum_all += global_list[i];
@@ -166,8 +165,7 @@ int manager_calculate_relab(int nb)
     int *load = malloc(sizeof(int) * nb);
     if (load == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc load failed\n");
-        free(all);
-        return -1;
+        goto free_all;
     }
 
     /*create two subset: L is for large load (load[i]>0)
@@ -176,16 +174,13 @@ int manager_calculate_relab(int nb)
     int *subset_l = calloc(nb, sizeof(int));
     if (subset_l == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc subset_l failed\n");
-        free(all);
-        return -1;
+        goto free_load;
     }
     /*subset_s is only index*/
     int *subset_s = calloc(nb, sizeof(int));
     if (subset_s == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc subset_s failed\n");
-        free(all);
-        free(subset_l);
-        return -1;
+        goto free_subset_l;
     }
 
     int size_l = 0;
@@ -194,6 +189,7 @@ int manager_calculate_relab(int nb)
         /*balanced is the balanced weight for the server i*/
         int balanced = (sum_all * w_factor) / sum_w;
         load[i] = all[i] - balanced;
+        fprintf(stderr, "manager: load of server %d: %d\n", i, load[i]);
         if (load[i] > 0) {
             subset_l[size_l] = load[i];
             size_l++;
@@ -208,10 +204,7 @@ int manager_calculate_relab(int nb)
     int *target = malloc(sizeof(int) * nb);
     if (target == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc target failed\n");
-        free(all);
-        free(subset_l);
-        free(subset_s);
-        return -1;
+        goto free_subset_s;
     }
     for (i = 0; i < nb; i++)
         target[i] = i;
@@ -221,11 +214,7 @@ int manager_calculate_relab(int nb)
     int size_c = 0;
     if (subset_c == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc subset_c failed\n");
-        free(all);
-        free(subset_l);
-        free(subset_s);
-        free(target);
-        return -1;
+        goto free_target;
     }
 
     /*find which server in S will receive entries from which subset in L*/
@@ -263,12 +252,7 @@ int manager_calculate_relab(int nb)
             if (subset_srv == NULL) {
                 fprintf(stderr,
                     "Manager:calculate_relab: malloc subset_srv failed\n");
-                free(all);
-                free(subset_l);
-                free(subset_s);
-                free(target);
-                free(subset_c);
-                return -1;
+                goto free_target;
             }
 
             int j;
@@ -279,13 +263,8 @@ int manager_calculate_relab(int nb)
                 if (rc != 0) {
                     fprintf(stderr,
                         "Manager:calculate_relab: mlt get entry failed\n");
-                    free(all);
-                    free(subset_l);
-                    free(subset_s);
-                    free(target);
-                    free(subset_c);
                     free(subset_srv);
-                    return -1;
+                    goto free_target;
                 }
                 if (srv == i) {
                     subset_srv[size_srv] = global_list[j];
@@ -294,12 +273,18 @@ int manager_calculate_relab(int nb)
             }
 
             int *subset_sai = malloc(sizeof(int) * size_srv);
+            if (subset_sai == NULL) {
+                fprintf(stderr,
+                    "Manager:calculate_relab: malloc subset_sai failed\n");
+                free(subset_srv);
+                goto free_target;
+            }
             int size_sai = 0;
             /*pick a subset of sai to obtain load*/
             size_sai = manager_balance_load
                 (0, subset_srv, size_srv, load[i], subset_sai);
 
-            fprintf(stderr, "List of SAI to obtain the load to give:\n");
+            fprintf(stderr, "List of SAI of server %d to obtain the load to give:\n", i);
             /*update the MLT*/
             for (j = 0; j < size_sai; j++) {
                 int k;
@@ -311,13 +296,9 @@ int manager_calculate_relab(int nb)
                          if (rc != 0) {
                             fprintf(stderr,
                                 "Manager:calculate_relab: mlt get entry failed\n");
-                            free(all);
-                            free(subset_l);
-                            free(subset_s);
-                            free(target);
                             free(subset_sai);
                             free(subset_srv);
-                            return -1;
+                            goto free_target;
                         }
                         if (srv == i) {
                             rc = mlt_update_entry
@@ -325,13 +306,9 @@ int manager_calculate_relab(int nb)
                             if (rc != 0) {
                                 fprintf(stderr,
                                     "Manager:calculate_relab: mlt update entry failed\n");
-                                free(all);
-                                free(subset_l);
-                                free(subset_s);
-                                free(target);
                                 free(subset_sai);
                                 free(subset_srv);
-                                return -1;
+                                goto free_target;
                             }
                         }
                     }
@@ -343,11 +320,23 @@ int manager_calculate_relab(int nb)
     }
 
     free(target);
-    free(subset_l);
     free(subset_s);
-    free(all);
+    free(subset_l);
     free(load);
+    free(all);
     return 0;
+
+free_target:
+    free(target);
+free_subset_s:
+    free(subset_s);
+free_subset_l:
+    free(subset_l);
+free_load:
+    free(load);
+free_all:
+    free(all);
+    return -1;
 }
 
 
