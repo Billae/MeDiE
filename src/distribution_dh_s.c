@@ -396,10 +396,10 @@ void *thread_load_sender(void *args)
     struct transfert_load_args *to_send = args;
     load_args_sort(to_send, 0, to_send->size - 1);
 
-    int i;
+    /*int i;
     for (i = 0; i < to_send->size; i++)
         fprintf(stderr, "(sender: had to send: entry n %d to server %d\n",
-            to_send->entries[i], to_send->servers[i]);
+            to_send->entries[i], to_send->servers[i]);*/
 
     int rc;
     int fail_rc = -1;
@@ -439,7 +439,6 @@ void *thread_load_sender(void *args)
                         strerror(err));
                 pthread_exit(&fail_rc);
             }
-
             zsock_t *sock = zsock_new_req(socket);
             if (sock == NULL) {
                 fprintf(stderr, "Distribution:thread_load_sender: ");
@@ -455,51 +454,71 @@ void *thread_load_sender(void *args)
                     &to_send->entries[to_send_idx], sizeof(int));
                 zmsg_append(packet, &entry_frame);
 
+                /*fprintf(stderr, "packaging entry %d\n",
+                    to_send->entries[to_send_idx]);*/
                 /*md_names is all md associated to an entry*/
                 char *md_names = NULL;
+                rc = asprintf(&md_names, "");
+                if (rc < 0) {
+                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                    fprintf(stderr, "asprintf md_names failed\n");
+                    pthread_exit(&fail_rc);
+                }
+
                 struct md_entry *ptr;
+                int alloc_size = 0;
                 int i;
                 for (i = 0; i < N_entry; i++) {
-                    if (in_charge_md[i]->entry == to_send->entries[to_send_idx]) {
-                        while (in_charge_md[i] != NULL) {
+                    if (in_charge_md[i] != NULL) {
+                        if (in_charge_md[i]->entry == to_send->entries[to_send_idx]) {
+                            while (in_charge_md[i] != NULL) {
+                                rc = -pthread_rwlock_wrlock(&locks[i]);
+                                if (rc != 0) {
+                                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                                    fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                                    pthread_exit(&fail_rc);
+                                }
 
-                            rc = -pthread_rwlock_wrlock(&locks[i]);
-                            if (rc != 0) {
-                                fprintf(stderr, "Distribution:thread_load_sender: ");
-                                fprintf(stderr, "lock failed: %s\n", strerror(-rc));
-                                pthread_exit(&fail_rc);
-                            }
+                                ptr = md_entry_pop(&in_charge_md[i]);
 
-                            ptr = md_entry_pop(&in_charge_md[i]);
+                                rc = -pthread_rwlock_unlock(&locks[i]);
+                                if (rc != 0) {
+                                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                                    fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                                    pthread_exit(&fail_rc);
+                                }
 
-                            rc = -pthread_rwlock_unlock(&locks[i]);
-                            if (rc != 0) {
-                                fprintf(stderr, "Distribution:thread_load_sender: ");
-                                fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
-                                pthread_exit(&fail_rc);
+                                alloc_size = strlen(md_names) + strlen(ptr->md_name) + 2;
+                                char *tmp = realloc(md_names, alloc_size);
+                                if (tmp == NULL) {
+                                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                                    fprintf(stderr, "realloc md_names failed\n");
+                                    pthread_exit(&fail_rc);
+                                } else
+                                    md_names = tmp;
+                                rc = snprintf(md_names, alloc_size, "%s,%s",
+                                    md_names, ptr->md_name);
+                                if (rc < 0) {
+                                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                                    fprintf(stderr, "sprintf md_names failed\n");
+                                    pthread_exit(&fail_rc);
+                                }
+                                free(ptr->md_name);
+                                free(ptr);
                             }
-
-                            int alloc_size = strlen(md_names) + strlen(ptr->md_name);
-                            md_names = realloc(md_names, alloc_size);
-                            if (md_names == NULL) {
-                                fprintf(stderr, "Distribution:thread_load_sender: ");
-                                fprintf(stderr, "realloc md_names failed\n");
-                                pthread_exit(&fail_rc);
-                            }
-                            rc = snprintf(md_names, alloc_size, "%s,%s", md_names, ptr->md_name);
-                            if (rc < 0) {
-                                fprintf(stderr, "Distribution:thread_load_sender: ");
-                                fprintf(stderr, "sprintf md_names failed\n");
-                                pthread_exit(&fail_rc);
-                            }
-                            free(ptr->md_name);
-                            free(ptr);
+                            break;
                         }
-                        break;
                     }
                 }
-                zframe_t *md_entry_frame = zframe_new(&md_names, strlen(md_names));
+
+                zframe_t *md_entry_size_frame = zframe_new(&alloc_size, sizeof(int));
+                zmsg_append(packet, &md_entry_size_frame);
+
+                zframe_t *md_entry_frame = zframe_new(md_names, alloc_size);
                 zmsg_append(packet, &md_entry_frame);
+
+                /*fprintf(stderr, "packaging finished entry %d: %d -> %s\n",
+                    to_send->entries[to_send_idx], alloc_size, md_names);*/
 
                 rc = zmsg_send(&packet, sock);
                 if (rc != 0) {
@@ -523,16 +542,19 @@ void *thread_load_sender(void *args)
                     pthread_exit(&fail_rc);
                 }
 
-                fprintf(stderr, "[sender: sent: entry %d\n", to_send->entries[to_send_idx]);
+                /*fprintf(stderr, "[sender: sent: entry %d\n",
+                    to_send->entries[to_send_idx]);*/
                 /*receive the acknowledgement from the receiver*/
                 zmsg_t *reply = zmsg_recv(sock);
                 zframe_t *flag = zmsg_pop(reply);
-                if (zframe_streq(flag, "done") != 0) {
-                    fprintf(stderr, "Distribution:thread_load_receiver: ");
+                if (zframe_streq(flag, "done") != true) {
+                    fprintf(stderr, "Distribution:thread_load_sender: ");
                     fprintf(stderr, "acknowledgement receive failed\n");
                     pthread_exit(&fail_rc);
                 }
 
+                /*fprintf(stderr, "[sender: ack received for entry %d\n",
+                    to_send->entries[to_send_idx]);*/
                 /*next entry in the to_do list*/
                 to_send_idx++;
                 current_srv = to_send->servers[to_send_idx];
@@ -546,7 +568,7 @@ void *thread_load_sender(void *args)
     fclose(fd);
     free(to_send->entries);
     free(to_send->servers);
-    fprintf(stderr, "thread load_sender finished\n");
+    /*fprintf(stderr, "thread load_sender finished\n");*/
     pthread_exit(NULL);
 }
 
@@ -555,10 +577,10 @@ void *thread_load_receiver(void *args)
 {
     struct transfert_load_args *to_receive = args;
 
-    int i;
+    /*int i;
     for (i = 0; i < to_receive->size; i++)
         fprintf(stderr, "(receiver: had to receive: entry n %d from server %d\n",
-            to_receive->entries[i], to_receive->servers[i]);
+            to_receive->entries[i], to_receive->servers[i]);*/
 
     int rc;
     int fail_rc = -1;
@@ -582,17 +604,24 @@ void *thread_load_receiver(void *args)
 
     int to_receive_idx = 0;
     while (to_receive_idx < to_receive->size) {
-        /*receive each message in the to_do list*/
+        /*receive each message of the to_do list*/
         zmsg_t *packet = zmsg_recv(sock);
         zframe_t *entry_frame = zmsg_pop(packet);
         byte *tmp_entry = zframe_data(entry_frame);
         int entry;
         memcpy(&entry, tmp_entry, sizeof(int));
 
+        zframe_t *md_entry_size_frame = zmsg_pop(packet);
+        byte *tmp_md_entry_size = zframe_data(md_entry_size_frame);
+        int md_entry_size;
+        memcpy(&md_entry_size, tmp_md_entry_size, sizeof(int));
+
         zframe_t *md_names_frame = zmsg_pop(packet);
         byte *tmp_md_names = zframe_data(md_names_frame);
-        char *md_names = malloc(sizeof(*tmp_md_names));
-        memcpy(md_names, tmp_md_names, sizeof(*tmp_md_names));
+        char *md_names = malloc(md_entry_size);
+        memcpy(md_names, tmp_md_names, md_entry_size);
+        /*fprintf(stderr, "received entry %d, md_size: %d, received mdlist: %s\n",
+            entry, md_entry_size, md_names);*/
 
         char *md_name = strtok(md_names, ",");
 
@@ -605,9 +634,10 @@ void *thread_load_receiver(void *args)
                     struct md_entry *to_add = malloc(sizeof(struct md_entry));
                     char *name;
                     rc = asprintf(&name, "%s", md_name);
-                    if (rc != 0) {
+                    if (rc < 0) {
                         fprintf(stderr, "Distribution:thread_load_receiver:");
                         fprintf(stderr, "get md_name failed: %s\n", strerror(-rc));
+                        zsock_destroy(&sock);
                         pthread_exit(&fail_rc);
                     }
                     md_entry_init(to_add, entry, name);
@@ -617,6 +647,7 @@ void *thread_load_receiver(void *args)
                     if (rc != 0) {
                         fprintf(stderr, "Distribution:thread_load_receiver: ");
                         fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                        zsock_destroy(&sock);
                         pthread_exit(&fail_rc);
                     }
 
@@ -626,6 +657,7 @@ void *thread_load_receiver(void *args)
                     if (rc != 0) {
                         fprintf(stderr, "Distribution:thread_load_receiver:");
                         fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                        zsock_destroy(&sock);
                         pthread_exit(&fail_rc);
                     }
                 }
@@ -638,6 +670,7 @@ void *thread_load_receiver(void *args)
         if (rc != 0) {
             fprintf(stderr, "Distribution:thread_load_receiver: ");
             fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
+            zsock_destroy(&sock);
             pthread_exit(&fail_rc);
         }
         /*update eacl entry*/
@@ -645,10 +678,11 @@ void *thread_load_receiver(void *args)
         if (rc != 0) {
             fprintf(stderr, "Distribution:thread_load_receiver: ");
             fprintf(stderr, "eacl update failed\n");
+            zsock_destroy(&sock);
             pthread_exit(&fail_rc);
         }
 
-        fprintf(stderr, "[receiver: received: entry n %d\n", entry);
+        /*fprintf(stderr, "[receiver: received: entry n %d\n", entry);*/
 
         /*send an acknowledgement to the sender*/
         zmsg_t *reply = zmsg_new();
@@ -663,7 +697,7 @@ void *thread_load_receiver(void *args)
     zsock_destroy(&sock);
     free(to_receive->entries);
     free(to_receive->servers);
-    fprintf(stderr, "thread load_receiver finished\n");
+    /*fprintf(stderr, "thread load_receiver finished\n");*/
     pthread_exit(NULL);
 }
 
@@ -709,8 +743,8 @@ void *thread_mlt_updater(void *args)
 
         int i;
         for (i = 0; i < N_entry; i++) {
-            /*fprintf(stderr, "MLT received: index=%d -- %d %d\n",
-                i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);*/
+            fprintf(stderr, "MLT received: index=%d -- %d %d\n",
+                i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
 
             /*updating the mlt and fill the to_do list for sender and receiver*/
             int old_srv, old_ver, old_state;
