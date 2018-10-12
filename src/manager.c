@@ -211,7 +211,7 @@ int manager_calculate_relab(int nb)
         target[current_srv] = current_srv;
 
 
-    int *subset_c = malloc(sizeof(int) * nb);
+    int *subset_c = malloc(sizeof(int) * size_l);
     int size_c = 0;
     if (subset_c == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc subset_c failed\n");
@@ -261,7 +261,7 @@ int manager_calculate_relab(int nb)
             /*find loads for the server current_srv*/
             for (current_entry = 0; current_entry < N_entry; current_entry++) {
                 int srv, version, state;
-                rc = mlt_get_entry(&table, current_srv, &srv, &version, &state);
+                rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
                 if (rc != 0) {
                     fprintf(stderr,
                         "Manager:calculate_relab: mlt get entry failed\n");
@@ -294,7 +294,7 @@ int manager_calculate_relab(int nb)
                 for (current_entry = 0; current_entry < N_entry; current_entry++) {
                     if (global_list[current_entry] == subset_sai[sai_in_subset]) {
                         int srv, version, state;
-                        rc = mlt_get_entry(&table, current_srv, &srv, &version, &state);
+                        rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
                          if (rc != 0) {
                             fprintf(stderr,
                                 "Manager:calculate_relab: mlt get entry failed\n");
