@@ -114,8 +114,8 @@ while (1) {
         if (!json_object_object_get_ex(request, "data", &data))
             fprintf(stderr,
                     "Server: json extract error: no key \"data\" found\n");
-        rc = generic_put(json_object_get_string(data),
-                json_object_get_string(key));
+        rc = generic_put(json_object_get_string(key),
+                json_object_get_string(data));
         if (rc != 0) {
             fprintf(stderr, "Server: generic storage operation error\n");
             global_rc = -1;

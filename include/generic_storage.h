@@ -9,20 +9,28 @@
 
 
 /** Store data in a location addressed by key
- * @return 0 if successful
+ * @return 0 on success and -1 on failure
  * **/
 int generic_put(const char *key, const char *value);
 
 
 /** Retrieve data associated to a key
  * @param[in] key key to retrieve
- * @return the associated data. Caller must free() it after use.
+ * @return the associated data or NULL on failure. Caller must free() it after use.
  * **/
 char *generic_get(const char *key);
 
 
+/** Update data associated to a key
+ * @param[in] key key associated to data to modify
+ * @param[in] value new value of data
+ * @return 0 on success and -1 on failure
+ * **/
+int generic_update(const char *key, const char *value);
+
+
 /** Delete a key and data related
- * @return 0 if successful
+ * @return 0 on success and -1 on failure
  * **/
 int generic_del(const char *key);
 
