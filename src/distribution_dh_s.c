@@ -326,7 +326,7 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 if (ptr->entry == json_object_get_int(entry)) {
                     rc = -pthread_rwlock_wrlock(&locks[i]);
                     if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "Distribution:pre_send: ");
                         fprintf(stderr, "lock failed: %s\n", strerror(-rc));
                         return -1;
                     }
@@ -335,8 +335,13 @@ int distribution_pre_send(json_object *reply, int global_rc)
 
                     rc = -pthread_rwlock_unlock(&locks[i]);
                     if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send:");
+                        fprintf(stderr, "Distribution:pre_send: ");
                         fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                        return -1;
+                    }
+                    if (ptr == NULL) {
+                        fprintf(stderr, "Distribution:pre_send: ");
+                        fprintf(stderr, " search_md_entry failed\n");
                         return -1;
                     }
                     free(ptr->md_name);

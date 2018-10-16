@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "md_entry.h"
 
@@ -38,7 +39,7 @@ struct md_entry *md_entry_search_md_name(struct md_entry **head, char *name)
     struct md_entry *current = *head;
     struct md_entry *prev = NULL;
     while (current != NULL) {
-        if (current->md_name == name) {
+        if (strcmp(current->md_name, name) == 0) {
             if (prev == NULL) {
                 *head = current->next;
                 return current;
