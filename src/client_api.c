@@ -136,30 +136,28 @@ zsock_t *client_init_connexion(const char *id_srv)
 }
 
 
-int client_request_create(const char *key, const char *data)
+int client_request(json_object *request, json_object **reply)
 {
     int rc = 0;
-
-    json_object *request = create_request_create(key, data);
 
     /*call the distribution processing*/
     rc = distribution_pre_send(request);
     if (rc != 0) {
         fprintf(stderr,
-            "Client API:request_create: distribution pre_send error\n");
-        return -1;
+            "Client API:request: distribution pre_send error\n");
+        goto fail;
     }
 
     /*getting the server ID*/
     json_object *host;
     if (!json_object_object_get_ex(request, "id_srv", &host))
         fprintf(stderr,
-            "Client API:request_create: json extract error: no key \"host\" found\n");
+            "Client API:request: json extract error: no key \"host\" found\n");
     errno = 0;
     int srv_id = json_object_get_int(host);
     if (errno == EINVAL) {
-        fprintf(stderr, "Client API:request_create: get server id error\n");
-        return -1;
+        fprintf(stderr, "Client API:request: get server id error\n");
+        goto fail;
     }
 
     /*sending request*/
@@ -168,20 +166,20 @@ int client_request_create(const char *key, const char *data)
 
     /*cleaning json object sent*/
     if (json_object_put(request) != 1)
-        fprintf(stderr, "Client API:request_create: free request error\n");
+        fprintf(stderr, "Client API:request: free request error\n");
 
 
     /*receiving reply*/
     char *string = zstr_recv(servers[srv_id]);
-    json_object *reply = json_tokener_parse(string);
+    *reply = json_tokener_parse(string);
     zstr_free(&string);
 
     /*processing reply*/
     json_object *rep_flag;
-    if (!json_object_object_get_ex(reply, "repFlag", &rep_flag)) {
+    if (!json_object_object_get_ex(*reply, "repFlag", &rep_flag)) {
         fprintf(stderr,
-            "Client API:request_create: json extract error: no key \"repFlag\" found\n");
-        return -1;
+            "Client API:request: json extract error: no key \"repFlag\" found\n");
+        goto fail;
     }
 
     int rep_rc;
@@ -189,24 +187,124 @@ int client_request_create(const char *key, const char *data)
         rep_rc = 0;
     else if (strcmp(json_object_get_string(rep_flag), "update&retry") == 0)
         rep_rc = -EAGAIN;
-    else if (strcmp(json_object_get_string(rep_flag), "wait&retry") == 0)
+    else if (strcmp(json_object_get_string(rep_flag), "wait&retry") == 0) {
+        reply = NULL;
         return -EAGAIN;
-    else
-        return -1;
+    } else
+        goto fail;
 
     /*call the distribution processing*/
-    rc = distribution_post_receive(reply);
+    rc = distribution_post_receive(*reply);
     if (rc != 0) {
         fprintf(stderr,
-            "Client API:request_create: distribution post_receive error\n");
+            "Client API:request: distribution post_receive error\n");
          /*cleaning*/
-        if (json_object_put(reply) != 1)
-            fprintf(stderr, "Client API:request_create: free reply error\n");
+        if (json_object_put(*reply) != 1)
+            fprintf(stderr, "Client API:request: free reply error\n");
         return -1;
     }
+    return rep_rc;
+
+fail:
+    reply = NULL;
+    return -1;
+}
+
+
+int client_request_create(const char *key, const char *data)
+{
+    int rc = 0;
+
+    json_object *request = create_request_create(key, data);
+    if (request == NULL) {
+        fprintf(stderr, "client api:request_create: create_request failed\n");
+        return -1;
+    }
+
+    json_object *reply = NULL;
+    rc = client_request(request, &reply);
+
     /*cleaning*/
     if (json_object_put(reply) != 1)
         fprintf(stderr, "client api:request_create: free reply error\n");
-    return rep_rc;
 
+    return rc;
+}
+
+
+int client_request_read(const char *key, char **return_value)
+{
+    int rc = 0;
+
+    json_object *request = create_request_read(key);
+    if (request == NULL) {
+        fprintf(stderr, "client api:request_read: create_request failed\n");
+        return -1;
+    }
+
+    json_object *reply = NULL;
+    rc = client_request(request, &reply);
+    if (reply == NULL) {
+        fprintf(stderr, "client api:request_read: no reply found\n");
+        return -1;
+    }
+
+
+    json_object *rep_value;
+    if (!json_object_object_get_ex(reply, "getValue", &rep_value)) {
+        fprintf(stderr,
+            "Client API:request_read: json extract error: no key \"getValue\" found\n");
+        return -1;
+    }
+
+    if (asprintf(return_value, "%s", json_object_get_string(rep_value)) == -1)
+        fprintf(stderr, "Client API:request_read: asprintf error\n");
+
+    /*cleaning*/
+    if (json_object_put(reply) != 1)
+        fprintf(stderr, "client api:request_read: free reply error\n");
+
+    return rc;
+}
+
+
+int client_request_update(const char *key, const char *data)
+{
+    int rc = 0;
+
+    json_object *request = create_request_update(key, data);
+    if (request == NULL) {
+        fprintf(stderr, "client api:request_update: create_request failed\n");
+        return -1;
+    }
+
+    json_object *reply = NULL;
+    rc = client_request(request, &reply);
+
+    /*cleaning*/
+    if (json_object_put(reply) != 1)
+        fprintf(stderr, "client api:request_update: free reply error\n");
+
+    return rc;
+}
+
+
+int client_request_delete(const char *key)
+{
+    int rc = 0;
+
+    json_object *request = create_request_delete(key);
+    if (request == NULL) {
+        fprintf(stderr, "client api:request_delete: create_request failed\n");
+        return -1;
+    }
+
+    json_object *reply = NULL;
+    rc = client_request(request, &reply);
+
+    /*cleaning*/
+    if (json_object_put(reply) != 1)
+        fprintf(stderr, "client api:request_delete: free reply error\n");
+
+    return rc;
 }

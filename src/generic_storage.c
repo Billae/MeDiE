@@ -74,6 +74,7 @@ char *generic_get(const char *key)
         fprintf(stderr, "read error: %s\n", strerror(err));
         return NULL;
     }
+    data[rc] = '\0';
 
     close(fd);
     free(path);

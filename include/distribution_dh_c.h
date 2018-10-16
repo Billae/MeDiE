@@ -43,12 +43,7 @@ int distribution_pre_send(json_object *request);
 int distribution_post_receive(json_object *reply);
 
 
-/** Find the server number responsible of a key when
- * this key is already assigned **/
-int distribution_find_srv_by_key(const char *key);
-
-
-/** Add the id_srv field in the request where the key is not already used
+/** Add the id_srv field in the request
  * @param[in] key the key to store
  * @param[out] request the request to fill in
  * @return 0 on success and -1 on failure

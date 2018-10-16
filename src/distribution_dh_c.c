@@ -61,20 +61,11 @@ int distribution_pre_send(json_object *request)
         return -1;
     }
 
-    errno = 0;
-    enum req_type reqType = json_object_get_int(type);
-    if (errno == EINVAL) {
-        fprintf(stderr, "Distribution:pre_send: get reqType error\n");
+    int rc = distribution_assign_srv_by_key(key, request);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:pre_send: assignation server failed\n");
         return -1;
-    }
-
-    if (reqType == RT_CREATE) {
-        int rc = distribution_assign_srv_by_key(key, request);
-        if (rc != 0) {
-            fprintf(stderr,
-                "Distribution:pre_send: assignation server failed\n");
-            return -1;
-        }
     }
     return 0;
 }

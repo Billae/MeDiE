@@ -26,7 +26,7 @@ int main(int argc, char **argv)
         (strcmp(argv[2], "o") != 0 && strcmp(argv[2], "p") != 0)) {
 
         fprintf(stderr,
-                "please give the number of available servers and a server type o or p (and port if type is o)\n");
+            "please give the number of available servers and a server type o or p\n");
         return -1;
     }
 
@@ -110,30 +110,57 @@ while (1) {
     switch (reqType) {
 
     case RT_CREATE: /*create*/
-    {   json_object *data;
+    {
+        json_object *data;
         if (!json_object_object_get_ex(request, "data", &data))
             fprintf(stderr,
-                    "Server: json extract error: no key \"data\" found\n");
+                "Server: json extract error: no key \"data\" found\n");
         rc = generic_put(json_object_get_string(key),
-                json_object_get_string(data));
+        json_object_get_string(data));
         if (rc != 0) {
             fprintf(stderr, "Server: generic storage operation error\n");
             global_rc = -1;
-            break;
         }
+        break;
     }
 
     case RT_UPDATE: /*update*/
-        break;
-
-    case RT_DELETE: /*delete*/
-        break;
-
-    default: /*get*/
+    {
+        json_object *data;
+        if (!json_object_object_get_ex(request, "data", &data))
+            fprintf(stderr,
+                "Server: json extract error: no key \"data\" found\n");
+        rc = generic_update(json_object_get_string(key),
+        json_object_get_string(data));
+        if (rc != 0) {
+            fprintf(stderr, "Server: generic storage operation error\n");
+            global_rc = -1;
+        }
         break;
     }
 
+    case RT_DELETE: /*delete*/
+    {
+        rc = generic_del(json_object_get_string(key));
+        if (rc != 0) {
+            fprintf(stderr, "Server: generic storage operation error\n");
+            global_rc = -1;
+        }
+        break;
+    }
 
+    default: /*get*/
+    {
+        char *get_value = generic_get(json_object_get_string(key));
+        if (get_value == NULL) {
+            fprintf(stderr, "Server: generic storage operation error\n");
+            global_rc = -1;
+        }
+        json_object *get_value_reply = json_object_new_string(get_value);
+        json_object_object_add(request, "getValue", get_value_reply);
+        break;
+    }
+    }
     /*creating reply and send*/
 reply:
     rc = distribution_pre_send(request, global_rc);
