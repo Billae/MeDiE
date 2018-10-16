@@ -109,7 +109,7 @@ int manager_balance_load(
             last_index = i;
     }
 
-    if (last_index != -1 && fabs(sum + list[last_index]) < fabs(sum)) {
+    if (last_index != -1 && abs(sum + list[last_index]) < abs(sum)) {
         subset[idx] = list[last_index];
         idx++;
     }
