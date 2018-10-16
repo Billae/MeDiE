@@ -190,7 +190,8 @@ int manager_calculate_relab(int nb)
         /*balanced is the balanced weight for the server i*/
         int balanced = (sum_all * w_factor) / sum_w;
         load[current_srv] = all[current_srv] - balanced;
-        fprintf(stderr, "manager: load of server %d: %d\n", current_srv, load[current_srv]);
+        fprintf(stderr, "manager: load of server %d: %d\n",
+            current_srv, load[current_srv]);
         if (load[current_srv] > 0) {
             subset_l[size_l] = load[current_srv];
             size_l++;
@@ -261,7 +262,8 @@ int manager_calculate_relab(int nb)
             /*find loads for the server current_srv*/
             for (current_entry = 0; current_entry < N_entry; current_entry++) {
                 int srv, version, state;
-                rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
+                rc = mlt_get_entry(&table, current_entry,
+                        &srv, &version, &state);
                 if (rc != 0) {
                     fprintf(stderr,
                         "Manager:calculate_relab: mlt get entry failed\n");
@@ -286,7 +288,9 @@ int manager_calculate_relab(int nb)
             size_sai = manager_balance_load
                 (0, subset_srv, size_srv, load[current_srv], subset_sai);
 
-            fprintf(stderr, "List of SAI of server %d to obtain the load to give:\n", current_srv);
+            fprintf(stderr,
+                "List of SAI of server %d to obtain the load to give:\n",
+                current_srv);
             /*update the MLT*/
             int sai_in_subset;
             for (sai_in_subset = 0; sai_in_subset < size_sai; sai_in_subset++) {
@@ -294,7 +298,8 @@ int manager_calculate_relab(int nb)
                 for (current_entry = 0; current_entry < N_entry; current_entry++) {
                     if (global_list[current_entry] == subset_sai[sai_in_subset]) {
                         int srv, version, state;
-                        rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
+                        rc = mlt_get_entry(&table, current_entry,
+                                &srv, &version, &state);
                          if (rc != 0) {
                             fprintf(stderr,
                                 "Manager:calculate_relab: mlt get entry failed\n");
@@ -303,8 +308,8 @@ int manager_calculate_relab(int nb)
                             goto free_target;
                         }
                         if (srv == current_srv) {
-                            rc = mlt_update_entry
-                                (&table, current_entry, target[current_srv], version + 1, 0);
+                            rc = mlt_update_entry(&table, current_entry,
+                                    target[current_srv], version + 1, 0);
                             if (rc != 0) {
                                 fprintf(stderr,
                                     "Manager:calculate_relab: mlt update entry failed\n");
