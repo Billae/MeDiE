@@ -462,16 +462,13 @@ void *thread_load_sender(void *args)
                 /*fprintf(stderr, "packaging entry %d\n",
                     to_send->entries[to_send_idx]);*/
                 /*md_names is all md associated to an entry*/
-                char *md_names = NULL;
-                rc = asprintf(&md_names, "");
-                if (rc < 0) {
-                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                    fprintf(stderr, "asprintf md_names failed\n");
-                    pthread_exit(&fail_rc);
-                }
+
+                int md_names_capacity = 80;
+                char *md_names = malloc(sizeof(char) * md_names_capacity);
+                strncpy(md_names, "", 1);
+                int md_names_length = strlen(md_names);
 
                 struct md_entry *ptr;
-                int alloc_size = 0;
                 int i;
                 for (i = 0; i < N_entry; i++) {
                     if (in_charge_md[i] != NULL) {
@@ -493,21 +490,23 @@ void *thread_load_sender(void *args)
                                     pthread_exit(&fail_rc);
                                 }
 
-                                alloc_size = strlen(md_names) + strlen(ptr->md_name) + 2;
-                                char *tmp = realloc(md_names, alloc_size);
-                                if (tmp == NULL) {
-                                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                                    fprintf(stderr, "realloc md_names failed\n");
-                                    pthread_exit(&fail_rc);
-                                } else
-                                    md_names = tmp;
-                                rc = snprintf(md_names, alloc_size, "%s,%s",
-                                    md_names, ptr->md_name);
-                                if (rc < 0) {
-                                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                                    fprintf(stderr, "sprintf md_names failed\n");
-                                    pthread_exit(&fail_rc);
+                                /* update the string length*/
+                                md_names_length += 1 + strlen(ptr->md_name);
+                                /*increase the capacity if needed*/
+                                if (md_names_length >= md_names_capacity) {
+                                    md_names_capacity = (md_names_capacity*3)/2;
+                                    char *tmp = realloc(md_names, md_names_capacity);
+                                    if (tmp == NULL) {
+                                        fprintf(stderr, "Distribution:thread_load_sender: ");
+                                        fprintf(stderr, "realloc md_names failed\n");
+                                        pthread_exit(&fail_rc);
+                                    } else
+                                        md_names = tmp;
                                 }
+                                /* copy a comma and the strign into the buffer*/
+                                strncat(md_names, ",", 1);
+                                strncat(md_names, ptr->md_name, strlen(ptr->md_name));
+
                                 free(ptr->md_name);
                                 free(ptr);
                             }
@@ -516,10 +515,10 @@ void *thread_load_sender(void *args)
                     }
                 }
 
-                zframe_t *md_entry_size_frame = zframe_new(&alloc_size, sizeof(int));
+                zframe_t *md_entry_size_frame = zframe_new(&md_names_length, sizeof(int));
                 zmsg_append(packet, &md_entry_size_frame);
 
-                zframe_t *md_entry_frame = zframe_new(md_names, alloc_size);
+                zframe_t *md_entry_frame = zframe_new(md_names, md_names_length);
                 zmsg_append(packet, &md_entry_frame);
 
                 /*fprintf(stderr, "packaging finished entry %d: %d -> %s\n",
