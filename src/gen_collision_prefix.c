@@ -30,7 +30,8 @@ int main(int argc, char *argv[])
     int seed = 1;
     uint32_t h_out;
 
-    int i, rc;
+    int i = 0;
+    int rc;
     struct mlt table;
     rc = mlt_init(&table, N_entry, atoi(argv[2]));
     if (rc != 0) {
@@ -44,8 +45,10 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    for (i = 0; i < iter; i++) {
-        asprintf(&name, "%s%d", argv[1], i);
+    unsigned long int k = 0;
+
+    while (i < 10000) {
+        asprintf(&name, "%s%ld", argv[1], k++);
         MurmurHash3_x86_32(name, strlen(name), seed, &h_out);
         int index = h_out%N_entry;
 
@@ -55,8 +58,10 @@ int main(int argc, char *argv[])
             fprintf(stderr, "mlt get entry failed\n");
             return -1;
         }
-        if (num_srv == 0)
+        if (num_srv == 0) {
             fprintf(fd, "%s\n", name);
+            i++;
+        }
     }
 
     fclose(fd);
