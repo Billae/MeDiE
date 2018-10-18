@@ -346,6 +346,7 @@ int distribution_pre_send(json_object *reply, int global_rc)
                     }
                     free(ptr->md_name);
                     free(ptr);
+                    free(str_key);
                     found = 1;
                     break;
                 }
@@ -718,6 +719,8 @@ void *thread_mlt_updater(void *args)
             "Distribution:thread_mlt_updater: create zmq socket error\n");
         pthread_exit((void *)-1);
     }
+    free(socket);
+
     int rc;
     while (1) {
         struct mlt temp_mlt;
@@ -730,10 +733,14 @@ void *thread_mlt_updater(void *args)
         zframe_t *id_srv_frame = zmsg_pop(packet);
         byte *temp = zframe_data(id_srv_frame);
         memcpy(temp_mlt.id_srv, temp, sizeof(uint32_t) * N_entry);
+        zframe_destroy(&id_srv_frame);
 
         zframe_t *n_ver_frame = zmsg_pop(packet);
         temp = zframe_data(n_ver_frame);
         memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
+        zframe_destroy(&n_ver_frame);
+
+        zmsg_destroy(&packet);
 
         /*to do lists given to receiver and sender threads*/
         struct transfert_load_args to_receive;
@@ -849,6 +856,7 @@ void *thread_sai_sender(void *args)
                 "Distribution:thread_sai_sender: create zmq socket error\n");
             pthread_exit((void *)-1);
     }
+    free(socket);
 
     while (1) {
         int rc = eacl_calculate_sai(&access_list);

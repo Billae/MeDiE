@@ -47,6 +47,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "Server: create zmq socket error\n");
             return -1;
         }
+        free(socket);
 
     }
 
@@ -59,6 +60,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "Server: create zmq socket error\n");
             return -1;
         }
+        free(name);
     }
 
     rc = distribution_init(atoi(argv[1]));

@@ -384,7 +384,8 @@ int main(int argc, char *argv[])
                 "Manager: create zmq socket pub error\n");
             return -1;
     }
-
+    free(socket);
+    socket = NULL;
 
     /*Open the pull socket to receive eacl updates*/
 
@@ -401,11 +402,10 @@ int main(int argc, char *argv[])
     while (1) {
 
         time_t start = time(NULL);
-        zmsg_t *packet;
         while ((time(NULL) - start) < 5) {
 
             /*receiving eacls*/
-            packet = zmsg_recv(pull);
+            zmsg_t *packet = zmsg_recv(pull);
             if (packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
 
@@ -414,7 +414,7 @@ int main(int argc, char *argv[])
             zframe_t *sai_frame = zmsg_pop(packet);
             byte *temp = zframe_data(sai_frame);
             memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
-
+            zframe_destroy(&sai_frame);
             /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
 
             rc = manager_merge_eacl(temp_sai);
@@ -422,9 +422,8 @@ int main(int argc, char *argv[])
                 fprintf(stderr, "Manager: merge eacl with global failed\n");
             free(temp_sai);
             /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
+            zmsg_destroy(&packet);
         }
-        zmsg_destroy(&packet);
-
 
         /*RELAB*/
         rc = manager_calculate_relab(nb_srv);
@@ -432,7 +431,7 @@ int main(int argc, char *argv[])
             fprintf(stderr, "Manager: relab computation failed\n");
 
         /*sending MLT*/
-        packet = zmsg_new();
+        zmsg_t *packet = zmsg_new();
         zframe_t *id_srv_frame = zframe_new(table.id_srv,
             sizeof(uint32_t) * table.size);
         zmsg_append(packet, &id_srv_frame);
