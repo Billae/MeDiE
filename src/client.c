@@ -8,21 +8,19 @@
 #include "client_api.h"
 
 #define BILLION  1000000000L
-#define NB_REQUESTS 10000
-#define MAX_SIZE_ID 20
-/* path in pcocc*/
-//#define ID_PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
-/*path in ocre*/
-#define ID_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id.cfg"
+#define MAX_SIZE 50
+
 
 int main(int argc, char **argv)
 {
-    if (argv[1] == NULL || argv[2] == NULL) {
-        fprintf(stderr, "please give a number of servers and a key prefix\n");
+    if (argv[1] == NULL || argv[2] == NULL || argv[3] == NULL) {
+        fprintf(stderr, "please give a number of servers, the number of requests and the path of trace file\n");
         return -1;
     }
 
     int nb_servers = atoi(argv[1]);
+    int nb_req = atoi(argv[2]);
+    char *path = argv[3];
     char *data = "a word";
 
     /*init context*/
@@ -34,25 +32,54 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    /*create pattern to request different key each time*/
-    char *key;
-    int i = 0;
-   /*use file for collisions*/
-    FILE *fd = fopen(ID_PATH, "r");
-    char *key_list[NB_REQUESTS];
-    for (i = 0; i < NB_REQUESTS; i++) {
-        key_list[i] = malloc(MAX_SIZE_ID*sizeof(char));
-        if (fgets(key_list[i], MAX_SIZE_ID, fd) == NULL) {
+    FILE *fd = fopen(path, "r");
+    char *key_list[nb_req];
+    int type_list[nb_req];
+
+
+    char *a_line = malloc(MAX_SIZE * sizeof(char));
+    int current_req;
+    for (current_req = 0; current_req < nb_req; current_req++) {
+
+        /*use file for collisions*/
+/*        key_list[current_req] = malloc(MAX_SIZE*sizeof(char));
+        if (fgets(key_list[current_req], MAX_SIZE, fd) == NULL) {
             fprintf(stderr, "key reading failed\n");
             client_finalize_context();
             return -1;
         }
-        char *positionEntree = strchr(key_list[i], '\n');
+        char *positionEntree = strchr(key_list[current_req], '\n');
         if (positionEntree != NULL)
             *positionEntree = '\0';
     }
+*/
+        /*for trace file*/
+        if (fgets(a_line, MAX_SIZE, fd) == NULL) {
+            fprintf(stderr, "Client: read request file failed\n");
+            return -1;
+        }
+        char *positionEntree = strchr(a_line, '\n');
+        if (positionEntree != NULL)
+            *positionEntree = '\0';
 
+        /*parse the line*/
+        char *type = strtok(a_line, ",");
+        if (strcmp(type, "create") == 0)
+            type_list[current_req] = 1;
+        if (strcmp(type, "get") == 0)
+            type_list[current_req] = 2;
+        if (strcmp(type, "update") == 0)
+            type_list[current_req] = 3;
+        if (strcmp(type, "delete") == 0)
+            type_list[current_req] = 4;
 
+        char *key = strtok(NULL, ",");
+        asprintf(&key_list[current_req], "%s", key);
+
+        /*fprintf(stderr, "-%s- -%d-\n",
+         * key_list[current_req], type_list[current_req]);*/
+    }
+    free(a_line);
 
     struct timespec start, end;
 
@@ -60,25 +87,58 @@ int main(int argc, char **argv)
     if (rc)
         printf("Client: getting time error\n");
 
-    for (i = 0; i < NB_REQUESTS; i++) {
-        /*for prefix use*/
-        /*    if (asprintf(&key, "%s%d", argv[2], i) == -1) {
-            int err = errno;
-            fprintf(stderr, "Client: generating key error:%s\n", strerror(err));
-            client_finalize_context();
-            return -1;
-        }
-
-        rc = client_request_create(key, data);*/
-        /*for collision use*/
-        rc = client_request_create(key_list[i], data);
+    /*for collision create file*/
+/*
+    for (current_req = 0; current_req < nb_req; current_req++) {
+        rc = client_request_create(key_list[current_req], data);
         if (rc != 0)
             fprintf(stderr, "Request failed: %s\n", strerror(-rc));
             if (rc == -EAGAIN)
-                i--;
-        free(key);
+                current_req--;
     }
+*/
+    /*for trace file*/
+    for (current_req = 0; current_req < nb_req; current_req++) {
+        switch (type_list[current_req]) {
+        case 1: {
+            rc = client_request_create(key_list[current_req], data);
+            if (rc != 0)
+                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+            if (rc == -EAGAIN)
+                current_req--;
+            break;
+        }
 
+        case 2: {
+            char *value;
+            rc = client_request_read(key_list[current_req], &value);
+            if (rc != 0)
+                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+            if (rc == -EAGAIN)
+                current_req--;
+            break;
+        }
+
+        case 3: {
+            rc = client_request_update(key_list[current_req], data);
+            if (rc != 0)
+                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+            if (rc == -EAGAIN)
+                current_req--;
+            break;
+        }
+
+        case 4: {
+            rc = client_request_delete(key_list[current_req]);
+            if (rc != 0)
+                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+            if (rc == -EAGAIN)
+                current_req--;
+            break;
+        }
+
+        }
+    }
     rc = clock_gettime(CLOCK_REALTIME, &end);
     if (rc)
         printf("CLient: getting time error\n");
@@ -88,8 +148,11 @@ int main(int argc, char **argv)
 
 // warning: the stdout stream is catched to get time value, don't flood it!
     printf("%lf", accum);
-    for (i = 0; i < NB_REQUESTS; i++)
-        free(key_list[i]);
+
+    for (current_req = 0; current_req < nb_req; current_req++)
+        free(key_list[current_req]);
+
     client_finalize_context();
+    fclose(fd);
     return 0;
 }
