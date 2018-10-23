@@ -6,6 +6,7 @@
 #include <json.h>
 #include <string.h>
 #include <errno.h>
+#include <pthread.h>
 
 #include "generic_storage.h"
 #include "protocol.h"
@@ -17,7 +18,114 @@
     #include "distribution_dh_s.h"
 #endif
 
-/*TO DO*/
+
+/* path in pcocc*/
+//#define PREFIX "/home/billae/prototype_MDS/"
+/*path in ocre*/
+#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
+
+
+#define max_id_size 21
+/*counter to have load of each server and its lock*/
+static int access_count;
+static pthread_rwlock_t lock;
+
+
+/*Thread which periodically catch the load of the server*/
+void *thread_perf_watcher(void *args)
+{
+    int rc;
+    int fail_rc = -1;
+    int id_srv;
+
+    /*id_server*/
+    char *srv_path;
+    asprintf(&srv_path, "%setc/server.cfg", PREFIX);
+    char *id_str = malloc(max_id_size);
+    if (id_str == NULL) {
+        int err = errno;
+        fprintf(stderr, "thread_perf_watcher: id_str malloc error: %s\n",
+            strerror(err));
+        pthread_exit(&fail_rc);
+    }
+
+    int fd_srv = open(srv_path, O_RDONLY);
+    if (fd_srv == -1) {
+        int err = errno;
+        fprintf(stderr, "thread_perf_watcher: open error: %s\n",
+            strerror(err));
+        free(srv_path);
+        pthread_exit(&fail_rc);
+    }
+
+    free(srv_path);
+
+    rc = read(fd_srv, id_str, max_id_size);
+    if (rc < 0) {
+        fprintf(stderr, "thread_perf_watcher: read config file failed\n");
+        pthread_exit(&fail_rc);
+    }
+
+    char *positionEntree = strchr(id_str, '\n');
+    if (positionEntree != NULL)
+        *positionEntree = '\0';
+
+    char *value = strstr(id_str, "ID");
+    value = strchr(value, '=');
+    value++;
+    id_srv = atoi(value);
+
+    free(id_str);
+    close(fd_srv);
+
+
+    /*open the result file*/
+    char *result_path;
+    asprintf(&result_path, "%sload%d", PREFIX, id_srv);
+
+    int fd_res = open(result_path, O_WRONLY | O_CREAT, 0664);
+    if (fd_res == -1) {
+        int err = errno;
+        fprintf(stderr, "thread_perf_watcher: open error: %s\n",
+            strerror(err));
+        free(result_path);
+        pthread_exit(&fail_rc);
+    }
+    free(result_path);
+
+    while (1) {
+
+        char *load;
+        asprintf(&load, "%d\n", access_count);
+        if ((write(fd_res, load, strlen(load))) < 0) {
+            int err = errno;
+            fprintf(stderr, "thread_perf_watcher: ");
+            fprintf(stderr, "write error: %s\n", strerror(err));
+            pthread_exit(&fail_rc);
+        }
+        free(load);
+        rc = -pthread_rwlock_wrlock(&lock);
+        if (rc != 0) {
+            fprintf(stderr, "Server: lock failed: %s\n", strerror(-rc));
+            pthread_exit(&fail_rc);
+        }
+
+        access_count = 0;
+
+        rc = -pthread_rwlock_unlock(&lock);
+        if (rc != 0) {
+            fprintf(stderr, "Server: unlock failed: %s\n", strerror(-rc));
+            pthread_exit(&fail_rc);
+        }
+
+        sleep(1);
+    }
+
+    close(fd_res);
+    pthread_exit(NULL);
+}
+
+
 int main(int argc, char **argv)
 {
     int rc;
@@ -72,6 +180,26 @@ int main(int argc, char **argv)
 
     int global_rc;
 
+    /*launch the perf watcher*/
+    access_count = 0;
+    int fail_rc = -1;
+
+    rc = -pthread_rwlock_init(&lock, NULL);
+    if (rc != 0) {
+        fprintf(stderr, "Server:init: lock init failed\n");
+        pthread_exit(&fail_rc);
+    }
+
+    pthread_t perf_watcher;
+    rc = pthread_create(&perf_watcher, NULL, &thread_perf_watcher, NULL);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Server:init: thread perf_watcher init failed: %s\n",
+            strerror(-rc));
+            pthread_exit(&fail_rc);
+    }
+
+
 while (1) {
 
     global_rc = 0;
@@ -80,6 +208,21 @@ while (1) {
     char *string = zstr_recv(rep);
     json_object *request = json_tokener_parse(string);
     zstr_free(&string);
+
+    /*for perf_watcher*/
+    rc = -pthread_rwlock_wrlock(&lock);
+    if (rc != 0) {
+        fprintf(stderr, "Server: lock failed: %s\n", strerror(-rc));
+        pthread_exit(&fail_rc);
+    }
+
+    access_count++;
+
+    rc = -pthread_rwlock_unlock(&lock);
+    if (rc != 0) {
+        fprintf(stderr, "Server: unlock failed: %s\n", strerror(-rc));
+        pthread_exit(&fail_rc);
+    }
 
     /*call the distribution processing*/
     rc = distribution_post_receive(request);
@@ -196,6 +339,7 @@ reply:
     if (rc != 0)
         fprintf(stderr, "Server: distribution finalize failed\n");
 
+    pthread_rwlock_destroy(&lock);
     zsock_destroy(&rep);
     return 0;
 }
