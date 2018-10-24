@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <czmq.h>
 #include <errno.h>
-
+#include <signal.h>
 #include <math.h>
+
 #include "manager.h"
 #include "protocol.h"
 #include "mlt.h"
@@ -24,7 +25,20 @@ static uint32_t *global_list;
 static struct mlt table;
 
 
-int manager_init(nb)
+zsock_t *pub;
+zsock_t *pull;
+
+
+/*Handler for sigINT signal*/
+void intHandler(int sig)
+{
+    fprintf(stderr, "SigInt received, terminating...\n");
+    manager_finalize();
+    exit(0);
+}
+
+
+int manager_init(int nb)
 {
     int rc;
     rc = mlt_init(&table, N_entry, nb);
@@ -41,6 +55,31 @@ int manager_init(nb)
         return -1;
     }
 
+    char *socket;
+
+    /* Open the publisher socket to broadcast mlt updates*/
+
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Mlt_port);
+    pub = zsock_new_pub(socket);
+    if (pub == NULL) {
+            fprintf(stderr,
+                "Manager: create zmq socket pub error\n");
+            return -1;
+    }
+    free(socket);
+    socket = NULL;
+
+    /*Open the pull socket to receive eacl updates*/
+
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
+    pull = zsock_new_pull(socket);
+    if (pull == NULL) {
+            fprintf(stderr,
+                "Manager: create zmq socket pull error\n");
+            return -1;
+    }
+    free(socket);
+
     return 0;
 }
 
@@ -54,6 +93,8 @@ int manager_finalize()
         fprintf(stderr, "Manager:finalize: mlt_destroy failed\n");
 
     free(global_list);
+    zsock_destroy(&pub);
+    zsock_destroy(&pull);
 
     return 0;
 }
@@ -365,6 +406,9 @@ int main(int argc, char *argv[])
     }
     int nb_srv = atoi(argv[1]);
 
+    if (signal(SIGINT, intHandler) == SIG_ERR)
+        printf("\ncan't catch SIGINT\n");
+
     int rc;
     rc = manager_init(nb_srv);
     if (rc != 0) {
@@ -372,32 +416,12 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    char *socket;
+    struct sigaction act_int;
+    act_int.sa_handler = intHandler;
+    rc = sigaction(SIGINT, &act_int, NULL);
+    if (rc != 0)
+        printf("\ncan't catch SIGINT\n");
 
-    /* Open the publisher socket to broadcast mlt updates*/
-
-    asprintf(&socket, "tcp://%s:%d", ip_manager, Mlt_port);
-    zsock_t *pub;
-    pub = zsock_new_pub(socket);
-    if (pub == NULL) {
-            fprintf(stderr,
-                "Manager: create zmq socket pub error\n");
-            return -1;
-    }
-    free(socket);
-    socket = NULL;
-
-    /*Open the pull socket to receive eacl updates*/
-
-    asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
-    zsock_t *pull;
-    pull = zsock_new_pull(socket);
-    if (pull == NULL) {
-            fprintf(stderr,
-                "Manager: create zmq socket pull error\n");
-            return -1;
-    }
-    free(socket);
 
     while (1) {
 
@@ -447,8 +471,6 @@ int main(int argc, char *argv[])
     }
 
     /*cleaning*/
-    zsock_destroy(&pub);
-    zsock_destroy(&pull);
     manager_finalize();
     return 0;
 }
