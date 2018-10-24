@@ -7,7 +7,6 @@
 #include <json.h>
 #include <pthread.h>
 #include <czmq.h>
-#include <pthread.h>
 
 #include "distribution_dh_s.h"
 #include "mlt.h"

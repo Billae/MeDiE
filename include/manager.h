@@ -14,7 +14,7 @@
 
 
 /** Initialize manager state
- * @param nb the number of available servers
+ * @param[in] nb the number of available servers
  * @return 0 on success and -1 on failure
  * **/
 int manager_init(int nb);
