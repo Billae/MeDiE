@@ -25,8 +25,19 @@ static uint32_t *global_list;
 static struct mlt table;
 
 
+/*Used to activate or not the relab computation*/
+static volatile sig_atomic_t update_needed;
+
+
 zsock_t *pub;
 zsock_t *pull;
+
+
+/*Handler for sigUSR signal*/
+void usrHandler(int sig)
+{
+    update_needed = 1;
+}
 
 
 /*Handler for sigINT signal*/
@@ -41,6 +52,9 @@ void intHandler(int sig)
 int manager_init(int nb)
 {
     int rc;
+
+    update_needed = 0;
+
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
         fprintf(stderr,
@@ -393,8 +407,8 @@ free_all:
  * - open the publisher socket (to broadcast mlt)
  * - open a pull socket to get eacls
  * - check for eacl updates
- * - periodically launch a relab compute
- *   and a mlt update
+ * - launch a relab compute if a SIGUSR2 is received
+ *   and then update and send the mlt
  * **/
 
 int main(int argc, char *argv[])
@@ -405,9 +419,6 @@ int main(int argc, char *argv[])
         return -1;
     }
     int nb_srv = atoi(argv[1]);
-
-    if (signal(SIGINT, intHandler) == SIG_ERR)
-        printf("\ncan't catch SIGINT\n");
 
     int rc;
     rc = manager_init(nb_srv);
@@ -420,33 +431,37 @@ int main(int argc, char *argv[])
     act_int.sa_handler = intHandler;
     rc = sigaction(SIGINT, &act_int, NULL);
     if (rc != 0)
-        printf("\ncan't catch SIGINT\n");
+        fprintf(stderr, "Manager: can't catch SIGINT\n");
 
+    struct sigaction act_usr;
+    act_usr.sa_handler = usrHandler;
+    rc = sigaction(SIGUSR2, &act_usr, NULL);
+    if (rc != 0)
+        fprintf(stderr, "Manager: can't catch SIGUSR\n");
 
     while (1) {
-
-        time_t start = time(NULL);
-        while ((time(NULL) - start) < 5) {
+        while (update_needed == 0) {
 
             /*receiving eacls*/
             zmsg_t *packet = zmsg_recv(pull);
             if (packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
+            else {
+                uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
 
-            uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
+                zframe_t *sai_frame = zmsg_pop(packet);
+                byte *temp = zframe_data(sai_frame);
+                memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
+                zframe_destroy(&sai_frame);
+                /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
 
-            zframe_t *sai_frame = zmsg_pop(packet);
-            byte *temp = zframe_data(sai_frame);
-            memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
-            zframe_destroy(&sai_frame);
-            /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
-
-            rc = manager_merge_eacl(temp_sai);
-            if (rc != 0)
-                fprintf(stderr, "Manager: merge eacl with global failed\n");
-            free(temp_sai);
-            /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
-            zmsg_destroy(&packet);
+                rc = manager_merge_eacl(temp_sai);
+                if (rc != 0)
+                    fprintf(stderr, "Manager: merge eacl with global failed\n");
+                free(temp_sai);
+                /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
+                zmsg_destroy(&packet);
+            }
         }
 
         /*RELAB*/
@@ -464,10 +479,10 @@ int main(int argc, char *argv[])
             sizeof(uint32_t) * table.size);
         zmsg_append(packet, &n_ver_frame);
 
-
         rc = zmsg_send(&packet, pub);
         if (rc != 0)
             fprintf(stderr, "Manager: zmsg_send failed\n");
+        update_needed = 0;
     }
 
     /*cleaning*/
