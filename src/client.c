@@ -33,6 +33,12 @@ int main(int argc, char **argv)
     }
 
     FILE *fd = fopen(path, "r");
+    if (fd == NULL) {
+        int err = errno;
+        fprintf(stderr, "Client: request file open error:%s\n", strerror(err));
+        return -1;
+    }
+
     char *key_list[nb_req];
     int type_list[nb_req];
 
