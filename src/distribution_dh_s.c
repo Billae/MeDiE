@@ -8,6 +8,7 @@
 #include <pthread.h>
 #include <czmq.h>
 
+#include "generic_storage.h"
 #include "distribution_dh_s.h"
 #include "mlt.h"
 #include "eacl.h"
@@ -478,6 +479,7 @@ void *thread_load_sender(void *args)
                                 if (rc != 0) {
                                     fprintf(stderr, "Distribution:thread_load_sender: ");
                                     fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                                    zsock_destroy(&sock);
                                     pthread_exit(&fail_rc);
                                 }
 
@@ -487,6 +489,15 @@ void *thread_load_sender(void *args)
                                 if (rc != 0) {
                                     fprintf(stderr, "Distribution:thread_load_sender: ");
                                     fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                                    zsock_destroy(&sock);
+                                    pthread_exit(&fail_rc);
+                                }
+
+                                rc = generic_del(ptr->md_name);
+                                if (rc == -1) {
+                                    fprintf(stderr, "Distribution:thread_load_sender:");
+                                    fprintf(stderr, "md deletion failed\n");
+                                    zsock_destroy(&sock);
                                     pthread_exit(&fail_rc);
                                 }
 
@@ -528,6 +539,7 @@ void *thread_load_sender(void *args)
                 if (rc != 0) {
                     fprintf(stderr, "Distribution:thread_load_sender: ");
                     fprintf(stderr, "md_entry send failed\n");
+                    zsock_destroy(&sock);
                     pthread_exit(&fail_rc);
                 }
 
@@ -536,6 +548,7 @@ void *thread_load_sender(void *args)
                 if (rc != 0) {
                     fprintf(stderr, "Distribution:thread_load_sender: ");
                     fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
+                    zsock_destroy(&sock);
                     pthread_exit(&fail_rc);
                 }
                 /*update eacl entry*/
@@ -543,6 +556,7 @@ void *thread_load_sender(void *args)
                 if (rc != 0) {
                     fprintf(stderr, "Distribution:thread_load_receiver: ");
                     fprintf(stderr, "eacl update failed\n");
+                    zsock_destroy(&sock);
                     pthread_exit(&fail_rc);
                 }
 
@@ -554,6 +568,7 @@ void *thread_load_sender(void *args)
                 if (zframe_streq(flag, "done") != true) {
                     fprintf(stderr, "Distribution:thread_load_sender: ");
                     fprintf(stderr, "acknowledgement receive failed\n");
+                    zsock_destroy(&sock);
                     pthread_exit(&fail_rc);
                 }
 
@@ -661,6 +676,13 @@ void *thread_load_receiver(void *args)
                     if (rc != 0) {
                         fprintf(stderr, "Distribution:thread_load_receiver:");
                         fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                        zsock_destroy(&sock);
+                        pthread_exit(&fail_rc);
+                    }
+                    rc = generic_put(in_charge_md[i]->md_name, "a word");
+                    if (rc == -1) {
+                        fprintf(stderr, "Distribution:thread_load_receiver:");
+                        fprintf(stderr, "md creation failed\n");
                         zsock_destroy(&sock);
                         pthread_exit(&fail_rc);
                     }
