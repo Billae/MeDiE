@@ -59,7 +59,13 @@ int main(int argc, char *argv[])
             return -1;
         }
         if (num_srv == 0) {
-            fprintf(fd, "%s\n", name);
+            fprintf(fd, "create,%s\n", name);
+            i++;
+            while (i < 9999) {
+                fprintf(fd, "update,%s\n", name);
+                i++;
+            }
+            fprintf(fd, "delete,%s\n", name);
             i++;
         }
     }
