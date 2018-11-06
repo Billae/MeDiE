@@ -27,102 +27,54 @@
 
 #define max_id_size 21
 /*counter to have load of each server and its lock*/
-static int access_count;
-static pthread_rwlock_t lock;
+static volatile sig_atomic_t access_count;
 
+static int id_self;
 
-/*Thread which periodically catch the load of the server*/
-void *thread_perf_watcher(void *args)
+void int_handler(int sig)
 {
     int rc;
-    int fail_rc = -1;
-    int id_srv;
+    fprintf(stderr, "Server: SigInt received, terminating...\n");
+    rc = distribution_finalize();
+    if (rc != 0)
+        fprintf(stderr, "Server: distribution finalize failed\n");
+    exit(0);
+}
 
-    /*id_server*/
-    char *srv_path;
-    asprintf(&srv_path, "%setc/server.cfg", PREFIX);
-    char *id_str = malloc(max_id_size);
-    if (id_str == NULL) {
-        int err = errno;
-        fprintf(stderr, "thread_perf_watcher: id_str malloc error: %s\n",
-            strerror(err));
-        pthread_exit(&fail_rc);
-    }
-
-    int fd_srv = open(srv_path, O_RDONLY);
-    if (fd_srv == -1) {
-        int err = errno;
-        fprintf(stderr, "thread_perf_watcher: open error: %s\n",
-            strerror(err));
-        free(srv_path);
-        pthread_exit(&fail_rc);
-    }
-
-    free(srv_path);
-
-    rc = read(fd_srv, id_str, max_id_size);
-    if (rc < 0) {
-        fprintf(stderr, "thread_perf_watcher: read config file failed\n");
-        pthread_exit(&fail_rc);
-    }
-
-    char *positionEntree = strchr(id_str, '\n');
-    if (positionEntree != NULL)
-        *positionEntree = '\0';
-
-    char *value = strstr(id_str, "ID");
-    value = strchr(value, '=');
-    value++;
-    id_srv = atoi(value);
-
-    free(id_str);
-    close(fd_srv);
-
+/*catch the load of the server*/
+void usr1_handler(int sig)
+{
+    fprintf(stderr, "youyhou\n");
 
     /*open the result file*/
     char *result_path;
-    asprintf(&result_path, "%sload%d", PREFIX, id_srv);
+    asprintf(&result_path, "%sload%d", PREFIX, id_self);
 
-    int fd_res = open(result_path, O_WRONLY | O_CREAT, 0664);
+    int fd_res = open(result_path, O_WRONLY | O_APPEND);
     if (fd_res == -1) {
         int err = errno;
         fprintf(stderr, "thread_perf_watcher: open error: %s\n",
             strerror(err));
         free(result_path);
-        pthread_exit(&fail_rc);
+        return;
     }
     free(result_path);
 
-    while (1) {
+    char *load;
+    asprintf(&load, "%d\n", access_count);
 
-        char *load;
-        asprintf(&load, "%d\n", access_count);
-        if ((write(fd_res, load, strlen(load))) < 0) {
-            int err = errno;
-            fprintf(stderr, "thread_perf_watcher: ");
-            fprintf(stderr, "write error: %s\n", strerror(err));
-            pthread_exit(&fail_rc);
-        }
-        free(load);
-        rc = -pthread_rwlock_wrlock(&lock);
-        if (rc != 0) {
-            fprintf(stderr, "Server: lock failed: %s\n", strerror(-rc));
-            pthread_exit(&fail_rc);
-        }
-
-        access_count = 0;
-
-        rc = -pthread_rwlock_unlock(&lock);
-        if (rc != 0) {
-            fprintf(stderr, "Server: unlock failed: %s\n", strerror(-rc));
-            pthread_exit(&fail_rc);
-        }
-
-        sleep(1);
+    if ((write(fd_res, load, strlen(load))) < 0) {
+        int err = errno;
+        fprintf(stderr, "Server:signal handler: ");
+        fprintf(stderr, "write error: %s\n", strerror(err));
+        return;
     }
+    free(load);
+
+    access_count = 0;
 
     close(fd_res);
-    pthread_exit(NULL);
+    return;
 }
 
 
@@ -178,26 +130,63 @@ int main(int argc, char **argv)
         return -1;
     }
 
+    /*fill id_self*/
+    char *srv_path;
+    asprintf(&srv_path, "%setc/server.cfg", PREFIX);
+    char *id_str = malloc(max_id_size);
+    if (id_str == NULL) {
+        int err = errno;
+        fprintf(stderr, "Server: id_str malloc error: %s\n",
+            strerror(err));
+        return -1;
+    }
+
+    int fd_srv = open(srv_path, O_RDONLY);
+    if (fd_srv == -1) {
+        int err = errno;
+        fprintf(stderr, "Server: open error: %s\n",
+            strerror(err));
+        free(srv_path);
+        return -1;
+    }
+
+    free(srv_path);
+
+    rc = read(fd_srv, id_str, max_id_size);
+    if (rc < 0) {
+        fprintf(stderr, "Server: read config file failed\n");
+        return -1;
+    }
+
+    char *positionEntree = strchr(id_str, '\n');
+    if (positionEntree != NULL)
+        *positionEntree = '\0';
+
+    char *value = strstr(id_str, "ID");
+    value = strchr(value, '=');
+    value++;
+    id_self = atoi(value);
+
+    free(id_str);
+    close(fd_srv);
+
+
     int global_rc;
 
     /*launch the perf watcher*/
     access_count = 0;
-    int fail_rc = -1;
 
-    rc = -pthread_rwlock_init(&lock, NULL);
-    if (rc != 0) {
-        fprintf(stderr, "Server:init: lock init failed\n");
-        pthread_exit(&fail_rc);
-    }
+    struct sigaction act_usr1;
+    act_usr1.sa_handler = usr1_handler;
+    rc = sigaction(SIGUSR1, &act_usr1, NULL);
+    if (rc != 0)
+        fprintf(stderr, "Server: can't catch SIGUSR1\n");
 
-    pthread_t perf_watcher;
-    rc = pthread_create(&perf_watcher, NULL, &thread_perf_watcher, NULL);
-    if (rc != 0) {
-        fprintf(stderr,
-            "Server:init: thread perf_watcher init failed: %s\n",
-            strerror(-rc));
-            pthread_exit(&fail_rc);
-    }
+    struct sigaction act_int;
+    act_int.sa_handler = int_handler;
+    rc = sigaction(SIGINT, &act_int, NULL);
+    if (rc != 0)
+        fprintf(stderr, "Server: can't catch SIGINT\n");
 
 
 while (1) {
@@ -206,140 +195,128 @@ while (1) {
 
     /*receiving request*/
     char *string = zstr_recv(rep);
-    json_object *request = json_tokener_parse(string);
-    zstr_free(&string);
 
-    /*for perf_watcher*/
-    rc = -pthread_rwlock_wrlock(&lock);
-    if (rc != 0) {
-        fprintf(stderr, "Server: lock failed: %s\n", strerror(-rc));
-        pthread_exit(&fail_rc);
-    }
+    if (string != NULL) {
+        json_object *request = json_tokener_parse(string);
+        zstr_free(&string);
 
-    access_count++;
+        access_count++;
 
-    rc = -pthread_rwlock_unlock(&lock);
-    if (rc != 0) {
-        fprintf(stderr, "Server: unlock failed: %s\n", strerror(-rc));
-        pthread_exit(&fail_rc);
-    }
+        /*call the distribution processing*/
+        rc = distribution_post_receive(request);
+        if (rc == -EAGAIN) {
+            /*mlt out of date*/
+            global_rc = -EAGAIN;
+            goto reply;
+        } else if (rc == -EALREADY) {
+            /*operation on mlt. wait and retry*/
+            global_rc = -EALREADY;
+            goto reply;
+        } else if (rc < 0) {
+            fprintf(stderr, "Server: distribution_post_receive failed\n");
+            global_rc = -1;
+            goto reply;
+        }
 
-    /*call the distribution processing*/
-    rc = distribution_post_receive(request);
-    if (rc == -EAGAIN) {
-        /*mlt out of date*/
-        global_rc = -EAGAIN;
-        goto reply;
-    } else if (rc == -EALREADY) {
-        /*operation on mlt. wait and retry*/
-        global_rc = -EALREADY;
-        goto reply;
-    } else if (rc < 0) {
-        fprintf(stderr, "Server: distribution_post_receive failed\n");
-        global_rc = -1;
-        goto reply;
-    }
+        /*processing*/
+        json_object *key;
+        if (!json_object_object_get_ex(request, "key", &key))
+            fprintf(stderr, "Server: json extract error: no key \"key\" found\n");
 
-    /*processing*/
-    json_object *key;
-    if (!json_object_object_get_ex(request, "key", &key))
-        fprintf(stderr, "Server: json extract error: no key \"key\" found\n");
-
-    json_object *type;
-    if (!json_object_object_get_ex(request, "reqType", &type))
-        fprintf(stderr,
+        json_object *type;
+        if (!json_object_object_get_ex(request, "reqType", &type))
+            fprintf(stderr,
                 "Server: json extract error: no key \"reqType\" found\n");
 
-    enum req_type reqType = json_object_get_int(type);
+        enum req_type reqType = json_object_get_int(type);
 
-    switch (reqType) {
+        switch (reqType) {
 
-    case RT_CREATE: /*create*/
-    {
-        json_object *data;
-        if (!json_object_object_get_ex(request, "data", &data))
-            fprintf(stderr,
-                "Server: json extract error: no key \"data\" found\n");
-        rc = generic_put(json_object_get_string(key),
-        json_object_get_string(data));
-        if (rc != 0) {
-            fprintf(stderr, "Server: generic storage operation error\n");
-            global_rc = -1;
+        case RT_CREATE: /*create*/
+        {
+            json_object *data;
+            if (!json_object_object_get_ex(request, "data", &data))
+                fprintf(stderr,
+                    "Server: json extract error: no key \"data\" found\n");
+            rc = generic_put(json_object_get_string(key),
+            json_object_get_string(data));
+            if (rc != 0) {
+                fprintf(stderr, "Server: generic storage operation error\n");
+                global_rc = -1;
+            }
+            break;
         }
-        break;
-    }
 
-    case RT_UPDATE: /*update*/
-    {
-        json_object *data;
-        if (!json_object_object_get_ex(request, "data", &data))
-            fprintf(stderr,
-                "Server: json extract error: no key \"data\" found\n");
-        rc = generic_update(json_object_get_string(key),
-        json_object_get_string(data));
-        if (rc != 0) {
-            fprintf(stderr, "Server: generic storage operation error\n");
-            global_rc = -1;
+        case RT_UPDATE: /*update*/
+        {
+            json_object *data;
+            if (!json_object_object_get_ex(request, "data", &data))
+                fprintf(stderr,
+                    "Server: json extract error: no key \"data\" found\n");
+            rc = generic_update(json_object_get_string(key),
+            json_object_get_string(data));
+            if (rc != 0) {
+                fprintf(stderr, "Server: generic storage operation error\n");
+                global_rc = -1;
+            }
+            break;
         }
-        break;
-    }
 
-    case RT_DELETE: /*delete*/
-    {
-        rc = generic_del(json_object_get_string(key));
-        if (rc != 0) {
-            fprintf(stderr, "Server: generic storage operation error\n");
-            global_rc = -1;
+        case RT_DELETE: /*delete*/
+        {
+            rc = generic_del(json_object_get_string(key));
+            if (rc != 0) {
+                fprintf(stderr, "Server: generic storage operation error\n");
+                global_rc = -1;
+            }
+            break;
         }
-        break;
-    }
 
-    default: /*get*/
-    {
-        char *get_value = generic_get(json_object_get_string(key));
-        if (get_value == NULL) {
-            fprintf(stderr, "Server: generic storage operation error\n");
-            global_rc = -1;
+        default: /*get*/
+        {
+            char *get_value = generic_get(json_object_get_string(key));
+            if (get_value == NULL) {
+                fprintf(stderr, "Server: generic storage operation error\n");
+                global_rc = -1;
+            }
+            json_object *get_value_reply = json_object_new_string(get_value);
+            json_object_object_add(request, "getValue", get_value_reply);
+            break;
         }
-        json_object *get_value_reply = json_object_new_string(get_value);
-        json_object_object_add(request, "getValue", get_value_reply);
-        break;
-    }
-    }
-    /*creating reply and send*/
+        }
+        /*creating reply and send*/
 reply:
-    rc = distribution_pre_send(request, global_rc);
-    if (rc != 0) {
-        fprintf(stderr, "Server: distribution_pre_send failed\n");
-        global_rc = -1;
+        rc = distribution_pre_send(request, global_rc);
+        if (rc != 0) {
+            fprintf(stderr, "Server: distribution_pre_send failed\n");
+            global_rc = -1;
+        }
+
+        json_object *repFlag;
+        if (global_rc == 0)
+            repFlag = json_object_new_string("done");
+        else if (global_rc == -EAGAIN)
+            repFlag = json_object_new_string("update&retry");
+        else if (global_rc == -EALREADY)
+            repFlag = json_object_new_string("wait&retry");
+        else
+            repFlag = json_object_new_string("aborted");
+
+
+        json_object_object_add(request, "repFlag", repFlag);
+
+        const char *rep_c = json_object_to_json_string(request);
+        zstr_send(rep, rep_c);
+
+        /*cleaning*/
+        if (json_object_put(request) != 1)
+            fprintf(stderr, "Server: free request error\n");
     }
-
-    json_object *repFlag;
-    if (global_rc == 0)
-        repFlag = json_object_new_string("done");
-    else if (global_rc == -EAGAIN)
-        repFlag = json_object_new_string("update&retry");
-    else if (global_rc == -EALREADY)
-        repFlag = json_object_new_string("wait&retry");
-    else
-        repFlag = json_object_new_string("aborted");
-
-
-    json_object_object_add(request, "repFlag", repFlag);
-
-    const char *rep_c = json_object_to_json_string(request);
-    zstr_send(rep, rep_c);
-
-    /*cleaning*/
-    if (json_object_put(request) != 1)
-        fprintf(stderr, "Server: free request error\n");
 }
-
     rc = distribution_finalize();
     if (rc != 0)
         fprintf(stderr, "Server: distribution finalize failed\n");
 
-    pthread_rwlock_destroy(&lock);
     zsock_destroy(&rep);
     return 0;
 }
