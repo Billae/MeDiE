@@ -8,5 +8,5 @@ then
 else
     result=`./prototype_MDS/bin/client $1 $2 $3`
     #create a result file
-    echo $result >"/mnt/client/$prefix"
+    echo $result >>"/mnt/client/$prefix"
 fi
