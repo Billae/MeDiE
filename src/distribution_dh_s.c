@@ -28,6 +28,12 @@ static int id_srv_self;
 static struct md_entry **in_charge_md;
 static pthread_rwlock_t locks[N_entry];
 
+
+zsock_t *push;
+zsock_t *sub;
+pthread_t mlt_updater;
+pthread_t eacl_sender;
+
 #define max_id_size 21
 
 /*pcocc*/
@@ -117,7 +123,6 @@ int distribution_init(nb)
     }
 
     /*threads initialization*/
-    pthread_t mlt_updater;
     rc = pthread_create(&mlt_updater, NULL, &thread_mlt_updater, NULL);
     if (rc != 0) {
         fprintf(stderr,
@@ -126,7 +131,6 @@ int distribution_init(nb)
         return -1;
     }
 
-    pthread_t eacl_sender;
     rc = pthread_create(&eacl_sender, NULL, &thread_sai_sender, NULL);
     if (rc != 0) {
         fprintf(stderr,
@@ -150,7 +154,6 @@ int distribution_finalize()
     rc = eacl_destroy(&access_list);
     if (rc != 0)
         fprintf(stderr, "Distribution:finalize: eacl_destroy failed\n");
-    return 0;
 
     struct md_entry *elem;
     int i;
@@ -161,6 +164,20 @@ int distribution_finalize()
         }
         pthread_rwlock_destroy(&locks[i]);
     }
+    free(in_charge_md);
+
+    rc = pthread_cancel(eacl_sender);
+    if (rc != 0)
+        fprintf(stderr, "Distribution:finalize: eacl_sender cancel failed\n");
+    zsock_destroy(&push);
+    rc = pthread_join(eacl_sender, NULL);
+
+    rc = pthread_cancel(mlt_updater);
+    if (rc != 0)
+        fprintf(stderr, "Distribution:finalize: mlt_updater cancel failed\n");
+    zsock_destroy(&sub);
+    rc = pthread_join(mlt_updater, NULL);
+    return 0;
 }
 
 
@@ -733,7 +750,6 @@ void *thread_mlt_updater(void *args)
     /*opening a subscriber socket to the manager*/
     char *socket;
     asprintf(&socket, "tcp://%s:%d", ip_manager, Mlt_port);
-    zsock_t *sub;
     sub = zsock_new_sub(socket, "");
     if (sub == NULL) {
         fprintf(stderr,
@@ -744,13 +760,15 @@ void *thread_mlt_updater(void *args)
 
     int rc;
     while (1) {
+
+        zmsg_t *packet = zmsg_recv(sub);
+
         struct mlt temp_mlt;
         rc = mlt_init(&temp_mlt, N_entry, 1);
         if (rc != 0)
             fprintf(stderr,
                 "Distribution:thread_mlt_updater: temp_mlt init failed\n");
 
-        zmsg_t *packet = zmsg_recv(sub);
         zframe_t *id_srv_frame = zmsg_pop(packet);
         byte *temp = zframe_data(id_srv_frame);
         memcpy(temp_mlt.id_srv, temp, sizeof(uint32_t) * N_entry);
@@ -870,7 +888,6 @@ void *thread_sai_sender(void *args)
     char *socket;
     /*a changer pour pcocc: l'adresse du manager*/
     asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
-    zsock_t *push;
     push = zsock_new_push(socket);
     if (push == NULL) {
             fprintf(stderr,

@@ -31,6 +31,8 @@ static volatile sig_atomic_t access_count;
 
 static int id_self;
 
+zsock_t *rep;
+
 void int_handler(int sig)
 {
     int rc;
@@ -38,6 +40,7 @@ void int_handler(int sig)
     rc = distribution_finalize();
     if (rc != 0)
         fprintf(stderr, "Server: distribution finalize failed\n");
+    zsock_destroy(&rep);
     exit(0);
 }
 
@@ -89,8 +92,6 @@ int main(int argc, char **argv)
             "please give the number of available servers and a server type o or p\n");
         return -1;
     }
-
-    zsock_t *rep;
 
     if (strcmp(argv[2], "p") == 0) {
         /*for pcocc VM*/
