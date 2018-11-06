@@ -20,7 +20,7 @@
 
 
 /* path in pcocc*/
-//#define PREFIX "/home/billae/prototype_MDS/"
+//#define PREFIX "/mnt/server/"
 /*path in ocre*/
 #define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
 
