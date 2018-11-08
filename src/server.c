@@ -18,6 +18,10 @@
     #include "distribution_dh_s.h"
 #endif
 
+/* path in pcocc*/
+//#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+/*path in ocre*/
+#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /* path in pcocc*/
 //#define PREFIX "/mnt/server/"
@@ -130,8 +134,6 @@ int main(int argc, char **argv)
     }
 
     /*fill id_self*/
-    char *srv_path;
-    asprintf(&srv_path, "%setc/server.cfg", PREFIX);
     char *id_str = malloc(max_id_size);
     if (id_str == NULL) {
         int err = errno;
@@ -140,16 +142,13 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    int fd_srv = open(srv_path, O_RDONLY);
+    int fd_srv = open(SRV_PATH, O_RDONLY);
     if (fd_srv == -1) {
         int err = errno;
         fprintf(stderr, "Server: open error: %s\n",
             strerror(err));
-        free(srv_path);
         return -1;
     }
-
-    free(srv_path);
 
     rc = read(fd_srv, id_str, max_id_size);
     if (rc < 0) {
