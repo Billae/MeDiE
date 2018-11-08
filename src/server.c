@@ -47,16 +47,14 @@ void int_handler(int sig)
 /*catch the load of the server*/
 void usr1_handler(int sig)
 {
-    fprintf(stderr, "youyhou\n");
-
     /*open the result file*/
     char *result_path;
     asprintf(&result_path, "%sload%d", PREFIX, id_self);
 
-    int fd_res = open(result_path, O_WRONLY | O_APPEND);
+    int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
         int err = errno;
-        fprintf(stderr, "thread_perf_watcher: open error: %s\n",
+        fprintf(stderr, "Server:signal handler: open error: %s\n",
             strerror(err));
         free(result_path);
         return;
