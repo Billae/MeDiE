@@ -104,7 +104,7 @@ int distribution_init(nb)
     free(id_srv);
     fclose(fd);
 
-
+    /*init in_charge_md*/
     in_charge_md = malloc(N_entry * sizeof(struct md_entry *));
     if (in_charge_md == NULL) {
         int err = errno;
@@ -121,6 +121,18 @@ int distribution_init(nb)
             return -1;
         }
     }
+
+    /*opening a push socket to the manager*/
+    char *socket;
+    asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
+    push = zsock_new_push(socket);
+    if (push == NULL) {
+            fprintf(stderr,
+                "Distribution:thread_sai_sender: create zmq socket error\n");
+            pthread_exit((void *)-1);
+    }
+    free(socket);
+
 
     /*threads initialization*/
     rc = pthread_create(&mlt_updater, NULL, &thread_mlt_updater, NULL);
@@ -884,18 +896,6 @@ void *thread_mlt_updater(void *args)
 
 void *thread_sai_sender(void *args)
 {
-    /*opening a push socket to the manager*/
-    char *socket;
-    /*a changer pour pcocc: l'adresse du manager*/
-    asprintf(&socket, "tcp://%s:%d", ip_manager, Eacl_port);
-    push = zsock_new_push(socket);
-    if (push == NULL) {
-            fprintf(stderr,
-                "Distribution:thread_sai_sender: create zmq socket error\n");
-            pthread_exit((void *)-1);
-    }
-    free(socket);
-
     while (1) {
         int rc = eacl_calculate_sai(&access_list);
         if (rc != 0) {
@@ -919,8 +919,6 @@ void *thread_sai_sender(void *args)
 
     }
 
-    /*cleaning*/
-    zsock_destroy(&push);
     pthread_exit(0);
 
 }
