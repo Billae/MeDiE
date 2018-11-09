@@ -143,14 +143,6 @@ int distribution_init(nb)
         return -1;
     }
 
-    rc = pthread_create(&eacl_sender, NULL, &thread_sai_sender, NULL);
-    if (rc != 0) {
-        fprintf(stderr,
-            "Distribution:init: thread eacl sender init failed: %s\n",
-            strerror(-rc));
-        return -1;
-    }
-
     return 0;
 }
 
@@ -178,11 +170,7 @@ int distribution_finalize()
     }
     free(in_charge_md);
 
-    rc = pthread_cancel(eacl_sender);
-    if (rc != 0)
-        fprintf(stderr, "Distribution:finalize: eacl_sender cancel failed\n");
     zsock_destroy(&push);
-    rc = pthread_join(eacl_sender, NULL);
 
     rc = pthread_cancel(mlt_updater);
     if (rc != 0)
@@ -894,31 +882,29 @@ void *thread_mlt_updater(void *args)
 }
 
 
-void *thread_sai_sender(void *args)
+int distribution_send_sai()
 {
-    while (1) {
-        int rc = eacl_calculate_sai(&access_list);
-        if (rc != 0) {
-            fprintf(stderr,
-                "Distribution:thread_sai_sender: calculate SAI failed: %s\n",
-                strerror(-errno));
-        }
-
-        zmsg_t *packet = zmsg_new();
-        zframe_t *sai_frame = zframe_new(access_list.sai,
-            sizeof(uint32_t) * access_list.size);
-        zmsg_append(packet, &sai_frame);
-
-
-        rc = zmsg_send(&packet, push);
-        if (rc != 0)
-            fprintf(stderr,
-                    "Distribution:thread_sai_sender: zmsg_send failed\n");
-        rc = eacl_reset_access(&access_list);
-        sleep(2);
-
+    int rc = eacl_calculate_sai(&access_list);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:send_sai: calculate SAI failed: %s\n",
+            strerror(-errno));
+        return -1;
     }
 
-    pthread_exit(0);
+    zmsg_t *packet = zmsg_new();
+    zframe_t *sai_frame = zframe_new(access_list.sai,
+        sizeof(uint32_t) * access_list.size);
+    zmsg_append(packet, &sai_frame);
 
+
+    rc = zmsg_send(&packet, push);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:send_sai: zmsg_send failed\n");
+        return -1;
+    }
+    rc = eacl_reset_access(&access_list);
+
+    return 0;
 }

@@ -58,7 +58,7 @@ void usr1_handler(int sig)
     int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
         int err = errno;
-        fprintf(stderr, "Server:signal handler: open error: %s\n",
+        fprintf(stderr, "Server:sigUSR1 handler: open error: %s\n",
             strerror(err));
         free(result_path);
         return;
@@ -70,7 +70,7 @@ void usr1_handler(int sig)
 
     if ((write(fd_res, load, strlen(load))) < 0) {
         int err = errno;
-        fprintf(stderr, "Server:signal handler: ");
+        fprintf(stderr, "Server:sigUSR1 handler: ");
         fprintf(stderr, "write error: %s\n", strerror(err));
         return;
     }
@@ -82,6 +82,15 @@ void usr1_handler(int sig)
     return;
 }
 
+/*send eacl to manager*/
+void usr2_handler(int sig)
+{
+    int rc;
+    rc = distribution_send_sai();
+    if (rc != 0)
+        fprintf(stderr, "Server:sigUSR2 handler: send sai failed\n");
+}
+
 
 int main(int argc, char **argv)
 {
@@ -91,7 +100,7 @@ int main(int argc, char **argv)
         (strcmp(argv[2], "o") != 0 && strcmp(argv[2], "p") != 0)) {
 
         fprintf(stderr,
-            "please give the number of available servers and a server type o or p\n");
+          "please give the number of available servers and a server type o or p\n");
         return -1;
     }
 
@@ -171,7 +180,7 @@ int main(int argc, char **argv)
 
     int global_rc;
 
-    /*launch the perf watcher*/
+    /*perf counter*/
     access_count = 0;
 
     struct sigaction act_usr1;
@@ -179,6 +188,12 @@ int main(int argc, char **argv)
     rc = sigaction(SIGUSR1, &act_usr1, NULL);
     if (rc != 0)
         fprintf(stderr, "Server: can't catch SIGUSR1\n");
+
+    struct sigaction act_usr2;
+    act_usr2.sa_handler = usr2_handler;
+    rc = sigaction(SIGUSR2, &act_usr2, NULL);
+    if (rc != 0)
+        fprintf(stderr, "Server: can't catch SIGUSR2\n");
 
     struct sigaction act_int;
     act_int.sa_handler = int_handler;

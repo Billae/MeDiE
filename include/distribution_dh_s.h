@@ -83,12 +83,10 @@ void *thread_load_receiver(void *args);
 void *thread_mlt_updater(void *args);
 
 
-/** Thread which will periodically wake up
- * and send the sai field of the eacl to the manager.
- * - connect to the manager with a push socket to send eacl
- * - periodically send the sai to the manager
+/** function called on signal SIGUSR2
+ * calculate and send the sai field of the eacl to the manager.
  * **/
-void *thread_sai_sender(void *args);
+int distribution_send_sai();
 
 
 #endif

@@ -441,8 +441,13 @@ int main(int argc, char *argv[])
 
     while (1) {
         while (update_needed == 0) {
+            sleep(1);
+        }
 
+        int nb_rcv;
+        for (nb_rcv = 0; nb_rcv < nb_srv; nb_rcv++) {
             /*receiving eacls*/
+            fprintf(stderr, "eacl recu\n");
             zmsg_t *packet = zmsg_recv(pull);
             if (packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
