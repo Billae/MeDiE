@@ -5,11 +5,11 @@
 /build/
 #On ignore les fichiers de conf propre aux serveurs
 /etc/
-#On ignore les données
-/dataStore/
+#On ignore les fichiers temporaires
+/tmp/
 #Chacun son Makefile
 Makefile.inc
-#Chacun son liste d'ip
+#Chacun sa liste d'ip
 hosts.conf
 #Le lien du makefile depend de la distrib utilisée
 Makefile

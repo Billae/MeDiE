@@ -28,6 +28,12 @@
 /*path in ocre*/
 #define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
 
+/* path in pcocc*/
+//#define SCRATCH "/media/tmp_ack/"
+/*path in ocre*/
+#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
+
+
 
 #define max_id_size 21
 /*counter to have load of each server and its lock*/
@@ -79,6 +85,13 @@ void usr1_handler(int sig)
     access_count = 0;
 
     close(fd_res);
+
+    char *file_name;
+    asprintf(&file_name, "%s%dUSR1", SCRATCH, id_self);
+    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+    if (ack == -1)
+        fprintf(stderr, "Server:sigUSR1 handler: create ack failed\n");
+    close(ack);
     return;
 }
 
@@ -89,6 +102,14 @@ void usr2_handler(int sig)
     rc = distribution_send_sai();
     if (rc != 0)
         fprintf(stderr, "Server:sigUSR2 handler: send sai failed\n");
+
+    char *file_name;
+    asprintf(&file_name, "%s%dUSR2", SCRATCH, id_self);
+    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+    if (ack == -1)
+        fprintf(stderr, "Server:sigUSR2 handler: create ack failed\n");
+    close(ack);
+
 }
 
 
