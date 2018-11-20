@@ -18,7 +18,7 @@ int generic_put(const char *key, const char *value)
     if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_put: ");
-        fprintf(stderr, "path creation error:%s\n", strerror(err));
+        fprintf(stderr, "path \"%s\" creation error:%s\n", key, strerror(err));
         return -1;
     }
 
@@ -26,7 +26,7 @@ int generic_put(const char *key, const char *value)
     if (fd == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_put: ");
-        fprintf(stderr, "open error: %s\n", strerror(err));
+        fprintf(stderr, "open %s error: %s\n", path, strerror(err));
         free(path);
         return -1;
     }
@@ -34,7 +34,7 @@ int generic_put(const char *key, const char *value)
     if ((write(fd, value, strlen(value))) < 0) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_put: ");
-        fprintf(stderr, "write error: %s\n", strerror(err));
+        fprintf(stderr, "write in %s error: %s\n", path, strerror(err));
         free(path);
         return -1;
     }
@@ -52,7 +52,7 @@ char *generic_get(const char *key)
     if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_get: ");
-        fprintf(stderr, "path creation error:%s\n", strerror(err));
+        fprintf(stderr, "path \"%s\" creation error:%s\n", key,  strerror(err));
         return NULL;
     }
 
@@ -60,7 +60,7 @@ char *generic_get(const char *key)
     if (fd == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_get: ");
-        fprintf(stderr, "open error: %s\n", strerror(err));
+        fprintf(stderr, "open %s error: %s\n", path, strerror(err));
         free(path);
         return NULL;
     }
@@ -71,7 +71,7 @@ char *generic_get(const char *key)
     if (rc < 0) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_get: ");
-        fprintf(stderr, "read error: %s\n", strerror(err));
+        fprintf(stderr, "read in %s error: %s\n", path, strerror(err));
         return NULL;
     }
     data[rc] = '\0';
@@ -87,24 +87,24 @@ int generic_update(const char *key, const char *value)
     char *path;
     if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
-        fprintf(stderr, "Generic storage:generic_get: ");
-        fprintf(stderr, "path creation error: %s\n", strerror(err));
+        fprintf(stderr, "Generic storage:generic_update: ");
+        fprintf(stderr, "path \"%s\" creation error: %s\n", key, strerror(err));
         return -1;
     }
 
     int fd = open(path, O_WRONLY | O_TRUNC);
     if (fd == -1) {
         int err = errno;
-        fprintf(stderr, "Generic storage:generic_put: ");
-        fprintf(stderr, "open error: %s\n", strerror(err));
+        fprintf(stderr, "Generic storage:generic_update: ");
+        fprintf(stderr, "open %s error: %s\n", path, strerror(err));
         free(path);
         return -1;
     }
 
     if ((write(fd, value, strlen(value))) < 0) {
         int err = errno;
-        fprintf(stderr, "Generic storage:generic_put: ");
-        fprintf(stderr, "write error: %s\n", strerror(err));
+        fprintf(stderr, "Generic storage:generic_update: ");
+        fprintf(stderr, "write in %s error: %s\n", path, strerror(err));
         free(path);
         return -1;
     }
@@ -121,7 +121,7 @@ int generic_del(const char *key)
     if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_del: ");
-        fprintf(stderr, "path creation error: %s\n", strerror(err));
+        fprintf(stderr, "path \"%s\" creation error: %s\n", key, strerror(err));
         return -1;
     }
 
@@ -129,7 +129,7 @@ int generic_del(const char *key)
     if (rc != 0) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_del: ");
-        fprintf(stderr, "delete file error: %s\n", strerror(err));
+        fprintf(stderr, "delete file %s error: %s\n", path, strerror(err));
         return -1;
     }
     free(path);

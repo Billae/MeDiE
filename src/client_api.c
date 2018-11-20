@@ -127,7 +127,8 @@ zsock_t *client_init_connexion(const char *id_srv)
 
     zsock_t *sock = zsock_new_req(socket);
     if (sock == NULL) {
-        fprintf(stderr, "Client API:init_connexion: create zmq socket error\n");
+        fprintf(stderr, "Client API:init_connexion: ");
+        fprintf(stderr, "create zmq socket %s error\n", socket);
         return NULL;
     }
     free(socket);

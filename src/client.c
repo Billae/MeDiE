@@ -35,7 +35,8 @@ int main(int argc, char **argv)
     FILE *fd = fopen(path, "r");
     if (fd == NULL) {
         int err = errno;
-        fprintf(stderr, "Client: request file open error:%s\n", strerror(err));
+        fprintf(stderr, "Client: request file %s open error:%s\n",
+            path, strerror(err));
         return -1;
     }
 
@@ -61,7 +62,7 @@ int main(int argc, char **argv)
 */
         /*for trace file*/
         if (fgets(a_line, MAX_SIZE, fd) == NULL) {
-            fprintf(stderr, "Client: read request file failed\n");
+            fprintf(stderr, "Client: read request file %s failed\n", path);
             return -1;
         }
         char *positionEntree = strchr(a_line, '\n');
@@ -109,7 +110,8 @@ int main(int argc, char **argv)
         case 1: {
             rc = client_request_create(key_list[current_req], data);
             if (rc != 0)
-                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+                fprintf(stderr, "Client: Request for key %s failed: %s\n",
+                    key_list[current_req], strerror(-rc));
             if (rc == -EAGAIN)
                 current_req--;
             break;
@@ -119,7 +121,8 @@ int main(int argc, char **argv)
             char *value;
             rc = client_request_read(key_list[current_req], &value);
             if (rc != 0)
-                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+                fprintf(stderr, "Client: Request for key %s failed: %s\n",
+                    key_list[current_req], strerror(-rc));
             if (rc == -EAGAIN)
                 current_req--;
             break;
@@ -128,7 +131,8 @@ int main(int argc, char **argv)
         case 3: {
             rc = client_request_update(key_list[current_req], data);
             if (rc != 0)
-                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+                fprintf(stderr, "Client: Request for key %s failed: %s\n",
+                        key_list[current_req], strerror(-rc));
             if (rc == -EAGAIN)
                 current_req--;
             break;
@@ -137,7 +141,8 @@ int main(int argc, char **argv)
         case 4: {
             rc = client_request_delete(key_list[current_req]);
             if (rc != 0)
-                fprintf(stderr, "Request failed: %s\n", strerror(-rc));
+                fprintf(stderr, "Client: Request for key %s failed: %s\n",
+                        key_list[current_req], strerror(-rc));
             if (rc == -EAGAIN)
                 current_req--;
             break;

@@ -64,8 +64,8 @@ void usr1_handler(int sig)
     int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
         int err = errno;
-        fprintf(stderr, "Server:sigUSR1 handler: open error: %s\n",
-            strerror(err));
+        fprintf(stderr, "Server:sigUSR1 handler: open %s error: %s\n",
+            result_path, strerror(err));
         free(result_path);
         return;
     }
@@ -77,7 +77,7 @@ void usr1_handler(int sig)
     if ((write(fd_res, load, strlen(load))) < 0) {
         int err = errno;
         fprintf(stderr, "Server:sigUSR1 handler: ");
-        fprintf(stderr, "write error: %s\n", strerror(err));
+        fprintf(stderr, "write in %s error: %s\n", result_path, strerror(err));
         return;
     }
     free(load);
@@ -89,8 +89,11 @@ void usr1_handler(int sig)
     char *file_name;
     asprintf(&file_name, "%s%dUSR1", SCRATCH, id_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
-    if (ack == -1)
-        fprintf(stderr, "Server:sigUSR1 handler: create ack failed\n");
+    if (ack == -1) {
+        int err = errno;
+        fprintf(stderr, "Server:sigUSR1 handler: ");
+        fprintf(stderr, "create ack file \"%s\" failed: %s\n", file_name, strerror(err));
+    }
     close(ack);
     return;
 }
@@ -106,10 +109,12 @@ void usr2_handler(int sig)
     char *file_name;
     asprintf(&file_name, "%s%dUSR2", SCRATCH, id_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
-    if (ack == -1)
-        fprintf(stderr, "Server:sigUSR2 handler: create ack failed\n");
+    if (ack == -1) {
+        int err = errno;
+        fprintf(stderr, "Server:sigUSR2 handler: ");
+        fprintf(stderr, "create ack file \"%s\" failed\n/:%s", file_name, strerror(err));
+    }
     close(ack);
-
 }
 
 
@@ -137,7 +142,7 @@ int main(int argc, char **argv)
 
         rep = zsock_new_rep(socket);
         if (rep == NULL) {
-            fprintf(stderr, "Server: create zmq socket error\n");
+            fprintf(stderr, "Server: create zmq socket %s error\n", socket);
             return -1;
         }
         free(socket);
@@ -150,7 +155,7 @@ int main(int argc, char **argv)
         asprintf(&name, "tcp://192.168.129.25:%d", Client_port);
         rep = zsock_new_rep(name);
         if (rep == NULL) {
-            fprintf(stderr, "Server: create zmq socket error\n");
+            fprintf(stderr, "Server: create zmq socket %s error\n", name);
             return -1;
         }
         free(name);
@@ -175,14 +180,16 @@ int main(int argc, char **argv)
     int fd_srv = open(SRV_PATH, O_RDONLY);
     if (fd_srv == -1) {
         int err = errno;
-        fprintf(stderr, "Server: open error: %s\n",
-            strerror(err));
+        fprintf(stderr, "Server: open %s error: %s\n",
+            SRV_PATH, strerror(err));
         return -1;
     }
 
     rc = read(fd_srv, id_str, max_id_size);
     if (rc < 0) {
-        fprintf(stderr, "Server: read config file failed\n");
+        int err = errno;
+        fprintf(stderr, "Server: read config file %s failed: %s\n",
+            SRV_PATH, strerror(err));
         return -1;
     }
 
@@ -272,10 +279,9 @@ while (1) {
             if (!json_object_object_get_ex(request, "data", &data))
                 fprintf(stderr,
                     "Server: json extract error: no key \"data\" found\n");
-            rc = generic_put(json_object_get_string(key),
-            json_object_get_string(data));
+            rc = generic_put(json_object_get_string(key), json_object_get_string(data));
             if (rc != 0) {
-                fprintf(stderr, "Server: generic storage operation error\n");
+                fprintf(stderr, "Server: generic storage operation \"put\" error\n");
                 global_rc = -1;
             }
             break;
@@ -287,10 +293,9 @@ while (1) {
             if (!json_object_object_get_ex(request, "data", &data))
                 fprintf(stderr,
                     "Server: json extract error: no key \"data\" found\n");
-            rc = generic_update(json_object_get_string(key),
-            json_object_get_string(data));
+            rc = generic_update(json_object_get_string(key), json_object_get_string(data));
             if (rc != 0) {
-                fprintf(stderr, "Server: generic storage operation error\n");
+                fprintf(stderr, "Server: generic storage operation \"update\" error\n");
                 global_rc = -1;
             }
             break;
@@ -300,7 +305,7 @@ while (1) {
         {
             rc = generic_del(json_object_get_string(key));
             if (rc != 0) {
-                fprintf(stderr, "Server: generic storage operation error\n");
+                fprintf(stderr, "Server: generic storage operation \"del\" error\n");
                 global_rc = -1;
             }
             break;
@@ -310,7 +315,7 @@ while (1) {
         {
             char *get_value = generic_get(json_object_get_string(key));
             if (get_value == NULL) {
-                fprintf(stderr, "Server: generic storage operation error\n");
+                fprintf(stderr, "Server: generic storage operation \"get\" error\n");
                 global_rc = -1;
             }
             json_object *get_value_reply = json_object_new_string(get_value);
@@ -322,7 +327,8 @@ while (1) {
 reply:
         rc = distribution_pre_send(request, global_rc);
         if (rc != 0) {
-            fprintf(stderr, "Server: distribution_pre_send failed\n");
+            fprintf(stderr, "Server: distribution_pre_send failed for key %s\n",
+                json_object_get_string(key));
             global_rc = -1;
         }
 

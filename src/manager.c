@@ -33,8 +33,8 @@ zsock_t *pub;
 zsock_t *pull;
 
 
-/*Handler for sigUSR signal*/
-void usrHandler(int sig)
+/*Handler for sigUSR2 signal*/
+void usrHandler2(int sig)
 {
     update_needed = 1;
 }
@@ -208,7 +208,8 @@ int manager_calculate_relab(int nb)
         int srv, version, state;
         rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
         if (rc != 0) {
-            fprintf(stderr, "Manager:calculate_relab: mlt get entry failed\n");
+            fprintf(stderr, "Manager:calculate_relab: ");
+            fprintf(stderr, "mlt get entry %d failed\n", current_entry);
             goto free_all;
         }
         all[srv] += global_list[current_entry];
@@ -245,8 +246,8 @@ int manager_calculate_relab(int nb)
         /*balanced is the balanced weight for the server i*/
         int balanced = (sum_all * w_factor) / sum_w;
         load[current_srv] = all[current_srv] - balanced;
-        fprintf(stderr, "manager: load of server %d: %d\n",
-            current_srv, load[current_srv]);
+        /*fprintf(stderr, "manager: load of server %d: %d\n",
+            current_srv, load[current_srv]);*/
         if (load[current_srv] > 0) {
             subset_l[size_l] = load[current_srv];
             size_l++;
@@ -280,7 +281,7 @@ int manager_calculate_relab(int nb)
         size_c = manager_balance_load
             (load[subset_s[srv_in_s]], subset_l, size_l, 0, subset_c);
 
-        fprintf(stderr, "loads to give to server %d:\n", subset_s[srv_in_s]);
+        /*fprintf(stderr, "loads to give to server %d:\n", subset_s[srv_in_s]);*/
         int srv_in_c;
         for (srv_in_c = 0; srv_in_c < size_c; srv_in_c++) {
             /*fill target*/
@@ -295,9 +296,9 @@ int manager_calculate_relab(int nb)
                     break;
                 }
             }
-            fprintf(stderr, "-%d-", subset_c[srv_in_c]);
+            /*fprintf(stderr, "-%d-", subset_c[srv_in_c]);*/
         }
-        fprintf(stderr, "\n");
+        /*fprintf(stderr, "\n");*/
     }
     free(subset_c);
 
@@ -320,8 +321,8 @@ int manager_calculate_relab(int nb)
                 rc = mlt_get_entry(&table, current_entry,
                         &srv, &version, &state);
                 if (rc != 0) {
-                    fprintf(stderr,
-                        "Manager:calculate_relab: mlt get entry failed\n");
+                    fprintf(stderr, "Manager:calculate_relab: ");
+                    fprintf(stderr, "mlt get entry %d failed\n", current_entry);
                     free(subset_srv);
                     goto free_target;
                 }
@@ -343,21 +344,21 @@ int manager_calculate_relab(int nb)
             size_sai = manager_balance_load
                 (0, subset_srv, size_srv, load[current_srv], subset_sai);
 
-            fprintf(stderr,
+            /*fprintf(stderr,
                 "List of SAI of server %d to obtain the load to give:\n",
-                current_srv);
+                current_srv);*/
             /*update the MLT*/
             int sai_in_subset;
             for (sai_in_subset = 0; sai_in_subset < size_sai; sai_in_subset++) {
-                fprintf(stderr, "%d, ", subset_sai[sai_in_subset]);
+                /*fprintf(stderr, "%d, ", subset_sai[sai_in_subset]);*/
                 for (current_entry = 0; current_entry < N_entry; current_entry++) {
                     if (global_list[current_entry] == subset_sai[sai_in_subset]) {
                         int srv, version, state;
                         rc = mlt_get_entry(&table, current_entry,
                                 &srv, &version, &state);
                          if (rc != 0) {
-                            fprintf(stderr,
-                                "Manager:calculate_relab: mlt get entry failed\n");
+                            fprintf(stderr, "Manager:calculate_relab: ");
+                            fprintf(stderr, "mlt get entry %d failed\n", current_entry);
                             free(subset_sai);
                             free(subset_srv);
                             goto free_target;
@@ -366,8 +367,8 @@ int manager_calculate_relab(int nb)
                             rc = mlt_update_entry(&table, current_entry,
                                     target[current_srv], version + 1, 0);
                             if (rc != 0) {
-                                fprintf(stderr,
-                                    "Manager:calculate_relab: mlt update entry failed\n");
+                                fprintf(stderr, "Manager:calculate_relab: ");
+                                fprintf(stderr, "mlt update entry %d failed\n", current_entry);
                                 free(subset_sai);
                                 free(subset_srv);
                                 goto free_target;
@@ -433,11 +434,11 @@ int main(int argc, char *argv[])
     if (rc != 0)
         fprintf(stderr, "Manager: can't catch SIGINT\n");
 
-    struct sigaction act_usr;
-    act_usr.sa_handler = usrHandler;
-    rc = sigaction(SIGUSR2, &act_usr, NULL);
+    struct sigaction act_usr2;
+    act_usr2.sa_handler = usrHandler2;
+    rc = sigaction(SIGUSR2, &act_usr2, NULL);
     if (rc != 0)
-        fprintf(stderr, "Manager: can't catch SIGUSR\n");
+        fprintf(stderr, "Manager: can't catch SIGUSR2\n");
 
     while (1) {
         while (update_needed == 0) {
@@ -447,7 +448,6 @@ int main(int argc, char *argv[])
         int nb_rcv;
         for (nb_rcv = 0; nb_rcv < nb_srv; nb_rcv++) {
             /*receiving eacls*/
-            fprintf(stderr, "eacl recu\n");
             zmsg_t *packet = zmsg_recv(pull);
             if (packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
@@ -486,7 +486,7 @@ int main(int argc, char *argv[])
 
         rc = zmsg_send(&packet, pub);
         if (rc != 0)
-            fprintf(stderr, "Manager: zmsg_send failed\n");
+            fprintf(stderr, "Manager: zmsg_send new MLT failed\n");
         update_needed = 0;
     }
 
