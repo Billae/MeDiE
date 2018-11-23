@@ -16,12 +16,8 @@ void md_entry_init(struct md_entry *elem, int entry, char *name)
 
 void md_entry_insert(struct md_entry **head, struct md_entry *elem)
 {
-    if (head == NULL)
-        *head = elem;
-    else {
         elem->next = *head;
         *head = elem;
-    }
 }
 
 struct md_entry *md_entry_pop(struct md_entry **head)

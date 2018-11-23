@@ -273,49 +273,27 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 return -1;
             }
 
+            int asked_entry = json_object_get_int(entry);
             struct md_entry *to_add = malloc(sizeof(struct md_entry));
-            md_entry_init(to_add, json_object_get_int(entry), str_key);
+            md_entry_init(to_add, asked_entry, str_key);
 
             struct md_entry *ptr;
-            int i;
-            for (i = 0; i < N_entry; i++) {
-                ptr = in_charge_md[i];
-                if (ptr == NULL) {
-                    rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send:");
-                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
-                        return -1;
-                    }
+            ptr = in_charge_md[asked_entry];
 
-                    md_entry_insert(&in_charge_md[i], to_add);
+            rc = -pthread_rwlock_wrlock(&locks[asked_entry]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:pre_send:");
+                fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                return -1;
+            }
 
-                    rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send:");
-                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
-                        return -1;
-                    }
-                    break;
-                }
-                if (ptr->entry == json_object_get_int(entry)) {
-                    rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send:");
-                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
-                        return -1;
-                    }
+            md_entry_insert(&ptr, to_add);
 
-                    md_entry_insert(&ptr, to_add);
-
-                    rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send:");
-                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
-                        return -1;
-                    }
-                    break;
-                }
+            rc = -pthread_rwlock_unlock(&locks[asked_entry]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:pre_send:");
+                fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                return -1;
             }
         } else if (reqType == RT_DELETE) {
             /*remove the key in the in_charge_md array*/
@@ -335,46 +313,35 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 return -1;
             }
             struct md_entry *ptr;
-            int i, found;
-            found = 0;
-            for (i = 0; i < N_entry; i++) {
-                ptr = in_charge_md[i];
+            int asked_entry = json_object_get_int(entry);
 
-                if (ptr->entry == json_object_get_int(entry)) {
-                    rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send: ");
-                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
-                        return -1;
-                    }
+            ptr = in_charge_md[asked_entry];
 
-                    ptr = md_entry_search_md_name(&ptr, str_key);
-
-                    rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:pre_send: ");
-                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
-                        return -1;
-                    }
-                    if (ptr == NULL) {
-                        fprintf(stderr, "Distribution:pre_send: ");
-                        fprintf(stderr, " search_md_entry failed\n");
-                        return -1;
-                    }
-                    free(ptr->md_name);
-                    free(ptr);
-                    free(str_key);
-                    found = 1;
-                    break;
-                }
-            }
-            if (found == 0) {
-                    fprintf(stderr, "Distribution:pre_send:");
-                    fprintf(stderr, "remove key from in_charge_md failed\n");
-                    return -1;
+            rc = -pthread_rwlock_wrlock(&locks[asked_entry]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:pre_send: ");
+                fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                return -1;
             }
 
+            ptr = md_entry_search_md_name(&ptr, str_key);
+
+            rc = -pthread_rwlock_unlock(&locks[asked_entry]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:pre_send: ");
+                fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                return -1;
+            }
+            if (ptr == NULL) {
+                fprintf(stderr, "Distribution:pre_send: ");
+                fprintf(stderr, " search_md_entry failed\n");
+                return -1;
+            }
+            free(ptr->md_name);
+            free(ptr);
+            free(str_key);
         }
+
     }
     return 0;
 }
@@ -436,7 +403,6 @@ void *thread_load_sender(void *args)
 
     int current_line = 0;
     int to_send_idx = 0;
-    int current_srv = to_send->servers[to_send_idx];
 
     char *id_srv;
     id_srv = malloc(max_id_size*sizeof(*id_srv));
@@ -447,158 +413,151 @@ void *thread_load_sender(void *args)
         pthread_exit(&fail_rc);
     }
 
-    while (fgets(id_srv, max_id_size, fd) != NULL && to_send_idx < to_send->size) {
-
-        char *positionEntree = strchr(id_srv, '\n');
-        if (positionEntree != NULL)
-            *positionEntree = '\0';
-        if (current_line == current_srv) {
-            /*the srv_id read is one on the to_do list*/
-            char *socket;
-            if (asprintf(&socket, "tcp://%s:%d", id_srv, Transfert_port) == -1) {
-                int err = errno;
-                fprintf(stderr, "Distribution: thread_load_sender: ");
-                fprintf(stderr, "format zmq socket name error: %s\n",
-                        strerror(err));
-                pthread_exit(&fail_rc);
-            }
-            zsock_t *sock = zsock_new_req(socket);
-            if (sock == NULL) {
+    for (to_send_idx = 0; to_send_idx < to_send->size; to_send_idx++) {
+        /*read until find the next server to send*/
+        while (current_line != to_send->servers[to_send_idx]) {
+            if (fgets(id_srv, max_id_size, fd) == NULL) {
                 fprintf(stderr, "Distribution:thread_load_sender: ");
-                fprintf(stderr, "create zmq socket error\n");
+                fprintf(stderr, "read error in host file\n");
                 pthread_exit(&fail_rc);
             }
-            free(socket);
-
-            while (current_srv == current_line) {
-                /*send all messages associated to this server*/
-                zmsg_t *packet = zmsg_new();
-                zframe_t *entry_frame = zframe_new(
-                    &to_send->entries[to_send_idx], sizeof(int));
-                zmsg_append(packet, &entry_frame);
-
-                /*fprintf(stderr, "packaging entry %d\n",
-                    to_send->entries[to_send_idx]);*/
-                /*md_names is all md associated to an entry*/
-
-                int md_names_capacity = 80;
-                char *md_names = malloc(sizeof(char) * md_names_capacity);
-                strncpy(md_names, "", 1);
-                int md_names_length = strlen(md_names);
-
-                struct md_entry *ptr;
-                int i;
-                for (i = 0; i < N_entry; i++) {
-                    if (in_charge_md[i] != NULL) {
-                        if (in_charge_md[i]->entry == to_send->entries[to_send_idx]) {
-                            while (in_charge_md[i] != NULL) {
-                                rc = -pthread_rwlock_wrlock(&locks[i]);
-                                if (rc != 0) {
-                                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                                    fprintf(stderr, "lock failed: %s\n", strerror(-rc));
-                                    zsock_destroy(&sock);
-                                    pthread_exit(&fail_rc);
-                                }
-
-                                ptr = md_entry_pop(&in_charge_md[i]);
-
-                                rc = -pthread_rwlock_unlock(&locks[i]);
-                                if (rc != 0) {
-                                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                                    fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
-                                    zsock_destroy(&sock);
-                                    pthread_exit(&fail_rc);
-                                }
-
-                                rc = generic_del(ptr->md_name);
-                                if (rc == -1) {
-                                    fprintf(stderr, "Distribution:thread_load_sender:");
-                                    fprintf(stderr, "md deletion failed\n");
-                                    zsock_destroy(&sock);
-                                    pthread_exit(&fail_rc);
-                                }
-
-                                /* update the string length*/
-                                md_names_length += 1 + strlen(ptr->md_name);
-                                /*increase the capacity if needed*/
-                                if (md_names_length >= md_names_capacity) {
-                                    md_names_capacity = (md_names_capacity*3)/2;
-                                    char *tmp = realloc(md_names, md_names_capacity);
-                                    if (tmp == NULL) {
-                                        fprintf(stderr, "Distribution:thread_load_sender: ");
-                                        fprintf(stderr, "realloc md_names failed\n");
-                                        pthread_exit(&fail_rc);
-                                    } else
-                                        md_names = tmp;
-                                }
-                                /* copy a comma and the strign into the buffer*/
-                                strncat(md_names, ",", 1);
-                                strncat(md_names, ptr->md_name, strlen(ptr->md_name));
-
-                                free(ptr->md_name);
-                                free(ptr);
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                zframe_t *md_entry_size_frame = zframe_new(&md_names_length, sizeof(int));
-                zmsg_append(packet, &md_entry_size_frame);
-
-                zframe_t *md_entry_frame = zframe_new(md_names, md_names_length);
-                zmsg_append(packet, &md_entry_frame);
-
-                /*fprintf(stderr, "packaging finished entry %d: %d -> %s\n",
-                    to_send->entries[to_send_idx], alloc_size, md_names);*/
-
-                rc = zmsg_send(&packet, sock);
-                if (rc != 0) {
-                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                    fprintf(stderr, "md_entry send failed\n");
-                    zsock_destroy(&sock);
-                    pthread_exit(&fail_rc);
-                }
-
-                /*update the state of the entry in the mlt*/
-                rc = mlt_update_state(&table, to_send->entries[to_send_idx], 0);
-                if (rc != 0) {
-                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                    fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
-                    zsock_destroy(&sock);
-                    pthread_exit(&fail_rc);
-                }
-                /*update eacl entry*/
-                rc = eacl_reset_all_entry(&access_list, to_send->entries[to_send_idx]);
-                if (rc != 0) {
-                    fprintf(stderr, "Distribution:thread_load_receiver: ");
-                    fprintf(stderr, "eacl update failed\n");
-                    zsock_destroy(&sock);
-                    pthread_exit(&fail_rc);
-                }
-
-                /*fprintf(stderr, "[sender: sent: entry %d\n",
-                    to_send->entries[to_send_idx]);*/
-                /*receive the acknowledgement from the receiver*/
-                zmsg_t *reply = zmsg_recv(sock);
-                zframe_t *flag = zmsg_pop(reply);
-                if (zframe_streq(flag, "done") != true) {
-                    fprintf(stderr, "Distribution:thread_load_sender: ");
-                    fprintf(stderr, "acknowledgement receive failed\n");
-                    zsock_destroy(&sock);
-                    pthread_exit(&fail_rc);
-                }
-
-                /*fprintf(stderr, "[sender: ack received for entry %d\n",
-                    to_send->entries[to_send_idx]);*/
-                /*next entry in the to_do list*/
-                to_send_idx++;
-                current_srv = to_send->servers[to_send_idx];
-            }
-            zsock_destroy(&sock);
-
+            char *positionEntree = strchr(id_srv, '\n');
+            if (positionEntree != NULL)
+                *positionEntree = '\0';
+            current_line++;
         }
-        current_line++;
+        /*open a socket with the server*/
+        char *socket;
+        if (asprintf(&socket, "tcp://%s:%d", id_srv, Transfert_port) == -1) {
+            int err = errno;
+            fprintf(stderr, "Distribution: thread_load_sender: ");
+            fprintf(stderr, "format zmq socket name error: %s\n", strerror(err));
+            pthread_exit(&fail_rc);
+        }
+        zsock_t *sock = zsock_new_req(socket);
+        if (sock == NULL) {
+            fprintf(stderr, "Distribution:thread_load_sender: ");
+            fprintf(stderr, "create zmq socket error\n");
+            pthread_exit(&fail_rc);
+        }
+        free(socket);
+
+        while (current_line == to_send->servers[to_send_idx]) {
+            /*concat all messages associated to an entry*/
+            zmsg_t *packet = zmsg_new();
+            zframe_t *entry_frame = zframe_new(&to_send->entries[to_send_idx], sizeof(int));
+            zmsg_append(packet, &entry_frame);
+
+            int md_names_capacity = 80;
+            char *md_names = malloc(sizeof(char) * md_names_capacity);
+            strncpy(md_names, "", 1);
+            int md_names_length = strlen(md_names);
+            struct md_entry *ptr;
+
+            while (in_charge_md[to_send->entries[to_send_idx]] != NULL) {
+                rc = -pthread_rwlock_wrlock(&locks[to_send->entries[to_send_idx]]);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                    fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                    zsock_destroy(&sock);
+                    pthread_exit(&fail_rc);
+                }
+
+                ptr = md_entry_pop(&in_charge_md[to_send->entries[to_send_idx]]);
+
+                rc = -pthread_rwlock_unlock(&locks[to_send->entries[to_send_idx]]);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_load_sender: ");
+                    fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                    zsock_destroy(&sock);
+                    pthread_exit(&fail_rc);
+                }
+
+                rc = generic_del(ptr->md_name);
+                if (rc == -1) {
+                    fprintf(stderr, "Distribution:thread_load_sender:");
+                    fprintf(stderr, "md deletion failed\n");
+                    zsock_destroy(&sock);
+                    pthread_exit(&fail_rc);
+                }
+                /* update the string length*/
+                md_names_length += 1 + strlen(ptr->md_name);
+                /*increase the capacity if needed*/
+                if (md_names_length >= md_names_capacity) {
+                    md_names_capacity = (md_names_capacity*3)/2;
+                    char *tmp = realloc(md_names, md_names_capacity);
+                    if (tmp == NULL) {
+                        fprintf(stderr, "Distribution:thread_load_sender: ");
+                        fprintf(stderr, "realloc md_names failed\n");
+                        pthread_exit(&fail_rc);
+                    } else
+                        md_names = tmp;
+                }
+                /* copy a comma and the strign into the buffer*/
+                strncat(md_names, ",", 1);
+                strncat(md_names, ptr->md_name, strlen(ptr->md_name));
+
+                free(ptr->md_name);
+                free(ptr);
+            }
+
+            zframe_t *md_entry_size_frame = zframe_new(&md_names_length, sizeof(int));
+            zmsg_append(packet, &md_entry_size_frame);
+
+            zframe_t *md_entry_frame = zframe_new(md_names, md_names_length);
+            zmsg_append(packet, &md_entry_frame);
+
+            /*fprintf(stderr, "packaging finished entry %d: %d -> %s\n",
+                to_send->entries[to_send_idx], alloc_size, md_names);*/
+
+            rc = zmsg_send(&packet, sock);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_load_sender: ");
+                fprintf(stderr, "md_entry send failed\n");
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
+
+            /*update the state of the entry in the mlt*/
+            rc = mlt_update_state(&table, to_send->entries[to_send_idx], 0);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_load_sender: ");
+                fprintf(stderr, "mlt update failed:%s\n", strerror(-rc));
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
+            /*update eacl entry*/
+            rc = eacl_reset_all_entry(&access_list, to_send->entries[to_send_idx]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_load_receiver: ");
+                fprintf(stderr, "eacl update failed\n");
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
+
+            /*fprintf(stderr, "[sender: sent: entry %d\n",
+                to_send->entries[to_send_idx]);*/
+
+            /*receive the acknowledgement from the receiver*/
+            zmsg_t *reply = zmsg_recv(sock);
+            zframe_t *flag = zmsg_pop(reply);
+            if (zframe_streq(flag, "done") != true) {
+                fprintf(stderr, "Distribution:thread_load_sender: ");
+                fprintf(stderr, "acknowledgement receive failed\n");
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
+
+            /*fprintf(stderr, "[sender: ack received for entry %d\n",
+                to_send->entries[to_send_idx]);*/
+
+            /*if the next entry is for the same server, stay in the send loop*/
+            if (to_send->servers[to_send_idx+1] == current_line)
+                to_send_idx++;
+            else
+                break;
+        }
+        zsock_destroy(&sock);
     }
 
     fclose(fd);
@@ -662,49 +621,42 @@ void *thread_load_receiver(void *args)
         char *md_name = strtok(md_names, ",");
 
         /*add a new md_entry*/
-        int i;
-        for (i = 0; i < N_entry; i++) {
+        while (md_name != NULL) {
+            struct md_entry *to_add = malloc(sizeof(struct md_entry));
+            char *name;
+            rc = asprintf(&name, "%s", md_name);
+            if (rc < 0) {
+                fprintf(stderr, "Distribution:thread_load_receiver:");
+                fprintf(stderr, "get md_name failed: %s\n", strerror(-rc));
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
+            md_entry_init(to_add, entry, name);
+            md_name = strtok(NULL, ",");
 
-            if (in_charge_md[i] == NULL) {
-                while (md_name != NULL) {
-                    struct md_entry *to_add = malloc(sizeof(struct md_entry));
-                    char *name;
-                    rc = asprintf(&name, "%s", md_name);
-                    if (rc < 0) {
-                        fprintf(stderr, "Distribution:thread_load_receiver:");
-                        fprintf(stderr, "get md_name failed: %s\n", strerror(-rc));
-                        zsock_destroy(&sock);
-                        pthread_exit(&fail_rc);
-                    }
-                    md_entry_init(to_add, entry, name);
-                    md_name = strtok(NULL, ",");
+            rc = -pthread_rwlock_wrlock(&locks[entry]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_load_receiver: ");
+                fprintf(stderr, "lock failed: %s\n", strerror(-rc));
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
 
-                    rc = -pthread_rwlock_wrlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:thread_load_receiver: ");
-                        fprintf(stderr, "lock failed: %s\n", strerror(-rc));
-                        zsock_destroy(&sock);
-                        pthread_exit(&fail_rc);
-                    }
+            md_entry_insert(&in_charge_md[entry], to_add);
 
-                    md_entry_insert(&in_charge_md[i], to_add);
-
-                    rc = -pthread_rwlock_unlock(&locks[i]);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:thread_load_receiver:");
-                        fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
-                        zsock_destroy(&sock);
-                        pthread_exit(&fail_rc);
-                    }
-                    rc = generic_put(in_charge_md[i]->md_name, "a word");
-                    if (rc == -1) {
-                        fprintf(stderr, "Distribution:thread_load_receiver:");
-                        fprintf(stderr, "md creation failed\n");
-                        zsock_destroy(&sock);
-                        pthread_exit(&fail_rc);
-                    }
-                }
-                break;
+            rc = -pthread_rwlock_unlock(&locks[entry]);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_load_receiver:");
+                fprintf(stderr, "unlock failed: %s\n", strerror(-rc));
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
+            }
+            rc = generic_put(in_charge_md[entry]->md_name, "a word");
+            if (rc == -1) {
+                fprintf(stderr, "Distribution:thread_load_receiver:");
+                fprintf(stderr, "md creation failed\n");
+                zsock_destroy(&sock);
+                pthread_exit(&fail_rc);
             }
         }
 
