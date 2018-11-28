@@ -62,7 +62,10 @@ int main(int argc, char **argv)
 */
         /*for trace file*/
         if (fgets(a_line, MAX_SIZE, fd) == NULL) {
-            fprintf(stderr, "Client: read request file %s failed\n", path);
+            int err = errno;
+            fprintf(stderr, "Client: read request file %s failed: %s\n",
+                path, strerror(err));
+            client_finalize_context();
             return -1;
         }
         char *positionEntree = strchr(a_line, '\n');

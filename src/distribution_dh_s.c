@@ -277,9 +277,6 @@ int distribution_pre_send(json_object *reply, int global_rc)
             struct md_entry *to_add = malloc(sizeof(struct md_entry));
             md_entry_init(to_add, asked_entry, str_key);
 
-            struct md_entry *ptr;
-            ptr = in_charge_md[asked_entry];
-
             rc = -pthread_rwlock_wrlock(&locks[asked_entry]);
             if (rc != 0) {
                 fprintf(stderr, "Distribution:pre_send:");
@@ -287,7 +284,7 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 return -1;
             }
 
-            md_entry_insert(&ptr, to_add);
+            md_entry_insert(&in_charge_md[asked_entry], to_add);
 
             rc = -pthread_rwlock_unlock(&locks[asked_entry]);
             if (rc != 0) {
@@ -413,6 +410,7 @@ void *thread_load_sender(void *args)
         pthread_exit(&fail_rc);
     }
 
+    /*for each index*/
     for (to_send_idx = 0; to_send_idx < to_send->size; to_send_idx++) {
         /*read until find the next server to send*/
         while (current_line != to_send->servers[to_send_idx]) {
@@ -493,7 +491,7 @@ void *thread_load_sender(void *args)
                     } else
                         md_names = tmp;
                 }
-                /* copy a comma and the strign into the buffer*/
+                /* copy a comma and the string into the buffer*/
                 strncat(md_names, ",", 1);
                 strncat(md_names, ptr->md_name, strlen(ptr->md_name));
 
@@ -508,7 +506,7 @@ void *thread_load_sender(void *args)
             zmsg_append(packet, &md_entry_frame);
 
             /*fprintf(stderr, "packaging finished entry %d: %d -> %s\n",
-                to_send->entries[to_send_idx], alloc_size, md_names);*/
+                to_send->entries[to_send_idx], md_names_length, md_names);*/
 
             rc = zmsg_send(&packet, sock);
             if (rc != 0) {
@@ -840,7 +838,7 @@ int distribution_send_sai()
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:send_sai: calculate SAI failed: %s\n",
-            strerror(-errno));
+            strerror(-rc));
         return -1;
     }
 
