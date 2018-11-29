@@ -398,7 +398,8 @@ void *thread_load_sender(void *args)
         pthread_exit(&fail_rc);
     }
 
-    int current_line = 0;
+    /*current_line is the line number buffered in id_srv: initially -1*/
+    int current_line = -1;
     int to_send_idx = 0;
 
     char *id_srv;
@@ -499,9 +500,11 @@ void *thread_load_sender(void *args)
                 free(ptr);
             }
 
+            md_names_length++;
             zframe_t *md_entry_size_frame = zframe_new(&md_names_length, sizeof(int));
             zmsg_append(packet, &md_entry_size_frame);
 
+            strncat(md_names, "\0", 1);
             zframe_t *md_entry_frame = zframe_new(md_names, md_names_length);
             zmsg_append(packet, &md_entry_frame);
 
