@@ -312,8 +312,6 @@ int distribution_pre_send(json_object *reply, int global_rc)
             struct md_entry *ptr;
             int asked_entry = json_object_get_int(entry);
 
-            ptr = in_charge_md[asked_entry];
-
             rc = -pthread_rwlock_wrlock(&locks[asked_entry]);
             if (rc != 0) {
                 fprintf(stderr, "Distribution:pre_send: ");
@@ -321,7 +319,7 @@ int distribution_pre_send(json_object *reply, int global_rc)
                 return -1;
             }
 
-            ptr = md_entry_search_md_name(&ptr, str_key);
+            ptr = md_entry_search_md_name(&in_charge_md[asked_entry], str_key);
 
             rc = -pthread_rwlock_unlock(&locks[asked_entry]);
             if (rc != 0) {
