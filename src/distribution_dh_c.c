@@ -53,13 +53,6 @@ int distribution_pre_send(json_object *request)
         return -1;
     }
 
-    /*getting the request type*/
-    json_object *type;
-    if (!json_object_object_get_ex(request, "reqType", &type)) {
-        fprintf(stderr,
-            "Distribution:pre_send:json extract error: no key \"reqType\" found\n");
-        return -1;
-    }
 
     int rc = distribution_assign_srv_by_key(key, request);
     if (rc != 0) {

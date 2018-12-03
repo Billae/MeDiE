@@ -19,11 +19,15 @@ int distribution_init(nb)
 
 
 int distribution_finalize()
-{}
+{
+    return 0;
+}
 
 
 int distribution_pre_send(json_object *request)
 {
+    int rc;
+
     /*getting the key*/
     json_object *data_key;
     if (!json_object_object_get_ex(request, "key", &data_key)) {
@@ -39,30 +43,19 @@ int distribution_pre_send(json_object *request)
         return -1;
     }
 
-    /*getting the request type*/
-    json_object *type;
-    if (!json_object_object_get_ex(request, "reqType", &type)) {
+    distribution_assign_srv_by_key(key, request);
+    if (rc != 0) {
         fprintf(stderr,
-            "Distribution:pre_send:json extract error: no key \"reqType\" found\n");
+            "Distribution:pre_send: assignation server failed\n");
         return -1;
     }
-
-    errno = 0;
-    enum req_type reqType = json_object_get_int(type);
-    if (errno == EINVAL) {
-        fprintf(stderr, "Distribution:pre_send: get reqType error\n");
-        return -1;
-    }
-
-    if (reqType == RT_CREATE)
-        distribution_assign_srv_by_key(key, request);
-
-    return 0;
 }
 
 
 int distribution_post_receive(json_object *reply)
-{}
+{
+    return 0;
+}
 
 
 int distribution_assign_srv_by_key(const char *key, json_object *request)
