@@ -833,7 +833,7 @@ void *thread_mlt_updater(void *args)
 }
 
 
-int distribution_send_sai()
+int distribution_signal_action()
 {
     int rc = eacl_calculate_sai(&access_list);
     if (rc != 0) {

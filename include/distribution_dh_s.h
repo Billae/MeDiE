@@ -86,7 +86,7 @@ void *thread_mlt_updater(void *args);
 /** function called on signal SIGUSR2
  * calculate and send the sai field of the eacl to the manager.
  * **/
-int distribution_send_sai();
+int distribution_signal_action();
 
 
 #endif

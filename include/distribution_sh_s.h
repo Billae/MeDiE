@@ -29,5 +29,8 @@ int distribution_post_receive(json_object *request);
  * **/
 int distribution_pre_send(json_object *reply, int global_rc);
 
+/**Operation to do when receive a signal
+ * **/
+int distribution_signal_action();
 
 #endif

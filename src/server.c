@@ -102,7 +102,7 @@ void usr1_handler(int sig)
 void usr2_handler(int sig)
 {
     int rc;
-    rc = distribution_send_sai();
+    rc = distribution_signal_action();
     if (rc != 0)
         fprintf(stderr, "Server:sigUSR2 handler: send sai failed\n");
 
