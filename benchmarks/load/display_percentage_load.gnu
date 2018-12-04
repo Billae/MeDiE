@@ -27,5 +27,5 @@ set ylabel "percentage of processed requests"
 set output "load_%.eps"
 
 
-plot 'results_no.csv' using ($0*15):1 w lp lw 2 title "server 0",\
-'results_no.csv' using ($0*15):2 w lp lw 2 title "server 1"
+plot 'results.csv' using ($0*15):1 w lp lw 2 title "server 0",\
+'results.csv' using ($0*15):2 w lp lw 2 title "server 1"

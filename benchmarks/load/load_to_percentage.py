@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 df = pd.read_csv(sys.argv[1], delimiter=';', dtype='float32')
+#n is the number of lines
 n = len(df)
 
 totals = n * [0]
@@ -12,7 +13,8 @@ for i in range(0, n):
     for e in df:
         totals[i] += df[e][i]
 
-s = ';'.join(list(df)) + ';total' + '\n'
+#s = ';'.join(list(df)) + ';total' + '\n'
+s = ''
 for i in range(0, n):
     for e in df:
         s += str((df[e][i]/totals[i])*100) + ';'
