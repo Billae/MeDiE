@@ -14,16 +14,9 @@ set yrange [ymin:ymax]
 #set for [i=0:120:60] arrow from i,ymin to i,ymax nohead lc rgb "violet" lt 3
 #set for [i=60:120:60] label "rebalancing" at i-1,5 rotate textcolor rgb "violet"
 
-#set mxtics 60
-#set grid mxtics nomytics ls 60
 
 set xtics nomirror
 set ytics nomirror
-#set xtics add ("rebalancing" 60)
-#set logscale y 10
-#unset logscale y
-#set autoscale y
-#set ytics add ("5000" 5000)
 
 set key top center
 
@@ -36,4 +29,3 @@ set output "load_%.eps"
 
 plot 'results_no.csv' using ($0*15):1 w lp lw 2 title "server 0",\
 'results_no.csv' using ($0*15):2 w lp lw 2 title "server 1"
-#'load1_dh'using ($0*15):1 w lp lw 2 title "server 1"
