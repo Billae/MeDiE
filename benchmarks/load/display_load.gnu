@@ -12,19 +12,21 @@ ymin= 0
 ymax= 5e6
 set yrange [ymin:ymax]
 #set for [i=60:1470:60] arrow from i,ymin to i,ymax nohead lc rgb "violet" lt 3
-#set for [i=60:1470:60] label "rebalancing" at i-1,5 rotate textcolor rgb "violet"
+
+##set for [i=60:1470:60] label "rebalancing" at i-1,5 rotate textcolor rgb "violet"
 
 set xtics nomirror
 set ytics nomirror
 
-set key top center
+set key box opaque top center
 
 set title "workload of each server"
 set xlabel "time (in minutes)"
 set ylabel "number of processed requests"
 
-set output "average_load.eps"
+set output "~/average_load.eps"
 
 
-plot 'mesure_perf/server/load0' using ($0*15):1 w lp lw 2 title "server 0",\
-'mesure_perf/server/load1'using ($0*15):1 w lp lw 2 title "server 1"
+plot '~/mesure_perf/server/load0' using ($0*15):1 w lp lw 2 title "server 0",\
+'~/mesure_perf/server/load1'using ($0*15):1 w lp lw 2 title "server 1",\
+NaN title "Rebalancing" lt 3 lc rgb "violet"
