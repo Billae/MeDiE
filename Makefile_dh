@@ -15,7 +15,7 @@ LDFLAGS+= -lpthread
 
 all: $(EXEC)
 
-$(EXEC): c s m g
+$(EXEC): c s m g check
 
 #client
 c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution_dh_c.o $(OBJ_DIR)/murmur3.o $(OBJ_DIR)/mlt.o $(INC_DIR)/protocol.h
@@ -28,6 +28,10 @@ s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_dh_s
 #manager
 m: $(OBJ_DIR)/manager.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl.o
 	@$(CC) $^ -o $(BIN_DIR)/manager $(CFLAGS) $(LDFLAGS)
+
+#name checker
+check: $(OBJ_DIR)/check_index.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
+	@$(CC) $^ -o $(BIN_DIR)/checker $(CFLAGS) $(LDFLAGS)
 
 #generator
 g: $(OBJ_DIR)/gen_collision_prefix.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
