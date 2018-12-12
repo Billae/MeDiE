@@ -115,7 +115,7 @@ int main(int argc, char **argv)
             if (rc != 0)
                 fprintf(stderr, "Client: Request for key %s failed: %s\n",
                     key_list[current_req], strerror(-rc));
-            if (rc == -EAGAIN)
+            if (rc == -EAGAIN || rc == -EALREADY)
                 current_req--;
             break;
         }

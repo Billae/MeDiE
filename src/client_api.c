@@ -190,7 +190,7 @@ int client_request(json_object *request, json_object **reply)
         rep_rc = -EAGAIN;
     else if (strcmp(json_object_get_string(rep_flag), "wait&retry") == 0) {
         reply = NULL;
-        return -EAGAIN;
+        return -EALREADY;
     } else
         goto fail;
 
