@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
     int seed = 1;
     uint32_t h_out;
 
-    int i = 0;
     int rc;
     struct mlt table;
     rc = mlt_init(&table, N_entry, atoi(argv[2]));
