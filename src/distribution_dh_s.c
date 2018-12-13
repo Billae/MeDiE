@@ -831,19 +831,19 @@ void *thread_mlt_updater(void *args)
         rc = mlt_destroy(&temp_mlt);
         if (rc != 0)
             fprintf(stderr, "MLT destroy failed\n");
-    }
-
-    /*create the ack file to indicate the end of the redistribution*/
-    char *file_name;
-    asprintf(&file_name, "%s%dUSR2", SCRATCH, id_srv_self);
-    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
-    if (ack == -1) {
-        int err = errno;
-        fprintf(stderr, "Server:sigUSR2 handler: ");
-        fprintf(stderr, "create ack file \"%s\" failed\n/:%s", file_name, strerror(err));
-    }
-    close(ack);
-
+ 
+        /*create the ack file to indicate the end of the redistribution*/
+        char *file_name;
+        asprintf(&file_name, "%s%dUSR2", SCRATCH, id_srv_self);
+        int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+        if (ack == -1) {
+            int err = errno;
+            fprintf(stderr, "Server:sigUSR2 handler: ");
+            fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
+                file_name, strerror(err));
+        }
+        close(ack);
+   }
 
     /*cleaning*/
     zsock_destroy(&sub);
