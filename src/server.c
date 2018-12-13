@@ -105,16 +105,6 @@ void usr2_handler(int sig)
     rc = distribution_signal_action();
     if (rc != 0)
         fprintf(stderr, "Server:sigUSR2 handler: send sai failed\n");
-
-    char *file_name;
-    asprintf(&file_name, "%s%dUSR2", SCRATCH, id_self);
-    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
-    if (ack == -1) {
-        int err = errno;
-        fprintf(stderr, "Server:sigUSR2 handler: ");
-        fprintf(stderr, "create ack file \"%s\" failed\n/:%s", file_name, strerror(err));
-    }
-    close(ack);
 }
 
 

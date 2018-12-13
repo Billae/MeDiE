@@ -51,6 +51,12 @@ pthread_t eacl_sender;
 /*path in ocre*/
 #define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
+/* path in pcocc*/
+//#define SCRATCH "/media/tmp_ack/"
+/*path in ocre*/
+#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
+
+
 int distribution_init(nb)
 {
     int rc;
@@ -826,6 +832,18 @@ void *thread_mlt_updater(void *args)
         if (rc != 0)
             fprintf(stderr, "MLT destroy failed\n");
     }
+
+    /*create the ack file to indicate the end of the redistribution*/
+    char *file_name;
+    asprintf(&file_name, "%s%dUSR2", SCRATCH, id_srv_self);
+    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+    if (ack == -1) {
+        int err = errno;
+        fprintf(stderr, "Server:sigUSR2 handler: ");
+        fprintf(stderr, "create ack file \"%s\" failed\n/:%s", file_name, strerror(err));
+    }
+    close(ack);
+
 
     /*cleaning*/
     zsock_destroy(&sub);
