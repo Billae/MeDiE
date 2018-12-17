@@ -557,7 +557,7 @@ void *thread_load_sender(void *args)
                 to_send->entries[to_send_idx]);*/
 
             /*if the next entry is for the same server, stay in the send loop*/
-            if (to_send->servers[to_send_idx+1] == current_line)
+            if ((to_send->servers[to_send_idx+1] == current_line) && (to_send_idx+1 < to_send->size))
                 to_send_idx++;
             else
                 break;
