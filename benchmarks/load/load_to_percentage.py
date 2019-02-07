@@ -20,6 +20,8 @@ for i in range(0, n):
 
 #s = ';'.join(list(df)) + ';total' + '\n'
 s = ''
+
+#for cumulative curves
 for i in range(0, n):
     total_all += totals[i]
     for e in range(0, n_srv):
@@ -28,6 +30,17 @@ for i in range(0, n):
     s += str(total_all) + '\n'
 with open('results.csv', 'w') as fh:
     fh.write(s)
+
+#for at-time curves
+#for i in range(0, n):
+#    for e in range(0, n_srv):
+#        s += str((df.iat[i,e]/totals[i])*100) + ';'
+#    s += str(totals[i]) + '\n'
+#with open('results.csv', 'w') as fh:
+#    fh.write(s)
+
+
+
 
 #df = pd.read_csv('results.csv', delimiter=';', dtype='float32')
 #df.drop('total', axis=1).plot()
