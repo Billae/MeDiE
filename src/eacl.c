@@ -25,6 +25,11 @@ int eacl_init(struct eacl *self, int size)
     if (self->access_count == NULL)
         return -ENOMEM;
 
+    self->access_old = calloc(size, sizeof(uint32_t));
+    if (self->access_old == NULL)
+        return -ENOMEM;
+
+
     self->sai = calloc(size, sizeof(uint32_t));
     if (self->sai == NULL) {
         rc = -ENOMEM;
@@ -69,9 +74,10 @@ int eacl_reset_access(struct eacl *self)
         return -1;
 
     int i;
-    for (i = 0; i < self->size; i++)
+    for (i = 0; i < self->size; i++) {
+        self->access_old[i] = self->access_count[i];
         self->access_count[i] = 0;
-
+    }
     return 0;
 }
 
@@ -86,6 +92,7 @@ int eacl_reset_all_entry(struct eacl *self, int index)
         return -1;
 
     self->access_count[index] = 0;
+    self->access_old[index] = 0;
     self->sai[index] = 0;
     return 0;
 }
@@ -106,7 +113,7 @@ int eacl_calculate_sai(struct eacl *self)
         return -EINVAL;
 
     for (i = 0; i < self->size; i++)
-        self->sai[i] = (1 - ALPHA)*self->sai[i] + ALPHA * self->access_count[i];
+        self->sai[i] = (1 - ALPHA)*self->sai[i] + ALPHA * (self->access_count[i] - self->access_old[i]);
 
     return 0;
 }
@@ -128,6 +135,7 @@ int eacl_read_sai(struct eacl *self, int index)
 int eacl_destroy(struct eacl *self)
 {
     free(self->access_count);
+    free(self->access_old);
     free(self->sai);
     return 0;
 }
