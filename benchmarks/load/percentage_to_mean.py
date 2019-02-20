@@ -15,11 +15,19 @@ n = len(df)
 n_srv = len(df.columns)
 
 total = 0
+err_max = 0
 
 for i in range(0, n):
     for e in range(0, n_srv):
-        total += abs(df.iat[i,e] - (100./n_srv))
+        err = abs(df.iat[i,e] - (100./n_srv))
+        total += err
+        if (err > err_max):
+            err_max = err
+
 total = total / (n*n_srv)
 
-with open('mean.txt', 'w') as fh:
+with open('average_error.txt', 'w') as fh:
     fh.write(str(total))
+
+with open('max_error.txt', 'w') as fh:
+    fh.write(str(err_max))
