@@ -16,7 +16,6 @@
  * - sai is a computed value used to balance the workload*/
 struct eacl {
     uint32_t *access_count;
-    uint32_t *access_old;
     uint32_t *sai;
 
     uint32_t size;
