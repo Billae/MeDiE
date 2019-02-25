@@ -80,7 +80,7 @@ void *thread_load_receiver(void *args);
  * - wait for mlt updates and process them
  * - launch inter-server transferts due to mlt updates
  * **/
-void *thread_mlt_updater(void *args);
+void *thread_manager_listener(void *args);
 
 
 /** function called on signal SIGUSR2

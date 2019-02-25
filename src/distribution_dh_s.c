@@ -31,7 +31,7 @@ static pthread_rwlock_t locks[N_entry];
 
 zsock_t *push;
 zsock_t *sub;
-pthread_t mlt_updater;
+pthread_t manager_listener;
 pthread_t eacl_sender;
 
 #define max_id_size 21
@@ -141,7 +141,7 @@ int distribution_init(nb)
 
 
     /*threads initialization*/
-    rc = pthread_create(&mlt_updater, NULL, &thread_mlt_updater, NULL);
+    rc = pthread_create(&manager_listener, NULL, &thread_manager_listener, NULL);
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:init: thread mlt updater init failed: %s\n",
@@ -178,11 +178,11 @@ int distribution_finalize()
 
     zsock_destroy(&push);
 
-    rc = pthread_cancel(mlt_updater);
+    rc = pthread_cancel(manager_listener);
     if (rc != 0)
-        fprintf(stderr, "Distribution:finalize: mlt_updater cancel failed\n");
+        fprintf(stderr, "Distribution:finalize: manager_listener cancel failed\n");
     zsock_destroy(&sub);
-    rc = pthread_join(mlt_updater, NULL);
+    rc = pthread_join(manager_listener, NULL);
     return 0;
 }
 
@@ -702,7 +702,7 @@ void *thread_load_receiver(void *args)
 }
 
 
-void *thread_mlt_updater(void *args)
+void *thread_manager_listener(void *args)
 {
     /*opening a subscriber socket to the manager*/
     char *socket;
@@ -710,7 +710,7 @@ void *thread_mlt_updater(void *args)
     sub = zsock_new_sub(socket, "");
     if (sub == NULL) {
         fprintf(stderr,
-            "Distribution:thread_mlt_updater: create zmq socket error\n");
+            "Distribution:thread_manager_listener: create zmq socket error\n");
         pthread_exit((void *)-1);
     }
     free(socket);
@@ -718,132 +718,155 @@ void *thread_mlt_updater(void *args)
     int rc;
     while (1) {
 
-        zmsg_t *packet = zmsg_recv(sub);
+        zmsg_t *rcv_packet = zmsg_recv(sub);
+        zframe_t *message_type_frame = zmsg_pop(rcv_packet);
+        byte *message_type = zframe_data(message_type_frame);
+        /*type could be "ask" or "mlt"*/
+        char type[3] = "";
+        memcpy(type, message_type, 3);
+        zframe_destroy(&message_type_frame);
 
-        struct mlt temp_mlt;
-        rc = mlt_init(&temp_mlt, N_entry, 1);
-        if (rc != 0)
-            fprintf(stderr,
-                "Distribution:thread_mlt_updater: temp_mlt init failed\n");
+        if (strcmp(type, "ask") == 0) {
+            zmsg_t *eacl_packet = zmsg_new();
+            zframe_t *eacl_message_type_frame = zframe_new("eacl", 4);
+            zmsg_append(eacl_packet, &eacl_message_type_frame);
 
-        zframe_t *id_srv_frame = zmsg_pop(packet);
-        byte *temp = zframe_data(id_srv_frame);
-        memcpy(temp_mlt.id_srv, temp, sizeof(uint32_t) * N_entry);
-        zframe_destroy(&id_srv_frame);
+            zframe_t *sai_frame = zframe_new(access_list.sai,
+            sizeof(uint32_t) * access_list.size);
+            zmsg_append(eacl_packet, &sai_frame);
 
-        zframe_t *n_ver_frame = zmsg_pop(packet);
-        temp = zframe_data(n_ver_frame);
-        memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
-        zframe_destroy(&n_ver_frame);
-
-        zmsg_destroy(&packet);
-
-        /*to do lists given to receiver and sender threads*/
-        struct transfert_load_args to_receive;
-        to_receive.entries = malloc(N_entry * sizeof(int));
-        to_receive.servers = malloc(N_entry * sizeof(int));
-        to_receive.size = 0;
-        struct transfert_load_args to_send;
-        to_send.entries = malloc(N_entry * sizeof(int));
-        to_send.servers = malloc(N_entry * sizeof(int));
-        to_send.size = 0;
-
-        int i;
-        for (i = 0; i < N_entry; i++) {
-            fprintf(stderr, "MLT received: index=%d -- %d %d\n",
-                i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
-
-            /*updating the mlt and fill the to_do list for sender and receiver*/
-            int old_srv, old_ver, old_state;
-            rc = mlt_get_entry(&table, i, &old_srv, &old_ver, &old_state);
+            rc = zmsg_send(&eacl_packet, push);
             if (rc != 0) {
-                fprintf(stderr, "Distribution:thread_mlt_updater");
-                fprintf(stderr, ": get mlt failed: %s\n", strerror(-rc));
+                fprintf(stderr, "Distribution:send_sai: zmsg_send failed\n");
+            }
+            zmsg_destroy(&rcv_packet);
+        }
+
+        else {
+            struct mlt temp_mlt;
+            rc = mlt_init(&temp_mlt, N_entry, 1);
+            if (rc != 0)
+                fprintf(stderr,
+                    "Distribution:thread_manager_listener: temp_mlt init failed\n");
+
+            zframe_t *id_srv_frame = zmsg_pop(rcv_packet);
+            byte *temp = zframe_data(id_srv_frame);
+            memcpy(temp_mlt.id_srv, temp, sizeof(uint32_t) * N_entry);
+            zframe_destroy(&id_srv_frame);
+
+            zframe_t *n_ver_frame = zmsg_pop(rcv_packet);
+            temp = zframe_data(n_ver_frame);
+            memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
+            zframe_destroy(&n_ver_frame);
+
+            zmsg_destroy(&rcv_packet);
+
+            /*to do lists given to receiver and sender threads*/
+            struct transfert_load_args to_receive;
+            to_receive.entries = malloc(N_entry * sizeof(int));
+            to_receive.servers = malloc(N_entry * sizeof(int));
+            to_receive.size = 0;
+            struct transfert_load_args to_send;
+            to_send.entries = malloc(N_entry * sizeof(int));
+            to_send.servers = malloc(N_entry * sizeof(int));
+            to_send.size = 0;
+
+            int i;
+            for (i = 0; i < N_entry; i++) {
+                fprintf(stderr, "MLT received: index=%d -- %d %d\n",
+                    i, temp_mlt.id_srv[i], temp_mlt.n_ver[i]);
+
+                /*updating the mlt and fill the to_do list for sender and receiver*/
+                int old_srv, old_ver, old_state;
+                rc = mlt_get_entry(&table, i, &old_srv, &old_ver, &old_state);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_manager_listener");
+                    fprintf(stderr, ": get mlt failed: %s\n", strerror(-rc));
+                }
+
+                int new_srv, new_ver, new_state;
+                rc = mlt_get_entry(&temp_mlt, i, &new_srv, &new_ver, &new_state);
+                if (rc != 0) {
+                    fprintf(stderr, "Distribution:thread_manager_listener");
+                    fprintf(stderr, ": get mlt failed: %s\n", strerror(-rc));
+                }
+
+                if (old_ver != new_ver) {
+                    if (old_srv == id_srv_self) {
+                        /*add to to_send list*/
+                        to_send.servers[to_send.size] = new_srv;
+                        to_send.entries[to_send.size] = i;
+                        to_send.size++;
+                        rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
+                        if (rc != 0) {
+                            fprintf(stderr, "Distribution:thread_manager_listener:");
+                            fprintf(stderr, "update mlt failed: %s\n", strerror(-rc));
+                        }
+                    } else if (new_srv == id_srv_self) {
+                        /*add to to_receive list*/
+                        to_receive.servers[to_receive.size] = old_srv;
+                        to_receive.entries[to_receive.size] = i;
+                        to_receive.size++;
+                        rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
+                        if (rc != 0) {
+                            fprintf(stderr, "Distribution:thread_manager_listener:");
+                            fprintf(stderr,
+                                "update mlt failed: %s\n", strerror(-rc));
+                        }
+                    } else
+                        rc = mlt_update_entry(&table, i, new_srv, new_ver, 0);
+                }
             }
 
-            int new_srv, new_ver, new_state;
-            rc = mlt_get_entry(&temp_mlt, i, &new_srv, &new_ver, &new_state);
+            /*launching inter-server transferts*/
+            pthread_t load_sender;
+            pthread_t load_receiver;
+            rc = pthread_create(&load_sender, NULL, &thread_load_sender, &to_send);
             if (rc != 0) {
-                fprintf(stderr, "Distribution:thread_mlt_updater");
-                fprintf(stderr, ": get mlt failed: %s\n", strerror(-rc));
+                fprintf(stderr, "Distribution:thread_manager_listener: ");
+                fprintf(stderr,
+                    "thread load_sender init failed: %s\n", strerror(-rc));
+            }
+            rc = pthread_create(
+                &load_receiver, NULL, &thread_load_receiver, &to_receive);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_manager_listener: ");
+                fprintf(stderr,
+                    "thread load_receiver init failed: %s\n", strerror(-rc));
             }
 
-            if (old_ver != new_ver) {
-                if (old_srv == id_srv_self) {
-                    /*add to to_send list*/
-                    to_send.servers[to_send.size] = new_srv;
-                    to_send.entries[to_send.size] = i;
-                    to_send.size++;
-                    rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:thread_mlt_updater:");
-                        fprintf(stderr,
-                            "update mlt failed: %s\n", strerror(-rc));
-                    }
-                } else if (new_srv == id_srv_self) {
-                    /*add to to_receive list*/
-                    to_receive.servers[to_receive.size] = old_srv;
-                    to_receive.entries[to_receive.size] = i;
-                    to_receive.size++;
-                    rc = mlt_update_entry(&table, i, new_srv, new_ver, 1);
-                    if (rc != 0) {
-                        fprintf(stderr, "Distribution:thread_mlt_updater:");
-                        fprintf(stderr,
-                            "update mlt failed: %s\n", strerror(-rc));
-                    }
-                } else
-                    rc = mlt_update_entry(&table, i, new_srv, new_ver, 0);
+            rc = pthread_join(load_sender, NULL);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_manager_listener: ");
+                fprintf(stderr,
+                    "thread load_sender join failed: %s\n", strerror(-rc));
             }
-        }
 
-        /*launching inter-server transferts*/
-        pthread_t load_sender;
-        pthread_t load_receiver;
-        rc = pthread_create(&load_sender, NULL, &thread_load_sender, &to_send);
-        if (rc != 0) {
-            fprintf(stderr, "Distribution:thread_mlt_updater: ");
-            fprintf(stderr,
-                "thread load_sender init failed: %s\n", strerror(-rc));
-        }
-        rc = pthread_create(
-            &load_receiver, NULL, &thread_load_receiver, &to_receive);
-        if (rc != 0) {
-            fprintf(stderr, "Distribution:thread_mlt_updater: ");
-            fprintf(stderr,
-                "thread load_receiver init failed: %s\n", strerror(-rc));
-        }
-
-        rc = pthread_join(load_sender, NULL);
-        if (rc != 0) {
-            fprintf(stderr, "Distribution:thread_mlt_updater: ");
-            fprintf(stderr,
-                "thread load_sender join failed: %s\n", strerror(-rc));
-        }
-
-        rc = pthread_join(load_receiver, NULL);
-        if (rc != 0) {
-            fprintf(stderr, "Distribution:thread_mlt_updater: ");
-            fprintf(stderr,
-                "thread load_receiver join failed: %s\n", strerror(-rc));
-        }
+            rc = pthread_join(load_receiver, NULL);
+            if (rc != 0) {
+                fprintf(stderr, "Distribution:thread_manager_listener: ");
+                fprintf(stderr,
+                    "thread load_receiver join failed: %s\n", strerror(-rc));
+            }
 
 
-        rc = mlt_destroy(&temp_mlt);
-        if (rc != 0)
-            fprintf(stderr, "MLT destroy failed\n");
+            rc = mlt_destroy(&temp_mlt);
+            if (rc != 0)
+                fprintf(stderr, "MLT destroy failed\n");
  
-        /*create the ack file to indicate the end of the redistribution*/
-        char *file_name;
-        asprintf(&file_name, "%s%dUSR2", SCRATCH, id_srv_self);
-        int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
-        if (ack == -1) {
-            int err = errno;
-            fprintf(stderr, "Server:sigUSR2 handler: ");
-            fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
-                file_name, strerror(err));
+            /*create the ack file to indicate the end of the redistribution*/
+            char *file_name;
+            asprintf(&file_name, "%s%dUSR2", SCRATCH, id_srv_self);
+            int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+            if (ack == -1) {
+                int err = errno;
+                fprintf(stderr, "Server:sigUSR2 handler: ");
+                fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
+                    file_name, strerror(err));
+            }
+            close(ack);
         }
-        close(ack);
-   }
+    }
 
     /*cleaning*/
     zsock_destroy(&sub);
@@ -861,6 +884,18 @@ int distribution_signal_action()
         return -1;
     }
 
+    zmsg_t *help_packet = zmsg_new();
+    zframe_t *interaction_type_frame = zframe_new("help", 4);
+    zmsg_append(help_packet, &interaction_type_frame);
+
+    rc = zmsg_send(&help_packet, push);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:send_sai: zmsg_send failed\n");
+        return -1;
+    }
+
+/*
     zmsg_t *packet = zmsg_new();
     zframe_t *sai_frame = zframe_new(access_list.sai,
         sizeof(uint32_t) * access_list.size);
@@ -872,7 +907,7 @@ int distribution_signal_action()
         fprintf(stderr,
             "Distribution:send_sai: zmsg_send failed\n");
         return -1;
-    }
+    }*/
     rc = eacl_reset_access(&access_list);
 
     return 0;

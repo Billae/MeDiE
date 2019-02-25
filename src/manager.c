@@ -24,21 +24,15 @@
 static uint32_t *global_list;
 static struct mlt table;
 
-
-/*Used to activate or not the relab computation*/
-static volatile sig_atomic_t update_needed;
-
-
 zsock_t *pub;
 zsock_t *pull;
 
 
 /*Handler for sigUSR2 signal*/
-void usrHandler2(int sig)
+/*void usrHandler2(int sig)
 {
-    update_needed = 1;
 }
-
+*/
 
 /*Handler for sigINT signal*/
 void intHandler(int sig)
@@ -52,8 +46,6 @@ void intHandler(int sig)
 int manager_init(int nb)
 {
     int rc;
-
-    update_needed = 0;
 
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
@@ -434,27 +426,56 @@ int main(int argc, char *argv[])
     if (rc != 0)
         fprintf(stderr, "Manager: can't catch SIGINT\n");
 
-    struct sigaction act_usr2;
-    act_usr2.sa_handler = usrHandler2;
-    rc = sigaction(SIGUSR2, &act_usr2, NULL);
-    if (rc != 0)
-        fprintf(stderr, "Manager: can't catch SIGUSR2\n");
-
     while (1) {
-        while (update_needed == 0) {
-            sleep(1);
+
+        zmsg_t *first_rcv_packet = zmsg_recv(pull);
+        zframe_t *rcv_type_frame = zmsg_pop(first_rcv_packet);
+        byte *rcv_type = zframe_data(rcv_type_frame);
+        /*interaction could be "help" or "eacl"*/
+        char interaction[4] = "";
+        memcpy(interaction, rcv_type, 4);
+        zframe_destroy(&rcv_type_frame);
+
+        if (strcmp(interaction, "help") != 0) {
+            fprintf(stderr, "manager: not help received, ignoring");
+            zmsg_destroy(&first_rcv_packet);
+            continue;
         }
 
-        int nb_rcv;
-        for (nb_rcv = 0; nb_rcv < nb_srv; nb_rcv++) {
+        /*help: a rebalancing is asked*/
+        zmsg_t *ask_eacl_packet = zmsg_new();
+        zframe_t *message_ask_type_frame = zframe_new("ask", 3);
+        zmsg_append(ask_eacl_packet, &message_ask_type_frame);
+
+        rc = zmsg_send(&ask_eacl_packet, pub);
+        if (rc != 0) {
+            fprintf(stderr,
+                "Distribution:send_sai: zmsg_send failed\n");
+            return -1;
+        }
+
+
+        int nb_rcv = 0;
+        while (nb_rcv < nb_srv) {
             /*receiving eacls*/
-            zmsg_t *packet = zmsg_recv(pull);
-            if (packet == NULL)
+            zmsg_t *rcv_packet = zmsg_recv(pull);
+            if (rcv_packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
             else {
-                uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
+                zframe_t *message_rcv_type_frame = zmsg_pop(rcv_packet);
+                byte *message_rcv_type = zframe_data(message_rcv_type_frame);
+                char type[4] = "";
+                memcpy(type, message_rcv_type, 4);
+                zframe_destroy(&message_rcv_type_frame);
 
-                zframe_t *sai_frame = zmsg_pop(packet);
+                if (strcmp(type, "eacl") != 0) {
+                    fprintf(stderr, "manager: not eacl received, ignoring");
+                    zmsg_destroy(&rcv_packet);
+                    continue;
+                }
+
+                uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
+                zframe_t *sai_frame = zmsg_pop(rcv_packet);
                 byte *temp = zframe_data(sai_frame);
                 memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
                 zframe_destroy(&sai_frame);
@@ -465,7 +486,8 @@ int main(int argc, char *argv[])
                     fprintf(stderr, "Manager: merge eacl with global failed\n");
                 free(temp_sai);
                 /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
-                zmsg_destroy(&packet);
+                zmsg_destroy(&rcv_packet);
+                nb_rcv++;
             }
         }
 
@@ -475,19 +497,22 @@ int main(int argc, char *argv[])
             fprintf(stderr, "Manager: relab computation failed\n");
 
         /*sending MLT*/
-        zmsg_t *packet = zmsg_new();
+        zmsg_t *mlt_packet = zmsg_new();
+
+        zframe_t *message_mlt_type_frame = zframe_new("mlt", 3);
+        zmsg_append(mlt_packet, &message_mlt_type_frame);
+
         zframe_t *id_srv_frame = zframe_new(table.id_srv,
             sizeof(uint32_t) * table.size);
-        zmsg_append(packet, &id_srv_frame);
+        zmsg_append(mlt_packet, &id_srv_frame);
 
         zframe_t *n_ver_frame = zframe_new(table.n_ver,
             sizeof(uint32_t) * table.size);
-        zmsg_append(packet, &n_ver_frame);
+        zmsg_append(mlt_packet, &n_ver_frame);
 
-        rc = zmsg_send(&packet, pub);
+        rc = zmsg_send(&mlt_packet, pub);
         if (rc != 0)
             fprintf(stderr, "Manager: zmsg_send new MLT failed\n");
-        update_needed = 0;
     }
 
     /*cleaning*/
