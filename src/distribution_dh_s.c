@@ -28,6 +28,9 @@ static int id_srv_self;
 static struct md_entry **in_charge_md;
 static pthread_rwlock_t locks[N_entry];
 
+/*version of the help message sended for asking redistribution*/
+static int help_version;
+
 
 zsock_t *push;
 zsock_t *sub;
@@ -60,6 +63,8 @@ pthread_t eacl_sender;
 int distribution_init(nb)
 {
     int rc;
+
+    help_version = 0;
 
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
@@ -849,7 +854,8 @@ void *thread_manager_listener(void *args)
                     "thread load_receiver join failed: %s\n", strerror(-rc));
             }
 
-
+            /*new ask for rebalancing will have new version*/
+            help_version++;
             rc = mlt_destroy(&temp_mlt);
             if (rc != 0)
                 fprintf(stderr, "MLT destroy failed\n");
@@ -885,8 +891,11 @@ int distribution_signal_action()
     }
 
     zmsg_t *help_packet = zmsg_new();
-    zframe_t *interaction_type_frame = zframe_new("help", 4);
-    zmsg_append(help_packet, &interaction_type_frame);
+    zframe_t *help_type_frame = zframe_new("help", 4);
+    zmsg_append(help_packet, &help_type_frame);
+
+    zframe_t *help_version_frame = zframe_new(&help_version, sizeof(int));
+    zmsg_append(help_packet, &help_version_frame);
 
     rc = zmsg_send(&help_packet, push);
     if (rc != 0) {

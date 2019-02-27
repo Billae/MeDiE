@@ -420,6 +420,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    /*true version expected*/
+    int help_version = 0;
+
     struct sigaction act_int;
     act_int.sa_handler = intHandler;
     rc = sigaction(SIGINT, &act_int, NULL);
@@ -437,8 +440,22 @@ int main(int argc, char *argv[])
         zframe_destroy(&rcv_type_frame);
 
         if (strcmp(interaction, "help") != 0) {
-            fprintf(stderr, "manager: not help received, ignoring");
+            fprintf(stderr, "manager: not help received, ignoring\n");
             zmsg_destroy(&first_rcv_packet);
+            continue;
+        }
+
+        /*checking for help_version*/
+        zframe_t *help_version_frame = zmsg_pop(first_rcv_packet);
+        byte *help_ver = zframe_data(help_version_frame);
+        int rcv_help_version;
+        memcpy(&rcv_help_version, help_ver, sizeof(int));
+
+        zframe_destroy(&help_version_frame);
+        zmsg_destroy(&first_rcv_packet);
+
+        if (rcv_help_version != help_version) {
+            fprintf(stderr, "manager: old help received, ignoring\n");
             continue;
         }
 
@@ -513,6 +530,8 @@ int main(int argc, char *argv[])
         rc = zmsg_send(&mlt_packet, pub);
         if (rc != 0)
             fprintf(stderr, "Manager: zmsg_send new MLT failed\n");
+
+        help_version++;
     }
 
     /*cleaning*/
