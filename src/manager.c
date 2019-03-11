@@ -28,11 +28,18 @@ zsock_t *pub;
 zsock_t *pull;
 
 
+/*to synchronize time*/
+static volatile sig_atomic_t epoch;
+/*boolean to know if a rebalancing is done for the epoch*/
+static volatile sig_atomic_t epoch_processed;
+
 /*Handler for sigUSR2 signal*/
-/*void usrHandler2(int sig)
+void usrHandler2(int sig)
 {
+    epoch++;
+    epoch_processed = 0;
 }
-*/
+
 
 /*Handler for sigINT signal*/
 void intHandler(int sig)
@@ -46,6 +53,8 @@ void intHandler(int sig)
 int manager_init(int nb)
 {
     int rc;
+
+    epoch = 0;
 
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
@@ -420,8 +429,13 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    /*true version expected*/
-    int help_version = 0;
+
+    struct sigaction act_usr;
+    act_usr.sa_handler = usrHandler2;
+    rc = sigaction(SIGUSR2, &act_usr, NULL);
+    if (rc != 0)
+        fprintf(stderr, "Manager: can't catch SIGUSR2\n");
+
 
     struct sigaction act_int;
     act_int.sa_handler = intHandler;
@@ -445,24 +459,35 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        /*checking for help_version*/
-        zframe_t *help_version_frame = zmsg_pop(first_rcv_packet);
-        byte *help_ver = zframe_data(help_version_frame);
-        int rcv_help_version;
-        memcpy(&rcv_help_version, help_ver, sizeof(int));
+        /*checking for epoch version*/
+        zframe_t *help_epoch_frame = zmsg_pop(first_rcv_packet);
+        byte *help_epoch = zframe_data(help_epoch_frame);
+        int rcv_help_epoch;
+        memcpy(&rcv_help_epoch, help_epoch, sizeof(int));
 
-        zframe_destroy(&help_version_frame);
+        zframe_destroy(&help_epoch_frame);
         zmsg_destroy(&first_rcv_packet);
 
-        if (rcv_help_version != help_version) {
+        if (rcv_help_epoch < epoch) {
             fprintf(stderr, "manager: old help received, ignoring\n");
             continue;
+        } else if (rcv_help_epoch > epoch) {
+            /*manager hasn't received the epoch change yet*/
+            while (epoch < rcv_help_epoch)
+                sleep(1);
         }
+        /*checking a rebalancing is not already done for this epoch*/
+        if (epoch_processed == 1)
+            continue;
 
-        /*help: a rebalancing is asked*/
+        /*help: a rebalancing is asked for this epoch*/
         zmsg_t *ask_eacl_packet = zmsg_new();
+
         zframe_t *message_ask_type_frame = zframe_new("ask", 3);
         zmsg_append(ask_eacl_packet, &message_ask_type_frame);
+
+        zframe_t *message_ask_epoch_frame = zframe_new(&epoch, sizeof(int));
+        zmsg_append(ask_eacl_packet, &message_ask_epoch_frame);
 
         rc = zmsg_send(&ask_eacl_packet, pub);
         if (rc != 0) {
@@ -531,7 +556,7 @@ int main(int argc, char *argv[])
         if (rc != 0)
             fprintf(stderr, "Manager: zmsg_send new MLT failed\n");
 
-        help_version++;
+        epoch_processed = 1;
     }
 
     /*cleaning*/

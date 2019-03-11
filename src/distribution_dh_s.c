@@ -28,8 +28,10 @@ static int id_srv_self;
 static struct md_entry **in_charge_md;
 static pthread_rwlock_t locks[N_entry];
 
-/*version of the help message sended for asking redistribution*/
-static int help_version;
+/*epoch number for asking redistribution*/
+static volatile sig_atomic_t epoch;
+/*epoch associated to the eacl*/
+static volatile sig_atomic_t eacl_epoch;
 
 
 zsock_t *push;
@@ -64,7 +66,8 @@ int distribution_init(nb)
 {
     int rc;
 
-    help_version = 0;
+    epoch = 0;
+    eacl_epoch = 0;
 
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
@@ -732,6 +735,20 @@ void *thread_manager_listener(void *args)
         zframe_destroy(&message_type_frame);
 
         if (strcmp(type, "ask") == 0) {
+            /*checking epoch needed*/
+            zframe_t *epoch_frame = zmsg_pop(rcv_packet);
+            byte *epoch_needed_temp = zframe_data(epoch_frame);
+            int epoch_needed;
+            memcpy(&epoch_needed, epoch_needed_temp, sizeof(int));
+
+            if (epoch_needed < eacl_epoch)
+                continue;
+            else if (epoch_needed > eacl_epoch) {
+                while (eacl_epoch < epoch_needed)
+                    sleep(1);
+            }
+
+            /*send the requested eacl*/
             zmsg_t *eacl_packet = zmsg_new();
             zframe_t *eacl_message_type_frame = zframe_new("eacl", 4);
             zmsg_append(eacl_packet, &eacl_message_type_frame);
@@ -854,8 +871,6 @@ void *thread_manager_listener(void *args)
                     "thread load_receiver join failed: %s\n", strerror(-rc));
             }
 
-            /*new ask for rebalancing will have new version*/
-            help_version++;
             rc = mlt_destroy(&temp_mlt);
             if (rc != 0)
                 fprintf(stderr, "MLT destroy failed\n");
@@ -882,6 +897,8 @@ void *thread_manager_listener(void *args)
 
 int distribution_signal_action()
 {
+    epoch++;
+
     int rc = eacl_calculate_sai(&access_list);
     if (rc != 0) {
         fprintf(stderr,
@@ -889,35 +906,27 @@ int distribution_signal_action()
             strerror(-rc));
         return -1;
     }
+    eacl_epoch = epoch;
+    rc = eacl_reset_access(&access_list);
+    if (rc != 0) {
+        fprintf(stderr,
+            "Distribution:signal_action: reacl reset failed\n");
+        return -1;
+    }
 
     zmsg_t *help_packet = zmsg_new();
     zframe_t *help_type_frame = zframe_new("help", 4);
     zmsg_append(help_packet, &help_type_frame);
 
-    zframe_t *help_version_frame = zframe_new(&help_version, sizeof(int));
-    zmsg_append(help_packet, &help_version_frame);
+    zframe_t *help_epoch_frame = zframe_new(&epoch, sizeof(int));
+    zmsg_append(help_packet, &help_epoch_frame);
 
     rc = zmsg_send(&help_packet, push);
     if (rc != 0) {
         fprintf(stderr,
-            "Distribution:send_sai: zmsg_send failed\n");
+            "Distribution:signal_action: zmsg_send failed\n");
         return -1;
     }
-
-/*
-    zmsg_t *packet = zmsg_new();
-    zframe_t *sai_frame = zframe_new(access_list.sai,
-        sizeof(uint32_t) * access_list.size);
-    zmsg_append(packet, &sai_frame);
-
-
-    rc = zmsg_send(&packet, push);
-    if (rc != 0) {
-        fprintf(stderr,
-            "Distribution:send_sai: zmsg_send failed\n");
-        return -1;
-    }*/
-    rc = eacl_reset_access(&access_list);
 
     return 0;
 }
