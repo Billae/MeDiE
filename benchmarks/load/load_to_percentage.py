@@ -22,29 +22,32 @@ for i in range(0, n):
 s = ''
 
 #for cumulative curves
-for i in range(0, n):
-    total_all += totals[i]
-    for e in range(0, n_srv):
-        cumuls[e] += df.iat[i,e]
-        s += str((cumuls[e]/total_all)*100)
-        if (e < n_srv -1):
-            s += ';'
-
-    s += '\n'
-#    s += str(total_all) + '\n'
-with open('results.csv', 'w') as fh:
-    fh.write(s)
-
-#for at-time curves
 #for i in range(0, n):
+#    total_all += totals[i]
 #    for e in range(0, n_srv):
-#        s += str((df.iat[i,e]/totals[i])*100)
+#        cumuls[e] += df.iat[i,e]
+#        s += str((cumuls[e]/total_all)*100)
 #        if (e < n_srv -1):
 #            s += ';'
-#  s += '\n'
-##    s += str(totals[i]) + '\n'
+
+#    s += '\n'
+#    s += str(total_all) + '\n'
 #with open('results.csv', 'w') as fh:
 #    fh.write(s)
+
+#for at-time curves
+for i in range(0, n):
+    for e in range(0, n_srv):
+        if (totals[i] == 0):
+            s += str((1./n_srv)*100)
+        else:
+            s += str((df.iat[i,e]/totals[i])*100)
+        if (e < n_srv -1):
+            s += ';'
+    s += '\n'
+#    s += str(totals[i]) + '\n'
+with open('results.csv', 'w') as fh:
+    fh.write(s)
 
 
 
