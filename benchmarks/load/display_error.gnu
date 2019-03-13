@@ -13,12 +13,21 @@ set ytics nomirror
 
 set key box opaque top center
 
-set title "load repartition error depending of the alpha parameter"
-set xlabel "value of alpha"
 set ylabel "error (in percentage of load)"
 
-set output "error_alpha.eps"
 
+#alpha value
+#set output "error_alpha.eps"
+#set xlabel "value of alpha"
+#set title "load repartition error depending of the alpha parameter"
 
-plot 'all_traces/4_srv/rebalancing_1h/av_err.txt' using ($0*0.1):1 w lp lw 2 title "average error",\
-'all_traces/4_srv/rebalancing_1h/max_err.txt' using ($0*0.1):1 w lp lw 2 title "max error"
+#plot 'all_traces/4_srv/rebalancing_1h/alpha/av_err.txt' using ($0*0.1):1 w lp lw 2 title "average error",\
+#'all_traces/4_srv/rebalancing_1h/alpha/max_err.txt' using ($0*0.1):1 w lp lw 2 title "max error"
+
+#n_entry value
+set title "load repartition error depending of the number of entries in the MLT"
+set output "error_n_entry.eps"
+set xlabel "Number of entries in the MLT"
+set style data histograms
+set style fill solid
+plot 'all_traces/4_srv/rebalancing_1h/n_entry/av_err.txt' using 2:xtic(1) lw 2 title "average error"
