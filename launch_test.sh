@@ -86,13 +86,14 @@ do
     clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
 
     #wait for file creation "vm[id_svr]USR2-1"
-    for ((i = 0; i < nb_srv; i++))
-    do
-        if ! [ -f "/media/tmp_ack/vm$(($i))USR2-1" ]
-        then
-            ((i--))
-            sleep 1
-        fi
-    done
+#    for ((i = 0; i < nb_srv; i++))
+#    do
+#        if ! [ -f "/media/tmp_ack/vm$(($i))USR2-1" ]
+#        then
+#            ((i--))
+#            sleep 1
+#        fi
+#    done
+    ./synchro.bash
     rm /media/tmp_ack/*USR2
 done
