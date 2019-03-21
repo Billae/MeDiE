@@ -87,7 +87,7 @@ void usr1_handler(int sig)
     close(fd_res);
 
     char *file_name;
-    asprintf(&file_name, "%s%dUSR1", SCRATCH, id_self);
+    asprintf(&file_name, "vm%s%dUSR1", SCRATCH, id_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
     if (ack == -1) {
         int err = errno;

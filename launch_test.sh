@@ -65,15 +65,13 @@ do
         clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/changelog-$current_step
         ((current_step++))
 
-#        if [ $(($current_step%8)) -eq 1 ]
-#        then
-#            printf "mesuring"
+            #mesuring
             clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
 
-            #wait for file creation "id_srvUSR1"
+            #wait for file creation "vm[id_srv]USR1"
             for ((i = 0; i < nb_srv; i++))
             do
-                if ! [ -f "/media/tmp_ack/$(($i))USR1" ]
+                if ! [ -f "/media/tmp_ack/vm$(($i))USR1" ]
                 then
                     ((i--))
                     sleep 1
