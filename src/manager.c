@@ -22,6 +22,7 @@
  * own mlt which it can update (the manager has the "true" version of the mlt).
  * **/
 static uint32_t *global_list;
+static uint32_t *all_list;
 static struct mlt table;
 
 zsock_t *pub;
@@ -70,6 +71,13 @@ int manager_init(int nb)
         return -1;
     }
 
+    all_list = calloc(nb, sizeof(uint32_t));
+    if (all_list == NULL) {
+        fprintf(stderr,
+            "Manager:init: absolute load level list init error\n");
+        return -1;
+    }
+
     char *socket;
 
     /* Open the publisher socket to broadcast mlt updates*/
@@ -108,6 +116,7 @@ int manager_finalize()
         fprintf(stderr, "Manager:finalize: mlt_destroy failed\n");
 
     free(global_list);
+    free(all_list);
     zsock_destroy(&pub);
     zsock_destroy(&pull);
 
@@ -186,7 +195,6 @@ int find_index(int value, int *list, int list_size)
 }
 
 
-/*TO DO*/
 int manager_calculate_relab(int nb)
 {
     fprintf(stderr, "Manager calculate_relab\n");
@@ -446,6 +454,9 @@ int main(int argc, char *argv[])
     while (1) {
 
         zmsg_t *first_rcv_packet = zmsg_recv(pull);
+        if (first_rcv_packet == NULL)
+            continue;
+
         zframe_t *rcv_type_frame = zmsg_pop(first_rcv_packet);
         byte *rcv_type = zframe_data(rcv_type_frame);
         /*interaction could be "help" or "eacl"*/
@@ -499,7 +510,8 @@ int main(int argc, char *argv[])
 
         int nb_rcv = 0;
         while (nb_rcv < nb_srv) {
-            /*receiving eacls*/
+            /*receiving eacls:
+             * merge global_list with sai and all_list with load level*/
             zmsg_t *rcv_packet = zmsg_recv(pull);
             if (rcv_packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
@@ -515,19 +527,34 @@ int main(int argc, char *argv[])
                     zmsg_destroy(&rcv_packet);
                     continue;
                 }
+                int rcv_id;
+                zframe_t *id_frame = zmsg_pop(rcv_packet);
+                byte *temp_id = zframe_data(id_frame);
+                memcpy(&rcv_id, temp_id, sizeof(int));
+                zframe_destroy(&id_frame);
 
-                uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
+                uint32_t *rcv_sai = calloc(N_entry, sizeof(uint32_t));
                 zframe_t *sai_frame = zmsg_pop(rcv_packet);
-                byte *temp = zframe_data(sai_frame);
-                memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
+                byte *temp_sai = zframe_data(sai_frame);
+                memcpy(rcv_sai, temp_sai, sizeof(uint32_t)*N_entry);
                 zframe_destroy(&sai_frame);
                 /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
 
-                rc = manager_merge_eacl(temp_sai);
+                rc = manager_merge_eacl(rcv_sai);
                 if (rc != 0)
                     fprintf(stderr, "Manager: merge eacl with global failed\n");
-                free(temp_sai);
+                free(rcv_sai);
                 /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
+
+                uint32_t rcv_load;
+                zframe_t *load_frame = zmsg_pop(rcv_packet);
+                byte *temp_load = zframe_data(load_frame);
+                memcpy(&rcv_load, temp_load, sizeof(uint32_t));
+                zframe_destroy(&load_frame);
+
+                all_list[rcv_id] = rcv_load;
+
+                /*fprintf(stderr, "eacl received from %d, and load = %lu", rcv_id, rcv_load);*/
                 zmsg_destroy(&rcv_packet);
                 nb_rcv++;
             }

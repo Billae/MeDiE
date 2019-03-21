@@ -13,11 +13,13 @@
  * (i.e. an array after initialization).
  * - entry is the index,
  * - access_count gives the access frequency of the entry
- * - sai is a computed value used to balance the workload*/
+ * - sai is a computed value used to balance the workload
+ * - load_lvl is the sum of all sai and means the load for the server*/
 struct eacl {
     uint32_t *access_count;
     uint32_t *sai;
 
+    uint32_t load_lvl;
     uint32_t size;
 };
 

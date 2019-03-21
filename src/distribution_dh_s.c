@@ -748,14 +748,25 @@ void *thread_manager_listener(void *args)
                     sleep(1);
             }
 
-            /*send the requested eacl*/
+            /*send the requested eacl:
+             * first the message type
+             * second the server id
+             * third the sai list
+             * then le load level*/
             zmsg_t *eacl_packet = zmsg_new();
             zframe_t *eacl_message_type_frame = zframe_new("eacl", 4);
             zmsg_append(eacl_packet, &eacl_message_type_frame);
 
+            zframe_t *srv_id_frame = zframe_new(&id_srv_self, sizeof(int));
+            zmsg_append(eacl_packet, &srv_id_frame);
+
             zframe_t *sai_frame = zframe_new(access_list.sai,
             sizeof(uint32_t) * access_list.size);
             zmsg_append(eacl_packet, &sai_frame);
+
+            zframe_t *all_frame = zframe_new(&access_list.load_lvl, sizeof(uint32_t));
+            zmsg_append(eacl_packet, &all_frame);
+
 
             rc = zmsg_send(&eacl_packet, push);
             if (rc != 0) {

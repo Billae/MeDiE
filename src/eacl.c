@@ -31,6 +31,7 @@ int eacl_init(struct eacl *self, int size)
         goto out_free;
     }
 
+    self->load_lvl = 0;
     self->size = size;
 
     /* Note: as arrays are allocated with calloc,
@@ -92,6 +93,7 @@ int eacl_reset_all_entry(struct eacl *self, int index)
 
 
 /** Compute sai values and fill the sai field of each entry.
+ * Then, compute the load_lvl.
  * @param[in] self the requested eacl
  * sai computation: (1-alpha)*sai_old + alpha*access_count
  * (alpha is a fogotten factor)
@@ -105,8 +107,11 @@ int eacl_calculate_sai(struct eacl *self)
     if (!self)
         return -EINVAL;
 
-    for (i = 0; i < self->size; i++)
+    self->load_lvl = 0;
+    for (i = 0; i < self->size; i++) {
         self->sai[i] = (1 - ALPHA)*self->sai[i] + ALPHA * self->access_count[i];
+        self->load_lvl += self->sai[i];
+    }
 
     return 0;
 }
