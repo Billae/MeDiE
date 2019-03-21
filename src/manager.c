@@ -20,10 +20,13 @@
 /*The manager has an sai list merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
  * own mlt which it can update (the manager has the "true" version of the mlt).
+ * It has a list with a load level for each server and a mean load which used a threshold by the server
  * **/
 static uint32_t *global_list;
-static uint32_t *all_list;
 static struct mlt table;
+
+static uint32_t *all_list;
+static uint32_t mean_load;
 
 zsock_t *pub;
 zsock_t *pull;
@@ -56,7 +59,7 @@ int manager_init(int nb)
     int rc;
 
     epoch = 0;
-
+    mean_load = 0;
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
         fprintf(stderr,
@@ -204,8 +207,9 @@ int manager_calculate_relab(int nb)
     int sum_all = 0;
     for (current_srv = 0; current_srv < nb; current_srv++)
         sum_all += all_list[current_srv];
-    int sum_w = w_factor * nb;
 
+    int sum_w = w_factor * nb;
+    mean_load = sum_all / nb;
 
     /*load[i] is the relative load of each server*/
     int *load = malloc(sizeof(int) * nb);
@@ -506,14 +510,14 @@ int main(int argc, char *argv[])
                 }
                 int rcv_id;
                 zframe_t *id_frame = zmsg_pop(rcv_packet);
-                byte *temp_id = zframe_data(id_frame);
-                memcpy(&rcv_id, temp_id, sizeof(int));
+                byte *temp = zframe_data(id_frame);
+                memcpy(&rcv_id, temp, sizeof(int));
                 zframe_destroy(&id_frame);
 
                 uint32_t *rcv_sai = calloc(N_entry, sizeof(uint32_t));
                 zframe_t *sai_frame = zmsg_pop(rcv_packet);
-                byte *temp_sai = zframe_data(sai_frame);
-                memcpy(rcv_sai, temp_sai, sizeof(uint32_t)*N_entry);
+                temp = zframe_data(sai_frame);
+                memcpy(rcv_sai, temp, sizeof(uint32_t)*N_entry);
                 zframe_destroy(&sai_frame);
                 /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
 
@@ -525,8 +529,8 @@ int main(int argc, char *argv[])
 
                 uint32_t rcv_load;
                 zframe_t *load_frame = zmsg_pop(rcv_packet);
-                byte *temp_load = zframe_data(load_frame);
-                memcpy(&rcv_load, temp_load, sizeof(uint32_t));
+                temp = zframe_data(load_frame);
+                memcpy(&rcv_load, temp, sizeof(uint32_t));
                 zframe_destroy(&load_frame);
 
                 all_list[rcv_id] = rcv_load;
@@ -542,7 +546,7 @@ int main(int argc, char *argv[])
         if (rc != 0)
             fprintf(stderr, "Manager: relab computation failed\n");
 
-        /*sending MLT*/
+        /*sending MLT and the mean load*/
         zmsg_t *mlt_packet = zmsg_new();
 
         zframe_t *message_mlt_type_frame = zframe_new("mlt", 3);
@@ -555,6 +559,10 @@ int main(int argc, char *argv[])
         zframe_t *n_ver_frame = zframe_new(table.n_ver,
             sizeof(uint32_t) * table.size);
         zmsg_append(mlt_packet, &n_ver_frame);
+
+        zframe_t *mean_frame = zframe_new(&mean_load, sizeof(uint32_t));
+        zmsg_append(mlt_packet, &mean_frame);
+
 
         rc = zmsg_send(&mlt_packet, pub);
         if (rc != 0)

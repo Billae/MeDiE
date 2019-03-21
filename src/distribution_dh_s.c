@@ -16,10 +16,11 @@
 #include "murmur3.h"
 #include "md_entry.h"
 
-/*Each server has its own mlt and its own eacl with access counter accessed
+/*Each server has its own mlt and its own eacl with access counter accessed. It also have a mean_load as a threshold.
  * only in the distribution functions*/
 static struct mlt table;
 static struct eacl access_list;
+static uint32_t mean_load;
 
 /*Each server has its own id_srv*/
 static int id_srv_self;
@@ -68,6 +69,7 @@ int distribution_init(nb)
 
     epoch = 0;
     eacl_epoch = 0;
+    mean_load = 0;
 
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
@@ -734,6 +736,7 @@ void *thread_manager_listener(void *args)
         memcpy(type, message_type, 3);
         zframe_destroy(&message_type_frame);
 
+        /* ASK received*/
         if (strcmp(type, "ask") == 0) {
             /*checking epoch needed*/
             zframe_t *epoch_frame = zmsg_pop(rcv_packet);
@@ -774,7 +777,7 @@ void *thread_manager_listener(void *args)
             }
             zmsg_destroy(&rcv_packet);
         }
-
+        /* MLT received*/
         else {
             struct mlt temp_mlt;
             rc = mlt_init(&temp_mlt, N_entry, 1);
@@ -791,6 +794,11 @@ void *thread_manager_listener(void *args)
             temp = zframe_data(n_ver_frame);
             memcpy(temp_mlt.n_ver, temp, sizeof(uint32_t) * N_entry);
             zframe_destroy(&n_ver_frame);
+
+            zframe_t *mean_frame = zmsg_pop(rcv_packet);
+            temp = zframe_data(mean_frame);
+            memcpy(&mean_load, temp, sizeof(uint32_t));
+            zframe_destroy(&mean_frame);
 
             zmsg_destroy(&rcv_packet);
 
