@@ -197,33 +197,13 @@ int find_index(int value, int *list, int list_size)
 
 int manager_calculate_relab(int nb)
 {
-    fprintf(stderr, "Manager calculate_relab\n");
+    /*fprintf(stderr, "Manager calculate_relab\n");*/
     int rc;
-
-    /*all[i] is the sum of all sai of entries managed by the server i*/
-    int *all = malloc(sizeof(int) * nb);
-    if (all == NULL) {
-        fprintf(stderr, "Manager:calculate_relab: malloc all failed\n");
-        return -1;
-    }
-
     int current_srv;
-    for (current_srv = 0; current_srv < nb; current_srv++)
-        all[current_srv] = 0;
 
     int sum_all = 0;
-    int current_entry;
-    for (current_entry = 0; current_entry < N_entry; current_entry++) {
-        int srv, version, state;
-        rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
-        if (rc != 0) {
-            fprintf(stderr, "Manager:calculate_relab: ");
-            fprintf(stderr, "mlt get entry %d failed\n", current_entry);
-            goto free_all;
-        }
-        all[srv] += global_list[current_entry];
-        sum_all += global_list[current_entry];
-    }
+    for (current_srv = 0; current_srv < nb; current_srv++)
+        sum_all += all_list[current_srv];
     int sum_w = w_factor * nb;
 
 
@@ -231,7 +211,7 @@ int manager_calculate_relab(int nb)
     int *load = malloc(sizeof(int) * nb);
     if (load == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc load failed\n");
-        goto free_all;
+        return -1;
     }
 
     /*create two subset: L is for large load (load[i]>0)
@@ -254,7 +234,7 @@ int manager_calculate_relab(int nb)
     for (current_srv = 0; current_srv < nb; current_srv++) {
         /*balanced is the balanced weight for the server i*/
         int balanced = (sum_all * w_factor) / sum_w;
-        load[current_srv] = all[current_srv] - balanced;
+        load[current_srv] = all_list[current_srv] - balanced;
         /*fprintf(stderr, "manager: load of server %d: %d\n",
             current_srv, load[current_srv]);*/
         if (load[current_srv] > 0) {
@@ -395,7 +375,6 @@ int manager_calculate_relab(int nb)
     free(subset_s);
     free(subset_l);
     free(load);
-    free(all);
     return 0;
 
 free_target:
@@ -406,8 +385,6 @@ free_subset_l:
     free(subset_l);
 free_load:
     free(load);
-free_all:
-    free(all);
     return -1;
 }
 
@@ -465,7 +442,7 @@ int main(int argc, char *argv[])
         zframe_destroy(&rcv_type_frame);
 
         if (strcmp(interaction, "help") != 0) {
-            fprintf(stderr, "manager: not help received, ignoring\n");
+            /*fprintf(stderr, "manager: not help received, ignoring\n");*/
             zmsg_destroy(&first_rcv_packet);
             continue;
         }
@@ -480,7 +457,7 @@ int main(int argc, char *argv[])
         zmsg_destroy(&first_rcv_packet);
 
         if (rcv_help_epoch < epoch) {
-            fprintf(stderr, "manager: old help received, ignoring\n");
+            /*fprintf(stderr, "manager: old help received, ignoring\n");*/
             continue;
         } else if (rcv_help_epoch > epoch) {
             /*manager hasn't received the epoch change yet*/
@@ -523,7 +500,7 @@ int main(int argc, char *argv[])
                 zframe_destroy(&message_rcv_type_frame);
 
                 if (strcmp(type, "eacl") != 0) {
-                    fprintf(stderr, "manager: not eacl received, ignoring");
+                    /*fprintf(stderr, "manager: not eacl received, ignoring");*/
                     zmsg_destroy(&rcv_packet);
                     continue;
                 }
