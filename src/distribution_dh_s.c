@@ -896,11 +896,11 @@ void *thread_manager_listener(void *args)
  
             /*create the ack file to indicate the end of the redistribution*/
             char *file_name;
-            asprintf(&file_name, "%s%dUSR2", SCRATCH, id_srv_self);
+            asprintf(&file_name, "vm%s%dUSR2-1", SCRATCH, id_srv_self);
             int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
             if (ack == -1) {
                 int err = errno;
-                fprintf(stderr, "Server:sigUSR2 handler: ");
+                fprintf(stderr, "Distribution:thread_manager_listener: ");
                 fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
                     file_name, strerror(err));
             }
@@ -933,6 +933,27 @@ int distribution_signal_action()
         return -1;
     }
 
+    int temporal_test = 0;
+    /* Compute load threshold*/
+    uint32_t threshold = mean_load + ((10 / 100) * mean_load);
+
+    /* No need to rebalancing*/
+    if (temporal_test < threshold) {
+        /*create the ack file to indicate the server does not need a redistribution*/
+        char *file_name;
+        asprintf(&file_name, "vm%s%dUSR2-0", SCRATCH, id_srv_self);
+        int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+        if (ack == -1) {
+            int err = errno;
+            fprintf(stderr, "Server:sigUSR2 handler: ");
+            fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
+            file_name, strerror(err));
+        }
+        close(ack);
+        return 0;
+    }
+
+    /* Ask for rebalancing*/
     zmsg_t *help_packet = zmsg_new();
     zframe_t *help_type_frame = zframe_new("help", 4);
     zmsg_append(help_packet, &help_type_frame);
