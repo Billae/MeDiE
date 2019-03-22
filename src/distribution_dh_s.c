@@ -896,7 +896,7 @@ void *thread_manager_listener(void *args)
  
             /*create the ack file to indicate the end of the redistribution*/
             char *file_name;
-            asprintf(&file_name, "vm%s%dUSR2-1", SCRATCH, id_srv_self);
+            asprintf(&file_name, "%svm%dUSR2-1", SCRATCH, id_srv_self);
             int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
             if (ack == -1) {
                 int err = errno;
@@ -921,7 +921,7 @@ int distribution_signal_action()
     int rc = eacl_calculate_sai(&access_list);
     if (rc != 0) {
         fprintf(stderr,
-            "Distribution:send_sai: calculate SAI failed: %s\n",
+            "Distribution:signal_action: calculate SAI failed: %s\n",
             strerror(-rc));
         return -1;
     }
@@ -941,11 +941,11 @@ int distribution_signal_action()
     if (temporal_test < threshold) {
         /*create the ack file to indicate the server does not need a redistribution*/
         char *file_name;
-        asprintf(&file_name, "vm%s%dUSR2-0", SCRATCH, id_srv_self);
+        asprintf(&file_name, "%svm%dUSR2-0", SCRATCH, id_srv_self);
         int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
         if (ack == -1) {
             int err = errno;
-            fprintf(stderr, "Server:sigUSR2 handler: ");
+            fprintf(stderr, "Server:signal_action: ");
             fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
             file_name, strerror(err));
         }

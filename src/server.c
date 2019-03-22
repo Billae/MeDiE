@@ -87,7 +87,7 @@ void usr1_handler(int sig)
     close(fd_res);
 
     char *file_name;
-    asprintf(&file_name, "vm%s%dUSR1", SCRATCH, id_self);
+    asprintf(&file_name, "%svm%dUSR1", SCRATCH, id_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
     if (ack == -1) {
         int err = errno;
@@ -104,7 +104,7 @@ void usr2_handler(int sig)
     int rc;
     rc = distribution_signal_action();
     if (rc != 0)
-        fprintf(stderr, "Server:sigUSR2 handler: send sai failed\n");
+        fprintf(stderr, "Server:sigUSR2 handler: distribution signal action failed\n");
 }
 
 
