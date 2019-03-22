@@ -1,0 +1,4 @@
+alpha tests are made with n_entry=100
+and n_entry tests are made with alpha=0.5
+
+we can conclude that best alpha is 0.5 and n_entry has not a big impact so we choose 200
