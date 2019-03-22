@@ -44,7 +44,7 @@ rm /media/tmp_ack/*
 
 #launch servers and manager
 clush -w @srv -b  ./prototype_MDS/gen_srv_cfg.sh
-clush -w vm16 -b ./prototype_MDS/bin/manager $(($nb_srv))&
+clush -w vm0 -b ./prototype_MDS/bin/manager $(($nb_srv))&
 clush -w @srv -b ./prototype_MDS/bin/server $(($nb_srv)) p&
 #clush -w @client -b echo "test"
 sleep 5
@@ -84,6 +84,7 @@ do
 
     #launch redistribution
     clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
+    clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
 
     #wait for file creation "vm[id_svr]USR2-1"
 #    for ((i = 0; i < nb_srv; i++))
