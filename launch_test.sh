@@ -96,5 +96,6 @@ do
 #        fi
 #    done
 ./~/prototype_MDS/programs/synchro.bash $(($nb_srv))
-    rm /media/tmp_ack/*USR2
+rm /media/tmp_ack/*USR2-*
+
 done
