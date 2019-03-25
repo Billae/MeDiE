@@ -130,6 +130,15 @@ int eacl_read_sai(struct eacl *self, int index)
 }
 
 
+int eacl_read_load_lvl(struct eacl *self)
+{
+    if (!self)
+        return -EINVAL;
+
+    return self->load_lvl;
+}
+
+
 int eacl_destroy(struct eacl *self)
 {
     free(self->access_count);

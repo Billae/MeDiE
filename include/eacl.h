@@ -66,9 +66,16 @@ int eacl_calculate_sai(struct eacl *self);
 
 /** Give the sai field of an entry.
  *  @param[in] index the entry asked
- * @return 0 on success and -<error code> on failure
+ *  @return the sai value or -<error code> on failure.
  * **/
 int eacl_read_sai(struct eacl *self, int index);
+
+
+/** Give the load level of the server
+ *  @param[in] self the requested eacl
+ *  @return the load value or -<error code> on failure.
+ * **/
+int eacl_read_load_lvl(struct eacl *self);
 
 
 /** Destroy the structure.
