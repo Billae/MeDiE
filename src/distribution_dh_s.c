@@ -933,13 +933,13 @@ int distribution_signal_action()
         return -1;
     }
 
-    int temporal_test = 0;
     /* Compute load threshold*/
     uint32_t threshold_max = mean_load + ((10 / 100) * mean_load);
     uint32_t threshold_min = mean_load - ((10 / 100) * mean_load);
 
     /* No need to rebalancing*/
-    if ((temporal_test < threshold_max) && (temporal_test > threshold_min)) {
+    if ((eacl_read_load_lvl(&access_list) <= threshold_max)
+            && (eacl_read_load_lvl(&access_list) >= threshold_min)) {
         /*create the ack file to indicate the server does not need a redistribution*/
         char *file_name;
         asprintf(&file_name, "%svm%dUSR2-0", SCRATCH, id_srv_self);
