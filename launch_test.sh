@@ -95,6 +95,6 @@ do
 #            sleep 1
 #        fi
 #    done
-    ./synchro.bash
+./~/prototype_MDS/programs/synchro.bash $(($nb_srv))
     rm /media/tmp_ack/*USR2
 done

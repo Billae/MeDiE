@@ -1,7 +1,7 @@
 #! /bin/bash
 #
-n_srv=4
-path="./tmp/"
+n_srv=$1
+path="/media/tmp_ack/"
 
 function vm_list()
 {
