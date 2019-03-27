@@ -11,9 +11,8 @@ set terminal postscript eps color
 ymin= 0
 ymax= 100
 set yrange [ymin:ymax]
-set for [i=0:1470:60] arrow from i,ymin to i,ymax nohead lc rgb "violet" lt 3
+#set for [i=0:1470:60] arrow from i,ymin to i,ymax nohead lc rgb "violet" lt 3
 
-##set for [i=60:1470:60] label "rebalancing" at i-1,5 rotate textcolor rgb "violet"
 
 set xtics nomirror
 set ytics nomirror
@@ -29,4 +28,6 @@ set output "~/load_%.eps"
 
 plot '~/results.csv' using ($0*15):1 w lp lw 2 title "server 0",\
 '~/results.csv' using ($0*15):2 w lp lw 2 title "server 1",\
-NaN title "Rebalancing" lt 3 lc rgb "violet"
+'~/results.csv' using ($0*15):3 w lp lw 2 title "server 2",\
+'~/results.csv' using ($0*15):4 w lp lw 2 title "server 3",\
+'~/mesure_perf/server/rebalancing' using ($1*15):(ymax) title "Rebalancing" w impulse lt 3 lc rgb "violet"
