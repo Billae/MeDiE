@@ -901,7 +901,7 @@ void *thread_manager_listener(void *args)
             if (ack == -1) {
                 int err = errno;
                 fprintf(stderr, "Distribution:thread_manager_listener: ");
-                fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
+                fprintf(stderr, "create ack file \"%s\" failed:%s\n",
                     file_name, strerror(err));
             }
             close(ack);

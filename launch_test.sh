@@ -95,7 +95,7 @@ do
 #            sleep 1
 #        fi
 #    done
-./prototype_MDS/programs/synchro.bash $(($nb_srv)) $current_step
+./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step
 rm /media/tmp_ack/*USR2-*
 
 done
