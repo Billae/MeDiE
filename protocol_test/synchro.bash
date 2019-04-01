@@ -1,6 +1,8 @@
 #! /bin/bash
 #
+
 n_srv=$1
+n_step=$2
 path="/media/tmp_ack/"
 result_path="/mnt/server/rebalancing"
 
@@ -22,7 +24,7 @@ function wait_1()
             sleep 1
         done
     done
-    printf "$2\n" >> $result_path
+    printf "$n_step\n" >> $result_path
 }
 
 # Wait for every server to create either "vmXUSR2-0" or "vmXUSR2-1"
