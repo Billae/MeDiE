@@ -25,14 +25,16 @@ fi
 nb_srv=$1
 nb_client=$2
 total_vm=$(($1+$2))
-total_step=4
+total_step=98
+rebalance=4
 #config clush groups
 sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
 client: vm[$nb_srv-$(($total_vm-1))]\">/etc/clustershell/groups"
 
 # prepare trace files
 #python setup.py /media/traces/changelog.csv > /media/traces/setup-changelog.csv
-#python split.py /media/traces/changelog.csv 10
+#python split.py /media/traces/changelog.csv 5
+#for all step do:
 #python spread.py /media/traces/changelog-0.csv $(($nb_client))
 
 #clean perf folder before testing
@@ -44,7 +46,7 @@ rm /media/tmp_ack/*
 
 #launch servers and manager
 clush -w @srv -b  ./prototype_MDS/gen_srv_cfg.sh
-clush -w vm16 -b ./prototype_MDS/bin/manager $(($nb_srv))&
+clush -w vm0 -b ./prototype_MDS/bin/manager $(($nb_srv))&
 clush -w @srv -b ./prototype_MDS/bin/server $(($nb_srv)) p&
 #clush -w @client -b echo "test"
 sleep 5
@@ -56,12 +58,12 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/
 printf "setup finished\n"
 
 current_step=0
-while [[ $current_step -lt 98 ]]
+while [[ $current_step -lt $total_step ]]
 do
-    for((turn = 0; turn < total_step; turn++))
+    for((turn = 0; turn < rebalance; turn++))
     do
         #launch a step of traces
-        python36 spread.py /media/traces/changelog-$(($current_step)).csv $(($nb_client))
+#        python36 spread.py /media/traces/changelog-$(($current_step)).csv $(($nb_client))
         clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/changelog-$current_step
         ((current_step++))
 
@@ -86,7 +88,7 @@ do
 
     #launch redistribution
     clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
-    clush -w vm16 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
+    clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
 
     #wait for file creation "id_svrUSR2"
     for ((i = 0; i < nb_srv; i++))
