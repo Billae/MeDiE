@@ -75,7 +75,7 @@ do
                 sleep 1
             fi
         done
-    rm /media/tmp_ack/*USR1
+    rm /media/tmp_ack/indedh/*USR1
     printf "step $current_step finished\n"
 
     clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
