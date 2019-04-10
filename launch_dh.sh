@@ -82,7 +82,7 @@ do
                     sleep 1
                 fi
             done
-            rm /media/tmp_ack/*USR1
+            rm /media/tmp_ack/dh/*USR1
  #       fi
         printf "step $current_step finished\n"
     done
