@@ -69,7 +69,7 @@ do
     #wait for file creation "vm[id_srv]USR1"
     for ((i = 0; i < nb_srv; i++))
         do
-            if ! [ -f "/media/tmp_ack/vm$(($i))USR1" ]
+            if ! [ -f "/media/tmp_ack/indedh/vm$(($i))USR1" ]
             then
                 ((i--))
                 sleep 1
