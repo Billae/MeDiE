@@ -25,8 +25,9 @@ fi
 nb_srv=$1
 nb_client=$2
 total_vm=$(($1+$2))
-total_step=98
-rebalance=4
+#traces: mesuring 5min, rebalancing every hours
+total_step=292
+rebalance=30
 #config clush groups
 sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
 client: vm[$nb_srv-$(($total_vm-1))]\">/etc/clustershell/groups"
@@ -38,11 +39,11 @@ client: vm[$nb_srv-$(($total_vm-1))]\">/etc/clustershell/groups"
 #python spread.py /media/traces/changelog-0.csv $(($nb_client))
 
 #clean perf folder before testing
-rm /mnt/server/*
-rm /mnt/client/*
+rm /mnt/dh/server/*
+rm /mnt/dh/client/*
 
 #clean tmp folder
-rm /media/tmp_ack/*
+rm /media/tmp_ack/dh/*
 
 #launch servers and manager
 clush -w @srv -b  ./prototype_MDS/gen_srv_cfg.sh
@@ -52,7 +53,7 @@ clush -w @srv -b ./prototype_MDS/bin/server $(($nb_srv)) p&
 sleep 5
 
 #prepare servers for traces
-python36 spread.py /media/traces/setup-changelog.csv $(($nb_client))
+#python36 spread.py /media/traces/setup-changelog.csv $(($nb_client))
 clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog
 
 printf "setup finished\n"
@@ -64,7 +65,7 @@ do
     do
         #launch a step of traces
 #        python36 spread.py /media/traces/changelog-$(($current_step)).csv $(($nb_client))
-        clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/changelog-$current_step
+        clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/5min/changelog-$current_step
         ((current_step++))
 
 #        if [ $(($current_step%8)) -eq 1 ]
@@ -75,7 +76,7 @@ do
             #wait for file creation "id_srvUSR1"
             for ((i = 0; i < nb_srv; i++))
             do
-                if ! [ -f "/media/tmp_ack/$(($i))USR1" ]
+                if ! [ -f "/media/tmp_ack/dh/$(($i))USR1" ]
                 then
                     ((i--))
                     sleep 1
@@ -93,7 +94,7 @@ do
     #wait for file creation "id_svrUSR2"
     for ((i = 0; i < nb_srv; i++))
     do
-        if ! [ -f "/media/tmp_ack/$(($i))USR2" ]
+        if ! [ -f "/media/tmp_ack/dh/$(($i))USR2" ]
         then
             ((i--))
             sleep 1
