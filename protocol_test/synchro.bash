@@ -3,8 +3,8 @@
 
 n_srv=$1
 n_step=$2
-path="/media/tmp_ack/"
-result_path="/mnt/server/rebalancing"
+path="/media/tmp_ack/indedh/"
+result_path="/mnt/indedh/server/rebalancing"
 
 function vm_list()
 {
@@ -18,9 +18,9 @@ function wait_1()
 {
     for vm in $(vm_list $n_srv); do
         # XXX: does not work if $1 contains whitespaces
-        echo "search ack ${path}${vm}USR2-1"
+#        echo "search ack ${path}${vm}USR2-1"
         while ! [ -f "${path}${vm}USR2-1" ]; do
-            echo "wait ack ${path}${vm}USR2-1"
+#            echo "wait ack ${path}${vm}USR2-1"
             sleep 1
         done
     done
@@ -30,9 +30,9 @@ function wait_1()
 # Wait for every server to create either "vmXUSR2-0" or "vmXUSR2-1"
 for vm in $(vm_list $n_srv); do
     # XXX: does not work if $1 contains whitespaces
-     echo "search ack ${path}${vm}USR2-?"
+#     echo "search ack ${path}${vm}USR2-?"
      while ! [ -f "${path}${vm}USR2-0" ] && ! [ -f "${path}${vm}USR2-1" ]; do
-        echo "wait ack ${path}${vm}USR2-?"
+#        echo "wait ack ${path}${vm}USR2-?"
         sleep 1
     done
 done
