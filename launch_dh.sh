@@ -100,5 +100,5 @@ do
             sleep 1
         fi
     done
-    rm /media/tmp_ack/*USR2
+    rm /media/tmp_ack/dh/*USR2
 done
