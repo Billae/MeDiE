@@ -13,5 +13,5 @@ else
     #arg1= nb_srv, arg2= nb_line in file, arg3= path of file
     result=`./prototype_MDS/bin/client $1 $n_line $path`
     #create a result file
-    echo $result >>"/mnt/client/$prefix"
+    echo $result >>"/mnt/indedh/client/$prefix"
 fi
