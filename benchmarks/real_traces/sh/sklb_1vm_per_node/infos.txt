@@ -1,0 +1,5 @@
+run on sklb 48 core per VM (1 node)
+4 servers
+12 clients
+
+traces split 5 min
