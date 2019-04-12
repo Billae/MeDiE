@@ -10,7 +10,7 @@
 
 #define factor_distinct_key (0.01)
 
-#define max_request 100000
+#define max_request 2000000
 
 /* path in pcocc*/
 //#define PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
