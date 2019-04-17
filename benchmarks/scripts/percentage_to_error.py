@@ -7,8 +7,10 @@ import matplotlib.pyplot as plt
 
 #this script compute mean error for a given alpha value
 #this script is valid there is the same line number for each column
+#It takes in arguments the path of the  run
 
-df = pd.read_csv(sys.argv[1], delimiter=';', dtype='float32')
+file_name = sys.argv[1]+"/percentages.csv"
+df = pd.read_csv(file_name, delimiter=';', dtype='float32')
 #n is the number of lines
 n = len(df)
 #n_srv is the number of columns
@@ -26,8 +28,8 @@ for i in range(0, n):
 
 total = total / (n*n_srv)
 
-with open('average_error.txt', 'w') as fh:
+with open(sys.argv[1]+'/average_error.txt', 'w') as fh:
     fh.write(str(total))
 
-with open('max_error.txt', 'w') as fh:
+with open(sys.argv[1]+'/max_error.txt', 'w') as fh:
     fh.write(str(err_max))

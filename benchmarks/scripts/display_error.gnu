@@ -8,6 +8,8 @@ set linetype 6 lc rgb "#555555"  # "#009922"
 set datafile separator ";"
 set terminal postscript eps color
 
+# ARG1 is the path of the av_err.txt and max_err.txt files
+
 set xtics nomirror
 set ytics nomirror
 
@@ -20,17 +22,15 @@ set style fill solid
 
 
 #alpha value
-set output "error_alpha.eps"
+set output ARG1."error_alpha.eps"
 set xlabel "value of alpha"
 set title "load repartition error depending of the alpha parameter"
 
-plot 'all_traces/4_srv/rebalancing_1h/cumulativ/alpha/av_err.txt' using 2:xtic(1) lw 2 title "average error",\
-'all_traces/4_srv/rebalancing_1h/cumulativ/alpha/max_err.txt' using 2:xtic(1) lw 2 title "max error"
-
 #n_entry value
 #set title "load repartition error depending of the number of entries in the MLT"
-#set output "error_n_entry.eps"
+#set output ARG1."error_n_entry.eps"
 #set xlabel "Number of entries in the MLT"
 
-#plot 'all_traces/4_srv/rebalancing_1h/at_time/n_entry/av_err.txt' using 2:xtic(1) lw 2 title "average error",\
-#'all_traces/4_srv/rebalancing_1h/at_time/n_entry/max_err.txt' using 2:xtic(1) lw 2 title "max error"
+
+plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error",\
+ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error"
