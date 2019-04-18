@@ -43,24 +43,24 @@ pthread_t eacl_sender;
 #define max_id_size 21
 
 /*pcocc*/
-//#define ip_manager "10.252.0.1"
+#define ip_manager "10.252.0.1"
 /*ocre*/
-#define ip_manager "192.168.129.25"
+//#define ip_manager "192.168.129.25"
 
 /* path in pcocc*/
-//#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
 /*path in ocre*/
-#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
+//#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /*path in pcocc*/
-//#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
 /*path in ocre*/
-#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
+//#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
 /* path in pcocc*/
-//#define SCRATCH "/media/tmp_ack/"
+#define SCRATCH "/media/tmp_ack/indedh/"
 /*path in ocre*/
-#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
+//#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 
 
 int distribution_init(nb)
@@ -732,13 +732,13 @@ void *thread_manager_listener(void *args)
         zframe_t *message_type_frame = zmsg_pop(rcv_packet);
         byte *message_type = zframe_data(message_type_frame);
         /*type could be "ask" or "mlt"*/
-        char type[3] = "";
-        memcpy(type, message_type, 3);
+        enum from_manager_msg type;
+        memcpy(&type, message_type, sizeof(enum from_manager_msg));
         zframe_destroy(&message_type_frame);
 
         /* ASK received*/
-        if (strcmp(type, "ask") == 0) {
-            /*checking epoch needed*/
+        if (type == ASK_MSG) {
+        /*checking epoch needed*/
             zframe_t *epoch_frame = zmsg_pop(rcv_packet);
             byte *epoch_needed_temp = zframe_data(epoch_frame);
             int epoch_needed;
@@ -757,7 +757,9 @@ void *thread_manager_listener(void *args)
              * third the sai list
              * then le load level*/
             zmsg_t *eacl_packet = zmsg_new();
-            zframe_t *eacl_message_type_frame = zframe_new("eacl", 4);
+ 
+            enum to_manager_msg type = EACL_MSG;
+            zframe_t *eacl_message_type_frame = zframe_new(&type, sizeof(enum to_manager_msg));
             zmsg_append(eacl_packet, &eacl_message_type_frame);
 
             zframe_t *srv_id_frame = zframe_new(&id_srv_self, sizeof(int));
@@ -775,6 +777,7 @@ void *thread_manager_listener(void *args)
             if (rc != 0) {
                 fprintf(stderr, "Distribution:send_sai: zmsg_send failed\n");
             }
+            /*fprintf(stderr, "eacl sended\n");*/
             zmsg_destroy(&rcv_packet);
         }
         /* MLT received*/
@@ -940,6 +943,7 @@ int distribution_signal_action()
     /* No need to rebalancing*/
     if ((eacl_read_load_lvl(&access_list) <= threshold_max)
             && (eacl_read_load_lvl(&access_list) >= threshold_min)) {
+        /*fprintf(stderr, "no rebalance needed\n");*/
         /*create the ack file to indicate the server does not need a redistribution*/
         char *file_name;
         asprintf(&file_name, "%svm%dUSR2-0", SCRATCH, id_srv_self);
@@ -955,8 +959,11 @@ int distribution_signal_action()
     }
 
     /* Ask for rebalancing*/
+    /*fprintf(stderr, "rebalanced asked\n");*/
     zmsg_t *help_packet = zmsg_new();
-    zframe_t *help_type_frame = zframe_new("help", 4);
+
+    enum to_manager_msg type = HELP_MSG;
+    zframe_t *help_type_frame = zframe_new(&type, sizeof(enum to_manager_msg));
     zmsg_append(help_packet, &help_type_frame);
 
     zframe_t *help_epoch_frame = zframe_new(&epoch, sizeof(int));

@@ -13,9 +13,9 @@
 #include "eacl.h"
 
 /*pcocc*/
-//#define ip_manager "0.0.0.0"
+#define ip_manager "0.0.0.0"
 /*ocre*/
-#define ip_manager "192.168.129.25"
+//#define ip_manager "192.168.129.25"
 
 /*The manager has an sai list merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
@@ -441,12 +441,12 @@ int main(int argc, char *argv[])
         zframe_t *rcv_type_frame = zmsg_pop(first_rcv_packet);
         byte *rcv_type = zframe_data(rcv_type_frame);
         /*interaction could be "help" or "eacl"*/
-        char interaction[4] = "";
-        memcpy(interaction, rcv_type, 4);
+        enum to_manager_msg interaction;
+        memcpy(&interaction, rcv_type, sizeof(enum to_manager_msg));
         zframe_destroy(&rcv_type_frame);
 
-        if (strcmp(interaction, "help") != 0) {
-            /*fprintf(stderr, "manager: not help received, ignoring\n");*/
+        if (interaction != HELP_MSG) {
+        /*fprintf(stderr, "manager: not help received, ignoring\n");*/
             zmsg_destroy(&first_rcv_packet);
             continue;
         }
@@ -475,7 +475,8 @@ int main(int argc, char *argv[])
         /*help: a rebalancing is asked for this epoch*/
         zmsg_t *ask_eacl_packet = zmsg_new();
 
-        zframe_t *message_ask_type_frame = zframe_new("ask", 3);
+        enum from_manager_msg type = ASK_MSG;
+        zframe_t *message_ask_type_frame = zframe_new(&type, sizeof(enum from_manager_msg));
         zmsg_append(ask_eacl_packet, &message_ask_type_frame);
 
         zframe_t *message_ask_epoch_frame = zframe_new(&epoch, sizeof(int));
@@ -487,7 +488,7 @@ int main(int argc, char *argv[])
                 "Distribution:send_sai: zmsg_send failed\n");
             return -1;
         }
-
+        /*fprintf(stderr, "eacl asked\n");*/
 
         int nb_rcv = 0;
         while (nb_rcv < nb_srv) {
@@ -499,12 +500,13 @@ int main(int argc, char *argv[])
             else {
                 zframe_t *message_rcv_type_frame = zmsg_pop(rcv_packet);
                 byte *message_rcv_type = zframe_data(message_rcv_type_frame);
-                char type[4] = "";
-                memcpy(type, message_rcv_type, 4);
+
+                enum to_manager_msg type;
+                memcpy(&type, message_rcv_type, sizeof(enum to_manager_msg));
                 zframe_destroy(&message_rcv_type_frame);
 
-                if (strcmp(type, "eacl") != 0) {
-                    /*fprintf(stderr, "manager: not eacl received, ignoring");*/
+                if (type != EACL_MSG) {
+                /*fprintf(stderr, "manager: not eacl received, ignoring");*/
                     zmsg_destroy(&rcv_packet);
                     continue;
                 }
@@ -549,7 +551,8 @@ int main(int argc, char *argv[])
         /*sending MLT and the mean load*/
         zmsg_t *mlt_packet = zmsg_new();
 
-        zframe_t *message_mlt_type_frame = zframe_new("mlt", 3);
+        enum from_manager_msg type_msg = MLT_MSG;
+        zframe_t *message_mlt_type_frame = zframe_new(&type_msg, sizeof(enum from_manager_msg));
         zmsg_append(mlt_packet, &message_mlt_type_frame);
 
         zframe_t *id_srv_frame = zframe_new(table.id_srv,

@@ -13,6 +13,16 @@
 /*N_entry defines the mlt size*/
 #define N_entry 100
 
+enum to_manager_msg {
+    HELP_MSG = 1,
+    EACL_MSG = 2
+};
+
+enum from_manager_msg {
+    ASK_MSG = 1,
+    MLT_MSG = 2
+};
+
 
 /*Client_port is the socket port to bind or connect
  * for client-server requesting*/
