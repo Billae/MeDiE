@@ -28,6 +28,8 @@ total_vm=$(($1+$2))
 #traces: mesuring 5min, rebalancing every hours
 total_step=292
 rebalance=30
+
+traces_path=/media/traces/5min/12_clients
 #config clush groups
 sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
 client: vm[$nb_srv-$(($total_vm-1))]\">/etc/clustershell/groups"
@@ -65,7 +67,7 @@ do
     do
         #launch a step of traces
 #        python36 spread.py /media/traces/changelog-$(($current_step)).csv $(($nb_client))
-        clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/5min/changelog-$current_step
+clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step
         ((current_step++))
 
 #        if [ $(($current_step%8)) -eq 1 ]
