@@ -3,3 +3,6 @@ run on sandy 16 core per VM (1 node)
 12 clients
 
 traces split 5 min
+
+alpha:0.5
+n_entry=200
