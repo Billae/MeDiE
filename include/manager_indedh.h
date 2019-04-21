@@ -1,16 +1,16 @@
-#ifndef __MANAGER_H__
-#define __MANAGER_H__
+#ifndef __MANAGER_INDEDH_H__
+#define __MANAGER_INDEDH_H__
 
 /**
- * @file manager.h
+ * @file manager_indedh.h
  * @author E. Billa
- * @brief The manager is independant and periodically update the mlt and broadcast it to the servers
+ * @brief The manager is independant and update the mlt when a server ask it and broadcast it to the servers
  * **/
 
 #include <czmq.h>
-#include "protocol.h"
+#include "protocol_indedh.h"
 #include "mlt.h"
-#include "eacl.h"
+#include "eacl_indedh.h"
 
 
 /** Initialize manager state

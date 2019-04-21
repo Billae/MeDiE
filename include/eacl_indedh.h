@@ -1,10 +1,10 @@
-#ifndef __EACL_H__
-#define __EACL_H__
+#ifndef __EACL_INDEDH_H__
+#define __EACL_INDEDH_H__
 
 #include <stdint.h>
 
 /**
- * @file eacl.h
+ * @file eacl_indedh.h
  * @author E. Billa
  * @brief Entry Access Counter List structure and getter and setter
  * **/

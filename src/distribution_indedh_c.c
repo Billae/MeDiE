@@ -4,9 +4,9 @@
 #include <string.h>
 #include <json.h>
 
-#include "distribution_dh_c.h"
+#include "distribution_indedh_c.h"
 #include "mlt.h"
-#include "protocol.h"
+#include "protocol_indedh.h"
 #include "murmur3.h"
 
 

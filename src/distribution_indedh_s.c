@@ -9,10 +9,10 @@
 #include <czmq.h>
 
 #include "generic_storage.h"
-#include "distribution_dh_s.h"
+#include "distribution_indedh_s.h"
 #include "mlt.h"
-#include "eacl.h"
-#include "protocol.h"
+#include "eacl_indedh.h"
+#include "protocol_indedh.h"
 #include "murmur3.h"
 #include "md_entry.h"
 

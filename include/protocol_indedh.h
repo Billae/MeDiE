@@ -1,9 +1,9 @@
-#ifndef __PROTOCOL_H__
-#define __PROTOCOL_H__
+#ifndef __PROTOCOL_INDEDH_H__
+#define __PROTOCOL_INDEDH_H__
 
 
 /**
- * @file protocol.h
+ * @file protocol_indedh.h
  * @author E. Billa
  * @brief Protocols, structures and conventions common to client and server
  * **/

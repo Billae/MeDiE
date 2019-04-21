@@ -7,10 +7,10 @@
 #include <signal.h>
 #include <math.h>
 
-#include "manager.h"
-#include "protocol.h"
+#include "manager_indedh.h"
+#include "protocol_indedh.h"
 #include "mlt.h"
-#include "eacl.h"
+#include "eacl_indedh.h"
 
 /*pcocc*/
 #define ip_manager "0.0.0.0"

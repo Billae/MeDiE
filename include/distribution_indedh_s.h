@@ -1,10 +1,10 @@
-#ifndef __DISTRIBUTION_DH_S_H__
-#define __DISTRIBUTION_DH_S_H__
+#ifndef __DISTRIBUTION_INDEDH_S_H__
+#define __DISTRIBUTION_INDEDH_S_H__
 
 /**
- * @file distribution_dh_s.h
+ * @file distribution_indedh_s.h
  * @author E. Billa
- * @brief Servers functions dedicated to the dynamic hashing distribution method
+ * @brief Servers functions dedicated to the independant dynamic hashing distribution method
  * **/
 
 #include <czmq.h>

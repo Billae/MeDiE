@@ -1,15 +1,15 @@
-#ifndef __DISTRIBUTION_DH_C_H__
-#define __DISTRIBUTION_DH_C_H__
+#ifndef __DISTRIBUTION_INDEDH_C_H__
+#define __DISTRIBUTION_INDEDH_C_H__
 
 /**
- * @file distribution_dh_c.h
+ * @file distribution_indedh_c.h
  * @author E. Billa
- * @brief Clients functions dedicated to the dynamic hashing distribution method
+ * @brief Clients functions dedicated to the independant dynamic hashing distribution method
  * **/
 
 #include <json.h>
 #include "mlt.h"
-#include "protocol.h"
+#include "protocol_indedh.h"
 
 
 /** Initialize distribution context
