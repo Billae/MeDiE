@@ -18,6 +18,7 @@ static int eacl_dump_sai(struct eacl *eacl)
         printf("[%d] sai = %d\n", i, rc);
     }
 
+    printf("load_level = %lu\n", eacl->load_lvl);
     return 0;
 }
 

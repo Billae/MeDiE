@@ -1,10 +1,10 @@
-#ifndef __EACL_H__
-#define __EACL_H__
+#ifndef __EACL_INDEDH_H__
+#define __EACL_INDEDH_H__
 
 #include <stdint.h>
 
 /**
- * @file eacl.h
+ * @file eacl_indedh.h
  * @author E. Billa
  * @brief Entry Access Counter List structure and getter and setter
  * **/
@@ -13,11 +13,13 @@
  * (i.e. an array after initialization).
  * - entry is the index,
  * - access_count gives the access frequency of the entry
- * - sai is a computed value used to balance the workload*/
+ * - sai is a computed value used to balance the workload
+ * - load_lvl is the sum of all sai and means the load for the server*/
 struct eacl {
     uint32_t *access_count;
     uint32_t *sai;
 
+    uint32_t load_lvl;
     uint32_t size;
 };
 
@@ -64,9 +66,16 @@ int eacl_calculate_sai(struct eacl *self);
 
 /** Give the sai field of an entry.
  *  @param[in] index the entry asked
- * @return 0 on success and -<error code> on failure
+ *  @return the sai value or -<error code> on failure.
  * **/
 int eacl_read_sai(struct eacl *self, int index);
+
+
+/** Give the load level of the server
+ *  @param[in] self the requested eacl
+ *  @return the load value or -<error code> on failure.
+ * **/
+int eacl_read_load_lvl(struct eacl *self);
 
 
 /** Destroy the structure.

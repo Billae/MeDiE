@@ -8,7 +8,9 @@
 #include "mlt.h"
 #include "protocol.h"
 
-#define iter 100000
+#define factor_distinct_key (0.01)
+
+#define max_request 2000000
 
 /* path in pcocc*/
 //#define PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
@@ -46,8 +48,8 @@ int main(int argc, char *argv[])
     }
 
     unsigned long int k = 0;
-
-    while (i < 10000) {
+    int n_key = 0;
+    while (n_key < (max_request * factor_distinct_key)) {
         asprintf(&name, "%s%ld", argv[1], k++);
         MurmurHash3_x86_32(name, strlen(name), seed, &h_out);
         int index = h_out%N_entry;
@@ -59,14 +61,15 @@ int main(int argc, char *argv[])
             return -1;
         }
         if (num_srv == 0) {
+            i = 0;
             fprintf(fd, "create,%s\n", name);
             i++;
-            while (i < 9999) {
+            while (i < (1/factor_distinct_key)) {
                 fprintf(fd, "update,%s\n", name);
                 i++;
             }
-            fprintf(fd, "delete,%s\n", name);
-            i++;
+            /*fprintf(fd, "delete,%s\n", name);*/
+            n_key++;
         }
     }
 

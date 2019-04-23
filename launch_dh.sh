@@ -56,7 +56,7 @@ sleep 5
 
 #prepare servers for traces
 #python36 spread.py /media/traces/setup-changelog.csv $(($nb_client))
-clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog
+clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog /mnt/dh
 
 printf "setup finished\n"
 
@@ -67,7 +67,7 @@ do
     do
         #launch a step of traces
 #        python36 spread.py /media/traces/changelog-$(($current_step)).csv $(($nb_client))
-clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step
+clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step /mnt/dh
         ((current_step++))
 
 #        if [ $(($current_step%8)) -eq 1 ]

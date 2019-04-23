@@ -1,10 +1,10 @@
-#ifndef __DISTRIBUTION_DH_S_H__
-#define __DISTRIBUTION_DH_S_H__
+#ifndef __DISTRIBUTION_INDEDH_S_H__
+#define __DISTRIBUTION_INDEDH_S_H__
 
 /**
- * @file distribution_dh_s.h
+ * @file distribution_indedh_s.h
  * @author E. Billa
- * @brief Servers functions dedicated to the dynamic hashing distribution method
+ * @brief Servers functions dedicated to the independant dynamic hashing distribution method
  * **/
 
 #include <czmq.h>
@@ -80,7 +80,7 @@ void *thread_load_receiver(void *args);
  * - wait for mlt updates and process them
  * - launch inter-server transferts due to mlt updates
  * **/
-void *thread_mlt_updater(void *args);
+void *thread_manager_listener(void *args);
 
 
 /** function called on signal SIGUSR2

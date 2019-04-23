@@ -9,29 +9,29 @@
 #include <pthread.h>
 
 #include "generic_storage.h"
-#include "protocol.h"
+#include "protocol_indedh.h"
 
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_s.h"
 #endif
-#ifdef DISTRIBUTION_DH
-    #include "distribution_dh_s.h"
+#ifdef DISTRIBUTION_INDEDH
+    #include "distribution_indedh_s.h"
 #endif
 
 /* path in pcocc*/
-//#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
 /*path in ocre*/
-#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
+//#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /* path in pcocc*/
-//#define PREFIX "/mnt/server/"
+#define PREFIX "/mnt/indedh/server/"
 /*path in ocre*/
-#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
+//#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
 
 /* path in pcocc*/
-//#define SCRATCH "/media/tmp_ack/"
+#define SCRATCH "/media/tmp_ack/indedh/"
 /*path in ocre*/
-#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
+//#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 
 
 
@@ -87,7 +87,7 @@ void usr1_handler(int sig)
     close(fd_res);
 
     char *file_name;
-    asprintf(&file_name, "%s%dUSR1", SCRATCH, id_self);
+    asprintf(&file_name, "%svm%dUSR1", SCRATCH, id_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
     if (ack == -1) {
         int err = errno;
@@ -101,10 +101,11 @@ void usr1_handler(int sig)
 /*send eacl to manager*/
 void usr2_handler(int sig)
 {
+    fprintf(stderr, "entering in signal 2 handler\n");
     int rc;
     rc = distribution_signal_action();
     if (rc != 0)
-        fprintf(stderr, "Server:sigUSR2 handler: send sai failed\n");
+        fprintf(stderr, "Server:sigUSR2 handler: distribution signal action failed\n");
 }
 
 
