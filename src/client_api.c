@@ -7,16 +7,17 @@
 #include <string.h>
 #include <errno.h>
 
-#include "protocol_dh.h"
 #include "request.h"
 #include "client_api.h"
 
 
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_c.h"
+    #include "protocol_sh.h"
 #endif
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_c.h"
+    #include "protocol_dh.h"
 #endif
 
 /* path in pcocc*/

@@ -9,13 +9,14 @@
 #include <pthread.h>
 
 #include "generic_storage.h"
-#include "protocol_dh.h"
 
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_s.h"
+    #include "protocol_sh.h"
 #endif
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_s.h"
+    #include "protocol_dh.h"
 #endif
 
 /* path in pcocc*/

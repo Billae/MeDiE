@@ -6,7 +6,7 @@
 
 #include "distribution_sh_c.h"
 #include "murmur3.h"
-#include "protocol.h"
+#include "protocol_sh.h"
 
 
 static int nb_srv;
