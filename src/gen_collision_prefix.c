@@ -23,9 +23,9 @@
 #define max_request 2000000
 
 /* path in pcocc*/
-//#define PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
+#define PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
 /*path in ocre*/
-#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id.cfg"
+//#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id.cfg"
 
 /*This program generate prefixs which produce an access to the entry 0.
  * hostname and number of available servers are given in argument.

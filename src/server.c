@@ -13,32 +13,32 @@
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_s.h"
     #include "protocol_sh.h"
+    #define PREFIX "/mnt/sh/server/"
+    #define SCRATCH "/media/tmp_ack/sh/"
 #endif
 
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_s.h"
     #include "protocol_dh.h"
-
+    #define PREFIX "/mnt/dh/server/"
+    #define SCRATCH "/media/tmp_ack/dh/"
 #endif
 
 #ifdef DISTRIBUTION_INDEDH
     #include "distribution_indedh_s.h"
     #include "protocol_indedh.h"
+    #define PREFIX "/mnt/indedh/server/"
+    #define SCRATCH "/media/tmp_ack/indedh/"
 #endif
-
 
 /* path in pcocc*/
 #define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
 /*path in ocre*/
 //#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
-/* path in pcocc*/
-#define PREFIX "/mnt/indedh/server/"
 /*path in ocre*/
 //#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
 
-/* path in pcocc*/
-#define SCRATCH "/media/tmp_ack/indedh/"
 /*path in ocre*/
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 

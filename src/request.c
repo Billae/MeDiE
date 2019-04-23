@@ -20,6 +20,7 @@
 
 #ifdef DISTRIBUTION_INDEDH
     #include "distribution_indedh_c.h"
+    #include "protocol_indedh.h"
 #endif
 
 

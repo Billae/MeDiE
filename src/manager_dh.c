@@ -13,9 +13,9 @@
 #include "eacl_dh.h"
 
 /*pcocc*/
-//#define ip_manager "0.0.0.0"
+#define ip_manager "0.0.0.0"
 /*ocre*/
-#define ip_manager "192.168.129.25"
+//#define ip_manager "192.168.129.25"
 
 /*The manager has an sai list merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
