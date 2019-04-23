@@ -11,8 +11,8 @@
 #include "generic_storage.h"
 #include "distribution_dh_s.h"
 #include "mlt.h"
-#include "eacl.h"
-#include "protocol.h"
+#include "eacl_dh.h"
+#include "protocol_dh.h"
 #include "murmur3.h"
 #include "md_entry.h"
 

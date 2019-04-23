@@ -7,7 +7,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "protocol.h"
+#include "protocol_dh.h"
 #include "request.h"
 #include "client_api.h"
 

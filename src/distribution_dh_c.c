@@ -6,7 +6,7 @@
 
 #include "distribution_dh_c.h"
 #include "mlt.h"
-#include "protocol.h"
+#include "protocol_dh.h"
 #include "murmur3.h"
 
 

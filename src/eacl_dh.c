@@ -1,4 +1,4 @@
-#include "eacl.h"
+#include "eacl_dh.h"
 
 #include <errno.h>
 #include <stdlib.h>

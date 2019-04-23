@@ -1,5 +1,5 @@
-#ifndef __MANAGER_H__
-#define __MANAGER_H__
+#ifndef __MANAGER_DH_H__
+#define __MANAGER_DH_H__
 
 /**
  * @file manager.h
@@ -8,9 +8,9 @@
  * **/
 
 #include <czmq.h>
-#include "protocol.h"
+#include "protocol_dh.h"
 #include "mlt.h"
-#include "eacl.h"
+#include "eacl_dh.h"
 
 
 /** Initialize manager state

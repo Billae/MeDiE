@@ -1,9 +1,9 @@
-#ifndef __PROTOCOL_H__
-#define __PROTOCOL_H__
+#ifndef __PROTOCOL_DH_H__
+#define __PROTOCOL_DH_H__
 
 
 /**
- * @file protocol.h
+ * @file protocol_dh.h
  * @author E. Billa
  * @brief Protocols, structures and conventions common to client and server
  * **/

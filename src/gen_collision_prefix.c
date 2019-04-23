@@ -6,7 +6,7 @@
 #include <string.h>
 #include "murmur3.h"
 #include "mlt.h"
-#include "protocol.h"
+#include "protocol_dh.h"
 
 #define iter 100000
 

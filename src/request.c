@@ -8,7 +8,7 @@
 
 #include "distribution_dh_c.h"
 #include "request.h"
-#include "protocol.h"
+#include "protocol_dh.h"
 
 json_object *create_request(const char *key)
 {

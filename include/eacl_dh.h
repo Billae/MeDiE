@@ -1,5 +1,5 @@
-#ifndef __EACL_H__
-#define __EACL_H__
+#ifndef __EACL_DH_H__
+#define __EACL_DH_H__
 
 #include <stdint.h>
 
