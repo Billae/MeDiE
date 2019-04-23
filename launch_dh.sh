@@ -78,7 +78,7 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/c
             #wait for file creation "id_srvUSR1"
             for ((i = 0; i < nb_srv; i++))
             do
-                if ! [ -f "/media/tmp_ack/dh/$(($i))USR1" ]
+                if ! [ -f "/media/tmp_ack/dh/vm$(($i))USR1" ]
                 then
                     ((i--))
                     sleep 1
@@ -96,7 +96,7 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/c
     #wait for file creation "id_svrUSR2"
     for ((i = 0; i < nb_srv; i++))
     do
-        if ! [ -f "/media/tmp_ack/dh/$(($i))USR2" ]
+        if ! [ -f "/media/tmp_ack/dh/vm$(($i))USR2" ]
         then
             ((i--))
             sleep 1
