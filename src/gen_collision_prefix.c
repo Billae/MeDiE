@@ -6,7 +6,17 @@
 #include <string.h>
 #include "murmur3.h"
 #include "mlt.h"
-#include "protocol.h"
+
+
+#ifdef DISTRIBUTION_DH
+    #include "protocol_dh.h"
+#endif
+
+#ifdef DISTRIBUTION_INDEDH
+    #include "protocol_indedh.h"
+#endif
+
+
 
 #define factor_distinct_key (0.01)
 

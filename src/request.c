@@ -6,9 +6,24 @@
 #include <errno.h>
 #include <string.h>
 
-#include "distribution_indedh_c.h"
 #include "request.h"
-#include "protocol_indedh.h"
+
+#ifdef DISTRIBUTION_SH
+    #include "distribution_sh_c.h"
+    #include "protocol_sh.h"
+#endif
+
+#ifdef DISTRIBUTION_DH
+    #include "distribution_dh_c.h"
+    #include "protocol_dh.h"
+#endif
+
+#ifdef DISTRIBUTION_INDEDH
+    #include "distribution_indedh_c.h"
+#endif
+
+
+
 
 json_object *create_request(const char *key)
 {
