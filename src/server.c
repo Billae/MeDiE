@@ -110,7 +110,7 @@ void usr1_handler(int sig)
 /*send eacl to manager*/
 void usr2_handler(int sig)
 {
-    fprintf(stderr, "entering in signal 2 handler\n");
+/*    fprintf(stderr, "entering in signal 2 handler\n");*/
     int rc;
     rc = distribution_signal_action();
     if (rc != 0)
