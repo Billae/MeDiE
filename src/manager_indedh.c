@@ -7,10 +7,10 @@
 #include <signal.h>
 #include <math.h>
 
-#include "manager_dh.h"
-#include "protocol_dh.h"
+#include "manager_indedh.h"
+#include "protocol_indedh.h"
 #include "mlt.h"
-#include "eacl_dh.h"
+#include "eacl_indedh.h"
 
 /*pcocc*/
 #define ip_manager "0.0.0.0"
@@ -20,23 +20,28 @@
 /*The manager has an sai list merged from all servers eacl (each field filled
  * with "0" in an eacl is a field not supported by this server). It has also its
  * own mlt which it can update (the manager has the "true" version of the mlt).
+ * It has a list with a load level for each server and a mean load which used a threshold by the server
  * **/
 static uint32_t *global_list;
 static struct mlt table;
 
-
-/*Used to activate or not the relab computation*/
-static volatile sig_atomic_t update_needed;
-
+static uint32_t *all_list;
+static uint32_t mean_load;
 
 zsock_t *pub;
 zsock_t *pull;
 
 
+/*to synchronize time*/
+static volatile sig_atomic_t epoch;
+/*boolean to know if a rebalancing is done for the epoch*/
+static volatile sig_atomic_t epoch_processed;
+
 /*Handler for sigUSR2 signal*/
 void usrHandler2(int sig)
 {
-    update_needed = 1;
+    epoch++;
+    epoch_processed = 0;
 }
 
 
@@ -53,8 +58,8 @@ int manager_init(int nb)
 {
     int rc;
 
-    update_needed = 0;
-
+    epoch = 0;
+    mean_load = 0;
     rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {
         fprintf(stderr,
@@ -66,6 +71,13 @@ int manager_init(int nb)
     if (global_list == NULL) {
         fprintf(stderr,
             "Manager:init: global sai init error\n");
+        return -1;
+    }
+
+    all_list = calloc(nb, sizeof(uint32_t));
+    if (all_list == NULL) {
+        fprintf(stderr,
+            "Manager:init: absolute load level list init error\n");
         return -1;
     }
 
@@ -107,6 +119,7 @@ int manager_finalize()
         fprintf(stderr, "Manager:finalize: mlt_destroy failed\n");
 
     free(global_list);
+    free(all_list);
     zsock_destroy(&pub);
     zsock_destroy(&pull);
 
@@ -185,44 +198,24 @@ int find_index(int value, int *list, int list_size)
 }
 
 
-/*TO DO*/
 int manager_calculate_relab(int nb)
 {
-    fprintf(stderr, "Manager calculate_relab\n");
+    /*fprintf(stderr, "Manager calculate_relab\n");*/
     int rc;
-
-    /*all[i] is the sum of all sai of entries managed by the server i*/
-    int *all = malloc(sizeof(int) * nb);
-    if (all == NULL) {
-        fprintf(stderr, "Manager:calculate_relab: malloc all failed\n");
-        return -1;
-    }
-
     int current_srv;
-    for (current_srv = 0; current_srv < nb; current_srv++)
-        all[current_srv] = 0;
 
     int sum_all = 0;
-    int current_entry;
-    for (current_entry = 0; current_entry < N_entry; current_entry++) {
-        int srv, version, state;
-        rc = mlt_get_entry(&table, current_entry, &srv, &version, &state);
-        if (rc != 0) {
-            fprintf(stderr, "Manager:calculate_relab: ");
-            fprintf(stderr, "mlt get entry %d failed\n", current_entry);
-            goto free_all;
-        }
-        all[srv] += global_list[current_entry];
-        sum_all += global_list[current_entry];
-    }
-    int sum_w = w_factor * nb;
+    for (current_srv = 0; current_srv < nb; current_srv++)
+        sum_all += all_list[current_srv];
 
+    int sum_w = w_factor * nb;
+    mean_load = sum_all / nb;
 
     /*load[i] is the relative load of each server*/
     int *load = malloc(sizeof(int) * nb);
     if (load == NULL) {
         fprintf(stderr, "Manager:calculate_relab: malloc load failed\n");
-        goto free_all;
+        return -1;
     }
 
     /*create two subset: L is for large load (load[i]>0)
@@ -245,7 +238,7 @@ int manager_calculate_relab(int nb)
     for (current_srv = 0; current_srv < nb; current_srv++) {
         /*balanced is the balanced weight for the server i*/
         int balanced = (sum_all * w_factor) / sum_w;
-        load[current_srv] = all[current_srv] - balanced;
+        load[current_srv] = all_list[current_srv] - balanced;
         /*fprintf(stderr, "manager: load of server %d: %d\n",
             current_srv, load[current_srv]);*/
         if (load[current_srv] > 0) {
@@ -386,7 +379,6 @@ int manager_calculate_relab(int nb)
     free(subset_s);
     free(subset_l);
     free(load);
-    free(all);
     return 0;
 
 free_target:
@@ -397,8 +389,6 @@ free_subset_l:
     free(subset_l);
 free_load:
     free(load);
-free_all:
-    free(all);
     return -1;
 }
 
@@ -428,44 +418,128 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+
+    struct sigaction act_usr;
+    act_usr.sa_handler = usrHandler2;
+    rc = sigaction(SIGUSR2, &act_usr, NULL);
+    if (rc != 0)
+        fprintf(stderr, "Manager: can't catch SIGUSR2\n");
+
+
     struct sigaction act_int;
     act_int.sa_handler = intHandler;
     rc = sigaction(SIGINT, &act_int, NULL);
     if (rc != 0)
         fprintf(stderr, "Manager: can't catch SIGINT\n");
 
-    struct sigaction act_usr2;
-    act_usr2.sa_handler = usrHandler2;
-    rc = sigaction(SIGUSR2, &act_usr2, NULL);
-    if (rc != 0)
-        fprintf(stderr, "Manager: can't catch SIGUSR2\n");
-
     while (1) {
-        while (update_needed == 0) {
-            sleep(1);
+
+        zmsg_t *first_rcv_packet = zmsg_recv(pull);
+        if (first_rcv_packet == NULL)
+            continue;
+
+        zframe_t *rcv_type_frame = zmsg_pop(first_rcv_packet);
+        byte *rcv_type = zframe_data(rcv_type_frame);
+        /*interaction could be "help" or "eacl"*/
+        enum to_manager_msg interaction;
+        memcpy(&interaction, rcv_type, sizeof(enum to_manager_msg));
+        zframe_destroy(&rcv_type_frame);
+
+        if (interaction != HELP_MSG) {
+        /*fprintf(stderr, "manager: not help received, ignoring\n");*/
+            zmsg_destroy(&first_rcv_packet);
+            continue;
         }
 
-        int nb_rcv;
-        for (nb_rcv = 0; nb_rcv < nb_srv; nb_rcv++) {
-            /*receiving eacls*/
-            zmsg_t *packet = zmsg_recv(pull);
-            if (packet == NULL)
+        /*checking for epoch version*/
+        zframe_t *help_epoch_frame = zmsg_pop(first_rcv_packet);
+        byte *help_epoch = zframe_data(help_epoch_frame);
+        int rcv_help_epoch;
+        memcpy(&rcv_help_epoch, help_epoch, sizeof(int));
+
+        zframe_destroy(&help_epoch_frame);
+        zmsg_destroy(&first_rcv_packet);
+
+        if (rcv_help_epoch < epoch) {
+            /*fprintf(stderr, "manager: old help received, ignoring\n");*/
+            continue;
+        } else if (rcv_help_epoch > epoch) {
+            /*manager hasn't received the epoch change yet*/
+            while (epoch < rcv_help_epoch)
+                sleep(1);
+        }
+        /*checking a rebalancing is not already done for this epoch*/
+        if (epoch_processed == 1)
+            continue;
+
+        /*help: a rebalancing is asked for this epoch*/
+        zmsg_t *ask_eacl_packet = zmsg_new();
+
+        enum from_manager_msg type = ASK_MSG;
+        zframe_t *message_ask_type_frame = zframe_new(&type, sizeof(enum from_manager_msg));
+        zmsg_append(ask_eacl_packet, &message_ask_type_frame);
+
+        zframe_t *message_ask_epoch_frame = zframe_new(&epoch, sizeof(int));
+        zmsg_append(ask_eacl_packet, &message_ask_epoch_frame);
+
+        rc = zmsg_send(&ask_eacl_packet, pub);
+        if (rc != 0) {
+            fprintf(stderr,
+                "Distribution:send_sai: zmsg_send failed\n");
+            return -1;
+        }
+        /*fprintf(stderr, "eacl asked\n");*/
+
+        int nb_rcv = 0;
+        while (nb_rcv < nb_srv) {
+            /*receiving eacls:
+             * merge global_list with sai and all_list with load level*/
+            zmsg_t *rcv_packet = zmsg_recv(pull);
+            if (rcv_packet == NULL)
                 fprintf(stderr, "Manager: zmq receive failed\n");
             else {
-                uint32_t *temp_sai = calloc(N_entry, sizeof(uint32_t));
+                zframe_t *message_rcv_type_frame = zmsg_pop(rcv_packet);
+                byte *message_rcv_type = zframe_data(message_rcv_type_frame);
 
-                zframe_t *sai_frame = zmsg_pop(packet);
-                byte *temp = zframe_data(sai_frame);
-                memcpy(temp_sai, temp, sizeof(uint32_t)*N_entry);
+                enum to_manager_msg type;
+                memcpy(&type, message_rcv_type, sizeof(enum to_manager_msg));
+                zframe_destroy(&message_rcv_type_frame);
+
+                if (type != EACL_MSG) {
+                /*fprintf(stderr, "manager: not eacl received, ignoring");*/
+                    zmsg_destroy(&rcv_packet);
+                    continue;
+                }
+                int rcv_id;
+                zframe_t *id_frame = zmsg_pop(rcv_packet);
+                byte *temp = zframe_data(id_frame);
+                memcpy(&rcv_id, temp, sizeof(int));
+                zframe_destroy(&id_frame);
+
+                uint32_t *rcv_sai = calloc(N_entry, sizeof(uint32_t));
+                zframe_t *sai_frame = zmsg_pop(rcv_packet);
+                temp = zframe_data(sai_frame);
+                memcpy(rcv_sai, temp, sizeof(uint32_t)*N_entry);
                 zframe_destroy(&sai_frame);
                 /*fprintf(stderr, "sai received:%d\n", temp_sai[0]);*/
 
-                rc = manager_merge_eacl(temp_sai);
+                rc = manager_merge_eacl(rcv_sai);
                 if (rc != 0)
                     fprintf(stderr, "Manager: merge eacl with global failed\n");
-                free(temp_sai);
+                free(rcv_sai);
                 /*fprintf(stderr, "global sai updated: %d\n", global_list[0]);*/
-                zmsg_destroy(&packet);
+
+                uint32_t rcv_load;
+                zframe_t *load_frame = zmsg_pop(rcv_packet);
+                temp = zframe_data(load_frame);
+                memcpy(&rcv_load, temp, sizeof(uint32_t));
+                zframe_destroy(&load_frame);
+
+                all_list[rcv_id] = rcv_load;
+
+                /*fprintf(stderr, "eacl received from %d, and load = %lu", rcv_id, rcv_load);*/
+                zmsg_destroy(&rcv_packet);
+                nb_rcv++;
             }
         }
 
@@ -474,20 +548,30 @@ int main(int argc, char *argv[])
         if (rc != 0)
             fprintf(stderr, "Manager: relab computation failed\n");
 
-        /*sending MLT*/
-        zmsg_t *packet = zmsg_new();
+        /*sending MLT and the mean load*/
+        zmsg_t *mlt_packet = zmsg_new();
+
+        enum from_manager_msg type_msg = MLT_MSG;
+        zframe_t *message_mlt_type_frame = zframe_new(&type_msg, sizeof(enum from_manager_msg));
+        zmsg_append(mlt_packet, &message_mlt_type_frame);
+
         zframe_t *id_srv_frame = zframe_new(table.id_srv,
             sizeof(uint32_t) * table.size);
-        zmsg_append(packet, &id_srv_frame);
+        zmsg_append(mlt_packet, &id_srv_frame);
 
         zframe_t *n_ver_frame = zframe_new(table.n_ver,
             sizeof(uint32_t) * table.size);
-        zmsg_append(packet, &n_ver_frame);
+        zmsg_append(mlt_packet, &n_ver_frame);
 
-        rc = zmsg_send(&packet, pub);
+        zframe_t *mean_frame = zframe_new(&mean_load, sizeof(uint32_t));
+        zmsg_append(mlt_packet, &mean_frame);
+
+
+        rc = zmsg_send(&mlt_packet, pub);
         if (rc != 0)
             fprintf(stderr, "Manager: zmsg_send new MLT failed\n");
-        update_needed = 0;
+
+        epoch_processed = 1;
     }
 
     /*cleaning*/

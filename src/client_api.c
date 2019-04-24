@@ -15,15 +15,21 @@
     #include "distribution_sh_c.h"
     #include "protocol_sh.h"
 #endif
+
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_c.h"
     #include "protocol_dh.h"
 #endif
 
+#ifdef DISTRIBUTION_INDEDH
+    #include "distribution_indedh_c.h"
+    #include "protocol_indedh.h"
+#endif
+
 /* path in pcocc*/
-//#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
 /*path in ocre*/
-#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
+//#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
 #define max_id_size 21
 

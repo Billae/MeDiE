@@ -56,7 +56,7 @@ sleep 5
 
 #prepare servers for traces
 #python36 spread.py /media/traces/setup-changelog.csv $(($nb_client))
-clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog
+clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog /mnt/dh
 
 printf "setup finished\n"
 
@@ -67,7 +67,7 @@ do
     do
         #launch a step of traces
 #        python36 spread.py /media/traces/changelog-$(($current_step)).csv $(($nb_client))
-clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step
+clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step /mnt/dh
         ((current_step++))
 
 #        if [ $(($current_step%8)) -eq 1 ]
@@ -78,7 +78,7 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/c
             #wait for file creation "id_srvUSR1"
             for ((i = 0; i < nb_srv; i++))
             do
-                if ! [ -f "/media/tmp_ack/dh/$(($i))USR1" ]
+                if ! [ -f "/media/tmp_ack/dh/vm$(($i))USR1" ]
                 then
                     ((i--))
                     sleep 1
@@ -96,7 +96,7 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/c
     #wait for file creation "id_svrUSR2"
     for ((i = 0; i < nb_srv; i++))
     do
-        if ! [ -f "/media/tmp_ack/dh/$(($i))USR2" ]
+        if ! [ -f "/media/tmp_ack/dh/vm$(($i))USR2" ]
         then
             ((i--))
             sleep 1

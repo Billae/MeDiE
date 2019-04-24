@@ -1,6 +1,6 @@
 #! /bin/env python
 #
-
+#be careful ! the number in argument is in second !
 from argparse import ArgumentParser, FileType
 from collections import defaultdict
 
