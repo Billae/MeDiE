@@ -3,6 +3,7 @@ run on sandy 4 core per VM
 12 clients
 
 traces split 5 min
+rebalancing: 1h
 
 alpha:0.5
-n_entry=200
+n_entry=100
