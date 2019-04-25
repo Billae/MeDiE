@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 
 #this script post-process the server's data
 #It creates a percentages.csv file with the percentage load of each server
+#it takes in arguments the output path and the input file with all server loads
+
 
 path = sys.argv[1]
 df = pd.read_csv(sys.argv[2], delimiter=';', dtype='float32')
