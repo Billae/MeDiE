@@ -54,16 +54,16 @@ do
         #mesuring
         clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
 
-        #wait for file creation "vm<id_srv>USR1"
+        #wait for file creation "vm<id_srv>USR"
         for ((i = 0; i < nb_srv; i++))
         do
-            if ! [ -f "/media/tmp_ack/sh/vm$(($i))USR1" ]
+            if ! [ -f "/media/tmp_ack/sh/vm$(($i))USR" ]
             then
                 ((i--))
                 sleep 1
             fi
         done
-        rm /media/tmp_ack/sh/*USR1
+        rm /media/tmp_ack/sh/*USR
 
         printf "step $current_step finished\n"
 done

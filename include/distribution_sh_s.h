@@ -29,8 +29,17 @@ int distribution_post_receive(json_object *request);
  * **/
 int distribution_pre_send(json_object *reply, int global_rc);
 
-/**Operation to do when receive a signal
- * **/
-int distribution_signal_action();
+
+/** function called on signal SIGUSR1
+* do nothing and create the ack file
+* **/
+int distribution_signal1_action();
+
+
+/** function called on signal SIGUSR2
+* do nothing and create the ack file
+* **/
+int distribution_signal2_action();
+
 
 #endif
