@@ -20,6 +20,7 @@
 
 #define factor_distinct_key (0.01)
 
+/*max_request is the mean number of request received by one server (among 4) in real traces*/
 #define max_request 2000000
 
 /* path in pcocc*/
