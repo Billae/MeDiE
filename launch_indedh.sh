@@ -49,28 +49,11 @@ do
     clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/5min/12_clients/changelog-$current_step /mnt/sh
     ((current_step++))
 
-    #mesuring
-    clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
-
-    #wait for file creation "vm[id_srv]USR1"
-    for ((i = 0; i < nb_srv; i++))
-    do
-        if ! [ -f "/media/tmp_ack/indedh/vm$(($i))USR1" ]
-        then
-            ((i--))
-            sleep 1
-        fi
-    done
-    rm /media/tmp_ack/indedh/*USR1
-
-    printf "step $current_step finished\n"
-    #avoid race condition with sigUSR1
-    sleep 60
-
+    #mesuring and rebalancing if needed
     clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
 
     ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step
-    rm /media/tmp_ack/indedh/*USR2-*
+    rm /media/tmp_ack/indedh/*USR-*
 
 done

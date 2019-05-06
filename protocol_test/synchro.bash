@@ -19,20 +19,20 @@ function wait_1()
     for vm in $(vm_list $n_srv); do
         # XXX: does not work if $1 contains whitespaces
 #        echo "search ack ${path}${vm}USR2-1"
-        while ! [ -f "${path}${vm}USR2-1" ]; do
-#            echo "wait ack ${path}${vm}USR2-1"
+        while ! [ -f "${path}${vm}USR-1" ]; do
+#            echo "wait ack ${path}${vm}USR-1"
             sleep 1
         done
     done
     printf "$n_step\n" >> $result_path
 }
 
-# Wait for every server to create either "vmXUSR2-0" or "vmXUSR2-1"
+# Wait for every server to create either "vmXUSR-0" or "vmXUSR-1"
 for vm in $(vm_list $n_srv); do
     # XXX: does not work if $1 contains whitespaces
-#     echo "search ack ${path}${vm}USR2-?"
-     while ! [ -f "${path}${vm}USR2-0" ] && ! [ -f "${path}${vm}USR2-1" ]; do
-#        echo "wait ack ${path}${vm}USR2-?"
+#     echo "search ack ${path}${vm}USR-?"
+     while ! [ -f "${path}${vm}USR-0" ] && ! [ -f "${path}${vm}USR-1" ]; do
+#        echo "wait ack ${path}${vm}USR-?"
         sleep 1
     done
 done

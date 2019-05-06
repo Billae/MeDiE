@@ -899,7 +899,7 @@ void *thread_manager_listener(void *args)
  
             /*create the ack file to indicate the end of the redistribution*/
             char *file_name;
-            asprintf(&file_name, "%svm%dUSR2-1", SCRATCH, id_srv_self);
+            asprintf(&file_name, "%svm%dUSR-1", SCRATCH, id_srv_self);
             int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
             if (ack == -1) {
                 int err = errno;
@@ -917,7 +917,7 @@ void *thread_manager_listener(void *args)
 }
 
 
-int distribution_signal_action()
+int distribution_signal1_action()
 {
     epoch++;
 
@@ -946,7 +946,7 @@ int distribution_signal_action()
         /*fprintf(stderr, "no rebalance needed\n");*/
         /*create the ack file to indicate the server does not need a redistribution*/
         char *file_name;
-        asprintf(&file_name, "%svm%dUSR2-0", SCRATCH, id_srv_self);
+        asprintf(&file_name, "%svm%dUSR-0", SCRATCH, id_srv_self);
         int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
         if (ack == -1) {
             int err = errno;
@@ -976,5 +976,22 @@ int distribution_signal_action()
         return -1;
     }
 
+    return 0;
+}
+
+
+int distribution_signal2_action()
+{
+    /*create the ack file to indicate the server does not need a redistribution*/
+    char *file_name;
+    asprintf(&file_name, "%svm%dUSR-0", SCRATCH, id_srv_self);
+    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+    if (ack == -1) {
+        int err = errno;
+        fprintf(stderr, "Server:signal_action: ");
+        fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
+            file_name, strerror(err));
+    }
+    close(ack);
     return 0;
 }
