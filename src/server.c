@@ -63,7 +63,7 @@ void int_handler(int sig)
     exit(0);
 }
 
-/*catch the load of the server*/
+/*Both USR1 and USR2 catch the load level and the call distribution signal_handler*/
 void usr1_handler(int sig)
 {
     /*open the result file*/
@@ -90,29 +90,53 @@ void usr1_handler(int sig)
         return;
     }
     free(load);
-
     access_count = 0;
 
     close(fd_res);
 
-    char *file_name;
-    asprintf(&file_name, "%svm%dUSR1", SCRATCH, id_self);
-    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
-    if (ack == -1) {
-        int err = errno;
-        fprintf(stderr, "Server:sigUSR1 handler: ");
-        fprintf(stderr, "create ack file \"%s\" failed: %s\n", file_name, strerror(err));
-    }
-    close(ack);
-    return;
+    int rc;
+    rc = distribution_signal1_action();
+    if (rc != 0)
+        fprintf(stderr, "Server:sigUSR1 handler: distribution signal action failed\n");
 }
+
 
 /*send eacl to manager*/
 void usr2_handler(int sig)
 {
 /*    fprintf(stderr, "entering in signal 2 handler\n");*/
+
+    /*open the result file*/
+    char *result_path;
+    asprintf(&result_path, "%sload%d", PREFIX, id_self);
+
+    int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
+    if (fd_res == -1) {
+        int err = errno;
+        fprintf(stderr, "Server:sigUSR2 handler: open %s error: %s\n",
+            result_path, strerror(err));
+        free(result_path);
+        return;
+    }
+    free(result_path);
+
+    char *load;
+    asprintf(&load, "%d\n", access_count);
+
+    if ((write(fd_res, load, strlen(load))) < 0) {
+        int err = errno;
+        fprintf(stderr, "Server:sigUSR2 handler: ");
+        fprintf(stderr, "write in %s error: %s\n", result_path, strerror(err));
+        return;
+    }
+    free(load);
+
+    access_count = 0;
+
+    close(fd_res);
+
     int rc;
-    rc = distribution_signal_action();
+    rc = distribution_signal2_action();
     if (rc != 0)
         fprintf(stderr, "Server:sigUSR2 handler: distribution signal action failed\n");
 }
