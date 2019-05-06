@@ -14,21 +14,18 @@
     #include "distribution_sh_s.h"
     #include "protocol_sh.h"
     #define PREFIX "/mnt/sh/server/"
-    #define SCRATCH "/media/tmp_ack/sh/"
 #endif
 
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_s.h"
     #include "protocol_dh.h"
     #define PREFIX "/mnt/dh/server/"
-    #define SCRATCH "/media/tmp_ack/dh/"
 #endif
 
 #ifdef DISTRIBUTION_INDEDH
     #include "distribution_indedh_s.h"
     #include "protocol_indedh.h"
     #define PREFIX "/mnt/indedh/server/"
-    #define SCRATCH "/media/tmp_ack/indedh/"
 #endif
 
 /* path in pcocc*/
@@ -38,10 +35,6 @@
 
 /*path in ocre*/
 //#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
-
-/*path in ocre*/
-//#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
-
 
 
 #define max_id_size 21
