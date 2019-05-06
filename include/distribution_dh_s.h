@@ -83,10 +83,17 @@ void *thread_load_receiver(void *args);
 void *thread_mlt_updater(void *args);
 
 
+/** function called on signal SIGUSR1
+ * Do nothing and then create the ack file
+ * **/
+int distribution_signal1_action();
+
+
 /** function called on signal SIGUSR2
  * calculate and send the sai field of the eacl to the manager.
+ * Later, when mlt is updated, the ack file is created
  * **/
-int distribution_signal_action();
+int distribution_signal2_action();
 
 
 #endif

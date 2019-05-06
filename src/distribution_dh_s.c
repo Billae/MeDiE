@@ -834,7 +834,7 @@ void *thread_mlt_updater(void *args)
  
         /*create the ack file to indicate the end of the redistribution*/
         char *file_name;
-        asprintf(&file_name, "%svm%dUSR2", SCRATCH, id_srv_self);
+        asprintf(&file_name, "%svm%dUSR", SCRATCH, id_srv_self);
         int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
         if (ack == -1) {
             int err = errno;
@@ -851,7 +851,26 @@ void *thread_mlt_updater(void *args)
 }
 
 
-int distribution_signal_action()
+
+int distribution_signal1_action()
+{
+    /*create the ack file to indicate the end of the redistribution*/
+    char *file_name;
+    asprintf(&file_name, "%svm%dUSR", SCRATCH, id_srv_self);
+    int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
+    if (ack == -1) {
+        int err = errno;
+        fprintf(stderr, "Distribution:sigUSR1 handler: ");
+        fprintf(stderr, "create ack file \"%s\" failed\n/:%s",
+            file_name, strerror(err));
+        return -1;
+    }
+    close(ack);
+    return 0;
+}
+
+
+int distribution_signal2_action()
 {
     int rc = eacl_calculate_sai(&access_list);
     if (rc != 0) {
