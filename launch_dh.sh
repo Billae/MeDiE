@@ -54,7 +54,7 @@ do
     clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step /mnt/dh
     ((current_step++))
 
-    if [ $turn eq $rebalance ]
+    if [ $turn -eq $rebalance ]
     then
         #launch redistribution
         clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
