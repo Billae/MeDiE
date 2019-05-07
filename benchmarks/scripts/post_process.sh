@@ -28,6 +28,8 @@ fi
 
 python3 scripts/server_post_process.py $path $RES_FILE
 python3 scripts/percentage_to_error.py $path
+python scripts/client_post_process.py $path 
 
 gnuplot -c scripts/display_load.gnu $path $run
+gnuplot -c scripts/display_req_time.gnu $path $run
 gnuplot -c scripts/display_percentage_load.gnu $path $run
