@@ -22,13 +22,13 @@ set style fill solid
 
 
 #alpha value
-set output ARG1."error_alpha.eps"
+set output ARG1."/error_alpha.eps"
 set xlabel "value of alpha"
 set title "load repartition error depending of the alpha parameter"
 
 #n_entry value
 #set title "load repartition error depending of the number of entries in the MLT"
-#set output ARG1."error_n_entry.eps"
+#set output ARG1."/error_n_entry.eps"
 #set xlabel "Number of entries in the MLT"
 
 
