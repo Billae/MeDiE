@@ -2,7 +2,7 @@
 
 prefix="`hostname| cut -d'.' -f1`"
 
-id_self=`hostname| cut -c 3-`
+id_self=`echo $prefix| cut -c 3-`
 
 if ([ -z $1 ]  || [ -z $2 ]|| [ -z $3 ])
 then
