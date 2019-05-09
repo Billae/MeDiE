@@ -39,7 +39,7 @@ done
 
 shopt -s nullglob
 
-declare -a acks=(${path}vm*USR2-1)
+declare -a acks=(${path}vm*USR-1)
 
 # If there is at least one "vmXUSR2-1" file, wait for them all
 [ ${#acks[@]} -gt 0 ] && wait_1
