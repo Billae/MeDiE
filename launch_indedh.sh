@@ -38,7 +38,7 @@ sleep 5
 
 #prepare servers for traces
 #python36 spread.py /media/traces/setup-changelog.csv $(($nb_client))
-clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog /mnt/sh
+clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/setup-changelog /mnt/indedh
 
 printf "setup finished\n"
 
@@ -46,7 +46,7 @@ current_step=0
 while [[ $current_step -lt $total_step ]]
 do
     #launch a step of traces
-    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/5min/12_clients/changelog-$current_step /mnt/sh
+    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/5min/12_clients/changelog-$current_step /mnt/indedh
     ((current_step++))
 
     #mesuring and rebalancing if needed
