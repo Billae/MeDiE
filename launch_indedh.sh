@@ -55,5 +55,5 @@ do
 
     ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step
     rm /media/tmp_ack/indedh/*USR-*
-
+    printf "step $current_step finished\n"
 done
