@@ -229,18 +229,21 @@ int main(int argc, char **argv)
     access_count = 0;
 
     struct sigaction act_usr1;
+    memset(&act_usr1, 0, sizeof(struct sigaction));
     act_usr1.sa_handler = usr1_handler;
     rc = sigaction(SIGUSR1, &act_usr1, NULL);
     if (rc != 0)
         fprintf(stderr, "Server: can't catch SIGUSR1\n");
 
     struct sigaction act_usr2;
+    memset(&act_usr2, 0, sizeof(struct sigaction));
     act_usr2.sa_handler = usr2_handler;
     rc = sigaction(SIGUSR2, &act_usr2, NULL);
     if (rc != 0)
         fprintf(stderr, "Server: can't catch SIGUSR2\n");
 
     struct sigaction act_int;
+    memset(&act_int, 0, sizeof(struct sigaction));
     act_int.sa_handler = int_handler;
     rc = sigaction(SIGINT, &act_int, NULL);
     if (rc != 0)
