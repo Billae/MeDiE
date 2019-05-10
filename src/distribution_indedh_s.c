@@ -42,6 +42,9 @@ pthread_t eacl_sender;
 
 #define max_id_size 21
 
+/*percentage of mean to variate the threshold*/
+#define PERCENT 10
+
 /*pcocc*/
 #define ip_manager "10.252.0.1"
 /*ocre*/
@@ -954,8 +957,8 @@ int distribution_signal2_action()
     }
 
     /* Compute load threshold*/
-    uint32_t threshold_max = mean_load + ((10 / 100) * mean_load);
-    uint32_t threshold_min = mean_load - ((10 / 100) * mean_load);
+    uint32_t threshold_max = mean_load + ((PERCENT / 100) * mean_load);
+    uint32_t threshold_min = mean_load - ((PERCENT / 100) * mean_load);
 
     /* No need to rebalancing*/
     if ((eacl_read_load_lvl(&access_list) <= threshold_max)
