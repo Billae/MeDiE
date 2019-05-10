@@ -46,7 +46,7 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /media/traces/
 printf "setup finished\n"
 
 current_step=0
-turn=0
+turn=1
 
 while [[ $current_step -lt $total_step ]]
 do
@@ -59,9 +59,10 @@ do
         #launch redistribution
         clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
         clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
-        turn=0
+        turn=1
     else
         #mesuring
+        turn=$((turn+1))
         clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     fi
 
