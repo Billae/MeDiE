@@ -420,6 +420,7 @@ int main(int argc, char *argv[])
 
 
     struct sigaction act_usr;
+    memset(&act_usr, 0, sizeof(struct sigaction));
     act_usr.sa_handler = usrHandler2;
     rc = sigaction(SIGUSR2, &act_usr, NULL);
     if (rc != 0)
@@ -427,6 +428,7 @@ int main(int argc, char *argv[])
 
 
     struct sigaction act_int;
+    memset(&act_int, 0, sizeof(struct sigaction));
     act_int.sa_handler = intHandler;
     rc = sigaction(SIGINT, &act_int, NULL);
     if (rc != 0)

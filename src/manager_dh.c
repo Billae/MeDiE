@@ -429,12 +429,14 @@ int main(int argc, char *argv[])
     }
 
     struct sigaction act_int;
+    memset(&act_int, 0, sizeof(struct sigaction));
     act_int.sa_handler = intHandler;
     rc = sigaction(SIGINT, &act_int, NULL);
     if (rc != 0)
         fprintf(stderr, "Manager: can't catch SIGINT\n");
 
     struct sigaction act_usr2;
+    memset(&act_usr2, 0, sizeof(struct sigaction));
     act_usr2.sa_handler = usrHandler2;
     rc = sigaction(SIGUSR2, &act_usr2, NULL);
     if (rc != 0)
