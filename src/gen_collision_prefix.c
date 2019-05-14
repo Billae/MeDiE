@@ -18,26 +18,28 @@
 
 
 
-#define factor_distinct_key (0.01)
+#define factor_distinct_key (0.1)
 
-/*max_request is the mean number of request received by one server (among 4) in real traces*/
-#define max_request 2000000
 
 /* path in pcocc*/
-#define PATH "/home/billae/prototype_MDS/etc/colliding_id.cfg"
+#define PATH "/home/billae/prototype_MDS/etc/colliding_id"
 /*path in ocre*/
-//#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id.cfg"
+//#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id"
 
 /*This program generate prefixs which produce an access to the entry 0.
  * hostname and number of available servers are given in argument.
+ * the last argument is the number of line that the output file should have.
+ * (i.e. the number of request of the whole trace)
  * It is used to create collision in dynamic hashing.*/
 int main(int argc, char *argv[])
 {
-    if (argc < 2 || argv[1] == NULL || argv[2] == NULL) {
+    if (argc < 3 || argv[1] == NULL || argv[2] == NULL || argv[3] == NULL) {
         fprintf(stderr,
-            "Please give the hostname and the number of available servers\n");
+            "Please give the hostname, the number of available servers and the output size\n");
         return -1;
     }
+
+    int max_request = atoi(argv[3]);
 
     char *name;
     int seed = 1;
@@ -73,13 +75,14 @@ int main(int argc, char *argv[])
         }
         if (num_srv == 0) {
             i = 0;
-            fprintf(fd, "create,%s\n", name);
+            /*job number is n_key => one key == one job*/
+            fprintf(fd, "create,%s,%d\n", name, n_key);
             i++;
             while (i < (1/factor_distinct_key)) {
-                fprintf(fd, "update,%s\n", name);
+                fprintf(fd, "update,%s,%d\n", name, n_key);
                 i++;
             }
-            /*fprintf(fd, "delete,%s\n", name);*/
+            /*fprintf(fd, "delete,%s,%d\n", name, i);*/
             n_key++;
         }
     }
