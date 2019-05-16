@@ -957,8 +957,8 @@ int distribution_signal2_action()
     }
 
     /* Compute load threshold*/
-    uint32_t threshold_max = mean_load + ((PERCENT / 100) * mean_load);
-    uint32_t threshold_min = mean_load - ((PERCENT / 100) * mean_load);
+    uint32_t threshold_max = mean_load + ((PERCENT * mean_load) / 100);
+    uint32_t threshold_min = mean_load - ((PERCENT * mean_load) / 100);
 
     /* No need to rebalancing*/
     if ((eacl_read_load_lvl(&access_list) <= threshold_max)
