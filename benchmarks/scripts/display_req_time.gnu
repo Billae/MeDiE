@@ -11,7 +11,7 @@ set terminal postscript eps color
 # ARG1 is the path and ARG2 is the type of run (sh, dh, indedh)
 
 ymin= 1e-4
-ymax= 5e-4
+ymax= 1.5e-4
 set yrange [ymin:ymax]
 
 #rebalancing moments only on dh
@@ -40,5 +40,5 @@ if (ARG2 eq "sh") {
 }
 if (ARG2 eq "indedh") {
     plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time",\
-    ARG1.'/server/rebalancing' using ($1*5):(ymax):1 w impulse title "Rebalancing"
+    ARG1.'/server/rebalancing' using ($1*5):(ymax):1 w impulse title "Rebalancing" lt 3 lc rgb "violet"
 }

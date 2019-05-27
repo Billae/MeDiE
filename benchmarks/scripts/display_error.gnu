@@ -22,15 +22,19 @@ set style fill solid
 
 
 #alpha value
-set output ARG1."/error_alpha.eps"
-set xlabel "value of alpha"
-set title "load repartition error depending of the alpha parameter"
+#set output ARG1."/error_alpha.eps"
+#set xlabel "value of alpha"
+#set title "load repartition error depending of the alpha parameter"
 
 #n_entry value
 #set title "load repartition error depending of the number of entries in the MLT"
 #set output ARG1."/error_n_entry.eps"
 #set xlabel "Number of entries in the MLT"
 
+#percent value
+set output ARG1."/error_percent.eps"
+set title " Load repartition error depending of the threshold variation use in load evaluation"
+set xlabel "percentage variation of threshold in load evaluation"
 
 plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error",\
 ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error"

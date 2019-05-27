@@ -49,5 +49,5 @@ if (ARG2 eq "indedh") {
     ARG1.'/servers_load.csv' using ($0*5):2 w lp lw 2 title "server 1",\
     ARG1.'/servers_load.csv' using ($0*5):3 w lp lw 2 title "server 2",\
     ARG1.'/servers_load.csv' using ($0*5):4 w lp lw 2 title "server 3",\
-    ARG1.'/server/rebalancing' using ($1*5):(ymax):1 w impulse title "rebalancing"
+    ARG1.'/server/rebalancing' using ($1*5):(ymax):1 w impulse title "rebalancing" lt 3 lc rgb "violet"
 }
