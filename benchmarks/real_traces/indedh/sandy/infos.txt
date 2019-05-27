@@ -5,4 +5,5 @@ run on sandy 4 core per VM
 traces split 5 min
 
 alpha:0.5
+percent=10
 n_entry=100
