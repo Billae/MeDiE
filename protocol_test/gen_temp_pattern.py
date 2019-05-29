@@ -57,7 +57,7 @@ y = [gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, xi) for 
 #plt.show()
 
 
-traces = open("etc/generated_temp","w")
+traces = open("/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/generated_temp","w")
 #function -> to -> traces
 time_step = 0
 while (time_step < x.size):

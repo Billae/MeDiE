@@ -22,7 +22,7 @@
 
 
 /* path in pcocc*/
-#define PATH "/home/billae/prototype_MDS/etc/colliding_id"
+#define PATH "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/colliding_id"
 /*path in ocre*/
 //#define PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/colliding_id"
 
