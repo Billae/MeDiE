@@ -52,7 +52,7 @@ with open(path+'/percentages.csv', 'w') as fh:
 #            s += ';'
 #    s += '\n'
 #    s += str(totals[i]) + '\n'
-#with open('results.csv', 'w') as fh:
+#with open(path+'/percentages.csv', 'w') as fh:
 #    fh.write(s)
 
 
