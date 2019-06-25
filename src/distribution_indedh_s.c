@@ -46,7 +46,7 @@ pthread_t eacl_sender;
 #define PERCENT 10
 
 /*pcocc*/
-#define ip_manager "10.252.0.1"
+#define ip_manager "10.200.0.1"
 /*ocre*/
 //#define ip_manager "192.168.129.25"
 
