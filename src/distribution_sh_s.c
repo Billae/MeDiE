@@ -23,7 +23,7 @@ static int id_srv_self;
 //#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /* path in pcocc*/
-#define SCRATCH "/media/tmp_ack/sh/"
+#define SCRATCH "/mnt/scratch/tmp_ack/sh/"
 /*path in ocre*/
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 

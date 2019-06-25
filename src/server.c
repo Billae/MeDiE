@@ -13,19 +13,19 @@
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_s.h"
     #include "protocol_sh.h"
-    #define PREFIX "/mnt/sh/server/"
+    #define PREFIX "/mnt/result/sh/server/"
 #endif
 
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_s.h"
     #include "protocol_dh.h"
-    #define PREFIX "/mnt/dh/server/"
+    #define PREFIX "/mnt/result/dh/server/"
 #endif
 
 #ifdef DISTRIBUTION_INDEDH
     #include "distribution_indedh_s.h"
     #include "protocol_indedh.h"
-    #define PREFIX "/mnt/indedh/server/"
+    #define PREFIX "/mnt/result/indedh/server/"
 #endif
 
 /* path in pcocc*/

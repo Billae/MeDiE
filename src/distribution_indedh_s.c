@@ -61,7 +61,7 @@ pthread_t eacl_sender;
 //#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
 /* path in pcocc*/
-#define SCRATCH "/media/tmp_ack/indedh/"
+#define SCRATCH "/mnt/scratch/tmp_ack/indedh/"
 /*path in ocre*/
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 
