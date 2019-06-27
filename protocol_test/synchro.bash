@@ -3,8 +3,8 @@
 
 n_srv=$1
 n_step=$2
-path="/media/tmp_ack/indedh/"
-result_path="/mnt/indedh/server/rebalancing"
+path="/mnt/scratch/tmp_ack/indedh/"
+result_path="/mnt/result/indedh/server/rebalancing"
 
 function vm_list()
 {
