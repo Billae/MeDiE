@@ -1,9 +1,0 @@
-run on haswell 4 core per VM
-4 servers
-12 clients
-
-traces split 5 min
-rebalancing: 1h
-
-alpha:0.8
-n_entry=100
