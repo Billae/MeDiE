@@ -9,9 +9,17 @@ set datafile separator ";"
 set terminal postscript eps color
 
 # ARG1 is the path of the av_err.txt and max_err.txt files
+# ARG2 is the type of run
 
 set xtics nomirror
 set ytics nomirror
+
+#y2 axis is for indedh only
+if (ARG2 eq "indedh") {
+    set y2range [0:300]
+    set y2tics 50
+    set y2label "number of rebalancing"
+}
 
 set key box opaque top center
 
@@ -36,5 +44,12 @@ set output ARG1."/error_percent.eps"
 set title " Load repartition error depending of the threshold variation use in load evaluation"
 set xlabel "percentage variation of threshold in load evaluation"
 
-plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error",\
-ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error"
+if (ARG2 eq "indedh") {
+    plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error" axis x1y1,\
+    ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error" axis x1y1,\
+    ARG1.'/nb_rebalancing.txt' using 2:xtic(1) lw 2 title "number rebalancing" axis x1y2
+}
+else {
+    plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error" axis x1y1,\
+    ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error" axis x1y1
+}
