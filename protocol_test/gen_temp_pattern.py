@@ -20,7 +20,7 @@ def gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, t):
    if t <= tinit:  return ylow
    t -= tinit
    # increasing section
-   period = 2*tgrowth_up + thigh + tlow
+   period = tgrowth_up + thigh + tgrowth_down + tlow
    t = t % period
    if t <= tgrowth_up and tgrowth_up != 0: return (ylow*tgrowth_up + (yhigh-ylow)*t)/tgrowth_up
    t -= tgrowth_up
@@ -38,14 +38,14 @@ def gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, t):
 ###########################################################
 #one time step is in second (because it's timestamp unit)
 tinit = 0
-tgrowth_up = 25
-tgrowth_down = 5
-thigh = 5
+tgrowth_up = 0
+tgrowth_down = 0
+thigh = 3600
 tlow = 0
 # number of request when flow is high
-yhigh = 5000
+yhigh = 40000
 # number of request when flow is low
-ylow = 1000
+ylow = 0
 ###########################################################
 
 
