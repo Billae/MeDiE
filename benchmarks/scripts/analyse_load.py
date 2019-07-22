@@ -29,8 +29,8 @@ sns.distplot(requests, hist=False, rug=True)
 
 m = numpy.mean(requests)
 s = numpy.std(requests)
-minimum = m - 4*s
-maximum = m + 4*s
+minimum = m - 2*s
+maximum = m + 2*s
 
 print (minimum, maximum)
 
