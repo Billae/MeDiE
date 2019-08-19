@@ -26,7 +26,7 @@ s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_inde
 	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
 
 #manager
-m: $(OBJ_DIR)/manager_indedh.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_indedh.o
+m: $(OBJ_DIR)/manager_v2_indedh.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_indedh.o
 	@$(CC) $^ -o $(BIN_DIR)/manager $(CFLAGS) $(LDFLAGS)
 
 #name checker
