@@ -138,13 +138,6 @@ int manager_merge_eacl(uint32_t *new_list)
 }
 
 
-/*Comparator function for the sort call (ungrowing order)*/
-/*int comparator(const void *a, const void *b)
-{
-    return *(int *)b - *(int *)a;
-}*/
-
-
 /*Sort servers in a subset by ungrowing order of the abs(load)
  * @param[in, out] subset the subset of servers to sort
  * @param[in] srvload the load of all servers
@@ -191,6 +184,12 @@ int manager_balance_load(
     int last_index = -1;
     manager_sort_subset(list, global_list, list_size);
 
+     /*int print_idx;
+     fprintf(stderr, "\n\ngoal to obtain: %d\n", goal_load);
+     for (print_idx = 0; print_idx < list_size; print_idx++) {
+        fprintf(stderr, " entry %d = %d\n",
+            list[print_idx], global_list[list[print_idx]]);
+     }*/
     int i;
     for (i = 0; i < list_size; i++) {
         if ((sum + global_list[list[i]]) <= goal_load) {
@@ -212,18 +211,6 @@ int manager_balance_load(
 }
 
 
-/*Give the index in list which contain value*/
-/*int find_index(int value, int *list, int list_size)
-{
-    int i;
-    for (i = 0; i < list_size; i++) {
-        if (list[i] == value)
-            return i;
-    }
-    return -1;
-}
-
-*/
 int manager_calculate_relab(int nb)
 {
     /*fprintf(stderr, "Manager calculate_relab\n");*/
@@ -297,6 +284,17 @@ int manager_calculate_relab(int nb)
         }
     }
 
+    /*fprinf(stderr, "loads of servers before rebalancing:\n");
+    for (current_srv = 0; current_srv < nb; current_srv++)
+        fprintf(stderr, "srv %d = %d\n", current_srv, load[current_srv]);
+
+    fprintf(stderr, "\nservers in L:\n");
+    for (current_srv = 0; current_srv < size_l; current_srv++)
+        fprintf(stderr,"%d -- ", subset_l[current_srv]);
+        fprintf(stderr, "\nservers in S:\n");
+    for (current_srv = 0; current_srv < size_s; current_srv++)
+        fprintf(stderr,"%d -- ", subset_s[current_srv]);*/
+
     /*set is the set of entries in the MLT which has to be given*/
     int *set = malloc(sizeof(int) * N_entry);
     int size_set = 0;
@@ -316,10 +314,10 @@ int manager_calculate_relab(int nb)
     /*Sort subset_L: from most loaded to less loaded*/
     manager_sort_subset(subset_l, load, size_l);
 
-    int srv_in_s;
-    int srv_in_l;
+    int idx_in_s;
+    int idx_in_l;
 
-    for (srv_in_l = 0; srv_in_l < size_l; srv_in_l++) {
+    for (idx_in_l = 0; idx_in_l < size_l; idx_in_l++) {
         /*Fill subset_srv with index of entries associated to srv_in_l*/
         for (current_entry = 0; current_entry < N_entry; current_entry++) {
             int srv, version, state;
@@ -329,36 +327,55 @@ int manager_calculate_relab(int nb)
                 fprintf(stderr, "mlt get entry %d failed\n", current_entry);
                 goto free_set;
             }
-            if (srv == srv_in_l) {
+            if (srv == subset_l[idx_in_l]) {
                 subset_srv[size_srv] = current_entry;
                 size_srv++;
             }
         }
 
+        /*int print_idx;
+        for (print_idx = 0; print_idx < size_srv; print_idx++) {
+            fprintf(stderr, "load of srv %d, entry %d = %d\n",
+                subset_l[idx_in_l], subset_srv[print_idx], global_list[subset_srv[print_idx]]);
+        }*/
+
         /*Sort subset_S: from most idle to less idle*/
         manager_sort_subset(subset_s, load, size_s);
-        for (srv_in_s = 0; srv_in_s < size_s; srv_in_s++) {
-            /*find a subset of entries to fill the negative load of srv_in_s*/
-            size_set = manager_balance_load
-                (0, subset_srv, size_srv, load[srv_in_s], set);
+        for (idx_in_s = 0; idx_in_s < size_s; idx_in_s++) {
+            /*goal is the minimum between the negative load to fill
+            * and the max load to obtain 0*/
+            int goal;
+            if (abs(load[subset_s[idx_in_s]]) < load[subset_l[idx_in_l]])
+                goal = abs(load[subset_s[idx_in_s]]);
+            else
+                goal = load[subset_l[idx_in_l]];
+
+            /*find a subset of entries to fill the goal*/
+            size_set = manager_balance_load(0, subset_srv, size_srv, goal, set);
+
             for (current_entry = 0; current_entry < size_set; current_entry++) {
-                target[set[current_entry]] = srv_in_s;
-                load[srv_in_s] += global_list[set[current_entry]];
-                load[srv_in_l] -= global_list[set[current_entry]];
+                target[set[current_entry]] = subset_s[idx_in_s];
+                load[subset_s[idx_in_s]] += global_list[set[current_entry]];
+                load[subset_l[idx_in_l]] -= global_list[set[current_entry]];
             }
-            if (load[srv_in_s] >= 0) {
+            if (load[subset_s[idx_in_s]] >= 0) {
                 /*remove srv_in_s from S*/
-                subset_s[srv_in_s] = subset_s[size_s-1];
+                subset_s[idx_in_s] = subset_s[size_s-1];
                 size_s--;
             }
-            if (load[srv_in_l] <= 0) {
+            if (load[subset_l[idx_in_l]] <= 0) {
                 /*remove srv_in_l from L*/
-                subset_l[srv_in_l] = subset_l[size_l-1];
+                subset_l[idx_in_l] = subset_l[size_l-1];
                 size_l--;
                 break;
             }
         }
     }
+
+    /*fprintf(stderr, "loads of servers after rebalancing:\n");
+    for (current_srv = 0; current_srv < nb; current_srv++)
+        fprintf(stderr, "srv %d = %d\n", current_srv, load[current_srv]);*/
+
 
     /*Update the MLT with the target array only if the server changes*/
     for (current_entry = 0; current_entry < N_entry; current_entry++) {
