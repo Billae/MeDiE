@@ -34,7 +34,7 @@ check: $(OBJ_DIR)/check_index.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
 	@$(CC) $^ -o $(BIN_DIR)/checker $(CFLAGS) $(LDFLAGS)
 
 #generator
-g: $(OBJ_DIR)/gen_collision_prefix.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
+g: $(OBJ_DIR)/gen_timestep.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
 	@$(CC) $^ -o $(BIN_DIR)/generator $(CFLAGS) $(LDFLAGS)
 
 $(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/request.h $(INC_DIR)/distribution_indedh_c.h $(INC_DIR)/protocol_indedh.h
