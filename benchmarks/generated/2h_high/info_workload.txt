@@ -1,0 +1,11 @@
+tinit = 900
+tgrowth_up = 2700
+tgrowth_down = 0
+thigh = 3600
+tlow = 0
+# number of request when flow is high
+yhigh = 18000
+# number of request when flow is low
+ylow = 8000
+
+requests: all srv0

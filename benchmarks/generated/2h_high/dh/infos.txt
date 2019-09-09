@@ -1,0 +1,9 @@
+run on sklb 32 core per VM
+4 servers
+12 clients
+
+traces split 5 min
+
+rebalancing: 30min
+alpha:0.5
+n_entry=100

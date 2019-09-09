@@ -1,0 +1,7 @@
+run on sklb 32 core per VM
+4 servers
+12 clients
+
+traces split 5 min
+
+n_entry=100
