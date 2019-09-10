@@ -16,6 +16,9 @@
     #include "protocol_indedh.h"
 #endif
 
+#ifdef DISTRIBUTION_WINDOWED
+    #include "protocol_windowed.h"
+#endif
 
 /*This program generate one step of traces (i.e. one second) for one server.
  * Arguments are:

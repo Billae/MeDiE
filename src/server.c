@@ -28,6 +28,13 @@
     #define PREFIX "/mnt/result/indedh/server/"
 #endif
 
+#ifdef DISTRIBUTION_WINDOWED
+    #include "distribution_windowed_s.h"
+    #include "protocol_windowed.h"
+    #define PREFIX "/mnt/result/windowed/server/"
+#endif
+
+
 /* path in pcocc*/
 #define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
 /*path in ocre*/

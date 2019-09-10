@@ -26,6 +26,11 @@
     #include "protocol_indedh.h"
 #endif
 
+#ifdef DISTRIBUTION_WINDOWED
+    #include "distribution_windowed_c.h"
+    #include "protocol_windowed.h"
+#endif
+
 /* path in pcocc*/
 #define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
 /*path in ocre*/

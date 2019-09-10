@@ -23,6 +23,10 @@
     #include "protocol_indedh.h"
 #endif
 
+#ifdef DISTRIBUTION_WINDOWED
+    #include "distribution_windowed_c.h"
+    #include "protocol_windowed.h"
+#endif
 
 
 json_object *create_request(const char *key)
