@@ -38,7 +38,7 @@ if (ARG2 eq "dh") {
 if (ARG2 eq "sh") {
     plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time"
 }
-if (ARG2 eq "indedh") {
+if (ARG2 eq "indedh" || ARG2 eq "windowed") {
     plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time",\
     ARG1.'/server/rebalancing' using ($1*5):(ymax):1 w impulse title "Rebalancing" lt 3 lc rgb "violet"
 }

@@ -44,7 +44,7 @@ if (ARG2 eq "sh") {
     ARG1.'/servers_load.csv' using ($0*5):3 w lp lw 2 title "server 2",\
     ARG1.'/servers_load.csv' using ($0*5):4 w lp lw 2 title "server 3"
 }
-if (ARG2 eq "indedh") {
+if (ARG2 eq "indedh" || ARG2 eq "windowed") {
     plot ARG1.'/servers_load.csv' using ($0*5):1 w lp lw 2 title "server 0",\
     ARG1.'/servers_load.csv' using ($0*5):2 w lp lw 2 title "server 1",\
     ARG1.'/servers_load.csv' using ($0*5):3 w lp lw 2 title "server 2",\
