@@ -3,8 +3,16 @@
 
 n_srv=$1
 n_step=$2
-path="/mnt/scratch/tmp_ack/indedh/"
-result_path="/mnt/result/indedh/server/rebalancing"
+run=$3
+
+if [ $run = "indedh" ]
+then
+    path="/mnt/scratch/tmp_ack/indedh/"
+    result_path="/mnt/result/indedh/server/rebalancing"
+else
+    path="/mnt/scratch/tmp_ack/windowed/"
+    result_path="/mnt/result/windowed/server/rebalancing"
+fi
 
 function vm_list()
 {

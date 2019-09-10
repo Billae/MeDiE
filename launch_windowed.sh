@@ -54,7 +54,7 @@ do
     clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
 
-    ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step
+    ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step windowed
     rm /mnt/scratch/tmp_ack/windowed/*USR-*
     printf "step $current_step finished\n"
 done
