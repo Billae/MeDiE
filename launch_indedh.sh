@@ -12,6 +12,7 @@ total_vm=$(($1+$2))
 
 #traces: 5 mins
 total_step=292
+traces_path=/mnt/scratch/traces/5min/12_clients
 
 #config clush groups
 sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
@@ -46,7 +47,7 @@ current_step=0
 while [[ $current_step -lt $total_step ]]
 do
     #launch a step of traces
-    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /mnt/scratch/traces/5min/12_clients/changelog-$current_step /mnt/result/indedh
+    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path/changelog-$current_step /mnt/result/indedh
     ((current_step++))
 
     #mesuring and rebalancing if needed
