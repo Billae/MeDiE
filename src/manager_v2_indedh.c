@@ -284,7 +284,7 @@ int manager_calculate_relab(int nb)
         }
     }
 
-    /*fprinf(stderr, "loads of servers before rebalancing:\n");
+    /*fprintf(stderr, "loads of servers before rebalancing:\n");
     for (current_srv = 0; current_srv < nb; current_srv++)
         fprintf(stderr, "srv %d = %d\n", current_srv, load[current_srv]);
 
