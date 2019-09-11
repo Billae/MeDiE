@@ -2,8 +2,21 @@
 #define QUEUE_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
-struct queue;
+/**
+ * @file queue.h
+ * @author E. Billa
+ * @brief Buffer for old access counters. Used to compute eacl and SAI values
+ * **/
+
+
+struct queue {
+    size_t count;
+    size_t used;
+    size_t next;
+    uint32_t *values;
+};
 
 /**
  * Create a new queue

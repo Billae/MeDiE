@@ -22,11 +22,11 @@ c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/d
 	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
 
 #serveur
-s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_windowed_s.o $(OBJ_DIR)/md_entry.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_windowed.o $(INC_DIR)/protocol_windowed.h
+s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_windowed_s.o $(OBJ_DIR)/md_entry.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_windowed.o $(OBJ_DIR)/queue.o $(INC_DIR)/protocol_windowed.h
 	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
 
 #manager
-m: $(OBJ_DIR)/manager_windowed.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_windowed.o
+m: $(OBJ_DIR)/manager_windowed.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_windowed.o $(OBJ_DIR)/queue.o
 	@$(CC) $^ -o $(BIN_DIR)/manager $(CFLAGS) $(LDFLAGS)
 
 #name checker
@@ -37,7 +37,11 @@ check: $(OBJ_DIR)/check_index.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
 g: $(OBJ_DIR)/gen_timestep.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
 	@$(CC) $^ -o $(BIN_DIR)/generator $(CFLAGS) $(LDFLAGS)
 
-$(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/request.h $(INC_DIR)/distribution_windowed_c.h $(INC_DIR)/protocol_windowed.h
+
+$(OBJ_DIR)/eacl_windowed.o: $(SRC_DIR)/eacl_windowed.c $(OBJ_DIR)/queue.o
+	@$(CC) -c $< -o $@ $(CFLAGS)
+
+$(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/distribution_windowed_c.h $(INC_DIR)/protocol_windowed.h
 	@$(CC) -c $< -o $@ $(CFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

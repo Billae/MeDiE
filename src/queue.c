@@ -3,12 +3,6 @@
 
 #include "queue.h"
 
-struct queue {
-    size_t count;
-    size_t used;
-    size_t next;
-    uint32_t *values;
-};
 
 struct queue *
 queue_new(size_t count)
@@ -30,6 +24,7 @@ queue_new(size_t count)
 
     queue->count = count;
     queue->used = 0;
+    queue->next = 0;
 
     return queue;
 }
@@ -51,10 +46,13 @@ queue_put(struct queue *queue, uint32_t value)
 uint32_t
 queue_mean(struct queue *queue)
 {
+    if (queue->used == 0)
+        return 0;
     size_t count = queue->used < queue->count ? queue->next : queue->count;
     uint64_t sum = 0;
+    size_t i;
 
-    for (size_t i = 0; i < count; i++)
+    for (i = 0; i < count; i++)
         sum += queue->values[i];
 
     return sum / count;

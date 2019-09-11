@@ -2,7 +2,7 @@
 #define __EACL_WINDOWED_H__
 
 #include <stdint.h>
-
+#include "queue.h"
 /**
  * @file eacl_indedh.h
  * @author E. Billa
@@ -14,10 +14,14 @@
  * - entry is the index,
  * - access_count gives the access frequency of the entry
  * - sai is a computed value used to balance the workload
- * - load_lvl is the sum of all sai and means the load for the server*/
+ * - old_accesses is a buffer of old access_count for each entry
+ * - load_lvl is the sum of all sai and means the load for the server
+ * - size is the number of entries in the eacl
+ * */
 struct eacl {
     uint32_t *access_count;
     uint32_t *sai;
+    struct queue **old_accesses;
 
     uint32_t load_lvl;
     uint32_t size;
