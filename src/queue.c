@@ -59,6 +59,17 @@ queue_mean(struct queue *queue)
 }
 
 void
+queue_reset(struct queue *queue)
+{
+    int i;
+    for (i = 0; i < queue->used; i++)
+        queue->values[i] = 0;
+
+    queue->used = 0;
+    queue->next = 0;
+}
+
+void
 queue_destroy(struct queue *queue)
 {
     free(queue->values);

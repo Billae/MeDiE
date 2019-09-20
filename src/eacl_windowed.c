@@ -109,6 +109,7 @@ int eacl_reset_all_entry(struct eacl *self, int index)
 
     self->access_count[index] = 0;
     self->sai[index] = 0;
+    queue_reset(self->old_accesses[index]);
     return 0;
 }
 

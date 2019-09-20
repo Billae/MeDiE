@@ -53,6 +53,15 @@ uint32_t
 queue_mean(struct queue *queue);
 
 /**
+ * Reset a queue: fill with "0"
+ *
+ * @param queue     the queue to reset
+ */
+void
+queue_reset(struct queue *queue);
+
+
+/**
  * Delete a queue and reclaim its resources
  *
  * @param queue     the queue to delete
