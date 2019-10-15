@@ -6,17 +6,14 @@ import subprocess
 #parameters
 ###########################################################
 #global time (in seconds) of the trace
-temporal_size = 3
+temporal_size = 5
 
 factor_distinct_key  = 0.1
 path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/test"
 
 #percentage of requests accross servers. Sum of all = 1
 nb_srv = 4
-percent_0 = 0.35
-percent_1 = 0.30
-percent_2 = 0.30
-percent_4 = 0.05
+percent = [0.50, 0.25, 0.25, 0.0]
 
 ###########################################################
 #curve characteristics
@@ -28,9 +25,9 @@ tgrowth_down = 0
 thigh = 4000
 tlow = 0
 # number of request when flow is high
-yhigh = 1000
+yhigh = 5000
 # number of request when flow is low
-ylow = 1000
+ylow = 5000
 ###########################################################
 
 
@@ -76,13 +73,14 @@ while (time_step < temporal_x.size):
     for i in range(nb_srv):
         file_name = path + str(i) + ".csv"
         #call c program with args: the server ID, the number request to create, the distinct_key factor, the number of available servers, a timestamp and the path of the trace file
-        prog = "./bin/generator " + str(i) + " " + str(temporal_y[time_step]*percent_0) + " " + str(factor_distinct_key) + " " + str(nb_srv) + " " + str(time_step) + " " + file_name
+        prog = "./bin/generator " + str(i) + " " + str(temporal_y[time_step]*percent[i]) + " " + str(factor_distinct_key) + " " + str(nb_srv) + " " + str(time_step) + " " + file_name
+        print (prog)
         subprocess.call(prog, shell = True)
     time_step += 1 
 
 #merge all servers files
 merge = "sort -m -o " + path + "global.csv "
 for i in range(nb_srv):
-    merge += path + str(i) + " "
+    merge += path + str(i) + ".csv "
 
 subprocess.call(merge, shell = True)

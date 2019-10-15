@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-
+    int all_req=0;
     int n_key = 0;
     unsigned long int k = 0;
     while (n_key < (max_request * factor)) {
@@ -81,9 +81,13 @@ int main(int argc, char *argv[])
             /*job number is n_key => one key == one job*/
             fprintf(fd, "%s,create,%s,%d\n", argv[5], name, n_key);
             req++;
+            all_req++;
             while (req < 1/factor) {
                 fprintf(fd, "%s,update,%s,%d\n", argv[5], name, n_key);
                 req++;
+                all_req++;
+                if (all_req >= max_request)
+                    break;
             }
             /*fprintf(fd, "delete,%s,%d\n", name, n_key);
             req++;*/
@@ -92,6 +96,7 @@ int main(int argc, char *argv[])
 
     }
 
+    /*fprintf(stderr, "-%d-", all_req);*/
     fclose(fd);
     return 0;
 }
