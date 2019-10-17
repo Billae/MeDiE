@@ -1,33 +1,35 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import os
+import glob
 import subprocess
 ###########################################################
 #parameters
 ###########################################################
 #global time (in seconds) of the trace
-temporal_size = 5
+temporal_size = 100
 
 factor_distinct_key  = 0.1
-path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/test"
-
+#path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/on_off/traces"
+path = "/dev/shm/test"
 #percentage of requests accross servers. Sum of all = 1
 nb_srv = 4
-percent = [0.50, 0.25, 0.25, 0.0]
+percent = [0.25, 0.25, 0.25, 0.25]
 
 ###########################################################
 #curve characteristics
 ###########################################################
 #one time step is in second (because it's timestamp unit)
-tinit = 0
-tgrowth_up = 0
-tgrowth_down = 0
-thigh = 4000
-tlow = 0
+tinit = 1200
+tgrowth_up = 300
+tgrowth_down = 300
+thigh = 1800
+tlow = 1200
 # number of request when flow is high
-yhigh = 5000
+yhigh = 4500
 # number of request when flow is low
-ylow = 5000
+ylow = 2000
 ###########################################################
 
 
@@ -67,6 +69,10 @@ temporal_y = [gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow,
 #plt.plot(temporal_x,temporal_y)
 #plt.show()
 
+#remove old files
+filelist = glob.glob(path + "*")
+for file in filelist:
+    os.remove(file)
 
 time_step = 0
 while (time_step < temporal_x.size):
@@ -79,8 +85,9 @@ while (time_step < temporal_x.size):
     time_step += 1 
 
 #merge all servers files
-merge = "sort -m -o " + path + "global.csv "
+merge = "echo -e \"timestamp,operation,key,jobid\\n`sort -m "
 for i in range(nb_srv):
     merge += path + str(i) + ".csv "
-
+merge += "` \" > " + path + ".csv"
+#print (merge)
 subprocess.call(merge, shell = True)
