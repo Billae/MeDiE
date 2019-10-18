@@ -8,11 +8,11 @@ import subprocess
 #parameters
 ###########################################################
 #global time (in seconds) of the trace
-temporal_size = 100
+temporal_size = 10800
 
 factor_distinct_key  = 0.1
-#path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/on_off/traces"
-path = "/dev/shm/test"
+path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/on_off/traces"
+#path = "/dev/shm/test100"
 #percentage of requests accross servers. Sum of all = 1
 nb_srv = 4
 percent = [0.25, 0.25, 0.25, 0.25]
@@ -74,20 +74,18 @@ filelist = glob.glob(path + "*")
 for file in filelist:
     os.remove(file)
 
+
+file_name = path + ".csv"
+
 time_step = 0
 while (time_step < temporal_x.size):
     for i in range(nb_srv):
-        file_name = path + str(i) + ".csv"
         #call c program with args: the server ID, the number request to create, the distinct_key factor, the number of available servers, a timestamp and the path of the trace file
         prog = "./bin/generator " + str(i) + " " + str(temporal_y[time_step]*percent[i]) + " " + str(factor_distinct_key) + " " + str(nb_srv) + " " + str(time_step) + " " + file_name
-        print (prog)
+        #print (prog)
         subprocess.call(prog, shell = True)
     time_step += 1 
 
-#merge all servers files
-merge = "echo -e \"timestamp,operation,key,jobid\\n`sort -m "
-for i in range(nb_srv):
-    merge += path + str(i) + ".csv "
-merge += "` \" > " + path + ".csv"
-#print (merge)
-subprocess.call(merge, shell = True)
+#add the header
+header = "sed -i '1itimestamp,operation,key,jobid' " + file_name
+subprocess.call(header, shell = True)
