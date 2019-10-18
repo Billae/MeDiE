@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
     FILE *fd = fopen(argv[6], "a+");
     if (fd == NULL) {
-        fprintf(stderr, "open file failed: %s\n", strerror(errno));
+        fprintf(stderr, "open file %s failed: %s\n", argv[6], strerror(errno));
         return -1;
     }
 
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
 
     }
 
-    /*fprintf(stderr, "-%d-", all_req);*/
+    /*fprintf(stderr, "-created : %d-\n", all_req);*/
     fclose(fd);
     return 0;
 }
