@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     int n_key = 0;
     unsigned long int k = 0;
     while (n_key < (max_request * factor)) {
-        asprintf(&name, "step%s_%ld", argv[5], k++);
+        asprintf(&name, "step%s_%ld", argv[5], k);
         MurmurHash3_x86_32(name, strlen(name), seed, &h_out);
         int index = h_out%N_entry;
 
@@ -79,11 +79,11 @@ int main(int argc, char *argv[])
         if (num_srv == srv_id) {
             int req = 0;
             /*job number is n_key => one key == one job*/
-            fprintf(fd, "%s,create,%s,%d\n", argv[5], name, n_key);
+            fprintf(fd, "%s,create,%s,%ld\n", argv[5], name, k);
             req++;
             all_req++;
             while (req < 1/factor) {
-                fprintf(fd, "%s,update,%s,%d\n", argv[5], name, n_key);
+                fprintf(fd, "%s,update,%s,%ld\n", argv[5], name, k);
                 req++;
                 all_req++;
                 if (all_req >= max_request)
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
             req++;*/
             n_key++;
         }
-
+        k++;
     }
 
     /*fprintf(stderr, "-created : %d-\n", all_req);*/
