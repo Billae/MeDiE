@@ -66,7 +66,7 @@ pthread_t eacl_sender;
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 
 
-int distribution_init(nb)
+int distribution_init (int nb)
 {
     int rc;
 

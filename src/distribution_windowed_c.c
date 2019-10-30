@@ -14,7 +14,7 @@
 static struct mlt table;
 
 
-int distribution_init(nb)
+int distribution_init (int nb)
 {
     int rc = mlt_init(&table, N_entry, nb);
     if (rc != 0) {

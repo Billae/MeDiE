@@ -90,9 +90,10 @@ int eacl_reset_access(struct eacl *self)
         return -1;
 
     int i;
-    for (i = 0; i < self->size; i++)
+    for (i = 0; i < self->size; i++) {
         queue_put(self->old_accesses[i], self->access_count[i]);
         self->access_count[i] = 0;
+    }
 
     return 0;
 }

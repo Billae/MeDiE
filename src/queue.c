@@ -48,7 +48,7 @@ queue_mean(struct queue *queue)
 {
     if (queue->used == 0)
         return 0;
-    size_t count = queue->used < queue->count ? queue->next : queue->count;
+    size_t count = queue->used;
     uint64_t sum = 0;
     size_t i;
 
