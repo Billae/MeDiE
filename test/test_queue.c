@@ -21,8 +21,8 @@ main(int argc, char *argv[])
     numbers = calloc(argc - 1, sizeof(*numbers));
     if (numbers == NULL)
         error(EXIT_FAILURE, errno, "calloc");
-
-    for (size_t i = 1; i < argc; i++)
+    size_t i;
+    for (i = 1; i < argc; i++)
         /* This is not safe, but it does not matter, this is only a demo */
         numbers[i - 1] = atoi(argv[i]);
 
@@ -30,7 +30,7 @@ main(int argc, char *argv[])
     if (queue == NULL)
         error(EXIT_FAILURE, errno, "queue_new");
 
-    for (size_t i = 0; i < argc - 1; i++)
+    for (i = 0; i < argc - 1; i++)
         queue_put(queue, numbers[i]);
 
     printf("mean: %"PRIu32"\n", queue_mean(queue));
