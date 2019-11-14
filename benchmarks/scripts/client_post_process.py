@@ -2,22 +2,22 @@
 
 import sys
 
-#this script take time files (in arguments) and spreaded traces files from scratch_vm/traces
+#this script take time files (in arguments) and spreaded traces files
 #and compute the mean time for processing a request during a period
 
 
 #argument is the path of the run
-if (len(sys.argv) < 2):
-    print("please give the path of the run\n")
+if (len(sys.argv) < 4):
+    print("please give the path of the run, the traces path and the number of step\n")
     sys.exit()
 
 n_srv = 4
 n_client = 12
-n_step = 291
 
 output = sys.argv[1] + 'mean_time.csv'
 time_files = sys.argv[1] + "client/vm"
-trace_files = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/5min/12_clients/changelog-"
+trace_files = sys.argv[2]
+n_step = int(sys.argv[3])
 
 #each column is a vm
 #each line is a time for a step
@@ -49,11 +49,11 @@ for client in range(0, n_client):
     f.close()
 
 
-for step in range(0, n_step):
+for step in range(0, n_step-1):
     zero_req = 0
     for client in range(0, n_client):
         #fill the traces array
-        file_name = trace_files + str(step+1) + "-" + str (client) + ".csv"
+        file_name = trace_files + "-" + str(step+1) + "-" + str (client) + ".csv"
         traces[client][step] = sum(1 for line in open(file_name))
 
         #compute the means array
