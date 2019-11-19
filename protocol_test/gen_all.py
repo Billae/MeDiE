@@ -4,35 +4,49 @@ import sys
 import os
 import glob
 import subprocess
+import random
+
 ###########################################################
 #parameters
 ###########################################################
 #global time (in seconds) of the trace
-temporal_size = 10800
+temporal_size = 14400
 
 factor_distinct_key  = 0.1
-path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/on_off/traces"
-#path = "/dev/shm/test100"
-#percentage of requests accross servers. Sum of all = 1
-nb_srv = 4
-percent = [0.25, 0.25, 0.25, 0.25]
+path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/test/traces"
 
+#Servers repartition
+#useless variable in this script but to remind /!\
+N_entry = 10
+
+nb_srv = 4
 ###########################################################
 #curve characteristics
 ###########################################################
 #one time step is in second (because it's timestamp unit)
-tinit = 1200
-tgrowth_up = 300
-tgrowth_down = 300
-thigh = 1800
+tinit = 0
+tgrowth_up = 00
+tgrowth_down = 00
+thigh = 14400
 tlow = 1200
 # number of request when flow is high
-yhigh = 4500
+yhigh = 1000
 # number of request when flow is low
-ylow = 2000
+ylow = 1000
 ###########################################################
 
+def balanced_repartition_per_step(size):
+    """function that give an array of size elements with all same repartition"""
+    array = [1/size for i in range(size)]
+    return array
 
+def random_repartition_per_step(size):
+    """function that give an array of size elements randomly chosen and sum of all elements = 1"""
+    array = [random.randrange(0,100) for i in range(size)]
+    s = sum(array)
+    for i in range(size):
+        array[i] = array[i]/s
+    return array
 
 def gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, t):
    """function that is ylow for tinit then becomes periodic 
@@ -63,6 +77,17 @@ def gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, t):
 temporal_x = np.arange(temporal_size)
 temporal_y = [gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, xi) for xi in temporal_x]
 
+
+#generate repartition of load on different serveur
+
+#percent contain temporal_size raw and each is the repartition of load for each step
+percent = [[0.] * nb_srv for i in range(temporal_size)]
+#fill percent array
+for s in range(temporal_size):
+    percent[s] = random_repartition_per_step(nb_srv)
+    #percent[s] = balanced_repartition_per_step(nb_srv)
+    #print s
+
 #plt.title("Description of flux temporal requests flow");
 #plt.xlabel("temps (sec)");
 #plt.ylabel("nb requests");
@@ -76,16 +101,15 @@ for file in filelist:
 
 
 file_name = path + ".csv"
+#add the header
+with open(file_name, "w+") as fd:
+    fd.write("timestamp,operation,key,jobid\n")
 
 time_step = 0
 while (time_step < temporal_x.size):
     for i in range(nb_srv):
         #call c program with args: the server ID, the number request to create, the distinct_key factor, the number of available servers, a timestamp and the path of the trace file
-        prog = "./bin/generator " + str(i) + " " + str(temporal_y[time_step]*percent[i]) + " " + str(factor_distinct_key) + " " + str(nb_srv) + " " + str(time_step) + " " + file_name
-        #print (prog)
+        prog = "./bin/generator " + str(i) + " " + str(temporal_y[time_step]*percent[time_step][i]) + " " + str(factor_distinct_key) + " " + str(nb_srv) + " " + str(time_step) + " " + file_name
+        #print (prog + " and repartition = " + str(percent[time_step]))
         subprocess.call(prog, shell = True)
     time_step += 1 
-
-#add the header
-header = "sed -i '1itimestamp,operation,key,jobid' " + file_name
-subprocess.call(header, shell = True)
