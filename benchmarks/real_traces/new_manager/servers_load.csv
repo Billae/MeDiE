@@ -1,4 +1,4 @@
-real_traces/new_manager//server/load0;real_traces/new_manager//server/load1;real_traces/new_manager//server/load2;real_traces/new_manager//server/load3
+benchmarks/real_traces/new_manager//server/load0;benchmarks/real_traces/new_manager//server/load1;benchmarks/real_traces/new_manager//server/load2;benchmarks/real_traces/new_manager//server/load3
 725098;698356;742678;764188
 707076;703860;715572;689690
 685926;690767;689280;682355

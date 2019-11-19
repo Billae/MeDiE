@@ -1,8 +1,0 @@
-run on sandy 4 core per VM
-4 servers
-100 clients
-
-traces split 5 min
-
-alpha:0.5
-n_entry=200

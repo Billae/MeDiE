@@ -1,4 +1,4 @@
-real_traces/dh/sklb//server/load0;real_traces/dh/sklb//server/load1;real_traces/dh/sklb//server/load2;real_traces/dh/sklb//server/load3
+real_traces/dh/sklb/rebalancing_2.5h//server/load0;real_traces/dh/sklb/rebalancing_2.5h//server/load1;real_traces/dh/sklb/rebalancing_2.5h//server/load2;real_traces/dh/sklb/rebalancing_2.5h//server/load3
 725098;698356;742678;764188
 699510;666885;715572;734199
 678574;654533;698134;717014
@@ -283,3 +283,11 @@ real_traces/dh/sklb//server/load0;real_traces/dh/sklb//server/load1;real_traces/
 635101;641868;610280;666434
 725632;733863;699126;763828
 652494;659647;629137;687334
+620891;627232;597392;651374
+691797;698677;666251;728852
+712541;719615;686628;751135
+678279;685044;654668;714253
+671715;680457;649758;713532
+668659;673225;643597;704907
+663885;670516;647070;703467
+677170;687646;653359;713725

@@ -1,4 +1,4 @@
-real_traces/dh/sandy//server/load0;real_traces/dh/sandy//server/load1;real_traces/dh/sandy//server/load2;real_traces/dh/sandy//server/load3
+real_traces/dh/sandy/rebalancing_2.5h//server/load0;real_traces/dh/sandy/rebalancing_2.5h//server/load1;real_traces/dh/sandy/rebalancing_2.5h//server/load2;real_traces/dh/sandy/rebalancing_2.5h//server/load3
 725098;698356;742678;764188
 699510;666885;715572;734199
 678574;654533;698134;717014
@@ -291,3 +291,11 @@ real_traces/dh/sandy//server/load0;real_traces/dh/sandy//server/load1;real_trace
 668659;673225;643597;704907
 663885;670516;647070;703467
 677170;687646;653359;713725
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0

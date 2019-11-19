@@ -1,4 +1,4 @@
-real_traces/dh/haswell/alpha/1//server/load0;real_traces/dh/haswell/alpha/1//server/load1;real_traces/dh/haswell/alpha/1//server/load2;real_traces/dh/haswell/alpha/1//server/load3
+real_traces/dh/haswell/rebalancing_2.5h/alpha/1//server/load0;real_traces/dh/haswell/rebalancing_2.5h/alpha/1//server/load1;real_traces/dh/haswell/rebalancing_2.5h/alpha/1//server/load2;real_traces/dh/haswell/rebalancing_2.5h/alpha/1//server/load3
 725098;698356;742678;764188
 699510;666885;715572;734199
 678574;654533;698134;717014
@@ -291,3 +291,11 @@ real_traces/dh/haswell/alpha/1//server/load0;real_traces/dh/haswell/alpha/1//ser
 662615;671826;677459;678518
 658276;668687;681433;676574
 671281;686055;688056;686540
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0
+0;0;0;0

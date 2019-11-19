@@ -1,4 +1,4 @@
-real_traces/dh/haswell/n_entry/1000//server/load0;real_traces/dh/haswell/n_entry/1000//server/load1;real_traces/dh/haswell/n_entry/1000//server/load2;real_traces/dh/haswell/n_entry/1000//server/load3
+real_traces/dh/haswell/rebalancing_2.5h/n_entry/1000//server/load0;real_traces/dh/haswell/rebalancing_2.5h/n_entry/1000//server/load1;real_traces/dh/haswell/rebalancing_2.5h/n_entry/1000//server/load2;real_traces/dh/haswell/rebalancing_2.5h/n_entry/1000//server/load3
 725098;698356;742678;764188
 699510;666885;715572;734199
 678574;654533;698134;717014
@@ -283,3 +283,11 @@ real_traces/dh/haswell/n_entry/1000//server/load0;real_traces/dh/haswell/n_entry
 587402;638151;650409;677929
 671082;728138;745080;778354
 603407;655997;670711;698741
+574463;623811;636641;662191
+639701;694539;710311;741201
+658902;715409;732032;763790
+627121;681433;697853;726052
+621301;678712;691862;723903
+618649;669720;685878;716312
+616019;666925;689138;713222
+626116;683705;696350;725971
