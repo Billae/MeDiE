@@ -1,0 +1,5468 @@
+rm: cannot remove ‘/mnt/result/indedh/client’: Is a directory
+rm: cannot remove ‘/mnt/result/indedh/server’: Is a directory
+rm: cannot remove ‘/mnt/scratch/tmp_ack/indedh/*’: No such file or directory
+vm2: Warning: Permanently added 'vm2,10.200.0.3' (ECDSA) to the list of known hosts.
+vm3: Warning: Permanently added 'vm3,10.200.0.4' (ECDSA) to the list of known hosts.
+vm0: Warning: Permanently added 'vm0,10.200.0.1' (ECDSA) to the list of known hosts.
+vm1: Warning: Permanently added 'vm1,10.200.0.2' (ECDSA) to the list of known hosts.
+clush: 0/1clush: 0/4setup finished
+vm7: Warning: Permanently added 'vm7,10.200.0.8' (ECDSA) to the list of known hosts.
+vm12: Warning: Permanently added 'vm12,10.200.0.13' (ECDSA) to the list of known hosts.
+vm14: Warning: Permanently added 'vm14,10.200.0.15' (ECDSA) to the list of known hosts.
+vm5: Warning: Permanently added 'vm5,10.200.0.6' (ECDSA) to the list of known hosts.
+vm10: Warning: Permanently added 'vm10,10.200.0.11' (ECDSA) to the list of known hosts.
+vm15: Warning: Permanently added 'vm15,10.200.0.16' (ECDSA) to the list of known hosts.
+vm9: Warning: Permanently added 'vm9,10.200.0.10' (ECDSA) to the list of known hosts.
+vm11: Warning: Permanently added 'vm11,10.200.0.12' (ECDSA) to the list of known hosts.
+vm4: Warning: Permanently added 'vm4,10.200.0.5' (ECDSA) to the list of known hosts.
+vm13: Warning: Permanently added 'vm13,10.200.0.14' (ECDSA) to the list of known hosts.
+vm8: Warning: Permanently added 'vm8,10.200.0.9' (ECDSA) to the list of known hosts.
+vm6: Warning: Permanently added 'vm6,10.200.0.7' (ECDSA) to the list of known hosts.
+clush:  0/12clush:  3/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 0 === THRESHOLD min = 0, THRESHOLD max = 0
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 18880 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 18620 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 37500
+vm0: 
+vm0: 
+vm0: mean load = 0 === THRESHOLD min = 0, THRESHOLD max = 0
+vm0: SERVER READ LOAD: entry 0 -> 12465 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 12395 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 12640 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 37500
+vm2: 
+vm2: 
+vm2: mean load = 0 === THRESHOLD min = 0, THRESHOLD max = 0
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 18545 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 18955 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 37500
+vm1: 
+vm1: 
+vm1: mean load = 0 === THRESHOLD min = 0, THRESHOLD max = 0
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 12575 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 12175 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 12750 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 37500
+           vm0: loads of servers before rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = 0
+vm0: srv 2 = 0
+vm0: srv 3 = 0
+vm0: loads of servers after rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = 0
+vm0: srv 2 = 0
+vm0: srv 3 = 0
+step 1 finished
+clush: 0/1clush: 0/4clush:  0/12clush: 10/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 37500 === THRESHOLD min = 33750, THRESHOLD max = 41250
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 27857 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 28392 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 56249
+vm3: 
+vm3: 
+vm3: mean load = 37500 === THRESHOLD min = 33750, THRESHOLD max = 41250
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 27820 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 28430 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 56250
+vm0: 
+vm0: 
+vm0: mean load = 37500 === THRESHOLD min = 33750, THRESHOLD max = 41250
+vm0: SERVER READ LOAD: entry 0 -> 18237 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 18922 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 19090 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 56249
+vm1: 
+vm1: 
+vm1: mean load = 37500 === THRESHOLD min = 33750, THRESHOLD max = 41250
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 19157 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 18067 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 19025 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 56249
+clush: 0/4           vm0: loads of servers before rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = 0
+vm0: srv 2 = 0
+vm0: srv 3 = 1
+vm0: loads of servers after rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = 0
+vm0: srv 2 = 0
+vm0: srv 3 = 1
+step 2 finished
+clush: 0/1clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 56249 === THRESHOLD min = 50625, THRESHOLD max = 61873
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 32413 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 33211 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 65624
+vm3: 
+vm3: 
+vm3: mean load = 56249 === THRESHOLD min = 50625, THRESHOLD max = 61873
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 32450 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 33175 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 65625
+vm0: 
+vm0: 
+vm0: mean load = 56249 === THRESHOLD min = 50625, THRESHOLD max = 61873
+vm0: SERVER READ LOAD: entry 0 -> 21928 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 21846 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 21850 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 65624
+vm1: 
+vm1: 
+vm1: mean load = 56249 === THRESHOLD min = 50625, THRESHOLD max = 61873
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 22198 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 21518 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 21907 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 65623
+           vm0: loads of servers before rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = -1
+vm0: srv 2 = 0
+vm0: srv 3 = 1
+vm0: loads of servers after rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = -1
+vm0: srv 2 = 0
+vm0: srv 3 = 1
+clush: 0/1clush: 0/4step 3 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 35131 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 35180 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 70311
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 35131 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 35180 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 70311
+vm3: 
+vm3: 
+vm3: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 35120 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 35192 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 70312
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 35120 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 35192 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 70312
+vm0: 
+vm0: 
+vm0: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm0: SERVER READ LOAD: entry 0 -> 23724 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 23403 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 23185 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 70312
+vm0: SERVER READ LOAD: entry 0 -> 23724 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 23403 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 23185 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 70312
+vm1: 
+vm1: 
+vm1: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 23644 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 23254 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 23413 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 70311
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 23644 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 23254 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 23413 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 70311
+clush: 0/4step 4 finished
+clush:  0/12clush:  9/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 36420 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36235 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 72655
+vm3: 
+vm3: 
+vm3: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 36490 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36166 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 72656
+vm0: 
+vm0: 
+vm0: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm0: SERVER READ LOAD: entry 0 -> 24452 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24146 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24057 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 72655
+vm1: 
+vm1: 
+vm1: mean load = 65624 === THRESHOLD min = 59062, THRESHOLD max = 72186
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24242 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24257 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24156 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 72655
+           vm0: loads of servers before rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = 0
+vm0: srv 2 = 0
+vm0: srv 3 = 1
+vm0: loads of servers after rebalancing:
+vm0: srv 0 = 0
+vm0: srv 1 = 0
+vm0: srv 2 = 0
+vm0: srv 3 = 1
+clush: 0/1clush: 0/4step 5 finished
+clush:  0/12clush:  1/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 36775 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37053 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 73828
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 36775 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37053 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 73828
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24691 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24698 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24438 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 73827
+vm0: SERVER READ LOAD: entry 0 -> 24691 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24698 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24438 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 73827
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 36990 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36837 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 73827
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 36990 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36837 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 73827
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24526 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24383 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24918 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 73827
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24526 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24383 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24918 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 73827
+clush: 0/4step 6 finished
+clush:  0/12clush:  8/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37017 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37396 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74413
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37017 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37396 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74413
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37015 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37398 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74413
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37015 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37398 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74413
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25100 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24734 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24579 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74413
+vm0: SERVER READ LOAD: entry 0 -> 25100 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24734 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24579 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74413
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25078 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24296 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25039 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74413
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25078 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24296 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25039 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74413
+clush: 0/4step 7 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 36923 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37783 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74706
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 36923 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37783 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74706
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37612 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37094 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74706
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37612 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37094 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74706
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25180 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24872 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24654 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74706
+vm0: SERVER READ LOAD: entry 0 -> 25180 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24872 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24654 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74706
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24804 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24523 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25379 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74706
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24804 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24523 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25379 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74706
+clush: 0/4step 8 finished
+clush:  0/12clush: 10/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37366 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37486 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74852
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37366 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37486 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74852
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37366 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37487 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74853
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37366 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37487 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74853
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25285 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25051 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24517 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74853
+vm0: SERVER READ LOAD: entry 0 -> 25285 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25051 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24517 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74853
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24867 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24651 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25334 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74852
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24867 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24651 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25334 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74852
+clush: 0/4step 9 finished
+clush:  0/12clush: 11/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37383 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37543 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74926
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37383 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37543 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74926
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24812 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25220 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24893 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74925
+vm0: SERVER READ LOAD: entry 0 -> 24812 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25220 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24893 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74925
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37173 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37753 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74926
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37173 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37753 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74926
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24983 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24525 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25417 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74925
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24983 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24525 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25417 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74925
+clush: 0/4step 10 finished
+clush:  0/12clush: 10/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37261 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37701 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74962
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37261 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37701 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74962
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37521 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37441 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74962
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37521 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37441 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74962
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25006 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24570 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25386 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74962
+vm0: SERVER READ LOAD: entry 0 -> 25006 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24570 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25386 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74962
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25141 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24577 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25243 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74961
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25141 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24577 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25243 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74961
+step 11 finished
+clush: 0/4clush:  0/12clush:  9/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37390 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37590 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74980
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37390 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37590 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74980
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37495 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37485 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74980
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37495 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37485 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74980
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24693 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24905 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25383 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74981
+vm0: SERVER READ LOAD: entry 0 -> 24693 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24905 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25383 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74981
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24935 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24823 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25221 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74979
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24935 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24823 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25221 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74979
+clush: 0/4step 12 finished
+clush:  0/12clush:  2/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37742 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37247 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74989
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37742 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37247 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74989
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24726 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24562 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25701 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74989
+vm0: SERVER READ LOAD: entry 0 -> 24726 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24562 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25701 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74989
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37375 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37615 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74990
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37375 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37615 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74990
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25077 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24806 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25105 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74988
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25077 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24806 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25105 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74988
+clush: 0/4step 13 finished
+clush:  0/12clush:  9/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37696 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37298 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74994
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37696 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37298 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74994
+clush: 0/4           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37257 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37737 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74994
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37257 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37737 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74994
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24783 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24481 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25730 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74994
+vm0: SERVER READ LOAD: entry 0 -> 24783 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24481 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25730 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74994
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24853 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24828 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25312 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74993
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24853 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24828 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25312 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74993
+step 14 finished
+clush: 0/4clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37808 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37189 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74997
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37808 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37189 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74997
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37228 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37768 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74996
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37228 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37768 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74996
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24926 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24695 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25375 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74996
+vm0: SERVER READ LOAD: entry 0 -> 24926 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24695 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25375 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74996
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24956 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25009 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25031 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74996
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24956 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25009 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25031 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74996
+clush: 0/4step 15 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37524 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37474 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74998
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37524 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37474 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74998
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37174 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37824 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74998
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37174 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37824 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74998
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24973 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25107 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24917 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74997
+vm0: SERVER READ LOAD: entry 0 -> 24973 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25107 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24917 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74997
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24833 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25019 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25145 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74997
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24833 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25019 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25145 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74997
+clush: 0/4step 16 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37187 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37812 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37187 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37812 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37737 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37262 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37737 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37262 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25066 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24978 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24953 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74997
+vm0: SERVER READ LOAD: entry 0 -> 25066 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24978 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24953 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74997
+clush: 0/4           vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24946 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24979 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25072 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74997
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24946 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24979 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25072 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74997
+step 17 finished
+clush: 0/4clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37548 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37451 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37548 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37451 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37533 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37466 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37533 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37466 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24933 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24999 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25066 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24933 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24999 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25066 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24958 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24939 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25101 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24958 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24939 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25101 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 18 finished
+clush:  0/12clush: 11/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37974 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37025 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37974 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37025 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37746 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37253 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37746 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37253 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24961 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24674 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25363 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24961 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24674 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25363 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24659 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25314 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25025 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24659 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25314 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25025 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 19 finished
+clush:  0/12clush:  8/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37482 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37517 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37482 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37517 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37508 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37491 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37508 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37491 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25025 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24637 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25336 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25025 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24637 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25336 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24779 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25132 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25087 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24779 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25132 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25087 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 20 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37376 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37623 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37376 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37623 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37804 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37195 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37804 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37195 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24882 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24793 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25323 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24882 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24793 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25323 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24799 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25596 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24603 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24799 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25596 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24603 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 21 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 38022 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36977 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 38022 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36977 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37743 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37256 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37743 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37256 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24971 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24846 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25181 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24971 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24846 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25181 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24679 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25088 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25231 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24679 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25088 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25231 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 22 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37551 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37448 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37551 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37448 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37731 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37268 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37731 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37268 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25645 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24668 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24685 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25645 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24668 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24685 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24514 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25199 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25285 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24514 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25199 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25285 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 23 finished
+clush:  0/12             clush: 12/12           vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25207 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24889 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24902 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25207 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24889 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24902 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37710 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37289 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37710 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37289 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37660 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37339 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37660 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37339 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24597 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25174 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25227 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24597 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25174 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25227 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 24 finished
+clush:  0/12clush:  6/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37885 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37114 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37885 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37114 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25368 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25084 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24546 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25368 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25084 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24546 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37450 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37549 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37450 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37549 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25063 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24527 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25408 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25063 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24527 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25408 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 25 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37267 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37732 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37267 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37732 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37400 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37599 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37400 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37599 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25239 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24927 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24833 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 25239 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24927 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24833 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24961 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24683 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25354 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24961 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24683 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25354 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 26 finished
+clush:  0/12clush: 11/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37573 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37426 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37573 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37426 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25079 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24948 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24971 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25079 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24948 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24971 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37415 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37584 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37415 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37584 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+clush: 0/4           vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25265 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24671 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25062 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25265 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24671 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25062 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+step 27 finished
+clush: 0/4clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37381 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37618 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37381 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37618 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 38007 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36992 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 38007 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36992 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25114 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24729 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25155 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25114 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24729 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25155 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25212 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24755 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25031 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25212 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24755 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25031 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 28 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37713 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37286 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37713 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37286 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37065 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37934 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37065 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37934 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24747 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25194 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25057 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24747 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25194 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25057 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24986 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24617 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25395 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24986 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24617 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25395 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 29 finished
+clush:  0/12clush:  2/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37986 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37013 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37986 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37013 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37472 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37527 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37472 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37527 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24838 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25167 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24993 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24838 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25167 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24993 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25333 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24513 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25152 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25333 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24513 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25152 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 30 finished
+clush:  0/12clush: 11/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37918 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37081 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37918 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37081 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37541 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37458 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37541 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37458 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+clush: 0/4           vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24684 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25188 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25126 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24684 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25188 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25126 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25236 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24591 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25171 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25236 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24591 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25171 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+step 31 finished
+clush: 0/4clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37270 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37729 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37270 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37729 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 38134 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36865 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 38134 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36865 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24362 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25264 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25373 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 24362 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25264 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25373 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25018 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24925 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25055 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25018 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24925 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25055 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 32 finished
+clush:  0/12clush:  9/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37470 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37529 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37470 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37529 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24586 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25047 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25366 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 24586 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25047 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25366 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37852 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37147 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37852 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37147 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24674 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25312 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25012 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24674 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25312 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25012 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 33 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37746 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37253 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37746 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37253 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37115 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37884 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37115 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37884 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24663 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25243 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25093 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 24663 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25243 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25093 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24812 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25361 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24826 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24812 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25361 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24826 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 34 finished
+clush:  0/12clush:  8/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37513 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37486 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37513 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37486 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24931 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25226 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24841 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24931 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25226 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24841 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37247 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37752 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37247 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37752 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25151 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25395 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24453 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25151 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25395 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24453 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 35 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37563 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37436 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37563 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37436 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37556 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37443 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37556 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37443 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25235 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24973 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24790 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25235 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24973 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24790 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24540 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25337 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25121 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24540 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25337 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25121 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 36 finished
+clush:  0/12clush:  9/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37608 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37391 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37608 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37391 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37666 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37333 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37666 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37333 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25452 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24596 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24950 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25452 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24596 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24950 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24940 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25413 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24645 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24940 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25413 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24645 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 37 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 38058 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36941 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 38058 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 36941 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25216 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25068 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24715 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 25216 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25068 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24715 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37374 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37625 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37374 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37625 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24730 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25556 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24712 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24730 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25556 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24712 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 38 finished
+clush:  0/12clush:  1/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37737 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37262 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37737 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37262 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37809 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37190 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37809 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37190 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25068 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25094 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24837 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 25068 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25094 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24837 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24640 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25563 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24796 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24640 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25563 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24796 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 39 finished
+clush:  0/12clush:  8/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37704 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37295 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37704 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37295 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 38018 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36981 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 38018 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 36981 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25074 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25092 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24833 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 25074 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25092 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24833 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24715 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25571 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24713 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24715 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25571 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24713 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 40 finished
+clush:  0/12clush: 10/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37924 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37075 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37924 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37075 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37647 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37352 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37647 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37352 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24902 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24971 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25126 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 24902 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24971 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25126 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24642 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25320 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25036 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24642 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25320 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25036 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 41 finished
+clush:  0/12clush:  1/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37852 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37147 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37852 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37147 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25051 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25035 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24913 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm0: SERVER READ LOAD: entry 0 -> 25051 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25035 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24913 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37488 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37511 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37488 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37511 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24946 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25200 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24853 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24946 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25200 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24853 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 42 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37464 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37535 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37464 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37535 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24905 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24967 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25126 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24905 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24967 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25126 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37546 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37453 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37546 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37453 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24963 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24990 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25046 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24963 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24990 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25046 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 43 finished
+clush:  0/12clush: 11/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37347 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37652 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37347 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37652 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37453 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37546 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37453 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37546 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24727 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25113 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25158 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24727 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25113 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25158 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24861 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24765 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25373 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24861 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24765 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25373 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 44 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37171 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37828 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37171 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37828 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37083 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37916 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37083 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37916 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25068 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25061 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24869 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25068 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25061 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24869 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24920 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25132 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24946 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24920 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25132 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24946 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 45 finished
+clush:  0/12clush:  6/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37356 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37643 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37356 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37643 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37015 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37984 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37015 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37984 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25119 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25015 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24864 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25119 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 25015 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24864 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24905 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25046 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25048 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 24905 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 25046 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25048 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 46 finished
+clush:  0/12             clush: 12/12           vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37417 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37582 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37417 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37582 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37553 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37446 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37553 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37446 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 25109 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24987 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24902 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 25109 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24987 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 24902 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25057 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24803 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25139 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25057 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24803 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 25139 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74999
+clush: 0/4step 47 finished
+clush:  0/12             clush: 12/12           vm2: 
+vm2: 
+vm2: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37761 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37238 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm2: SERVER READ LOAD: entry 0 -> 0 
+vm2: SERVER READ LOAD: entry 1 -> 0 
+vm2: SERVER READ LOAD: entry 2 -> 37761 
+vm2: SERVER READ LOAD: entry 3 -> 0 
+vm2: SERVER READ LOAD: entry 4 -> 0 
+vm2: SERVER READ LOAD: entry 5 -> 0 
+vm2: SERVER READ LOAD: entry 6 -> 37238 
+vm2: SERVER READ LOAD: entry 7 -> 0 
+vm2: SERVER READ LOAD: entry 8 -> 0 
+vm2: SERVER READ LOAD: entry 9 -> 0 
+vm2: 
+vm2: 
+vm2:  Server Load Level = 74999
+vm3: 
+vm3: 
+vm3: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37433 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37566 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm3: SERVER READ LOAD: entry 0 -> 0 
+vm3: SERVER READ LOAD: entry 1 -> 0 
+vm3: SERVER READ LOAD: entry 2 -> 0 
+vm3: SERVER READ LOAD: entry 3 -> 37433 
+vm3: SERVER READ LOAD: entry 4 -> 0 
+vm3: SERVER READ LOAD: entry 5 -> 0 
+vm3: SERVER READ LOAD: entry 6 -> 0 
+vm3: SERVER READ LOAD: entry 7 -> 37566 
+vm3: SERVER READ LOAD: entry 8 -> 0 
+vm3: SERVER READ LOAD: entry 9 -> 0 
+vm3: 
+vm3: 
+vm3:  Server Load Level = 74999
+vm0: 
+vm0: 
+vm0: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm0: SERVER READ LOAD: entry 0 -> 24864 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24768 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25366 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm0: SERVER READ LOAD: entry 0 -> 24864 
+vm0: SERVER READ LOAD: entry 1 -> 0 
+vm0: SERVER READ LOAD: entry 2 -> 0 
+vm0: SERVER READ LOAD: entry 3 -> 0 
+vm0: SERVER READ LOAD: entry 4 -> 24768 
+vm0: SERVER READ LOAD: entry 5 -> 0 
+vm0: SERVER READ LOAD: entry 6 -> 0 
+vm0: SERVER READ LOAD: entry 7 -> 0 
+vm0: SERVER READ LOAD: entry 8 -> 25366 
+vm0: SERVER READ LOAD: entry 9 -> 0 
+vm0: 
+vm0: 
+vm0:  Server Load Level = 74998
+vm1: 
+vm1: 
+vm1: mean load = 72655 === THRESHOLD min = 65390, THRESHOLD max = 79920
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25178 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24866 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24954 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+vm1: SERVER READ LOAD: entry 0 -> 0 
+vm1: SERVER READ LOAD: entry 1 -> 25178 
+vm1: SERVER READ LOAD: entry 2 -> 0 
+vm1: SERVER READ LOAD: entry 3 -> 0 
+vm1: SERVER READ LOAD: entry 4 -> 0 
+vm1: SERVER READ LOAD: entry 5 -> 24866 
+vm1: SERVER READ LOAD: entry 6 -> 0 
+vm1: SERVER READ LOAD: entry 7 -> 0 
+vm1: SERVER READ LOAD: entry 8 -> 0 
+vm1: SERVER READ LOAD: entry 9 -> 24954 
+vm1: 
+vm1: 
+vm1:  Server Load Level = 74998
+clush: 0/4step 48 finished
