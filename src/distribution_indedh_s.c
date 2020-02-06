@@ -7,6 +7,7 @@
 #include <json.h>
 #include <pthread.h>
 #include <czmq.h>
+#include <time.h>
 
 #include "generic_storage.h"
 #include "distribution_indedh_s.h"
@@ -64,6 +65,11 @@ pthread_t eacl_sender;
 #define SCRATCH "/mnt/scratch/tmp_ack/indedh/"
 /*path in ocre*/
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
+
+#define BILLION  1000000000L
+#define EVAL "/mnt/result/indedh/server/time_eval"
+
+struct timespec start_distrib, end_distrib;
 
 
 int distribution_init(nb)
@@ -900,6 +906,37 @@ void *thread_manager_listener(void *args)
             if (rc != 0)
                 fprintf(stderr, "MLT destroy failed\n");
  
+            rc = clock_gettime(CLOCK_REALTIME, &end_distrib);
+            if (rc)
+                fprintf(stderr, "timing distrib time error: getting time error\n");
+
+            double accum = (end_distrib.tv_sec - start_distrib.tv_sec)
+                          + (end_distrib.tv_nsec - start_distrib.tv_nsec) / (float) BILLION;
+
+            /*open the result file*/
+            char *result_path;
+            asprintf(&result_path, "%s_distrib_time%d", EVAL, id_self);
+
+            int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
+            if (fd_res == -1) {
+                int err = errno;
+                fprintf(stderr, "Timing distrib: open %s error: %s\n", result_path, strerror(err));
+                free(result_path);
+            }
+            free(result_path);
+
+            char *distrib_time;
+            asprintf(&distrib_time, "%lf\n", accum);
+
+            if ((write(fd_res, distrib_time, strlen(distrib_time))) < 0) {
+                int err = errno;
+                fprintf(stderr, "Timing distrib: ");
+                fprintf(stderr, "write in %s error: %s\n", result_path, strerror(err));
+            }
+            free(distrib_time);
+            close(fd_res);
+
+
             /*create the ack file to indicate the end of the redistribution*/
             char *file_name;
             asprintf(&file_name, "%svm%dUSR-1", SCRATCH, id_srv_self);
@@ -939,9 +976,15 @@ int distribution_signal1_action()
 
 int distribution_signal2_action()
 {
+    struct timespec start_eval, end_eval;
+    int rc;
+
+    rc = clock_gettime(CLOCK_REALTIME, &start_eval);
+    if (rc)
+        fprintf(stderr, "timing eval time error: getting time error\n");
     epoch++;
 
-    int rc = eacl_calculate_sai(&access_list);
+    rc = eacl_calculate_sai(&access_list);
     if (rc != 0) {
         fprintf(stderr,
             "Distribution:signal_action: calculate SAI failed: %s\n",
@@ -960,6 +1003,38 @@ int distribution_signal2_action()
     uint32_t threshold_max = mean_load + ((PERCENT * mean_load) / 100);
     uint32_t threshold_min = mean_load - ((PERCENT * mean_load) / 100);
 
+    rc = clock_gettime(CLOCK_REALTIME, &end);
+    if (rc)
+        fprintf(stderr, "timing eval time error: getting time error\n");
+
+    double accum = (end_eval.tv_sec - start_eval.tv_sec)
+                  + (end_eval.tv_nsec - start_eval.tv_nsec) / (float) BILLION;
+
+    /*open the result file*/
+    char *result_path;
+    asprintf(&result_path, "%s_time%d", EVAL, id_self);
+
+    int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
+    if (fd_res == -1) {
+        int err = errno;
+        fprintf(stderr, "Timing eval: open %s error: %s\n", result_path, strerror(err));
+        free(result_path);
+        return -1;
+    }
+    free(result_path);
+
+    char *eval_time;
+    asprintf(&eval_time, "%lf\n", accum);
+
+    if ((write(fd_res, eval_time, strlen(eval_time))) < 0) {
+        int err = errno;
+        fprintf(stderr, "Timing eval: ");
+        fprintf(stderr, "write in %s error: %s\n", result_path, strerror(err));
+        return -1;
+    }
+    free(eval_time);
+    close(fd_res);
+
     /* No need to rebalancing*/
     if ((eacl_read_load_lvl(&access_list) <= threshold_max)
             && (eacl_read_load_lvl(&access_list) >= threshold_min)) {
@@ -977,6 +1052,10 @@ int distribution_signal2_action()
         close(ack);
         return 0;
     }
+
+    rc = clock_gettime(CLOCK_REALTIME, &start_distrib);
+    if (rc)
+        fprintf(stderr, "timing distrib time error: getting time error\n");
 
     /* Ask for rebalancing*/
     /*fprintf(stderr, "rebalanced asked\n");*/
