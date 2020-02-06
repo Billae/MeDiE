@@ -915,7 +915,7 @@ void *thread_manager_listener(void *args)
 
             /*open the result file*/
             char *result_path;
-            asprintf(&result_path, "%s_distrib_time%d", EVAL, id_self);
+            asprintf(&result_path, "%s_distrib_time%d", EVAL, id_srv_self);
 
             int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
             if (fd_res == -1) {
@@ -1003,7 +1003,7 @@ int distribution_signal2_action()
     uint32_t threshold_max = mean_load + ((PERCENT * mean_load) / 100);
     uint32_t threshold_min = mean_load - ((PERCENT * mean_load) / 100);
 
-    rc = clock_gettime(CLOCK_REALTIME, &end);
+    rc = clock_gettime(CLOCK_REALTIME, &end_eval);
     if (rc)
         fprintf(stderr, "timing eval time error: getting time error\n");
 
@@ -1012,7 +1012,7 @@ int distribution_signal2_action()
 
     /*open the result file*/
     char *result_path;
-    asprintf(&result_path, "%s_time%d", EVAL, id_self);
+    asprintf(&result_path, "%s_time%d", EVAL, id_srv_self);
 
     int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
