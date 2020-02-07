@@ -67,7 +67,7 @@ pthread_t eacl_sender;
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 
 #define BILLION  1000000000L
-#define EVAL "/mnt/result/indedh/server/time_eval"
+#define TIME_FILE "/mnt/result/indedh/server/time_"
 
 struct timespec start_distrib, end_distrib;
 
@@ -915,7 +915,7 @@ void *thread_manager_listener(void *args)
 
             /*open the result file*/
             char *result_path;
-            asprintf(&result_path, "%s_distrib_time%d", EVAL, id_srv_self);
+            asprintf(&result_path, "%s_distrib%d", TIME_FILE, id_srv_self);
 
             int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
             if (fd_res == -1) {
@@ -1012,7 +1012,7 @@ int distribution_signal2_action()
 
     /*open the result file*/
     char *result_path;
-    asprintf(&result_path, "%s_time%d", EVAL, id_srv_self);
+    asprintf(&result_path, "%s_eval%d", TIME_FILE, id_srv_self);
 
     int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
