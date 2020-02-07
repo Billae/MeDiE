@@ -10,10 +10,11 @@ nb_srv=$1
 nb_client=$2
 total_vm=$(($1+$2))
 
-#traces: 5 mins
-total_step=292
-traces_path=/mnt/scratch/traces/5min/12_clients/changelog
+#traces: 1 min
+total_step=1454
+traces_path=/mnt/scratch/traces/1min/changelog
 #traces_path=/mnt/scratch/traces/generated/____/traces
+distrib=5 #distribution action
 
 #config clush groups
 sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
@@ -45,15 +46,24 @@ clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /mnt/scratch/t
 printf "setup finished\n"
 
 current_step=0
+turn=1
+
 while [[ $current_step -lt $total_step ]]
 do
     #launch a step of traces
     clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path-$current_step /mnt/result/indedh
     ((current_step++))
 
-    #mesuring and rebalancing if needed
-    clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
-    clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
+    if [ $turn -eq $distrib ]
+    then
+        #mesuring and rebalancing if needed
+        clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
+        clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
+    else
+        #mesuring only
+        turn=$((turn+1))
+        clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
+    fi
 
     ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step indedh
     rm /mnt/scratch/tmp_ack/indedh/*USR-*
