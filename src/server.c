@@ -93,6 +93,11 @@ void usr1_handler(int sig)
     access_count = 0;
 
     close(fd_res);
+
+    int rc;
+    rc = distribution_signal1_action();
+    if (rc != 0)
+        fprintf(stderr, "Server:sigUSR1 handler: distribution signal action failed\n");
 }
 
 
