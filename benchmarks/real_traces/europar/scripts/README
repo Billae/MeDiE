@@ -1,0 +1,14 @@
+
+Old scripts:
+perf_compute takes means file in ~/client_perf and computes all "means_x_srv" files
+post_mean take a number of client and a directory and select all line of mean_n_srv files in the directory which matches with the number of servers
+min_compute takes a file and find the min value
+all display_* scripts compute "means_x_srv" to generate gnuplot curves
+
+
+Review scripts:
+post_process_*.sh are scripts depending on the type of the run (sh, dh, indedh). They call post_process script for clients and servers and generate .csv file. Then they call display_* scripts to generate curves. Scripts takes in arguments the path of the run brut data and generated in the same path.
+
+server_post_process.py takes the server_load file and the path and create a percentages.csv file with the percentage of load for each server in the path
+
+all display_* scripts compute generated csv files in the path given in arguments and generate gnuplot curve

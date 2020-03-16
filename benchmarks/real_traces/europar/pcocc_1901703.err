@@ -1,0 +1,40 @@
+slurmstepd-inti2090: error: task/cgroup: task[0] unable to set taskset '0x0'
+Configuring hosts...
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+Auks API request failed : auks cred : credential expired
+slurmstepd-inti2090: error: *** JOB 1901703 ON inti2090 CANCELLED AT 2020-02-28T09:01:05 ***
+slurmstepd-inti2090: error: *** STEP 1901703.0 ON inti2090 CANCELLED AT 2020-02-28T09:01:05 ***
+srun: error: inti2097: task 7: Killed
+srun: error: inti2091: task 1: Killed
+srun: error: inti2096: task 6: Killed
+srun: error: inti2099: task 9: Killed
+srun: error: inti2094: task 4: Killed
+srun: error: inti2098: task 8: Killed
+srun: error: inti2090: task 0: Killed
+srun: error: inti2100: task 10: Killed
+srun: error: inti2104: task 13: Killed
+srun: error: inti2093: task 3: Killed
+srun: error: inti2092: task 2: Killed
+srun: error: inti2103: task 12: Killed
+srun: error: inti2095: task 5: Killed
+srun: error: inti2106: task 15: Killed
+srun: error: inti2105: task 14: Killed
+srun: error: inti2101: task 11: Killed
+srun: error: inti2107: task 16: Killed
+The cluster has been terminated due to a signal

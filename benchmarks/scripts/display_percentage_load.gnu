@@ -11,8 +11,8 @@ set terminal postscript eps color
 
 # ARG1 is the path and ARG2 is the type of run (sh, dh, indedh)
 
-ymin= 22
-ymax= 28
+ymin= 20
+ymax= 30
 set yrange [ymin:ymax]
 
 #rebalancing moment only on dh
@@ -28,7 +28,7 @@ set key box opaque top right
 
 set title "workload of each server"
 set xlabel "time (in minutes)"
-set ylabel "percentage of processed requests"
+set ylabel "percentage of received requests"
 
 set output ARG1."/load_%.eps"
 

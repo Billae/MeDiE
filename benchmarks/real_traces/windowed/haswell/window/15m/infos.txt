@@ -1,0 +1,10 @@
+run on haswell 4 core per VM
+4 servers
+12 clients
+
+traces split 5 min
+
+alpha:1./4.
+percent=15
+n_entry=1000
+window=3
