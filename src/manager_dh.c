@@ -13,7 +13,9 @@
 #include "eacl_dh.h"
 
 /*pcocc*/
-#define ip_manager "0.0.0.0"
+#ifndef ip_manager
+    #define ip_manager "0.0.0.0"
+#endif
 /*ocre*/
 //#define ip_manager "192.168.129.25"
 

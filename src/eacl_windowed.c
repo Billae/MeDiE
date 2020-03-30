@@ -5,9 +5,13 @@
 #include "queue.h"
 
 /*alpha is a forgotten factor (0<alpha<1)*/
-#define ALPHA (0.5)
+#ifndef ALPHA
+    #define ALPHA (0.5)
+#endif
 /*window_size is the number of step to take into account in the sai computation (a step is usually 5min)*/
-#define WINDOW_SIZE 12
+#ifndef WINDOW_SIZE
+    #define WINDOW_SIZE 12
+#endif
 
 /** Initialize the structure with size entries. Other fields are setted to 0.
  * @param[out] self the eacl to fill in

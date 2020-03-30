@@ -7,7 +7,9 @@
 
 #include "queue.h"
 
-#define COUNT 10
+#ifndef COUNT
+    #define COUNT 10
+#endif
 
 int
 main(int argc, char *argv[])

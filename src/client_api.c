@@ -32,11 +32,15 @@
 #endif
 
 /* path in pcocc*/
-#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+#ifndef HOST_PATH
+    #define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+#endif
 /*path in ocre*/
 //#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
-#define max_id_size 21
+#ifndef max_id_size
+    #define max_id_size 21
+#endif
 
 
 static int nb_servers;

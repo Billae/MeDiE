@@ -15,15 +15,21 @@
 static int id_srv_self;
 
 
-#define max_id_size 21
+#ifndef max_id_size
+    #define max_id_size 21
+#endif
 
 /* path in pcocc*/
-#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#ifndef SRV_PATH
+    #define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#endif
 /*path in ocre*/
 //#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /* path in pcocc*/
-#define SCRATCH "/mnt/scratch/tmp_ack/sh/"
+#ifndef SCRATCH
+    #define SCRATCH "/mnt/scratch/tmp_ack/sh/"
+#endif
 /*path in ocre*/
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 

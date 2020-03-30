@@ -13,30 +13,40 @@
 #ifdef DISTRIBUTION_SH
     #include "distribution_sh_s.h"
     #include "protocol_sh.h"
-    #define PREFIX "/mnt/result/sh/server/"
+    #ifndef PREFIX
+        #define PREFIX "/mnt/result/sh/server/"
+    #endif
 #endif
 
 #ifdef DISTRIBUTION_DH
     #include "distribution_dh_s.h"
     #include "protocol_dh.h"
-    #define PREFIX "/mnt/result/dh/server/"
+    #ifndef PREFIX
+        #define PREFIX "/mnt/result/dh/server/"
+    #endif
 #endif
 
 #ifdef DISTRIBUTION_INDEDH
     #include "distribution_indedh_s.h"
     #include "protocol_indedh.h"
-    #define PREFIX "/mnt/result/indedh/server/"
+    #ifndef PREFIX
+        #define PREFIX "/mnt/result/indedh/server/"
+    #endif
 #endif
 
 #ifdef DISTRIBUTION_WINDOWED
     #include "distribution_windowed_s.h"
     #include "protocol_windowed.h"
-    #define PREFIX "/mnt/result/windowed/server/"
+    #ifndef PREFIX
+        #define PREFIX "/mnt/result/windowed/server/"
+    #endif
 #endif
 
 
 /* path in pcocc*/
-#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#ifndef SRV_PATH
+    #define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#endif
 /*path in ocre*/
 //#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
@@ -44,7 +54,9 @@
 //#define PREFIX "/ccc/home/cont001/ocre/billae/prototype_MDS/"
 
 
-#define max_id_size 21
+#ifndef max_id_size
+    #define max_id_size 21
+#endif
 /*counter to have load of each server and its lock*/
 static volatile sig_atomic_t access_count;
 

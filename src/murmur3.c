@@ -13,9 +13,13 @@
 // Platform-specific functions and macros
 
 #ifdef __GNUC__
-#define FORCE_INLINE __attribute__((always_inline)) inline
+#ifndef FORCE_INLINE __attribute__((always_inline))
+    #define FORCE_INLINE __attribute__((always_inline)) inline
+#endif
 #else
-#define FORCE_INLINE inline
+#ifndef FORCE_INLINE
+    #define FORCE_INLINE inline
+#endif
 #endif
 
 static FORCE_INLINE uint32_t rotl32 ( uint32_t x, int8_t r )
@@ -31,13 +35,17 @@ static FORCE_INLINE uint64_t rotl64 ( uint64_t x, int8_t r )
 #define	ROTL32(x,y)	rotl32(x,y)
 #define ROTL64(x,y)	rotl64(x,y)
 
-#define BIG_CONSTANT(x) (x##LLU)
+#ifndef BIG_CONSTANT(x)
+    #define BIG_CONSTANT(x) (x##LLU)
+#endif
 
 //-----------------------------------------------------------------------------
 // Block read - if your platform needs to do endian-swapping or can only
 // handle aligned reads, do the conversion here
 
-#define getblock(p, i) (p[i])
+#ifndef getblock(p, i)
+    #define getblock(p, i) (p[i])
+#endif
 
 //-----------------------------------------------------------------------------
 // Finalization mix - force all bits of a hash block to avalanche

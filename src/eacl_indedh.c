@@ -4,7 +4,9 @@
 #include <stdlib.h>
 
 /*alpha is a forgotten factor (0<alpha<1)*/
-#define ALPHA (0.5)
+#ifndef ALPHA
+    #define ALPHA (0.5)
+#endif
 
 
 /** Initialize the structure with size entries. Other fields are setted to 0.

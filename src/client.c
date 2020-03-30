@@ -7,8 +7,12 @@
 #include <errno.h>
 #include "client_api.h"
 
-#define BILLION  1000000000L
-#define MAX_SIZE 50
+#ifndef BILLION 
+    #define BILLION  1000000000L
+#endif
+#ifndef MAX_SIZE
+    #define MAX_SIZE 50
+#endif
 
 
 int main(int argc, char **argv)

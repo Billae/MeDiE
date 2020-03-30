@@ -8,7 +8,9 @@
 #include <errno.h>
 #include "generic_storage.h"
 
-#define PREFIX "/dev/shm/"
+#ifndef PREFIX
+    #define PREFIX "/dev/shm/"
+#endif
 
 int generic_put(const char *key, const char *value)
 {

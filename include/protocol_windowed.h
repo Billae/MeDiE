@@ -11,7 +11,9 @@
 #include "mlt.h"
 
 /*N_entry defines the mlt size*/
-#define N_entry 100
+#ifndef N_entry
+    #define N_entry 100
+#endif
 
 enum to_manager_msg {
     HELP_MSG = 1,
@@ -26,20 +28,30 @@ enum from_manager_msg {
 
 /*Client_port is the socket port to bind or connect
  * for client-server requesting*/
-#define Client_port 7410
+#ifndef Client_port
+    #define Client_port 7410
+#endif
 /*Eacl_port is the socket port to bind or connect
  * for mlt updating between servers and manager*/
-#define Eacl_port 7411
+#ifndef Eacl_port
+    #define Eacl_port 7411
+#endif
 /*Mlt_port is the socket port to bind or connect
  * for mlt updating between servers and manager*/
-#define Mlt_port 7412
+#ifndef Mlt_port
+    #define Mlt_port 7412
+#endif
 /*Transfert_port is the socket port to bind or connect
  * for servers to transfert load*/
-#define Transfert_port 7413
+#ifndef Transfert_port
+    #define Transfert_port 7413
+#endif
 
 
 /*w_factor is the performance factor of each server*/
-#define w_factor 1
+#ifndef w_factor
+    #define w_factor 1
+#endif
 
 enum req_type {
     RT_CREATE   = 1,

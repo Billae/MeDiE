@@ -10,7 +10,9 @@
 
 /*Client_port is the socket port to bind or connect
  * for client-server requesting*/
-#define Client_port 7410
+#ifndef Client_port
+    #define Client_port 7410
+#endif
 /*Eacl_port is the socket port to bind or connect
  * for mlt updating between servers and manager*/
 

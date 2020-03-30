@@ -41,33 +41,49 @@ zsock_t *sub;
 pthread_t manager_listener;
 pthread_t eacl_sender;
 
-#define max_id_size 21
+#ifndef max_id_size
+    #define max_id_size 21
+#endif
 
 /*percentage of mean to variate the threshold*/
-#define PERCENT 10
+#ifndef PERCENT
+    #define PERCENT 10
+#endif
 
 /*pcocc*/
-#define ip_manager "10.200.0.1"
+#ifndef ip_manager
+    #define ip_manager "10.200.0.1"
+#endif
 /*ocre*/
 //#define ip_manager "192.168.129.25"
 
 /* path in pcocc*/
-#define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#ifndef SRV_PATH
+    #define SRV_PATH "/home/billae/prototype_MDS/etc/server.cfg"
+#endif
 /*path in ocre*/
 //#define SRV_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/server.cfg"
 
 /*path in pcocc*/
-#define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+#ifndef HOST_PATH
+    #define HOST_PATH "/home/billae/prototype_MDS/etc/hosts.cfg"
+#endif
 /*path in ocre*/
 //#define HOST_PATH "/ccc/home/cont001/ocre/billae/prototype_MDS/etc/hosts.cfg"
 
 /* path in pcocc*/
-#define SCRATCH "/mnt/scratch/tmp_ack/indedh/"
+#ifndef SCRATCH
+    #define SCRATCH "/mnt/scratch/tmp_ack/indedh/"
+#endif
 /*path in ocre*/
 //#define SCRATCH "/ccc/home/cont001/ocre/billae/prototype_MDS/tmp/"
 
-#define BILLION  1000000000L
-#define TIME_FILE "/mnt/result/indedh/server/time_"
+#ifndef BILLION 
+    #define BILLION  1000000000L
+#endif
+#ifndef TIME_FILE
+    #define TIME_FILE "/mnt/result/indedh/server/time_"
+#endif
 
 struct timespec start_distrib, end_distrib;
 
