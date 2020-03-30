@@ -60,6 +60,7 @@ do
         #mesuring and rebalancing if needed
         clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
         clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
+        turn=1
     else
         #mesuring only
         turn=$((turn+1))
