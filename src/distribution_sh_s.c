@@ -90,7 +90,7 @@ int distribution_signal1_action()
 {
     /*create the ack file to indicate the end of the redistribution*/
     char *file_name;
-    asprintf(&file_name, "%svm%dUSR", SCRATCH, id_srv_self);
+    asprintf(&file_name, "%svm%dUSR-0", SCRATCH, id_srv_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
     if (ack == -1) {
         int err = errno;
@@ -109,7 +109,7 @@ int distribution_signal2_action()
 {
     /*create the ack file to indicate the end of the redistribution*/
     char *file_name;
-    asprintf(&file_name, "%svm%dUSR", SCRATCH, id_srv_self);
+    asprintf(&file_name, "%svm%dUSR-0", SCRATCH, id_srv_self);
     int ack = open(file_name, O_WRONLY | O_EXCL | O_CREAT , 0664);
     if (ack == -1) {
         int err = errno;
