@@ -19,35 +19,35 @@ $(EXEC): c s m g check
 
 #client
 c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution_indedh_c.o $(OBJ_DIR)/murmur3.o $(OBJ_DIR)/mlt.o $(INC_DIR)/protocol_indedh.h
-	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/client $(LDFLAGS)
 
 #serveur
 s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_indedh_s.o $(OBJ_DIR)/md_entry.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_indedh.o $(INC_DIR)/protocol_indedh.h
-	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/server $(LDFLAGS)
 
 #manager
 m: $(OBJ_DIR)/manager_v2_indedh.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/eacl_indedh.o
-	@$(CC) $^ -o $(BIN_DIR)/manager $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/manager $(LDFLAGS)
 
 #name checker
 check: $(OBJ_DIR)/check_index.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
-	@$(CC) $^ -o $(BIN_DIR)/checker $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/checker $(LDFLAGS)
 
 #generator
 g: $(OBJ_DIR)/gen_timestep.o $(OBJ_DIR)/mlt.o $(OBJ_DIR)/murmur3.o
-	@$(CC) $^ -o $(BIN_DIR)/generator $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/generator $(LDFLAGS)
 
 $(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/request.h $(INC_DIR)/distribution_indedh_c.h $(INC_DIR)/protocol_indedh.h
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
 .PHONY: all
 
 clean:
-	@rm -f $(OBJ_DIR)/*.o
-	@rm -f dataStore/*
+	rm -f $(OBJ_DIR)/*.o
+	rm -f dataStore/*
 
 mrproper: clean
-	@rm -f $(BIN_DIR)/*
+	rm -f $(BIN_DIR)/*

@@ -18,24 +18,24 @@ $(EXEC): c s
 
 #client
 c: $(OBJ_DIR)/client.o $(OBJ_DIR)/client_api.o $(OBJ_DIR)/request.o $(OBJ_DIR)/distribution_sh_c.o $(OBJ_DIR)/murmur3.o
-	@$(CC) $^ -o $(BIN_DIR)/client $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/client $(LDFLAGS)
 
 #serveur
 s: $(OBJ_DIR)/server.o $(OBJ_DIR)/generic_storage.o $(OBJ_DIR)/distribution_sh_s.o $(INC_DIR)/protocol_sh.h
-	@$(CC) $^ -o $(BIN_DIR)/server $(CFLAGS) $(LDFLAGS)
+	$(CC) $^ -o $(BIN_DIR)/server $(LDFLAGS)
 
 
 $(OBJ_DIR)/request.o: $(SRC_DIR)/request.c $(INC_DIR)/request.h $(INC_DIR)/distribution_sh_c.h $(INC_DIR)/protocol_sh.h
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
-	@$(CC) -c $< -o $@ $(CFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
 .PHONY: all
 
 clean:
-	@rm -f $(OBJ_DIR)/*.o
-	@rm -f dataStore/*
+	rm -f $(OBJ_DIR)/*.o
+	rm -f dataStore/*
 
 mrproper: clean
-	@rm -f $(BIN_DIR)/*
+	rm -f $(BIN_DIR)/*
