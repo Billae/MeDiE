@@ -36,8 +36,11 @@ rm /mnt/scratch/tmp_ack/$run/*
 
 #launch servers and manager
 clush -w @srv -b  ./prototype_MDS/gen_srv_cfg.sh
-clush -w vm0 -b ./prototype_MDS/bin/manager $(($nb_srv))&
 clush -w @srv -b ./prototype_MDS/bin/server $(($nb_srv)) p&
+if [ $run != "sh" ]
+then
+    clush -w vm0 -b ./prototype_MDS/bin/manager $(($nb_srv))&
+fi
 sleep 5
 
 #prepare servers for traces
