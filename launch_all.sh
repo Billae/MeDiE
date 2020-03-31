@@ -1,6 +1,6 @@
 #! /bin/bash
 
-if [ $# -ne 6 ]
+if [ $# -ne 8 ]
 then
     echo "please give a number of servers and clients; the run prefix and run type; the traces path, the number of step and the type of traces (r or g); and the frequence of redistribution"
     exit 1
@@ -65,7 +65,10 @@ do
     then
         #mesuring and rebalancing if needed
         clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
-        clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
+        if [ $run != "sh" ]
+        then
+            clush -w vm0 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/manager`'
+        fi
         turn=1
     else
         #mesuring only
