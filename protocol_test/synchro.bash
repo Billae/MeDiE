@@ -3,10 +3,10 @@
 
 n_srv=$1
 n_step=$2
-run=$3
+run_path=$3
 
-path="/mnt/scratch/tmp_ack/$run/"
-result_path="/mnt/result/$run/server/rebalancing"
+path="/mnt/scratch/tmp_ack/$run_path"
+result_path="/mnt/result/$run_path/server/rebalancing"
 
 function vm_list()
 {

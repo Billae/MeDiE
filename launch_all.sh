@@ -1,38 +1,37 @@
 #! /bin/bash
 
-if [ -z $1 ] || [ -z $2 ] || [ -z $3 ]
+if [ $# -ne 6 ]
 then
-    echo "please give a number of servers and clients and a type of run"
+    echo "please give a number of servers and clients; the run prefix and run type; the traces path, the number of step and the type of traces (r or g); and the frequence of redistribution"
     exit 1
 fi
 
 nb_srv=$1
 nb_client=$2
 total_vm=$(($1+$2))
-run=$3
 
-#traces: 1 min
-total_step=1454
-traces_path=/mnt/scratch/traces/real/1min/changelog
-#traces_path=/mnt/scratch/traces/generated/____/traces
-distrib=5 #distribution action
+#prefix given by the run
+run_path=$3
+run=$4
+#traces files and number of steps are given. Type is r (real) or g (generated)
+traces_path=$5
+total_step=$6
+trace_type=$7
+distrib=$8 #distribution action
 
 #config clush groups
 sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
 client: vm[$nb_srv-$(($total_vm-1))]\">/etc/clustershell/groups"
 
-# prepare trace files
-#python setup.py /mnt/scratch/traces/changelog.csv > /mnt/scratch/traces/setup-changelog.csv
-#python split.py /mnt/scratch/traces/changelog.csv 10
-#for each step file:
-#python spread.py /mnt/scratch/traces/changelog-0.csv $(($nb_client))
-
 #clean perf folder before testing
-rm /mnt/result/$run/server/*
-rm /mnt/result/$run/client/*
-rm /mnt/result/$run/*
+mkdir -p /mnt/result/$run_path/server
+rm -f /mnt/result/$run_path/server/*
+mkdir -p /mnt/result/$run_path/client
+rm -f /mnt/result/$run_path/client/*
+rm /mnt/result/$run_path/*
 #clean tmp folder
-rm /mnt/scratch/tmp_ack/$run/*
+mkdir -p /mnt/scratch/tmp_ack/$run_path
+rm -f /mnt/scratch/tmp_ack/$run_path/*
 
 #launch servers and manager
 clush -w @srv -b  ./prototype_MDS/gen_srv_cfg.sh
@@ -43,9 +42,13 @@ then
 fi
 sleep 5
 
-#prepare servers for traces
-#python36 spread.py /mnt/scratch/traces/setup-changelog.csv $(($nb_client))
-clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /mnt/scratch/traces/real/setup-changelog /mnt/result/$run
+
+#prepare servers for traces for real traces
+if [ $trace_type = "r" ]
+then
+    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) /mnt/scratch/traces/real/setup-changelog /mnt/result/$run_path
+fi
+
 
 printf "setup finished\n"
 
@@ -55,7 +58,7 @@ turn=1
 while [[ $current_step -lt $total_step ]]
 do
     #launch a step of traces
-    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path-$current_step /mnt/result/$run
+    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path-$current_step /mnt/result/$run_path
     ((current_step++))
 
     if [ $turn -eq $distrib ]
@@ -70,7 +73,7 @@ do
         clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     fi
 
-    ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step $run
-    rm /mnt/scratch/tmp_ack/$run/*USR-*
+    ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step $run_path
+    rm /mnt/scratch/tmp_ack/$run_path/*USR-*
     printf "step $current_step finished\n"
 done
