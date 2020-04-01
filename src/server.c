@@ -14,7 +14,7 @@
     #include "distribution_sh_s.h"
     #include "protocol_sh.h"
     #ifndef PREFIX
-        #define PREFIX "/mnt/result/sh/server/"
+        #define PREFIX "/mnt/result/sh/"
     #endif
 #endif
 
@@ -22,7 +22,7 @@
     #include "distribution_dh_s.h"
     #include "protocol_dh.h"
     #ifndef PREFIX
-        #define PREFIX "/mnt/result/dh/server/"
+        #define PREFIX "/mnt/result/dh/"
     #endif
 #endif
 
@@ -30,7 +30,7 @@
     #include "distribution_indedh_s.h"
     #include "protocol_indedh.h"
     #ifndef PREFIX
-        #define PREFIX "/mnt/result/indedh/server/"
+        #define PREFIX "/mnt/result/indedh/"
     #endif
 #endif
 
@@ -38,7 +38,7 @@
     #include "distribution_windowed_s.h"
     #include "protocol_windowed.h"
     #ifndef PREFIX
-        #define PREFIX "/mnt/result/windowed/server/"
+        #define PREFIX "/mnt/result/windowed/"
     #endif
 #endif
 
@@ -80,7 +80,7 @@ void usr1_handler(int sig)
 {
     /*open the result file*/
     char *result_path;
-    asprintf(&result_path, "%sload%d", PREFIX, id_self);
+    asprintf(&result_path, "%s/server/load%d", PREFIX, id_self);
 
     int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
