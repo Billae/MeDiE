@@ -1,4 +1,4 @@
-include Makefile.inc
+include $(HOME)/prototype_MDS/Makefile.inc
 
 SHELL = /bin/sh
 
