@@ -76,7 +76,7 @@ do
         clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     fi
 
-    ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step /mnt/scratch/tmp_ack/$run_path
+    ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step $run_path
     rm /mnt/scratch/tmp_ack/$run_path/*USR-*
     printf "step $current_step finished\n"
 done
