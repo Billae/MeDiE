@@ -8,8 +8,8 @@
 #include <errno.h>
 #include "generic_storage.h"
 
-#ifndef PREFIX
-    #define PREFIX "/dev/shm/"
+#ifndef STORE
+    #define STORE "/dev/shm/"
 #endif
 
 int generic_put(const char *key, const char *value)
@@ -17,7 +17,7 @@ int generic_put(const char *key, const char *value)
     /*printf("ecriture de la donnee %s à la clef %s\n", value, key);*/
 
     char *path;
-    if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
+    if (asprintf(&path, "%s%s", STORE, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_put: ");
         fprintf(stderr, "path \"%s\" creation error:%s\n", key, strerror(err));
@@ -51,7 +51,7 @@ int generic_put(const char *key, const char *value)
 char *generic_get(const char *key)
 {
     char *path;
-    if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
+    if (asprintf(&path, "%s%s", STORE, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_get: ");
         fprintf(stderr, "path \"%s\" creation error:%s\n", key,  strerror(err));
@@ -87,7 +87,7 @@ char *generic_get(const char *key)
 int generic_update(const char *key, const char *value)
 {
     char *path;
-    if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
+    if (asprintf(&path, "%s%s", STORE, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_update: ");
         fprintf(stderr, "path \"%s\" creation error: %s\n", key, strerror(err));
@@ -120,7 +120,7 @@ int generic_update(const char *key, const char *value)
 int generic_del(const char *key)
 {
     char *path;
-    if (asprintf(&path, "%s%s", PREFIX, key) == -1) {
+    if (asprintf(&path, "%s%s", STORE, key) == -1) {
         int err = errno;
         fprintf(stderr, "Generic storage:generic_del: ");
         fprintf(stderr, "path \"%s\" creation error: %s\n", key, strerror(err));
