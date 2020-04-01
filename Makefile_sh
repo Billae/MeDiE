@@ -3,10 +3,10 @@ include Makefile.inc
 SHELL = /bin/sh
 
 #Chemins
-SRC_DIR=./src
-OBJ_DIR=./build
-INC_DIR=./include
-BIN_DIR=./bin
+SRC_DIR=$(HOME)/prototype_MDS/src
+OBJ_DIR=$(HOME)/prototype_MDS/build
+INC_DIR=$(HOME)/prototype_MDS/include
+BIN_DIR=$(HOME)/prototype_MDS/bin
 
 
 EXEC=main
