@@ -2,7 +2,7 @@
 
 #this script has to be launched with the nohup option !
 
-if [ -d $1 ]
+if [[ ! -d $1 ]]
 then
     echo "Please give a valid job dir"
     exit
@@ -13,5 +13,5 @@ job_dir=$1
 #launch all jobs in the job list run_jobxx
 for job in $(ls $job_dir)
 do
-    $job &> $file.log
+    $job_dir/$job &>> $job_dir/log
 done
