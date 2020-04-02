@@ -1,7 +1,10 @@
 #!/bin/bash
 
 if [ -z $1 ]
+then
     echo "Please give a job dir"
+    exit
+fi
 
 job_dir=$1
 mkdir -p $job_dir

@@ -3,7 +3,10 @@
 #this script has to be launched with the nohup option !
 
 if [ -d $1 ]
+then
     echo "Please give a valid job dir"
+    exit
+fi
 
 job_dir=$1
 
