@@ -80,3 +80,4 @@ do
     rm /mnt/scratch/tmp_ack/$run_path/*USR-*
     printf "step $current_step finished\n"
 done
+touch "/mnt/scratch/tmp_ack/$run_path/done"
