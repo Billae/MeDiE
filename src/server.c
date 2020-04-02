@@ -120,7 +120,7 @@ void usr2_handler(int sig)
 
     /*open the result file*/
     char *result_path;
-    asprintf(&result_path, "%sload%d", PREFIX, id_self);
+    asprintf(&result_path, "%s/server/load%d", PREFIX, id_self);
 
     int fd_res = open(result_path, O_WRONLY | O_APPEND | O_CREAT, 0664);
     if (fd_res == -1) {
