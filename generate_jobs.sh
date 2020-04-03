@@ -9,11 +9,19 @@ fi
 job_dir=$1
 mkdir -p $job_dir
 
+real_tmp_ack="/ccc/scratch/cont001/ocre/billae/scratch_vm/tmp_ack/"
+
 gen_job () {
 job_file="$job_dir${run_path//\//_}.sh"
 cat << EOF > $job_file
     #!/bin/bash
-    job_id=\$(pcocc batch -p haswell -t $((2*60)) -c 4 all:17 | cut -d ' ' -f 4)
+    set -x
+    if [[ -e "$real_tmp_ack/$run_path/done" ]]
+    then
+        echo "== INFO: Job $run_path already done, skipping...\n"
+        exit
+    fi
+    job_id=\$(pcocc batch -p haswell -t $((1*60)) -c 4 all:17 | cut -d ' ' -f 4)
     until [[ "\$(squeue -j \$job_id -o %T | tail -n 1)" = "RUNNING" ]]; do
         sleep 60
     done
@@ -22,9 +30,10 @@ cat << EOF > $job_file
         pcocc ssh -j \$job_id vm\$j "make -j 4 -f prototype_MDS/Makefile_${method} CPPFLAGS=\"$def\"" &
     done
     wait
-    echo "Compiling job \$job_id finished"
+    echo "== INFO: Compiling job \$job_id finished"
     pcocc ssh -j \$job_id vm16 mkdir -p $log_path
     pcocc ssh -j \$job_id vm16 "./prototype_MDS/launch_all.sh 4 12 $run_path $method $flux_param $redistrib &> $log_path/\$(date -I).log &" 
+    set +x
 EOF
 chmod +x $job_file
 }
