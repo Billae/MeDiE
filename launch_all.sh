@@ -58,11 +58,12 @@ turn=1
 while [[ $current_step -lt $total_step ]]
 do
     #launch a step of traces
-    clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path-$current_step /mnt/result/$run_path
+    time(clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path-$current_step /mnt/result/$run_path)
     ((current_step++))
 
     if [ $turn -eq $distrib ]
     then
+        start=$(date %s)
         #mesuring and rebalancing if needed
         clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
         if [ $run != "sh" ]
@@ -71,13 +72,17 @@ do
         fi
         turn=1
     else
+        start=$(date %s)
         #mesuring only
         turn=$((turn+1))
         clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     fi
 
     ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step $run_path
+    end=$(date %s)
+    synchro_time=$(($end - $start))
     rm /mnt/scratch/tmp_ack/$run_path/*USR-*
     printf "step $current_step finished\n"
+    printf "synchro : $synchro_time\n"
 done
 touch "/mnt/scratch/tmp_ack/$run_path/done"
