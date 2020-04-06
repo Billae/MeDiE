@@ -8,6 +8,7 @@ fi
 
 job_dir=$1
 mkdir -p $job_dir
+time_limit=90
 
 real_tmp_ack="/ccc/scratch/cont001/ocre/billae/scratch_vm/tmp_ack/"
 
@@ -21,7 +22,8 @@ cat << EOF > $job_file
         echo "== INFO: Job $run_path already done, skipping...\n"
         exit
     fi
-    job_id=\$(pcocc batch -p haswell -t $((1*60)) -c 4 all:17 | cut -d ' ' -f 4)
+    pcocc_out=(\$(pcocc batch -p haswell -t $time_limit -c 4 all:17))
+    job_id=\"\${pcocc_out[-1]}\"
     until [[ "\$(squeue -j \$job_id -o %T | tail -n 1)" = "RUNNING" ]]; do
         sleep 60
     done
