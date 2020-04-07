@@ -23,7 +23,7 @@ cat << EOF > $job_file
         exit
     fi
     pcocc_out=(\$(pcocc batch -p haswell -t $time_limit -c 4 all:17))
-    job_id=\"\${pcocc_out[-1]}\"
+    job_id=\${pcocc_out[-1]}
     until [[ "\$(squeue -j \$job_id -o %T | tail -n 1)" = "RUNNING" ]]; do
         sleep 60
     done
