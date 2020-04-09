@@ -63,7 +63,7 @@ do
 
     if [ $turn -eq $distrib ]
     then
-        start=$(date %s)
+        start=$(date +%s)
         #mesuring and rebalancing if needed
         clush -w @srv 'kill -s SIGUSR2 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
         if [ $run != "sh" ]
@@ -72,17 +72,23 @@ do
         fi
         turn=1
     else
-        start=$(date %s)
+        start=$(date +%s)
         #mesuring only
         turn=$((turn+1))
         clush -w @srv 'kill -s SIGUSR1 `/usr/sbin/pidof ./prototype_MDS/bin/server`'
     fi
 
     ./prototype_MDS/protocol_test/synchro.bash $(($nb_srv)) $current_step $run_path
-    end=$(date %s)
+    end=$(date +%s)
     synchro_time=$(($end - $start))
     rm /mnt/scratch/tmp_ack/$run_path/*USR-*
     printf "step $current_step finished\n"
     printf "synchro : $synchro_time\n"
 done
-touch "/mnt/scratch/tmp_ack/$run_path/done"
+rc=$?
+if [ $rc -eq 0 ]
+then
+    touch "/mnt/scratch/tmp_ack/$run_path/done"
+else
+    touch "/mnt/scratch/tmp_ack/$run_path/failed"
+fi

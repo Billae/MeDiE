@@ -8,19 +8,7 @@
 #include "mlt.h"
 
 
-#ifdef DISTRIBUTION_DH
-    #include "protocol_dh.h"
-#endif
-
-#ifdef DISTRIBUTION_INDEDH
-    #include "protocol_indedh.h"
-#endif
-
-#ifdef DISTRIBUTION_WINDOWED
-    #include "protocol_windowed.h"
-#endif
-
-/*This program generate one step of traces (i.e. one second) for one server.
+/*This program generate one step of traces (i.e. one second) for one server FOR THE STATIC HASHING METHOD.
  * Arguments are:
  * - srv: the id of server asked on this step
  * - n_req: the number of requests needed
@@ -47,14 +35,6 @@ int main(int argc, char *argv[])
     int seed = 1;
     uint32_t h_out;
 
-    int rc;
-    struct mlt table;
-    rc = mlt_init(&table, N_entry, nb_srv);
-    if (rc != 0) {
-        fprintf(stderr, "mlt init failed\n");
-        return -1;
-    }
-
     FILE *fd = fopen(argv[6], "a+");
     if (fd == NULL) {
         fprintf(stderr, "open file %s failed: %s\n", argv[6], strerror(errno));
@@ -67,14 +47,7 @@ int main(int argc, char *argv[])
     while (n_key < (max_request * factor)) {
         asprintf(&name, "step%s_%ld", argv[5], k);
         MurmurHash3_x86_32(name, strlen(name), seed, &h_out);
-        int index = h_out%N_entry;
-
-        int num_srv, version, state;
-        rc = mlt_get_entry(&table, index, &num_srv, &version, &state);
-        if (rc != 0) {
-            fprintf(stderr, "mlt get entry failed\n");
-            return -1;
-        }
+        int num_srv = h_out%nb_srv;
 
         if (num_srv == srv_id) {
             int req = 0;
@@ -82,15 +55,16 @@ int main(int argc, char *argv[])
             fprintf(fd, "%s,create,%s,%ld\n", argv[5], name, k);
             req++;
             all_req++;
-            while (req < 1/factor) {
+            while (req < 1/factor - 1) {
                 fprintf(fd, "%s,update,%s,%ld\n", argv[5], name, k);
                 req++;
                 all_req++;
-                if (all_req >= max_request)
+                if (all_req >= max_request - 1)
                     break;
             }
-            /*fprintf(fd, "delete,%s,%d\n", name, n_key);
-            req++;*/
+            fprintf(fd, "%s,delete,%s,%ld\n", argv[5], name, k);
+            req++;
+            all_req++;
             n_key++;
         }
         k++;
