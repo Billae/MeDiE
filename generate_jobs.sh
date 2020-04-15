@@ -8,7 +8,7 @@ fi
 
 job_dir=$1
 mkdir -p $job_dir
-time_limit=90
+time_limit=180
 
 real_tmp_ack="/ccc/scratch/cont001/ocre/billae/scratch_vm/tmp_ack/"
 
@@ -34,11 +34,12 @@ cat << EOF > $job_file
     wait
     echo "== INFO: Compiling job \$job_id finished"
     pcocc ssh -j \$job_id vm16 mkdir -p $log_path
-    pcocc ssh -j \$job_id vm16 "./prototype_MDS/launch_all.sh 4 12 $run_path $method $flux_param $redistrib &> $log_path/\$(date -I).log &" 
+    pcocc ssh -j \$job_id vm16 "./prototype_MDS/launch_all.sh 4 12 $run_path $method $flux_path $flux_step $flux_type $redistrib &> $log_path/\$(date -I).log &" 
     set +x
 EOF
 chmod +x $job_file
 }
+
 run_job () {
     job_id=$(pcocc batch -p haswell --qos=test -t $((2*60)) -c 4 all:17 | cut -d ' ' -f 4)
     until [[ "$(squeue -j $job_id -o %T | tail -n 1)" = "RUNNING" ]]; do
@@ -54,8 +55,25 @@ run_job () {
     pcocc ssh -j $job_id vm16 "./prototype_MDS/launch_all.sh 4 12 $run_path $method /mnt/scratch/traces/real/5min/12_clients/changelog 292 r $redistrib &> $log_path/$(date -I).log &" 
 }
 
+gen_post () {
+result_path="$WORKDIR/results/$run_path/"
+script_path="$SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/"
+cat << EOF > $result_path/post.sh
+    #!/bin/bash
+    $script_path/post_process.sh $result_path $method $real_flux_path $flux_step
+    #add parameter in av_err et max_err
+    echo "alpha = $alpha N_entry = $nentry redistribution = $redistrib;\$(cat $result_path/average_error.txt)" > $result_path/av_err.txt
+    echo "alpha = $alpha N_entry = $nentry redistribution = $redistrib;\$(cat $result_path/max_error.txt)" > $result_path/max_err.txt
+EOF
+chmod +x "$result_path/post.sh"
+}
+
 flux=real_3h
-flux_param="/mnt/scratch/traces/real/5min/12_clients/changelog 36 r"
+suffix_flux="real/5min/12_clients/changelog"
+real_flux_path="$SCRATCHDIR/scratch_vm/traces/$suffix_flux"
+flux_path="/mnt/scratch/traces/$suffix_flux"
+flux_step=36
+flux_type="r"
 method=dh
 for alpha in 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1; do
     for nentry in 50 100 500 1000 5000 10000; do
@@ -70,6 +88,7 @@ for alpha in 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1; do
             def="-DALPHA=$alpha -DN_ENTRY=$nentry -DSCRATCH=\\\\\\\\\\\\\\\"/mnt/scratch/tmp_ack/$run_path\\\\\\\\\\\\\\\" -DPREFIX=\\\\\\\\\\\\\\\"/mnt/result/$run_path\\\\\\\\\\\\\\\" "
             #run_job
             gen_job
+            gen_post
         done
     done
 done
