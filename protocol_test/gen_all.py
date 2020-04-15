@@ -10,29 +10,26 @@ import random
 #parameters
 ###########################################################
 #global time (in seconds) of the trace
-temporal_size = 14400
+temporal_size = 10800
 
 factor_distinct_key  = 0.1
-path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/test/traces"
+path = "/ccc/scratch/cont001/ocre/billae/scratch_vm/traces/generated/MC/faible/10percent/"
 
-#Servers repartition
 #useless variable in this script but to remind /!\
-N_entry = 10
-
 nb_srv = 4
 ###########################################################
 #curve characteristics
 ###########################################################
 #one time step is in second (because it's timestamp unit)
-tinit = 0
-tgrowth_up = 00
-tgrowth_down = 00
-thigh = 14400
-tlow = 1200
+tinit = 3600
+tgrowth_up = 3600
+tgrowth_down = 3600
+thigh = 3600
+tlow = 3600
 # number of request when flow is high
-yhigh = 1000
+yhigh = 18000
 # number of request when flow is low
-ylow = 1000
+ylow = 8000
 ###########################################################
 
 def balanced_repartition_per_step(size):
@@ -47,6 +44,10 @@ def random_repartition_per_step(size):
     for i in range(size):
         array[i] = array[i]/s
     return array
+
+def random_temporal():
+    """function that give a randomly chosen number between ylow yhigh"""
+    return random.randrange(ylow,yhigh)
 
 def gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, t):
    """function that is ylow for tinit then becomes periodic 
@@ -73,26 +74,7 @@ def gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, t):
    return ylow 
 
 
-#generate temporal size
-temporal_x = np.arange(temporal_size)
-temporal_y = [gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, xi) for xi in temporal_x]
 
-
-#generate repartition of load on different serveur
-
-#percent contain temporal_size raw and each is the repartition of load for each step
-percent = [[0.] * nb_srv for i in range(temporal_size)]
-#fill percent array
-for s in range(temporal_size):
-    percent[s] = random_repartition_per_step(nb_srv)
-    #percent[s] = balanced_repartition_per_step(nb_srv)
-    #print s
-
-#plt.title("Description of flux temporal requests flow");
-#plt.xlabel("temps (sec)");
-#plt.ylabel("nb requests");
-#plt.plot(temporal_x,temporal_y)
-#plt.show()
 
 #remove old files
 filelist = glob.glob(path + "*")
@@ -100,7 +82,37 @@ for file in filelist:
     os.remove(file)
 
 
-file_name = path + ".csv"
+#generate temporal size
+temporal_x = np.arange(temporal_size)
+temporal_y = [gen_fun(tinit, tgrowth_up, tgrowth_down, thigh, tlow, yhigh, ylow, xi) for xi in temporal_x]
+#temporal_y = [random_temporal() for xi in temporal_x]
+
+
+#generate repartition of load on different serveur
+
+#percent contain temporal_size raw and each is the repartition of load for each step
+percent = [[0.] * nb_srv for i in range(temporal_size)]
+
+
+file_percent = path + "repartition.csv"
+#fill percent array
+with open(file_percent, "w+") as fd:
+    for s in range(temporal_size):
+        #percent[s] = random_repartition_per_step(nb_srv)
+        #percent[s] = balanced_repartition_per_step(nb_srv)
+        #percent[s] = [0.85, 0.05, 0.05, 0.05]
+        percent[s] = [0.3, 0.3, 0.3, 0.1]
+        #print (percent[s])
+        percent_str = str(percent[s]) + "\n"
+        print(percent_str, file=fd)
+
+plt.title("Description of flux temporal requests flow");
+plt.xlabel("temps (sec)");
+plt.ylabel("nb requests");
+plt.plot(temporal_x,temporal_y)
+plt.show()
+
+file_name = path + "traces.csv"
 #add the header
 with open(file_name, "w+") as fd:
     fd.write("timestamp,operation,key,jobid\n")
