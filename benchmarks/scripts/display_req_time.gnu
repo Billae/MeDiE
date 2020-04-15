@@ -10,8 +10,8 @@ set terminal postscript eps color
 
 # ARG1 is the path and ARG2 is the type of run (sh, dh, indedh)
 
-ymin= 0.00041
-ymax= 0.00045
+ymin= 0.0001
+ymax= 0.001
 set yrange [ymin:ymax]
 
 #rebalancing moments only on dh

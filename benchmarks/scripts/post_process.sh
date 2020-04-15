@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#This script process brut data to generate csv file readable by all display_* scripts
+#This script process brut data to generate csv file readable by all display_* $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts
 #It take in argument the path to the data folder (>server+client+temps)
 module load python3
 module load gnuplot
@@ -31,11 +31,11 @@ awk -F";" '{for(i=1;i<=NF;i++) t+=$i; print t; t=0}' $RES_FILE > $path/load_tota
     #sed -i -e :a -e '$d;N;2,8ba' -e 'P;D' $RES_FILE
 #fi
 
-python3 scripts/server_post_process.py $path $RES_FILE
-python3 scripts/percentage_to_error.py $path
-python scripts/client_post_process.py $path $traces $n_step
+python3 $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/server_post_process.py $path $RES_FILE
+python3 $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/percentage_to_error.py $path
+python $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/client_post_process.py $path $traces $n_step
 
-gnuplot -c scripts/display_load.gnu $path $run
-gnuplot -c scripts/display_total_load.gnu $path $run
-gnuplot -c scripts/display_req_time.gnu $path $run
-gnuplot -c scripts/display_percentage_load.gnu $path $run
+gnuplot -c $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/display_load.gnu $path $run
+gnuplot -c $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/display_total_load.gnu $path $run
+gnuplot -c $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/display_req_time.gnu $path $run
+gnuplot -c $SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/display_percentage_load.gnu $path $run
