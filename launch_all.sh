@@ -24,11 +24,9 @@ sudo sh -c "echo \"srv: vm[0-$(($nb_srv-1))]
 client: vm[$nb_srv-$(($total_vm-1))]\">/etc/clustershell/groups"
 
 #clean perf folder before testing
+rm -f $(find /mnt/result/$run_path/* ! -name "post.sh")
 mkdir -p /mnt/result/$run_path/server
-rm -f /mnt/result/$run_path/server/*
 mkdir -p /mnt/result/$run_path/client
-rm -f /mnt/result/$run_path/client/*
-rm /mnt/result/$run_path/*
 #clean tmp folder
 mkdir -p /mnt/scratch/tmp_ack/$run_path
 rm -f /mnt/scratch/tmp_ack/$run_path/*
