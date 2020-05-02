@@ -8,7 +8,7 @@ fi
 
 job_dir=$1
 mkdir -p $job_dir
-time_limit=180
+time_limit=120
 
 real_tmp_ack="/ccc/scratch/cont001/ocre/billae/scratch_vm/tmp_ack/"
 
@@ -58,23 +58,39 @@ run_job () {
 gen_post () {
 result_path="$WORKDIR/results/$run_path/"
 script_path="$SCRATCHDIR/prototype_MDS_scratch/benchmarks/scripts/"
+distrib_interval=$(echo "$redistrib * 5" |bc)
+mkdir -p $result_path
 cat << EOF > $result_path/post.sh
     #!/bin/bash
     $script_path/post_process.sh $result_path $method $real_flux_path $flux_step
-    #add parameter in av_err et max_err
-    echo "alpha = $alpha N_entry = $nentry redistribution = $redistrib;\$(cat $result_path/average_error.txt)" > $result_path/av_err.txt
-    echo "alpha = $alpha N_entry = $nentry redistribution = $redistrib;\$(cat $result_path/max_error.txt)" > $result_path/max_err.txt
+
+    nb_distrib=\$(wc -l $result_path/server/rebalancing |cut -d" " -f 1)
+    cost=\$(echo "\$nb_distrib * (2*4 + 4/2)" |bc)
+
+    reward_av=\$(cat $result_path/average_error.txt)
+    reward_max=\$(cat $result_path/max_error.txt)
+
+    score_av=\$(echo "\$reward_av / \$cost" |bc -l)
+    score_max=\$(echo "\$reward_max / \$cost" |bc -l)
+
+    #create deviation_recap file
+    echo "alpha;N_entry;redistribution_interval;nb_redistribution;cost;average_deviation;max_deviation;score_av;score_max" > $result_path/deviation_recap.txt
+    echo "$alpha;$nentry;$distrib_interval;\$nb_distrib;\$cost;\$reward_av;\$reward_max;\$score_av;\$score_max">> $result_path/deviation_recap.txt
 EOF
 chmod +x "$result_path/post.sh"
 }
 
 flux=real_3h
 suffix_flux="real/5min/12_clients/changelog"
+#flux="on_off_faible_10"
+#suffix_flux="generated/ON_OFF/faible/10percent/traces"
+#flux="mc_faible_10"
+#suffix_flux="generated/MC/faible/10percent/traces"
 real_flux_path="$SCRATCHDIR/scratch_vm/traces/$suffix_flux"
 flux_path="/mnt/scratch/traces/$suffix_flux"
 flux_step=36
 flux_type="r"
-method=dh
+method="dh"
 for alpha in 0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1; do
     for nentry in 50 100 500 1000 5000 10000; do
         for redistrib in 2 6 12 24 60; do
