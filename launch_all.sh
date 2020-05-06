@@ -57,7 +57,6 @@ while [[ $current_step -lt $total_step ]]
 do
     #launch a step of traces
     time(clush -w @client -b ./prototype_MDS/client_launch.sh $(($nb_srv)) $traces_path-$current_step /mnt/result/$run_path)
-    ((current_step++))
 
     if [ $turn -eq $distrib ]
     then
@@ -82,6 +81,7 @@ do
     rm /mnt/scratch/tmp_ack/$run_path/*USR-*
     printf "step $current_step finished\n"
     printf "synchro : $synchro_time\n"
+    ((current_step++))
 done
 rc=$?
 if [ $rc -eq 0 ]
