@@ -28,11 +28,15 @@ set style data histograms
 set style fill solid
 
 
+set output ARG1."/error_param.eps"
+set xlabel "values of parameters"
+set title "load repartition error depending of all parameter combinaisons"
+
 
 #alpha value
-set output ARG1."/error_alpha.eps"
-set xlabel "value of alpha"
-set title "load repartition error depending of the alpha parameter"
+#set output ARG1."/error_alpha.eps"
+#set xlabel "value of alpha"
+#set title "load repartition error depending of the alpha parameter"
 
 #n_entry value
 #set title "load repartition error depending of the number of entries in the MLT"
@@ -45,11 +49,11 @@ set title "load repartition error depending of the alpha parameter"
 #set xlabel "percentage variation of threshold in load evaluation"
 
 if (ARG2 eq "indedh") {
-    plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error" axis x1y1,\
-    ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error" axis x1y1,\
+    plot ARG1.'/av_err_all.txt' using 2:xtic(1) lw 2 title "average error" axis x1y1,\
+    ARG1.'/max_err_all.txt' using 2:xtic(1) lw 2 title "max error" axis x1y1,\
     ARG1.'/nb_rebalancing.txt' using 2:xtic(1) lw 2 title "number rebalancing" axis x1y2
 }
 else {
-    plot ARG1.'/av_err.txt' using 2:xtic(1) lw 2 title "average error" axis x1y1,\
-    ARG1.'/max_err.txt' using 2:xtic(1) lw 2 title "max error" axis x1y1
+    plot ARG1.'/av_err_all.txt' using 2:xtic(1) lw 2 title "average error" axis x1y1,\
+    ARG1.'/max_err_all.txt' using 2:xtic(1) lw 2 title "max error" axis x1y1
 }
