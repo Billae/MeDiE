@@ -9,9 +9,11 @@ fi
 
 path=$1
 
-header="alpha;N_entry;redistribution_interval;nb_redistribution;cost;average_deviation;max_deviation;score_av;score_max"
+#aggregate deviation files
+header="alpha;N_entry;redistribution_interval;redistribution_useless;redistribution_useful;score"
 
 echo "$header" > $path/deviation_recap_all.csv
 find $path -name deviation_recap.txt |xargs -n 1 tail -n1 >> $path/deviation_recap_all.csv
 
+#aggregate rebalancing files
 

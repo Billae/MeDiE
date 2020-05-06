@@ -15,9 +15,9 @@ ymax= 0.001
 set yrange [ymin:ymax]
 
 #rebalancing moments only on dh
-if (ARG2 eq "dh") {
-    set for [i=0:1470:60] arrow from i,ymin to i,ymax nohead lc rgb "violet" lt 3
-}
+#if (ARG2 eq "dh") {
+#    set for [i=0:1470:60] arrow from i,ymin to i,ymax nohead lc rgb "violet" lt 3
+#}
 
 set xtics nomirror
 set ytics nomirror
@@ -31,14 +31,15 @@ set ylabel "processing time for a request (in seconds)"
 set output ARG1."/request_time.eps"
 
 
-if (ARG2 eq "dh") {
-    plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time",\
-    NaN title "Rebalancing" lt 3 lc rgb "violet"
-}
+#if (ARG2 eq "dh") {
+#    plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time",\
+#    NaN title "Rebalancing" lt 3 lc rgb "violet"
+#}
 if (ARG2 eq "sh") {
     plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time"
 }
-if (ARG2 eq "indedh" || ARG2 eq "windowed") {
+if (ARG2 eq "indedh" || ARG2 eq "windowed" || ARG2 eq "dh") {
     plot ARG1.'/mean_time.csv' using ($0*5):1 w lp lw 2 title "processing time",\
-    ARG1.'/server/rebalancing' using ($1*5):(ymax):1 w impulse title "Rebalancing" lt 3 lc rgb "violet"
+    ARG1.'useful_rebalancing.txt' using ($1*5):(ymax):1 w impulse title "useful rebalancing" lt 3 lc rgb "green",\
+    ARG1.'useless_rebalancing.txt' using ($1*5):(ymax):1 w impulse title "useless rebalancing" lt 3 lc rgb "red"
 }

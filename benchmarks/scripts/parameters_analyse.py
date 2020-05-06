@@ -17,12 +17,7 @@ df = pd.read_csv(file_name, delimiter=';')
 #remove incomplete rows
 df = df.dropna()
 
-min_av = df['score_av'].min()
-bests_av = df.loc[df['score_av'] == min_av,:]
+min_score = df['score'].min()
+bests = df.loc[df['score'] == min_score,:]
 
-min_max = df['score_max'].min()
-bests_max = df.loc[df['score_max'] == min_max,:]
-
-
-print(bests_av.describe())
-print(bests_max.describe())
+print(bests.describe())

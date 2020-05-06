@@ -64,24 +64,22 @@ cat << EOF > $result_path/post.sh
     #!/bin/bash
     $script_path/post_process.sh $result_path $method $real_flux_path $flux_step
 
-    nb_distrib=\$(wc -l $result_path/server/rebalancing |cut -d" " -f 1)
-    cost=\$(echo "\$nb_distrib * (2*4 + 4/2)" |bc)
+    distrib_useful=\$(wc -l $result_path/useful_rebalancing.txt |cut -d" " -f 1)
+    distrib_useless=\$(wc -l $result_path/useless_rebalancing.txt |cut -d" " -f 1)
 
-    reward_av=\$(cat $result_path/average_error.txt)
-    reward_max=\$(cat $result_path/max_error.txt)
-
-    score_av=\$(echo "\$reward_av / \$cost" |bc -l)
-    score_max=\$(echo "\$reward_max / \$cost" |bc -l)
+    score=\$(echo "\$distrib_useless / (\$distrib_useless + \$distrib_useful)" |bc -l)
 
     #create deviation_recap file
-    echo "alpha;N_entry;redistribution_interval;nb_redistribution;cost;average_deviation;max_deviation;score_av;score_max" > $result_path/deviation_recap.txt
-    echo "$alpha;$nentry;$distrib_interval;\$nb_distrib;\$cost;\$reward_av;\$reward_max;\$score_av;\$score_max">> $result_path/deviation_recap.txt
+    echo "alpha;N_entry;redistribution_interval;redistribution_useless;resdistribution_useful;score" > $result_path/deviation_recap.txt
+    echo "$alpha;$nentry;$distrib_interval;\$distrib_useless;\$distrib_useful;\$score">> $result_path/deviation_recap.txt
 EOF
 chmod +x "$result_path/post.sh"
 }
 
 flux=real_3h
 suffix_flux="real/5min/12_clients/changelog"
+#flux="pic_fort_10"
+#suffix_flux="generated/PIC/fort/10percent/traces"
 #flux="on_off_faible_10"
 #suffix_flux="generated/ON_OFF/faible/10percent/traces"
 #flux="mc_faible_10"
