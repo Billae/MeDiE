@@ -17,7 +17,22 @@ df = pd.read_csv(file_name, delimiter=';')
 #remove incomplete rows
 df = df.dropna()
 
-min_score = df['score'].min()
-bests = df.loc[df['score'] == min_score,:]
+#min_av = df['deviation_av'].min()
+#bests_av = df.loc[df['deviation_av'] == min_av,:]
 
+
+#max_score = bests_av['rebalancing_score'].max()
+#bests = bests_av.loc[bests_av['rebalancing_score'] == max_score,:]
+
+
+max_score = df['rebalancing_score'].max()
+bests_score = df.loc[df['rebalancing_score'] == max_score,:]
+
+
+min_av = bests_score['deviation_av'].min()
+bests = bests_score.loc[bests_score['deviation_av'] == min_av,:]
+
+
+
+print (df.describe())
 print(bests.describe())
