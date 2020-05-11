@@ -17,7 +17,7 @@ n = len(df)
 n_srv = len(df.columns)
 
 #err_limit is the threshold indicating is the rerebalancingution is useful
-err_limit = 1
+err_limit = 5
 useful = []
 useless = []
 
@@ -27,8 +27,8 @@ rebalancing = [-1] * n
 rebalancing_file = sys.argv[1]+"/server/rebalancing"
 try:
     with open(rebalancing_file, 'r') as fd:
-        for line in fd.readline():
-            print (line)
+        lines = fd.read().splitlines()
+        for line in lines:
             rebalancing[int(line)] = 1
 
 except:
