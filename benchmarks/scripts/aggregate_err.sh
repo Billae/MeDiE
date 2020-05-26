@@ -13,16 +13,16 @@ type=$2
 
 if [[ $type == "dh" ]]
 then
-    header="alpha;N_entry;redistribution_interval;redistribution_useless;redistribution_useful;redistribution_needed;deviation_av;deviation_max;cost"
+    header="alpha;N_entry;redistribution_interval;redistribution_useless;redistribution_useful;redistribution_needed;deviation_av;deviation_max;global_max_deviation;cost;global_max_cost"
 elif [[ $type == "sh" ]]
 then
     header="deviation_av;deviation_max"
 elif [[ $type == "indedh" ]]
 then
-    header="percent;N_entry;redistribution_interval;redistribution_useless;redistribution_useful;redistribution_needed;deviation_av;deviation_max;cost"
+    header="percent;N_entry;redistribution_interval;redistribution_useless;redistribution_useful;redistribution_needed;deviation_av;deviation_max;cost;max_cost"
 elif [[ $type == "windowed" ]]
 then
-    header="alpha;size;redistribution_interval;redistribution_useless;redistribution_useful;redistribution_needed;deviation_av;deviation_max;cost"
+    header="alpha;size;redistribution_interval;redistribution_useless;redistribution_useful;redistribution_needed;deviation_av;deviation_max;cost;max_cost"
 fi
 
 
