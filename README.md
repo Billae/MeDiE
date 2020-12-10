@@ -11,7 +11,7 @@ However, an abstraction of these tools could be done, as the conception of the s
 # Usage
 
 
-1. Chose the distribution method: _ln -s makefile makefile_<distribution_name>_
+1. Chose the distribution method: *ln -s makefile makefile_<distribution_name>*
 2. Compile on all virtual machines (clients and servers)
 3. Launch the *launch_all.sh* script
 
